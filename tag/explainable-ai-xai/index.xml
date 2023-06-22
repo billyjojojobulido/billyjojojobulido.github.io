@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Explainable AI (XAI) | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/tag/explainable-ai-xai/</link>
+      <atom:link href="https://nirlipo.github.io/tag/explainable-ai-xai/index.xml" rel="self" type="application/rss+xml" />
+    <description>Explainable AI (XAI)</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 27 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Explainable AI (XAI)</title>
+      <link>https://nirlipo.github.io/tag/explainable-ai-xai/</link>
+    </image>
+    
+    <item>
+      <title>Planimation</title>
+      <link>https://nirlipo.github.io/project/planimation/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/project/planimation/</guid>
+      <description>&lt;p&gt;Planimation is a modular and extensible open source framework to visualise sequential solutions of planning problems specified in PDDL. We introduce a preliminary declarative PDDL-like animation profile specification, expressive enough to synthesise animations of arbitrary initial states and goals of a benchmark with just a single profile.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Planimation was developed as a final year project by students at the Univeristy of Melbourne. Here&amp;rsquo;s a promotional video explaining the motivation behind planimation.&lt;/p&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/FEm5ZQM-b3Y&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Planimation is an open-source program which visualises solutions to Planning Problems. It is an executable Unity architecture in a browser.&lt;/p&gt;
+&lt;p&gt;Watch the video below for a 2 minutes introduction about Planimation.&lt;/p&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/Cj2rWdt1YQU&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;awards&#34;&gt;Awards&lt;/h2&gt;
+&lt;h3 id=&#34;icaps-2019-best-system-demonstration&#34;&gt;ICAPS 2019 Best System Demonstration&lt;/h3&gt;
+&lt;p&gt;Recipient of the 
+&lt;a href=&#34;https://icaps19.icaps-conference.org/awards&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICAPS 2019 Best system Demo Award&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Congratulations to the &lt;a href=&#34;https://twitter.com/cis_unimelb?ref_src=twsrc%5Etfw&#34;&gt;@cis_unimelb&lt;/a&gt; students behind Planimation, an open source framework to visualise sequential solutions of planning problems specified in PDDL, which won the popular vote for best demo at &lt;a href=&#34;https://twitter.com/hashtag/icaps2019?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#icaps2019&lt;/a&gt; in the US earlier this week! &lt;a href=&#34;https://t.co/3G2U2pE9CY&#34;&gt;pic.twitter.com/3G2U2pE9CY&lt;/a&gt;&lt;/p&gt;&amp;mdash; Faculty of Engineering and Information Technology (@engunimelb) &lt;a href=&#34;https://twitter.com/engunimelb/status/1151380531021434880?ref_src=twsrc%5Etfw&#34;&gt;July 17, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;melbourne-school-of-engineering---endeavour-2018&#34;&gt;Melbourne School of Engineering - Endeavour 2018&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://endeavour.unimelb.edu.au/past/2018-endeavour-exhibition&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Endeavour Exhibition&lt;/a&gt; discovers final-year industry, design and research projects developed by our engineering and IT masters students.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavour.unimelb.edu.au/__data/assets/image/0007/2914621/endeavour-2018-11.jpg&#34; alt=&#34;image&#34;&gt;
+&lt;img src=&#34;https://endeavour.unimelb.edu.au/__data/assets/image/0005/2914691/endeavour-2018-36.jpg&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;citing-planimation&#34;&gt;Citing Planimation&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://arxiv.org/abs/2008.04600&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Technical Report - ICAPS 2019 System Demonstration&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please cite Planimation using&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;@article{chen2020planimation,
+  author       = {Chen, Gan and
+                  Ding, Yi and
+                  Edwards, Hugo and
+                  Chau, Chong Hin and
+                  Hou, Sai and
+                  Johnson, Grace and
+                  Sharukh Syed, Mohammed and
+                  Tang, Haoyuan and
+                  Wu, Yue and
+                  Yan, Ye and
+                  Tidhar Gil and
+                  Lipovetzky Nir},
+  title        = {Planimation},
+  journal      = {arXiv preprint arXiv:2008.04600},
+  year         = {2020}
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

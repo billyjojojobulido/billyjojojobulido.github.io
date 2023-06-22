@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nico Peli | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/author/nico-peli/</link>
+      <atom:link href="https://nirlipo.github.io/author/nico-peli/index.xml" rel="self" type="application/rss+xml" />
+    <description>Nico Peli</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Nico Peli</title>
+      <link>https://nirlipo.github.io/author/nico-peli/</link>
+    </image>
+    
+    <item>
+      <title>Novelty Messages Filtering for Multi Agent Privacy-preserving Planning</title>
+      <link>https://nirlipo.github.io/publication/gerevini-2019-novelty/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/gerevini-2019-novelty/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

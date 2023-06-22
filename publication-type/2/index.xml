@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2 | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/publication-type/2/</link>
+      <atom:link href="https://nirlipo.github.io/publication-type/2/index.xml" rel="self" type="application/rss+xml" />
+    <description>2</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 31 May 2023 11:50:42 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>2</title>
+      <link>https://nirlipo.github.io/publication-type/2/</link>
+    </image>
+    
+    <item>
+      <title>Learning User Preferences for Complex Cobotic Tasks: Meta-Behaviors and Human Groups</title>
+      <link>https://nirlipo.github.io/publication/evella-ieee-ral/</link>
+      <pubDate>Wed, 31 May 2023 11:50:42 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/evella-ieee-ral/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width-Based Search for Multi Agent Privacy-Preserving Planning</title>
+      <link>https://nirlipo.github.io/publication/gerevini-2023-width/</link>
+      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/gerevini-2023-width/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Animal biometric assessment using non-invasive computer vision and machine learning are good predictors of dairy cows age and welfare: The future of automated veterinary support systems</title>
+      <link>https://nirlipo.github.io/publication/fuentes-2022-animal/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/fuentes-2022-animal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GRACE: A Simulator for Continuous Goal Recognition over Changing Environments</title>
+      <link>https://nirlipo.github.io/publication/su-2022-grace/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/su-2022-grace/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Livestock Identification Using Deep Learning for Traceability</title>
+      <link>https://nirlipo.github.io/publication/dac-2022-livestock/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/dac-2022-livestock/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planning with Perspectives--Decomposing Epistemic Planning using Functional STRIPS</title>
+      <link>https://nirlipo.github.io/publication/hu-2022-planning/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/hu-2022-planning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Behaviour Recognition with Kinodynamic Planning Over Continuous Domains</title>
+      <link>https://nirlipo.github.io/publication/grady/</link>
+      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/grady/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Biometric Physiological Responses from Dairy Cows Measured by Visible Remote Sensing Are Good Predictors of Milk Productivity and Quality through Artificial Intelligence</title>
+      <link>https://nirlipo.github.io/publication/fuentes-2021-biometric/</link>
+      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/fuentes-2021-biometric/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Assessment of Smoke Contamination in Grapevine Berries and Taint in Wines Due to Bushfires Using a Low-Cost E-Nose and an Artificial Intelligence Approach</title>
+      <link>https://nirlipo.github.io/publication/fuentes-2020-assessment/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/fuentes-2020-assessment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planimation</title>
+      <link>https://nirlipo.github.io/publication/syed-2019-planimation/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/syed-2019-planimation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>What you get is what you see: Decomposing Epistemic Planning using Functional STRIPS</title>
+      <link>https://nirlipo.github.io/publication/hu-2019-you/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/hu-2019-you/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width-Based Lookaheads Augmented with Base Policies for Stochastic Shortest Paths</title>
+      <link>https://nirlipo.github.io/publication/o-2019-width/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/o-2019-width/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Best-First Width Search in the IPC 2018: Complete, Simulated, and Polynomial Variants</title>
+      <link>https://nirlipo.github.io/publication/frances-2018-best/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/frances-2018-best/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MERWIN Planner: Mercury Enchanced With Novelty Heuristic</title>
+      <link>https://nirlipo.github.io/publication/katz-2018-merwin/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/katz-2018-merwin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pacman Capture the Flag in AI Courses</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2018-pacman/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2018-pacman/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lightweight automated planning toolkit</title>
+      <link>https://nirlipo.github.io/publication/ramirez-2015-lightweight/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/ramirez-2015-lightweight/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MAP-LAPKT: Omnipotent Multi-Agent Planning via Compilation to Classical Planning</title>
+      <link>https://nirlipo.github.io/publication/muise-2015-map/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/muise-2015-map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scheduling with Fixed Maintenance, Shared Resources and Nonlinear Feedrate Constraints: a Mine Planning Case Study</title>
+      <link>https://nirlipo.github.io/publication/burt-2015-scheduling/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/burt-2015-scheduling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unplannability IPC Track</title>
+      <link>https://nirlipo.github.io/publication/muise-2015-unplannability/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/muise-2015-unplannability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Agent-based simulation of Holocene monsoon precipitation patterns and hunter-gatherer population dynamics in semi-arid environments</title>
+      <link>https://nirlipo.github.io/publication/balbo-2014-agent/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/balbo-2014-agent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width and inference based planners: Siw, bfs (f), and probe</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2014-width/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2014-width/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fair LTL Synthesis for Non-Deterministic Systems using Strong Cyclic Planners</title>
+      <link>https://nirlipo.github.io/publication/patrizi-2013-fair/</link>
+      <pubDate>Tue, 01 Jan 2013 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/patrizi-2013-fair/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Searching with probes: The classical planner probe</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2011-searching/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2011-searching/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C3: Planning with consistent causal chains</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2008-c-3/</link>
+      <pubDate>Tue, 01 Jan 2008 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2008-c-3/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

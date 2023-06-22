@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>&#34;Decentralised Multi-Agent (DMA) planning&#34; | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/tag/decentralised-multi-agent-dma-planning/</link>
+      <atom:link href="https://nirlipo.github.io/tag/decentralised-multi-agent-dma-planning/index.xml" rel="self" type="application/rss+xml" />
+    <description>&#34;Decentralised Multi-Agent (DMA) planning&#34;</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>&#34;Decentralised Multi-Agent (DMA) planning&#34;</title>
+      <link>https://nirlipo.github.io/tag/decentralised-multi-agent-dma-planning/</link>
+    </image>
+    
+    <item>
+      <title>On the use of Width-based search for Multi Agent Privacy-preserving Planning</title>
+      <link>https://nirlipo.github.io/publication/gerevini-socs-2022/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/gerevini-socs-2022/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

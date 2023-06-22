@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Miquel Ramirez | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/author/miquel-ramirez/</link>
+      <atom:link href="https://nirlipo.github.io/author/miquel-ramirez/index.xml" rel="self" type="application/rss+xml" />
+    <description>Miquel Ramirez</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Miquel Ramirez</title>
+      <link>https://nirlipo.github.io/author/miquel-ramirez/</link>
+    </image>
+    
+    <item>
+      <title>Sampling from Pre-Images to Learn Heuristic Functions for Classical Planning</title>
+      <link>https://nirlipo.github.io/publication/o-2022-sampling/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/o-2022-sampling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width-based Lookaheads with Learnt Base Policies and Heuristics Over the Atari-2600 Benchmark</title>
+      <link>https://nirlipo.github.io/publication/stefan-neurips/</link>
+      <pubDate>Mon, 01 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/stefan-neurips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Behaviour Recognition with Kinodynamic Planning Over Continuous Domains</title>
+      <link>https://nirlipo.github.io/publication/grady/</link>
+      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/grady/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Approximate Novelty Search</title>
+      <link>https://nirlipo.github.io/publication/singh-2021-approximate/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/singh-2021-approximate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Boundary Extension Features for Width-Based Planning with Simulators on Continuous-State Domains</title>
+      <link>https://nirlipo.github.io/publication/teichteil-2020-boundary/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/teichteil-2020-boundary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width-Based Lookaheads Augmented with Base Policies for Stochastic Shortest Paths</title>
+      <link>https://nirlipo.github.io/publication/o-2019-width/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/o-2019-width/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Action Selection for Transparent Planning</title>
+      <link>https://nirlipo.github.io/publication/macnally-2018-action/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/macnally-2018-action/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Integrated Hybrid Planning and Programmed Control for Real--Time UAV Maneuvering</title>
+      <link>https://nirlipo.github.io/publication/ramirez-2018-integrated/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/ramirez-2018-integrated/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planning for Transparency</title>
+      <link>https://nirlipo.github.io/publication/macnally-2017-planning/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/macnally-2017-planning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Real--Time UAV Maneuvering via Automated Planning in Simulations</title>
+      <link>https://nirlipo.github.io/publication/ramirez-2017-real/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/ramirez-2017-real/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Classical Planning with Simulators: Results on the Atari Video Games</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2015-classical/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2015-classical/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lightweight automated planning toolkit</title>
+      <link>https://nirlipo.github.io/publication/ramirez-2015-lightweight/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/ramirez-2015-lightweight/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MAP-LAPKT: Omnipotent Multi-Agent Planning via Compilation to Classical Planning</title>
+      <link>https://nirlipo.github.io/publication/muise-2015-map/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/muise-2015-map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width and inference based planners: Siw, bfs (f), and probe</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2014-width/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2014-width/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C3: Planning with consistent causal chains</title>
+      <link>https://nirlipo.github.io/publication/lipovetzky-2008-c-3/</link>
+      <pubDate>Tue, 01 Jan 2008 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/lipovetzky-2008-c-3/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

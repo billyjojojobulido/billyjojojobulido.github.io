@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guang Hu | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/author/guang-hu/</link>
+      <atom:link href="https://nirlipo.github.io/author/guang-hu/index.xml" rel="self" type="application/rss+xml" />
+    <description>Guang Hu</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Guang Hu</title>
+      <link>https://nirlipo.github.io/author/guang-hu/</link>
+    </image>
+    
+    <item>
+      <title>Planning with Multi-agent Belief Using Justified Perspectives</title>
+      <link>https://nirlipo.github.io/publication/hu-2023-pwp/</link>
+      <pubDate>Sat, 01 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/hu-2023-pwp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planning with Perspectives--Decomposing Epistemic Planning using Functional STRIPS</title>
+      <link>https://nirlipo.github.io/publication/hu-2022-planning/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/hu-2022-planning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>What you get is what you see: Decomposing Epistemic Planning using Functional STRIPS</title>
+      <link>https://nirlipo.github.io/publication/hu-2019-you/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/hu-2019-you/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

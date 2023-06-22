@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Teaching | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/tag/teaching/</link>
+      <atom:link href="https://nirlipo.github.io/tag/teaching/index.xml" rel="self" type="application/rss+xml" />
+    <description>Teaching</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Apr 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Teaching</title>
+      <link>https://nirlipo.github.io/tag/teaching/</link>
+    </image>
+    
+    <item>
+      <title>AI Planning Solvers Online</title>
+      <link>https://nirlipo.github.io/project/paas/</link>
+      <pubDate>Wed, 12 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/project/paas/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://nirlipo.github.io/project/paas/poster.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Planning as a service (PaaS) provides an extendable API to deploy planners online in local or cloud servers.&lt;/p&gt;
+&lt;p&gt;The service provides a queue manager to control a set of workers, which can easily be extended with one of several planners available in 
+&lt;a href=&#34;https://github.com/AI-Planning/planutils&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PLANUTILS&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;PaaS is designed to overcome the limitations of the existing online 
+&lt;a href=&#34;solver.planning.domains&#34;&gt;solver.planning.domains&lt;/a&gt; interface and widen the adoption of planning&lt;/p&gt;
+&lt;h2 id=&#34;demo-video&#34;&gt;Demo Video&lt;/h2&gt;
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0;&#34;&gt;&lt;iframe src=&#34;https://www.loom.com/embed/7d72759cd71c47db9032970fddcb3e71&#34; frameborder=&#34;0&#34; webkitallowfullscreen mozallowfullscreen allowfullscreen style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%;&#34;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;h2 id=&#34;acknowledgments&#34;&gt;Acknowledgments&lt;/h2&gt;
+&lt;p&gt;This project has been a collaboration between Queen&amp;rsquo;s University, Canada and The University of Melbourne, Australia. A submission has been made to 
+&lt;a href=&#34;https://icaps23.icaps-conference.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICAPS 2023 System Demonstations&lt;/a&gt; track by Yi Ding, Cam Cunningham, Christian Muise, and Nir Lipovetzky.&lt;/p&gt;
+&lt;p&gt;This work has been partially funded by AIJ to promote AI Research - ”Enabling Education of AI Planning”&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nirlipo.github.io/project/paas/AIJ_Cover.jpg&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An introduction to the planning domain definition language</title>
+      <link>https://nirlipo.github.io/publication/haslum-2019-introduction/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/haslum-2019-introduction/</guid>
+      <description>&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;&amp;quot;An important resource for anyone who studies AI planning, regardless of whether they ever use PDDL.&amp;quot; -- Dana Nau, University of Maryland  &lt;a href=&#34;https://twitter.com/hashtag/AI?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#AI&lt;/a&gt;  &lt;a href=&#34;https://t.co/fvSmJ6R7qG&#34;&gt;https://t.co/fvSmJ6R7qG&lt;/a&gt; &lt;a href=&#34;https://t.co/5Rw1D00e5P&#34;&gt;pic.twitter.com/5Rw1D00e5P&lt;/a&gt;&lt;/p&gt;&amp;mdash; Morgan &amp;amp; Claypool Publishers (@MorganClaypool) &lt;a href=&#34;https://twitter.com/MorganClaypool/status/1115287393505042432?ref_src=twsrc%5Etfw&#34;&gt;April 8, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+</description>
+    </item>
+    
+    <item>
+      <title>AI 4 Education</title>
+      <link>https://nirlipo.github.io/project/ai4edu/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/project/ai4edu/</guid>
+      <description>&lt;p&gt;We developed a set of 
+&lt;a href=&#34;https://github.com/AI4EDUC/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tools&lt;/a&gt; to run daily competitions in our AI courses at the University of Melbourne and RMIT. Students rely on a version from 
+&lt;a href=&#34;http://ai.berkeley.edu/project_overview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Berkley AI Pacman framework&lt;/a&gt;. They use search algorithms, Planning Domain Description Language (PDDL), classical replanning, minimax, reinforcement learning and other approaches for their autonomous agents.&lt;/p&gt;
+&lt;p&gt;The code to run the competitions have been adapted over different games. This project has been developed with Prof. Sebastian Sardina (RMIT)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

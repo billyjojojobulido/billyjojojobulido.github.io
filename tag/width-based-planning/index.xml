@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Width Based Planning | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/tag/width-based-planning/</link>
+      <atom:link href="https://nirlipo.github.io/tag/width-based-planning/index.xml" rel="self" type="application/rss+xml" />
+    <description>Width Based Planning</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 27 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Width Based Planning</title>
+      <link>https://nirlipo.github.io/tag/width-based-planning/</link>
+    </image>
+    
+    <item>
+      <title>Width Based Planning</title>
+      <link>https://nirlipo.github.io/project/width-based-planning/</link>
+      <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/project/width-based-planning/</guid>
+      <description>&lt;p&gt;Width Based Planning searches for solutions through a general measure of state novelty. When the dynamics of the problem are given through simulator engines such as the Atari games (ALE), GVGAI, or complex robotic and UaV flight simulators, novelty exploration yields state-of-the-art performance compared to known alternatives such as MCTS. Novelty exploration can be combined as well with the exploitation of goal-based heuristics within a general Best First Width Search. BFWS can solve efficiently classical planning problems even when the action model is hidden, opening exciting opportunities to model beyond declarative action representations.&lt;/p&gt;
+&lt;h1 id=&#34;talks&#34;&gt;Talks:&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Tractable novelty exploration over Continuous and Discrete Sequential Decision Problems&lt;/strong&gt;, &lt;em&gt;School of Computing and information Systems Seminar, The University of Melbourne, September 2021&lt;/em&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/-qQ4yPSt16U&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://recorder-v3.slideslive.com/#/share?share=46565&amp;amp;s=8b78bd0a-2b0c-480b-aae2-ee2700d6fc05&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Width-Based Algorithms for Common Problems in Control, Planning and Reinforcement Learning&lt;/a&gt;, 
+&lt;a href=&#34;https://ijcai-21.org/early-career-spotlight-invited-talk/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Early Career Spotlight&lt;/a&gt; at IJCAI 2021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;papers&#34;&gt;Papers:&lt;/h1&gt;
+&lt;p&gt;(Disclaimer: this is not a comprehensive list, please get in touch to add relevant work that has been missed)&lt;/p&gt;
+&lt;p&gt;A position paper `
+&lt;a href=&#34;https://www.ijcai.org/proceedings/2021/0702.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Width-Based Algorithms for Common Problems in Control, Planning and Reinforcement Learning&lt;/a&gt;&#39; was presented as part of the 
+&lt;a href=&#34;https://ijcai-21.org/early-career-spotlight-invited-talk/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Early Career Spotlight&lt;/a&gt; at IJCAI 2021.&lt;/p&gt;
+&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href=&#34;#classical-planning-over-pddl&#34;&gt;Classical Planning over STRIPS/PDDL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#classical-planning-over-simulators&#34;&gt;Classical Planning over Simulators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#continous-state-simulators&#34;&gt;Continous State Simulators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#planning-and-learning&#34;&gt;Planning and Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#planning-over-factored-simulators-in-functional-strips&#34;&gt;Planning over Factored Simulators in Functional STRIPS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#mdp-over-simulators&#34;&gt;MDP over Simulators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#multi-agent-descentralisd-and-privacy-preserving-planning&#34;&gt;Multi Agent (Descentralisd &amp;amp; Privacy Preserving) Planning&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;classical-planning-over-pddl&#34;&gt;Classical Planning over PDDL&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Classical &lt;strong&gt;Width Definition&lt;/strong&gt;, Iterative Width (&lt;strong&gt;IW&lt;/strong&gt;), Serialized IW (&lt;strong&gt;SIW&lt;/strong&gt;), &lt;strong&gt;SIW+&lt;/strong&gt;, and &lt;strong&gt;DFS+&lt;/strong&gt; algorithms&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://people.eng.unimelb.edu.au/nlipovetzky/papers/classical-width-ecai12.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;N. Lipovetzky and H. Geffner, ECAI12&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://people.eng.unimelb.edu.au/nlipovetzky/papers/aiaccess_nirlipo.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PhD. Thesis, Nir Lipovetzky, 2012&lt;/a&gt;, 
+&lt;a href=&#34;http://www.icaps-conference.org/index.php/Main/Awards&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICAPS Best dissertation Award 2013&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://people.eng.unimelb.edu.au/nlipovetzky/papers/width_ecai14.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;N. Lipovetzky and H. Geffner, ECAI14&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Best First Width Search (&lt;strong&gt;BFWS&lt;/strong&gt;)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/download/14862/14161&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;N. Lipovetzky and H. Geffner, AAAI17&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Polynomial BFWS planner  
+&lt;a href=&#34;http://people.eng.unimelb.edu.au/nlipovetzky/papers/icaps17-polytime-BFWS.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;N. Lipovetzky and H. Geffner, ICAPS17&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;BFWS and quantified heuristic novelty measures 
+&lt;a href=&#34;http://people.eng.unimelb.edu.au/nlipovetzky/papers/icaps17-quantified-novelty.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;M. Katz, N. Lipovetzky, D. Moshkovich, A. Tuisov, ICAPS17&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Approximate Novelty computation&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://ojs.aaai.org/index.php/ICAPS/article/view/15980/15791&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A. Singh, J. Segovia, M. Ramirez, N. Lipovetzky ICAPS21&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Action Novelty&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.ijcai.org/proceedings/2021/0576.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A. Tuisov, M. Katz, IJCAI21&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Novelty Decompositions&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.aaai.org/AAAI21Papers/AAAI-8289.BonetB.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;B Bonet, H Geffner, AAAI21&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.diva-portal.org/smash/record.jsf?pid=diva2:1578987&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;D Drexler, J Seipp, H Geffner, KR21&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://ojs.aaai.org/index.php/ICAPS/article/download/15999/15810&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;M Junyent, A Jonsson, V Gómez, ICAPS21&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;classical-planning-over-simulators&#34;&gt;Classical Planning over Simulators&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IW over &lt;strong&gt;Atari&lt;/strong&gt; Simulator (ALE)
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://people.eng.unimelb.edu.au/nlipovetzky/papers/iw-atari-ijcai-2015.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;N. Lipovetzky, M. Ramirez, and H. Geffner, IJCAI15&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://www.ijcai.org/Proceedings/16/Papers/460.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A. Shleyfman, A. Tuisov, and C. Domshlak, IJCAI16&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/download/14920/14194&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Y. Jinnai and A. Fukunaga, AAAI17&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://arxiv.org/pdf/1801.03354&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;W. Bandres, B. Bonet, H. Geffner, AAAI18&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;continous-state-simulators&#34;&gt;Continous State Simulators&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Features for Continuous-State Domains. Competitive with DRL and LQR on 
+&lt;a href=&#34;https://gym.openai.com/envs/#control&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;control problems&lt;/a&gt; over gym.openai simulator
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.ijcai.org/Proceedings/2020/0578.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Florent Teichteil-Königsbuch, Miquel Ramirez, Nir Lipovetzky, IJCAI20&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;pleanning-and-learning&#34;&gt;Pleanning and Learning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IW and Learnt Policies 
+&lt;a href=&#34;https://ojs.aaai.org/index.php/ICAPS/article/download/3554/3432/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;M Junyent, A Jonsson, V Gómez, ICAPS19&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Hierarchical Learning 
+&lt;a href=&#34;https://ojs.aaai.org/index.php/ICAPS/article/download/15999/15810&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;M Junyent, A Jonsson, V Gómez, ICAPS21&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Learning symbolic representation with VAE 
+&lt;a href=&#34;https://ojs.aaai.org/index.php/AAAI/article/view/16627&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A Dittadi, FK Drachmann, T Bolander&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;planning-over-factored-simulators-in-functional-strips&#34;&gt;Planning over Factored Simulators in Functional STRIPS&lt;/h2&gt;
+&lt;p&gt;Factored simulators accept finite domain variables, and mixed Declarative and Programatic (simulated) dynamics&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;BFWS with &lt;strong&gt;simulators&lt;/strong&gt; and &lt;strong&gt;Functional STRIPS&lt;/strong&gt; (FSTRIPS) - 
+&lt;a href=&#34;http://people.eng.unimelb.edu.au/nlipovetzky/papers/ijcai17-planning-with-simulators.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;G. Francès, M. Ramirez, N. Lipovetzky, and H. Geffner, IJCAI17&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Task and Motion&lt;/strong&gt; Planning - 
+&lt;a href=&#34;https://arxiv.org/pdf/1706.06927.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;J. Ferrer-Mestres, G. Francès, and H. Geffner, ARXIV17&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;UaV &lt;strong&gt;Hybrid Control&lt;/strong&gt; - 
+&lt;a href=&#34;https://people.eng.unimelb.edu.au/nlipovetzky/papers/aamas18-uav.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;M. Ramirez, M. Papasimeon, N. Lipovetzky, L. Benke, T. Miller, A. Pearce, E. Scala, M. Zamani, AAMAS18&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;BFWS online POMDP for &lt;strong&gt;Transparent Planning&lt;/strong&gt; - 
+&lt;a href=&#34;https://people.eng.unimelb.edu.au/nlipovetzky/papers/aamas18-transparent-planning.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A. MacNally, N. Lipovetzky, M. Ramirez, A. Pearce, AAMAS18&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mdp-over-simulators&#34;&gt;MDP over Simulators&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IW over &lt;strong&gt;General Videogame&lt;/strong&gt; Competition (GVGAI) - 
+&lt;a href=&#34;http://www.aaai.org/ocs/index.php/AIIDE/AIIDE15/paper/download/11540/11350&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;T. Geffner and H. Geffner, AAIDE15&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;multi-agent-descentralised-and-privacy-preserving-planning&#34;&gt;Multi Agent Descentralised and Privacy Preserving Planning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Descentralised Best First Width Search (&lt;strong&gt;MA-BFWS&lt;/strong&gt;) 
+&lt;a href=&#34;https://aaai.org/ojs/index.php/ICAPS/article/view/3472/3340&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AE Gerevini, N Lipovetzky, F Percassi, A Saetti, I Serina, ICAPS2019&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Novelty Communication filtering&lt;/strong&gt; for Strong Privacy Preserving Planning 
+&lt;a href=&#34;https://aaai.org/ocs/index.php/SOCS/SOCS19/paper/view/18331&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AE Gerevini, N Lipovetzky, N Peli, F Percassi, A Saetti, I Serina, SoCS2019&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;width-based-algorithms-in-action&#34;&gt;Width Based Algorithms in Action&lt;/h1&gt;
+&lt;h2 id=&#34;arcade-learning-environment&#34;&gt;Arcade Learning Environment&lt;/h2&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/P-603qPMkSg&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;more-youtube-atari-videoshttpswwwyoutubecomplaylistlistplxpqcxuq_cwenuazuivhxyyvjus6kqoi0&#34;&gt;
+&lt;a href=&#34;https://www.youtube.com/playlist?list=PLXpQcXUQ_CwenUazUivhXyYvjuS6KQOI0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;More Youtube Atari videos&lt;/a&gt;&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

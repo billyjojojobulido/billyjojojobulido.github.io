@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lyndon Benke | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/author/lyndon-benke/</link>
+      <atom:link href="https://nirlipo.github.io/author/lyndon-benke/index.xml" rel="self" type="application/rss+xml" />
+    <description>Lyndon Benke</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Lyndon Benke</title>
+      <link>https://nirlipo.github.io/author/lyndon-benke/</link>
+    </image>
+    
+    <item>
+      <title>Integrated Hybrid Planning and Programmed Control for Real--Time UAV Maneuvering</title>
+      <link>https://nirlipo.github.io/publication/ramirez-2018-integrated/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/ramirez-2018-integrated/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Real--Time UAV Maneuvering via Automated Planning in Simulations</title>
+      <link>https://nirlipo.github.io/publication/ramirez-2017-real/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/ramirez-2017-real/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stefan O’Toole | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/author/stefan-otoole/</link>
+      <atom:link href="https://nirlipo.github.io/author/stefan-otoole/index.xml" rel="self" type="application/rss+xml" />
+    <description>Stefan O’Toole</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Stefan O’Toole</title>
+      <link>https://nirlipo.github.io/author/stefan-otoole/</link>
+    </image>
+    
+    <item>
+      <title>Sampling from Pre-Images to Learn Heuristic Functions for Classical Planning</title>
+      <link>https://nirlipo.github.io/publication/o-2022-sampling/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/o-2022-sampling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width-based Lookaheads with Learnt Base Policies and Heuristics Over the Atari-2600 Benchmark</title>
+      <link>https://nirlipo.github.io/publication/stefan-neurips/</link>
+      <pubDate>Mon, 01 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/stefan-neurips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Width-Based Lookaheads Augmented with Base Policies for Stochastic Shortest Paths</title>
+      <link>https://nirlipo.github.io/publication/o-2019-width/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/o-2019-width/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

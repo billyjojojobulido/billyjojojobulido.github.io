@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bernardo Rondelli | Nir Lipovetzky</title>
+    <link>https://nirlipo.github.io/author/bernardo-rondelli/</link>
+      <atom:link href="https://nirlipo.github.io/author/bernardo-rondelli/index.xml" rel="self" type="application/rss+xml" />
+    <description>Bernardo Rondelli</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2014 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://nirlipo.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Bernardo Rondelli</title>
+      <link>https://nirlipo.github.io/author/bernardo-rondelli/</link>
+    </image>
+    
+    <item>
+      <title>Agent-based simulation of Holocene monsoon precipitation patterns and hunter-gatherer population dynamics in semi-arid environments</title>
+      <link>https://nirlipo.github.io/publication/balbo-2014-agent/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://nirlipo.github.io/publication/balbo-2014-agent/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
