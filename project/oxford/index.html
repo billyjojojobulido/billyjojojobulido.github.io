@@ -312,7 +312,7 @@
   <div class="article-container">
 
     <div class="article-style">
-<h1>Background:</h1>
+<h2>Background:</h2>
 <p>Oxford Dictionary LITE is a software I developed to experiment with integrating third-party APIs. More importantly, it is the <strong>pre-work</strong> for the final exam of SOFT3202 in the University of Sydney. </p>
 
 <p><img src="./screenshot.png" alt="image" style="width:480px;height:360px;"></p>
@@ -320,14 +320,20 @@
   It is a simple shoot'em up game written in Java, where the player controls a tank that fights off a horde of invading space ships. I have used the <a href="https://processing.github.io/processing-javadocs/core/">Processing library</a> within your project to allow you to create a window and draw
   graphics. It is worth to mention that the Processing Library is not compatible with Java 9+.
 </p>
+<h2>Key Implementations:</h2>
 <p>
-  The project contains a number of entities:
+  The software development involves the following key implementation features:
 </p>
 <ul>
-<li>Tank - Player</li>
-<li>Invader - Monster</li>
-<li>Barrier</li>
-<li>Projectile</li>
+<li>Test Driven Development (TDD)</li>
+<li>Database - SQLite-JDBC</li>
+<li>HTTP & JSON</li>
+<li>Concurrency - SwingWorker</li>
+<li>External APIs: </li>
+  <ol>
+    <li><a href="https://developer.oxforddictionaries.com/">Input API</a>: Oxford Dictionary Developer API</li>
+    <li><a href="https://sendgrid.com/solutions/email-api/">Output API</a>: SendGrid API</li>
+  </ol>
 </ul>
 
 
