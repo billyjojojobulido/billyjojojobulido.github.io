@@ -317,8 +317,10 @@
 
 <p><img src="./screenshot.png" alt="image" style="width:480px;height:360px;"></p>
 <p>
-  It is a simple shoot'em up game written in Java, where the player controls a tank that fights off a horde of invading space ships. I have used the <a href="https://processing.github.io/processing-javadocs/core/">Processing library</a> within your project to allow you to create a window and draw
-  graphics. It is worth to mention that the Processing Library is not compatible with Java 9+.
+  Oxford Dictionary Lite is a simple software developed based on the official thesaurus information API provided by Oxford Dictionary. </p>
+<p>Frankly speaking, this dictionary is far less efficient and convenient than the website of the official Oxford Dictionary, or apps such as Youdao Translation. </p>
+<p>My original intention of developing it is on the one hand, it is one of my assignment requirements from the university, and the other is to test the feasibility of requesting external APIs through HTTP. </p>
+<p>More importantly, parsing the JSON object of thesaurus information is very challenging in my opinion, because the content of different vocabulary queries may be quite different. For example, some words have no example sentences, and some words have no synonyms, so it takes a lot of effort to process.
 </p>
 <h2>Key Implementations:</h2>
 <p>
@@ -331,16 +333,17 @@
 <li>Concurrency - SwingWorker</li>
 <li>External APIs: </li>
   <ol>
-    <li><a href="https://developer.oxforddictionaries.com/">Input API</a>: Oxford Dictionary Developer API</li>
-    <li><a href="https://sendgrid.com/solutions/email-api/">Output API</a>: SendGrid API</li>
+    <li>Input API: <a href="https://developer.oxforddictionaries.com/">Oxford Dictionary Developer API</a></li>
+    <li>Output API: <a href="https://sendgrid.com/solutions/email-api/">SendGrid API</a></li>
   </ol>
 </ul>
 
 
-<h1>Demonstration</h1>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe width="750" height="422" src="https://www.youtube.com/embed/HmxRDm3sgr8" title="Invadem - Baocheng Showcase" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>    
-</div>
+<h2>Demonstration</h2>
+
+<p>Since my SendGrid Token (applied by the university) has expired, the original demo video was also discarded.</p>
+
+<p>The initial Software UI </p>
 <!-- <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="https://www.youtube.com/embed/xZXIUXKoJVM" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
@@ -358,9 +361,13 @@
   
   <a class="badge badge-light" >Java</a>
   
-  <a class="badge badge-light" >Processing</a>
+  <a class="badge badge-light" >Swing</a>
   
-  <a class="badge badge-light" >Game</a>
+  <a class="badge badge-light" >Test-Driven Development</a>
+
+  <a class="badge badge-light" >Database Query - JDBC</a>
+  
+  <a class="badge badge-light" >API Integration</a>
   
 </div>
 
@@ -415,46 +422,20 @@
   <div class="article-widget content-widget-hr">
     <h3>Related</h3>
     <ul>
-      
       <li><a>Java</a></li>
-      
-      <li><a>Gradle</a></li>
-      
-      <li><a>Processing</a></li>
-      
-      
+      <li><a>Swing</a></li>
+      <li><a>Test-Driven Development</a></li>
+      <li><a>Database Query - JDBC</a></li>
+      <li><a>API Integration</a></li>
     </ul>
   </div>
-  
-
-
-
-
 
     <div class="project-related-pages content-widget-hr">
-      
-      
 
-      
-      
-      
-
-      
-      
-      
-
-      
-      
-      
     </div>
   </div>
 </article>
 
-      
-
-    
-    
-    
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
