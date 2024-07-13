@@ -42,6 +42,35 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+ <style>
+  .myfont_first{
+      display: block;
+      font-size: 1.17em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      margin-left: 0;
+      margin-right: 0;
+      font-weight: bold;
+  }
+  .myfont_second{
+      display: block;
+      font-size: 1.17em;
+      margin-top: 0em;
+      margin-bottom: 1em;
+      margin-left: 0;
+      margin-right: 0;
+      font-weight: bold;
+  }
+  .myfont_usual{
+    display: block;
+    font-size: 0.8em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: normal;
+  }
+ </style>
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -271,23 +300,11 @@
     <h2 id="education" title="Education">Education</h2>
     <ul>
       <li>
-        <div style="display: block;
-          font-size: 1.17em;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        margin-left: 0;
-        margin-right: 0;
-        font-weight: bold;">2023 - 2024 <br> <span style="float:left;">University of Melbourne</span>   <span style="float: right; margin-right: 8%;">Master of Information Technology</span></div>
+        <div class="myfont_first">2023 - 2024 <br> <span style="float:left;">University of Melbourne</span>   <span style="float: right; margin-right: 8%;">Master of Information Technology</span></div>
       </li>
       <br>
       <li>
-        <div style="display: block;
-        font-size: 1.17em;
-      margin-top: 0em;
-      margin-bottom: 1em;
-      margin-left: 0;
-      margin-right: 0;
-      font-weight: bold;">2019 - 2023 <br> <span style="float:left;">University of Sydney</span> <span style="float: right; margin-right: 8%">Bachelor of Engineering (Honors)</span></div>
+        <div class="myfont_second">2019 - 2023 <br> <span style="float:left;">University of Sydney</span> <span style="float: right; margin-right: 8%">Bachelor of Engineering (Honors)</span></div>
 
       </li>
   </div>
@@ -295,6 +312,66 @@
 
   <div class="markdown-body">
     <h2 id="experience" title="WorkExperience">Work Experience</h2>
+
+    <ul>
+      <li>
+        <div class="myfont_first">Dec 2023 - Mar 2024 
+          <br>
+          <span style="float:left;">Software Developer</span>  <span style="margin-left: 14%;">Internship / Hybrid</span>  <span style="float: right; margin-right: 8%">RESORTer.app</span>
+          <br>
+
+          <ul class="myfont_usual">
+            <li>Developed and launched 9 new features using Django and React.js.</li>
+            <li>Fixed 11 defective pull requests left by previous interns, and successfully merged them into the main branch.</li>
+            <li>Reviewed 24 pull requests made by other interns with great care, and detected 7 bugs.</li>
+          </ul>
+
+        </div>
+      </li>
+      <li>
+        <div class="myfont_second">Dec 2021 - Jan 2023 
+          <br> 
+          <span style="float:left;">Software Engineer</span>  <span style="margin-left: 15%;">Part-time / Remote</span>  <span style="float: right; margin-right: 8%">CSIRO's Data61</span>
+          <br>
+          <ul class="myfont_usual">
+            <li>Designed and executed a control experiment comparing the capability of three existing Smart Contract analysis tools to detect vulnerabilities againt cybersecurity attacks.</li>
+            <li>Examined over 300+ smart contracts written in Solidity to verify the vulnerabilities reported by analysis tools.</li>
+            <li>Developed and conrtibuted to a open-sourced analysis tool ecosystem (Slither).</li>
+            <li>The experimental results and observations were published as a regular paper at the ENASE conference in April 2023.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="myfont_second">May 2021 - Oct 2021 
+          <br> 
+          <span style="float:left;">Backend Developer</span> <span style="margin-left: 14%;">Internship / On-site</span> <span style="float: right; margin-right: 8%">Shanghai Innotech Inc. </span>
+          <br>
+          <ul class="myfont_usual">
+            <li>Designed an asynchronous reviewing process for textual context produced via Midu app.</li>
+            <li>Maintained Content Security of the writer platform in Golang, and implemented an automatic checking mechanism for sensitive words in the chapters published by writers before pushing to the message queue.</li>
+            <li>Speeded up the processing performance more than 10 times by deploying Redis.</li>
+            <li>Developed the scam detection mechanism that identifies malicious writers with suspected scam records. Reported 11 writers proven to have fraud records within the first week.</li>
+            <li>Implemented asynchronization design to make web pages more responsive to users, which resolved approximately 27% of the user complaints related to responsiveness.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="myfont_second">Nov 2019 - Feb 2020 
+          <br>
+          <span style="float:left;">Software Engineer</span> <span style="margin-left: 14%;">Internship / On-site</span> <span style="float: right; margin-right: 8%">Shanghai Angji Flow Meter Inc. </span>
+          <ul class="myfont_usual">
+            <li>Optimized the flow monitoring algorithm of Petroleum oil and Gas reusability projects, which increased the fault tolerance rate from 7% to 33%.</li>
+            <li>Improved system performance by 26% by exploiting the machine learning algorithm of k-nearest neighbor and logistic regression.</li>
+            <li>Created an annual financial automatic reconciliation system, and delivered it within one week. </li>
+            <li>Accelerated the account checking process by developing the automation system which can efficiently complete tasks with zero errors rate.</li>
+
+          </ul>
+        </div>
+      </li>
+
+    </ul>
+
+
   </div>
   
 </article>
