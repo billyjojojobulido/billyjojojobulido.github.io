@@ -78,25 +78,6 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
-  <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .left {
-            text-align: left;
-            flex: 1;
-        }
-        .center {
-            text-align: center;
-            flex: 1;
-        }
-        .right {
-            text-align: right;
-            flex: 1;
-        }
-
-  </style>
 
 
   
@@ -232,61 +213,47 @@
   </header>
 
   <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
+    <div class="container nopadding-x-md">
+      <div id="board">
+        <div class="about-avatar">
+          <img src="/img/personal-pic.jpg" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
+        </div>
           
-            <div class="about-avatar">
-              <img src="/img/personal-pic.jpg" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
-            </div>
-          
-          <div class="container">
+        <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center">
-  <div class="about-info">
-    <div class="about-name">Baocheng Wang</div>
-    <div class="about-intro">Software Engineer | UniMelb M.IT 2024 Graudate | USYD B.Eng 2022 Graduate </div>
-    <div class="about-icons">
-      
-        
-        
-        
-        <a href=https://github.com class="
-           hint--bottom hint--rounded"
-           aria-label=GitHub
-           target="_blank"
-        >
-          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a href=https://www.linkedin.com/in/baocheng-wang-504b351a5/ class="
-           hint--bottom hint--rounded"
-           aria-label=Linkedin
-           target="_blank"
-        >
-          <i class="iconfont icon-linkedin-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a href=mailto:baocheng0121@gmail.com class="
-           hint--bottom hint--rounded"
-           aria-label=Email
-           target="_blank"
-        >
-          <i class="iconfont icon-mail" aria-hidden="true"></i>
-          
-        </a>
+                <div class="text-center">
+                  <div class="about-info">
+                    <div class="about-name">Baocheng Wang</div>
+                    <div class="about-intro">Software Engineer | UniMelb M.IT 2024 Graudate | USYD B.Eng 2023 Graduate </div>
+                    <div class="about-icons">        
+                        <a href=https://github.com class="
+                          hint--bottom hint--rounded"
+                          aria-label=GitHub
+                          target="_blank"
+                        >
+                          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
+                        </a>
+
+                      <a href=https://www.linkedin.com/in/baocheng-wang-504b351a5/ class="
+                        hint--bottom hint--rounded"
+                        aria-label=Linkedin
+                        target="_blank"
+                      >
+                        <i class="iconfont icon-linkedin-fill" aria-hidden="true"></i>
+                        
+                      </a>
+            
+                      <a href=mailto:baocheng0121@gmail.com class="
+                        hint--bottom hint--rounded"
+                        aria-label=Email
+                        target="_blank"
+                      >
+                        <i class="iconfont icon-mail" aria-hidden="true"></i>
+                        
+                      </a>
       
     </div>
   </div>
@@ -304,18 +271,14 @@
   <div class="markdown-body">
 
     <h2 id="education" title="Education">Education</h2>
-
-      <div calss="container">
-        <h3 class="left">2023 - 2024</h3>
-
-        <h3 class="center">University of Melbourne</h3>
-
-
-        <h3 class="right">Master of Information Technology</h3>
-      </div>
-    <!-- </div> -->
-      <h3><span style="float:left;">Bachelor of Engineering (Honors)</span> <span style="float: right;">2019 - 2022</span></h3>
-      <h3 style="margin-left: 5%;"><span style="float:left;">University of Sydney (USYD)</span><span style="float: right;">WAM: 78  First Class Honors</span></h3>
+    <div>
+      <h3>2023 - 2024</h3>
+      <h3><span style="float:left;">University of Melbourne</span>   <span style="float: right;">Master of Information Technology</span></h3>
+    </div>
+    <tr></tr>
+    <div>
+      <h3>2019 - 2023</h3>
+      <h3><span style="float:left;">University of Sydney</span> <span style="float: right;">Bachelor of Engineering (Honors)</span></h3>
     </div>
 
 
@@ -328,7 +291,6 @@
 
   
 </article>
-
 
               </div>
             </div>
@@ -365,8 +327,7 @@
   </div>
 </div>
 
-    
-
+  
     
   </main>
 
@@ -418,15 +379,8 @@
       
     })(window, document);
   </script>
-
-
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
-  
-
-
 
 
   <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
