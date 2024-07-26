@@ -16,12 +16,12 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="React的核心思想: 快速响应">
+    <meta name="description" content="算法与数据结构 - 贪心篇">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React的核心思想: 快速响应">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/backtracking/chinese/index.html">
+<meta property="og:title" content="算法与数据结构 - 贪心篇">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/greedy/chinese/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="ENASE 2023 - Evaluation of Contemporary Smart Contract Analysis Tools">
+<meta property="og:description" content="算法与数据结构 - 贪心篇">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
 <meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
@@ -32,7 +32,7 @@
   
   
   
-  <title>算法与数据结构 - 回溯篇</title>
+  <title>算法与数据结构 - 贪心篇</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span>算法与数据结构 - 回溯篇</span>
+            <span>算法与数据结构 - 贪心篇</span>
         </div>
           
   <div class="mt-3">
@@ -239,349 +239,394 @@
 
 <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
 
-<p style="font-weight: bold;">回溯是递归的副产品,只要有递归就会有回溯。</p>
-<p>因为回溯的本质是穷举,穷举所有可能,然后选出我们想要的答案,如果想让回溯法高效一些,可以加一些剪枝的操作,但也改不了回溯法就是穷举的本质。</p>
+<p style="font-weight: bold;">贪心问题和二分法一定程度上非常相似,属于非常直观的算法。</p>
+<p>简单题甚至不用思考,怎么做一目了然。而困难题除非曾经做过相似题,或者灵光乍现,不然很难解,甚至根本想不到可以用贪心做。</p>
 
+<p style="font-style: italic; font-weight: bold;">贪心的本质是选择每一阶段的局部最优,从而达到全局最优。与其说贪心是一种算法倒不如说是一种思想。</p>
 
-<h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>适合回溯解决的问题</h2>
-<p>回溯法,一般普遍用于解决如下几种问题:</p>
-<ul>
-  <li><strong>组合问题</strong></li>
-    <p style="font-weight: bold;">N个数里面按一定规则找出k个数的集合</p>
-    <p>例题: 77. 组合   17.电话号码的字母组合    39.组合总和    40.组合总和II    216.组合总和III</p>
-  <li><strong>切割问题</strong></li>
-    <p style="font-weight: bold;">一个字符串按一定规则有几种切割方式</p>
-    <p>例题: 131. 分割回文串  93. 复原IP地址</p>
-  <li><strong>子集问题</strong></li>
-    <p style="font-weight: bold;">一个N个数的集合里有多少符合条件的子集</p>
-    <p>例题: 78. 子集	90.子集II	491. 递增子序列 (不完全是,但解法很像)</p>
-  <li><strong>排列问题</strong></li>
-    <p style="font-weight: bold;">N个数按一定规则全排列,有几种排列方式</p>
-    <p>例题: 46. 全排列	47. 全排列 II</p>
-  <li><strong>棋盘问题</strong></li>
-    <p style="font-weight: bold;">N皇后,解数独等等</p>
-    <p>例题: 51. N皇后	37. 解数独</p>
-</ul>
-
-
-<h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>树形结构</h2>
-
-
-<p>回溯法是一种经常被用在 深度优先搜索(DFS)和 广度优先搜索(BFS)的技巧。</p>
-
-<p style="font-weight: bold;">其本质是:走不通就回头。</p>
-
-<p>因此, 回溯法解决的问题都可以抽象为树形结构,同样的道理,当发现问题可以抽象为树形结构的时候,要能够想到回溯法。</p>
-
-<p>树形结构必然具有特定的属性: 树宽 和 树高</p>
-<ul>
-  <li>因为回溯法解决的都是在集合中递归查找子集,集合的大小就构成了树的宽度,递归的深度,都构成的树的深度。</li>
-  <li>递归就要有终止条件,所以必然是一棵高度有限的树(N叉树)。</li>
-</ul>
-
-
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>回溯的实现过程 - 基础版</h2>
-
-
-<p>回溯法的本质是: 走不通就回头。那么怎么回头,而且确保回头之后不会重新走这条路,就是在使用回溯算法需要首先思考的。</p>
-
-<h3>纯暴力回溯的实现过程</h3>
-<p>回溯法的搜索过程基本可以概括为以下四步:</p>
+<h3 id="difficult">贪心算法的难点</h3>
 <ol>
-  <li>构造空间树</li>
-  <li>进行横向遍历: 同一层所有元素</li>
-    对于每一个节点来说,需要进行以下操作:
-    <ul>
-      <li><strong>如果达到终止条件</strong>,输出结果</li>
-      <li><strong>否则</strong>不符合条件,向下搜索,到底了则转而搜索另一条链</li>
-    </ul>
-    <strong>关键点: <span style="font-style: italic;">回溯,撤销当前链的处理结果</span></strong>
+  <li>什么时候贪?</li>
+  <ul>
+    <li>哪些题可以用贪心做, 哪些题不可以?</li>
+  </ul>
+  <li>怎么贪</li>
+  <ul>
+    <li>如何获得全局最优?如何获得局部最优?</li>
+  </ul>
 </ol>
 
-<h3>代码模板 (基础版)</h3>
-<pre>
-void backtracking(参数){
-  if (终止条件){
-      存放结果;
-      return;
-  }
-  for (选择:本层集合中元素(树中节点孩子的数量就是集合的大小)){      # 横向遍历
-      处理节点;
-      backtracking(路径,选择列表); // 递归                    # 纵向遍历
-      回溯,撤销处理结果
-  }
-}
-</pre>
 
-
-
-<h2 id="Prune"><a href="#Prune" class="headerlink" title="Prune"></a>剪枝优化</h2>
-
-<p style="font-weight: bolder;">优化回溯算法只有剪枝一种方法</p>
-
-<p>剪枝的核心目的,说白了就是减少没必要的搜索空间,从而减少时间和空间的复杂度。</p>
-  
-<p>因此,剪枝的精髓就在于: 在纵向遍历的过程中是否可以敏锐地发现提前终止的时机。</p>
-
-<p>以<strong>组合问题</strong>为例<br>
-  <ul>
-    <li>我们试图通过回溯算法,从N个数里面按一定规则找出k个数的集合</li>
-  </ul>
-</p>
-<p>
-在这个搜索过程中,当搜索执行到了空间树某一层的某一个节点时,剪枝算法发现这个起点到集合终止之间的元素已经不够题目要求的k个元素了,就没有必要搜索了。
-</p>
-<p>
-假设这个节点之后还有M层的子树,那么这一次剪枝就可以替我们减少O(2^M)的复杂度。
-</p>
-
-<h3>代码模板 (剪枝版)</h3>
-<pre>
-void backtracking(参数) {
-  if (终止条件) {
-    存放结果;
-    return;
-  }
-  for i in range(start_index, len(nums))  {      # 横向遍历
-      if ( i 满足剪枝条件):
-        continue
-      处理节点;
-      backtracking(路径,选择列表); // 递归         # 纵向遍历
-      回溯,撤销处理结果
-  }
-}
-</pre>
-
-
-<h2 id="Unique"><a href="#Unique" class="headerlink" title="Unique"></a>⭐️去重优化</h2>
-<h3>剪枝和去重</h3>
-<p>不是说回溯算法唯一的优化方法是剪枝么?那去重是干嘛?</p>
-
-<strong>剪枝是针对代码层次的优化</strong>
+<h2 id="When"><a href="#When" class="headerlink" title="When"></a>什么时候贪?</h2>
+<strong>不同于之前总结的题型和技巧,贪心算法真的没有统一的套路,更没有类似回溯的模板代码。</strong>
+<p>例如</p>
 <ul>
-  <li>剪枝是针对回溯算法整体上的通用优化方法,可以直接写到代码模板里。在任何情况下,回溯算法都是可以使用剪枝的方法减少搜索空间,但是很多情况下能够减少的搜索空间较为有限。</li>
+  <li>有一堆钞票,你可以拿走十张,如果想达到最大的金额,该怎么拿?</li>
+  <br>
+  <p>指定每次拿最大的,最终结果就是拿走最大数额的钱。</p>
+  <p>每次拿最大的就是局部最优,最后拿走最大数额的钱就是推出全局最优。</p>
 </ul>
 
-<strong>去重是解题思路层次的优化</strong>
+<p>反例</p>
 <ul>
-<li>所谓去重,其实就是确保使用过的元素不能重复选取。 实现起来有一定难度,因为往往无法分清楚到底是从(横向,纵向)中的哪个维度避免重复。</li>
-<li>已知回溯法所解决的问题都可以抽象为树形结构,那么“使用过”在这个树形结构上是有两个维度的,纵向维度是同一树枝上使用过,横向维度是同一树层上使用过。</li>
-<li>所以去重优化要解决的第一个问题就是,我们关注的是要同一树层上使用过,还是同一树枝上使用过呢?</li>
-<li>Leetcode 40. 组合综合II为例,我们发现元素在同一个组合内是可以重复的,怎么重复都没事,但两个组合不能相同。即给定原始数组candidates = [1, 1, 2], 
-  target = 3的情况下(方便起见candidates已经排序了)当第一个树枝上使用了index为0的1时,不影响我们在同一树枝上继续使用index为1的1,但是同一层如果再次使用
-  index为0的1,则必定出现重复的情况。</li>
-<li>所以我们要去重的是同一树层上的“使用过”,同一树枝上的都是一个组合里的元素,不用去重。</li>
+  <li>如果是 有一堆盒子,你有一个背包体积为n,如何把背包尽可能装满,如果还每次选最大的盒子,就不行了。这时候就需要动态规划。</li>
 </ul>
 
-<h3>⭐️树枝去重</h3>
-<p>树枝:从根节点 到 某一个叶子节点的路径</p>
-<p>为了避免原始数组中,同一个位置的元素(考虑到可能存在重复值)在路径中被反复使用,需要定义一个全局变量来记录哪一个元素被使用了,该变量按惯例通常被称为used。</p>
+<p  style="font-weight: bold;">因此,当拿到一道算法题,想要知道可不可以用贪心算法的时候,需要思考一下三个点。</p>
 
-<pre>
-used = [0 for _ in range (len(nums))]
-
-void backtracking(参数) {
-  if (终止条件) { 
-    … 略过 
-  }
-  for i in range (start_index, len(nums))  {      # 横向遍历
-    if ( i 满足剪枝条件) { 
-      continue 
-    }
-    if (used[i] == 0) { 
-      continue 
-    }
-    处理节点;
-    used[i] = 1
-    backtracking(路径,选择列表); // 递归            # 纵向遍历
-    回溯,撤销处理结果
-    used[i] = 0
-  }
-}
-</pre>
+<ol>
+  <li style="font-weight: bold;">题目是否是求极值(求解最优)</li><br>
+  <p>贪心算法一定求极值,譬如最大、最小值,最少步、最多收益等。通常看到求极值算法,非动(DP)即贪(Greedy)。</p>
+  <p>这么说有点武断,但反过来说,如果题目不是求极值,那么一定用不上贪心算法,则非常可靠。</p>
+  <li style="font-weight: bold;">题目是否一眼能看出来其他解法(题型显著性)</li><br>
+  <p>譬如,棋盘类算法明显是回溯、有效括号明显是栈、二叉树的搜索明显是dfs。</p>
+  <p>如果根据做题经验,能够一眼看出题型暗示的最优、最有效的解法,那么可以果断放弃贪心。</p>
+  <li style="font-weight: bold;">全局最优与局部最优明显冲突(违背贪心核心思想)</li><br>
+  <p>从题干,或者题目给的test case中,能够找出,或者能够发现反例,证明全局最优无法从局部最优获取,那么就违背了贪心的原则,继续思考贪心将没有任何意义。</p>
+  <p>譬如,背包问题中,无论怎么选择贪心策略,都能举出反例。又或者是Travelling Salesman Problem等NP hard问题,这种问题规模特别大,或者存在复杂约束条件,导致没办法拆解成可以解的子问题,因此根本无法使用贪心算法有效求解。</p>
+</ol>
 
 
-<h3>⭐️树层去重</h3>
-<p>树层去重的方式与树枝去重类似,同样可以通过定义一个used变量来记录。</p>
-<p>但是区别在于,<strong>要控制同一个树层的元素不重复,需要定义的是局部变量,而不是全局变量。</strong></p>
 
-<pre>
-void backtracking(参数) {
-  if (终止条件) { 
-    … 略过 
-  }
-  
-  used = [0 for _ in range (len(nums))]
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>怎么贪?</h2>
 
-  for i in range (start_index, len(nums))  {      # 横向遍历
-    if ( i 满足剪枝条件) { 
-      continue 
-    }
-    if (used[i] == 0) { 
-      continue 
-    }
-    处理节点;
-    used[i] = 1
-    backtracking(路径,选择列表); // 递归            # 纵向遍历
-    回溯,撤销处理结果
-    used[i] = 0
-  }
-}
+<p style="font-weight: bold;">首先明确一点:贪心没有套路,说白了就是常识性推导加上举反例。</p>
 
-</pre>
+<strong>原则一</strong>
+<ul><li>贪心思路往往很巧妙,并不简单。</li></ul>
 
-<p>在很多Leetcode解法中,会发现有人习惯于使用set代替数组进行去重,但是值得注意的是使用used数组去重 和 使用set去重 两种写法存在较大性能差异:</p>
+<strong>原则二</strong>
+<ul><li>贪心无套路,也没有框架之类的,需要多看多练培养感觉才能想到贪心的思路。</li></ul>
 
-<p>使用set去重的版本相对于used数组的版本效率都要低很多。<strong>而使用used数组在时间复杂度上几乎没有额外负担!</strong></p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
+
+<h3 id="straight">直观贪心问题</h3>
+<strong>特点:</strong>
+<ul><li>这类题目普遍是简单题,会给人一种贪心算法很简单的错觉,因为贪心有时候接近于常识,或者题目本身比较生活化,符合人们日常的逻辑。</li></ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>455</td>
+      <td>分发饼干</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        全局:喂饱尽可能多的小孩。<br>
+        局部:大饼干优先喂给胃口大的 / 小饼干优先喂给胃口小的
+      </td>
+    </tr>
+    <tr>
+      <td>860</td>
+      <td>柠檬水找零</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        全局:完成全部账单的找零。<br>
+        局部:遇到账单20,优先消耗美元10,完成本次找零。
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
-<h2 id="Combination"><a href="#Combination" class="headerlink" title="Combination"></a>组合和切割问题的解法</h2>
 
-<h3>组合问题</h3>
+<h3 id="peak">极值/峰值问题</h3>
+<strong>特点:</strong>
 <ul>
-  <li>时间复杂度:O(2^n)</li>
-  <li>空间复杂度:O(n)</li>
-  <li>组合问题其实就是一种子集的问题,所以组合问题最坏的情况,也不会超过子集问题的时间复杂度。而子集问题因为每一个元素的状态无外乎取与不取,所以时间复杂度为O(2^n)</li>
-  <li>递归深度为n,所以系统栈所用空间为O(n),每一层递归所用的空间都是常数级别,注意代码里的result和path都是全局变量,就算是放在参数里,传的也是引用,并不会新申请内存空间,最终空间复杂度为O(n)</li>
+  <li>这类题型大多为中等难度,会让初学算法的人开始逐渐意识到贪心算法的难度。</li>
+  <li>这类题目对于学习了比较完整的算法技术栈,但还没有完全熟练掌握的人来说更容易出现误区(但只是针对贪心而言)。因为极值、峰值问题,可能第一反应是用动态规划做(其中很多用DP也确实是可以做的,但肯定是贪心效率高)。</li>
+  <li>中等难度的题,往往动态规划的递推关系不难发现,而相比之下贪心策略则并不直观。面试中还是应该功利一点,想出来哪个用哪个。尽管贪心往往在时间复杂度上更有优势,但动态规划的算法还是更能证明面试者的水平。</li>
 </ul>
 
-<p>组合问题在回溯问题中相对简单,也比较具有代表性,因此<strong>回溯的基础模板和剪枝模板完全可以解决普遍意义上的组合问题,在这里不再重复。</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>376</td>
+      <td>摆动序列</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        全局:整个序列有最多的局部峰值。<br>
+        局部:删除单调坡度上的节点(不包括单调坡度两端的节点),那么这个坡度就可以有两个局部峰值。        
+      </td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td>最大子序和</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        全局:选取最大“连续和” <br>
+        局部:当前“连续和”为负数的时候立刻放弃,从下一个元素重新计算“连续和”,因为负数加上下一个元素 “连续和”只会越来越小。        
+      </td>
+    </tr>
+    <tr>
+      <td>122</td>
+      <td>买卖股票的最佳时机 II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>这题可以用动态规划做,但贪心更优。</strong> <br>
+        <strong>技巧:理解利润拆分是关键点。把整体利润拆为每天的利润,就很容易想到贪心了。</strong>
+        全局:得到最大利润。<br>
+        局部:只收集每天的正利润。            
+      </td>
+    </tr>
+    <tr>
+      <td>1005</td>
+      <td>K次取反后的最大数组和</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>贪心思路比较直观:两次贪心。</strong> <br>
+        <strong>第一次:先解决负数(贪心增长)</strong>
+        <ul>
+          <li>全局:整个数组和达到最大。</li>
+          <li>局部:让绝对值大的负数变为正数,当前数值达到最大。</li>
+        </ul>
+        <strong>第二次:全是正数(贪心亏损)</strong>       
+        <ul>
+          <li>全局:同上。</li>
+          <li>局部:只找数值最小的正整数取反,这样亏损最少,当剩余k为偶数时甚至不亏,当前数值可以达到最大。</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-<p>而组合问题本身的一大难点,在于如何避免无序状态下的重复,以Leetcode组合问题为例。</p>
 
-<div style="text-align: center;">
-  <img src="combination_tree.png">
-</div>
-
-<p>第一层,取2的时候,需要把1从candidate中删除,否则会引入重复的风险,3同理需要将2删除。</p>
-
-<pre>
-for i in range(start_index, len(nums))  {      # 横向遍历
-  处理节点;
-  backtracking(路径,选择列表); // 递归           # 纵向遍历
-  回溯,撤销处理结果
-}
-</pre>
-
-<h3>切割问题</h3>
+<h3 id="move">约束条件下移动问题</h3>
+<strong>特点:</strong>
 <ul>
-  <li>时间复杂度:O(2^n), 与组合问题一致</li>
-  <li>空间复杂度:O(n), 与组合问题一致</li>
-</ul>
-<p>切割问题的难点,在于如何模拟切割线,以及判断切割问题中如何终止递归。本身的解法非常类似组合问题。
-  <span style="font-style: italic; font-weight: bold;">能够想到用求解组合问题的思路来解决 切割问题本题就成功一大半了。</span>
-</p>
-
-
-<h2 id="Permutation"><a href="#Permutation" class="headerlink" title="Permutation"></a>排列和子集问题的解法</h2>
-<h3>排列问题</h3>
-<ul>
-  <li>时间复杂度:O(n!)</li>
-  <li>这个可以从排列的树形图中很明显发现,每一层节点为n,第二层每一个分支都延伸了n-1个分支,再往下又是n-2个分支,所以一直到叶子节点一共就是n!。</li>
-  <li>空间复杂度:O(n),和组合问题同理。</li>
-</ul>
-
-<p>组合和排列的核心区别,在于组合不关注顺序,而排列在乎顺序,[1, 2] 和 [2, 1]两个数组,在组合问题中是同一组合,而在排列问题中是不同的排列。</p>
-
-<p>因此,解组合问题中需要用到的start_index参数在排列问题中可以略去。</p>
-
-<pre>
-for i in range(0, len(nums))  {         # 横向遍历
-  if ( i 满足剪枝条件):
-    continue
-  处理节点;
-  backtracking(路径,选择列表); // 递归    # 纵向遍历
-  回溯,撤销处理结果
-}
-</pre>
-
-<h3>子集问题</h3>
-<ul>
-  <li>时间复杂度:O(2^n)</li>
-  <li>因为每一个元素的状态无外乎取与不取,所以时间复杂度为O(2^n)</li>
-  <li>空间复杂度:O(n),与组合问题一致</li>
-</ul>
-
-<p>子集问题和组合问题的核心区别,在于组合问题只需要采集叶子节点,而子集需要采集所有节点。</p>
-
-<p>因此组合问题的终止条件往往是依据节点中元素的数量,而子集问题不需要终止。</p>
-
-<pre>
-if ( len(ans) == len(nums) ) {
-  存放结果;
-  return;
-}
-</pre>
-
-
-<h2 id="Chess"><a href="#Chess" class="headerlink" title="Chess"></a>棋盘问题的解法</h2>
-
-<p>棋盘问题算是回溯算法中最巅峰的困难题了,同时也是人工智能领域的必修课。</p>
-
-<p>传统意义上的棋盘类游戏,包括中国象棋、国际象棋、围棋、数独、五子棋,都是二维的棋盘,那么自然就得考虑到二维递归的可能性。</p>
-
-<p>而不同的游戏规则会直接导致每一层分支的宽度,因此棋盘类解法的性能没办法统一评估。</p>
-
-<p>以<strong>N皇后问题</strong>为例,虽然期盼乍一看是n * n的,但是根据N皇后的游戏规则可以发现,一行必有且仅有一个皇后,因此递归的深度其实只有n。所以比真正意义上的棋盘全搜索要简单一些。</p>
-
-<p>分析可得:</p>
-<ul>
-  <li>时间复杂度:O(n!) ,其实如果看树形图的话,直觉上是O(n^n),但皇后之间不能见面所以在搜索的过程中是有剪枝的,最差也就是O(n!)。</li>
-  <li>空间复杂度:O(n),和子集问题同理</li>
+  <li>这类问题大多数难度为中等,也有少量简单和困难题,但这两个难度的移动问题通常不具有贪心代表性。</li>
+  <li>移动问题本身有种暗示使用指针的感觉,因此贪心思想往往是针对约束条件的,譬如移动的损耗、移动耗油、移动的最远距离等。</li>
 </ul>
 
-<p>而<strong>解数独问题</strong>,则是标准的二维递归,分析可得:</p>
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>55</td>
+      <td>跳跃游戏</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:看覆盖范围,覆盖范围内一定是可以跳过来的,不用管是怎么跳的。</strong><br>
+        <p>那么问题就转化为<span style="font-weight: bold; font-style: italic;">跳跃覆盖范围可不可以覆盖到终点!</span></p>
+        全局:最后得到整体最大覆盖范围,看是否能到终点。<br>
+        局部:移动下标每次取最大跳跃步数(取最大覆盖范围)。            
+      </td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>跳跃游戏II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:以最小的步数增加最大的覆盖范围,直到覆盖范围覆盖了终点</strong><br>
+        全局:达到终点,步数最少。<br>
+        局部:求当前这步的最大覆盖,那么尽可能多走,到达覆盖范围的终点            
+      </td>
+    </tr>
+    <tr>
+      <td>134</td>
+      <td>加油站</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>误区:乍一看是模拟题,但是最直观的模拟思路并不是贪心的做法。</strong><br>
+        <strong>技巧:每个加油站的补充和损耗相减,定义净增长。当从0跑到index为i的加油站,发现累积净增长为负数,则说明0-i之间不存在可以跑完全程的出发点,从i+1继续尝试。</strong><br>
+        全局:找到可以跑一圈的起始位置。<br>
+        局部:累积净增长为负,局部非最优,一定不是全局最优。                  
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 id="overlap">区间重叠问题</h3>
+<strong>特点:</strong>
 <ul>
-  <li>时间复杂度:O(9^m) , m是空格的数目。</li>
-  <li>空间复杂度:O(n^2),递归的深度是n^2</li>
+  <li>这类问题的难度基本集中在中等。也是少有的比较有套路的贪心算法题。</li>
+  <li>这种题目的核心是可以将问题转换求解区间的重叠部分,需要谨慎辨别。而求解区间重叠问题的关键技巧就是要选定一个方向(左边界/右边界)对数组进行排序,从而让区间尽可能地重叠。</li>
+  <li>排序后只需要关注重叠区间的右边是否能够超过新区间右边界就行。在此基础上就可以对重叠和不重叠的情况下分别作出对应处理,从而解决不同的问题。</li>
 </ul>
-<p>不考虑问题本身的特性,二维棋盘的代码可以以下模板进行归纳</p>
 
-<pre>
-board = [
-  [......],
-  ……
-]
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>452</td>
+      <td>用最少数量的箭引爆气球</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:排序,让可能重叠的气球凑到一起。</strong><br>
+        全局:把所有气球射爆所用弓箭最少。<br>
+        局部:当气球出现重叠,一起射,所用弓箭最             
+      </td>
+    </tr>
+    <tr>
+      <td>435</td>
+      <td>无重叠区间</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:排序,让区间尽可能的重叠</strong><br>
+        全局:让所有区间不重叠<br>
+        局部:当两个区间重叠时,舍弃右边界(从左往右遍历)更远的区间。                   
+      </td>
+    </tr>
+    <tr>
+      <td>763</td>
+      <td>划分字母区间</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:统计每个字符出现的最远index。</strong><br>
+        <p>从头遍历字符,并更新字符的最远出现下标,如果找到字符最远出现位置下标和当前下标相等了,说明找到分割点。</p>           
+        <strong>【其实是模拟法,但是有点贪心的意思】</strong>   
+      </td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td>合并区间</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:和452/435一样,只不过结果呈现不同</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-void backtracking(i, j) {
-  if (终止条件) { 
-    … 略过 
-  }
-  for ( a in board(i, j)位置所有可能的action)  {      # 横向遍历
-      if ( a 满足剪枝条件) { 
-        continue 
-      }
-      处理节点;
-      backtracking( i', j' )                       # 纵向遍历
-      回溯,撤销处理结果
-  }
-}
 
-# 最外层遍历所有可能的起点
-for i in range( 0, len(board) ) {
-  for j in range (0, len(board) ) {
-      backtracking(i, j)
-  }
-}
-</pre>
+<h3 id="multidimension">多维度约束贪心问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类问题大多数是困难题和较难的中等题。因为需要考虑至少两个维度的情况(一般最多也就是两个维度)。</li>
+  <li>这类问题有个共同的技巧:</li> <br>
+  <strong>先考虑哪一边都可以! 就别两边一起考虑,那样就把自己陷进去了。</strong>
+</ul>
 
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>135</td>
+      <td>分发糖果</td>
+      <td style="background-color: rgb(252, 99, 140);">困难</td>
+      <td>
+        <strong>维度一:从左往右遍历</strong><br>
+        <ul>
+          <li>全局:相邻的孩子中,评分高的右孩子获得比左边孩子更多的糖果</li>
+          <li>局部:只要右边评分比左边大,右边的孩子就多一个糖果。</li>
+        </ul>    
+        
+        <strong>维度二:从右往左遍历</strong><br>      
+        <ul>
+          <li>全局:相邻的孩子中,评分高的孩子获得更多的糖果。</li>
+          <li>局部:只要左边评分比右边大,左边的孩子就多一个糖果,同一个小孩,分到的糖果取维度一和维度二中的较大值。</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>406</td>
+      <td>根据身高重建队列</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:先从大到小按照h排个序,再来贪心k</strong><br>
+        <p>因为先排序k会发现两个维度都没确定下来。</p>
+        全局:最后都做完插入操作,整个队列满足题目队列属性。<br>
+        局部:优先按身高高的people的k来插入。插入操作过后的people满足队列属性                
+      </td>
+    </tr>
 
+  </tbody>
+</table>
 
+<h3 id="suprise">意想不到贪心问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类问题一般出现于中等和困难题。这种问题对贪心的暗示不强,甚至出题者可能会刻意误导。但是在求极值的时候会发现,求极值思路符合贪心思想。</li>
+  <li>通常这种题在处理的过程中,设计和实施贪心算法有较高难度,也往往正是因为没办法在第一时间构思出足以说服自己的贪心框架,导致错失贪心的解法。</li>
+</ul>
 
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>738</td>
+      <td>单调递增的数字</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>误区: 单纯看题以为是暴力破解,但铁timeout,因此不得不从贪心出发。</strong><br>
+        <strong>技巧:从后往前遍历数字时,遇到非单调递增情,前数退位,后数可以直接为9</strong><br>
+        <strong>【坑:所有后数都要为9,否则无法处理1000000的情况】</strong><br>
+        全局:最终数字是小于原数字的最大单调递增数字。<br>
+        局部:使得当前相邻两位数满足单调递增。                    
+      </td>
+    </tr>
+    <tr>
+      <td>968</td>
+      <td>监控二叉树</td>
+      <td style="background-color: rgb(252, 99, 140);">困难</td>
+      <td>
+        <p>尽管是二叉树,但是摄像头放置的最小数量还是遵从贪心思路。</p>
+        <strong>技巧:发现叶子节点的父节点,和根节点的子节点放摄像头最划算。但只能从一头开始遍历,相比之下,从叶子节点开始遍历更划算(指数级增长),<span style="font-weight: bold;">因此DFS选择后序搜索</span>。</strong><br>
+        全局:全部摄像头数量所用最少<br>
+        局部:让叶子节点的父节点安摄像头,所用摄像头最少。<br>
+        <strong>难点:想到通过dfs传参的方式,进行父节点摄像头覆盖状态的流转。</strong>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
 
 
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html#%E5%9B%9E%E6%BA%AF%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录: 回溯理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html">代码随想录: 回溯总结篇</a></li>
-  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/search/backtracking/">OI Wiki: 搜索 - 回溯法</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">代码随想录: 贪心算法理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E8%B4%AA%E5%BF%83%E4%B8%80%E8%88%AC%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4">代码随想录: 贪心一般解题步骤</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93%E7%AF%87.html#%E8%B4%AA%E5%BF%83%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录: 贪心算法总结篇</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
 
 </ul>
-
               </div>
             
             <hr/>
@@ -601,8 +646,8 @@ for i in range( 0, len(board) ) {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法与数据结构 - 回溯篇</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/backtracking/chinese</div>
+      <div>算法与数据结构 - 贪心篇</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/greedy/chinese/index.html</div>
     </div>
     <div class="license-meta">
       
@@ -614,7 +659,7 @@ for i in range( 0, len(board) ) {
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>April 24, 2023</div>
+          <div>July 25, 2024</div>
         </div>
       
       
@@ -622,12 +667,11 @@ for i in range( 0, len(board) ) {
         <div class="license-meta-item">
           <div>Licensed under</div>
           <div>
-            
-              
-              
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
+                    <i class="iconfont icon-nc"></i>
+                    <i class="iconfont icon-nd"></i>
                   </span>
                 </a>
               
