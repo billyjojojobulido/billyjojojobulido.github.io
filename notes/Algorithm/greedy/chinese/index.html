@@ -1,0 +1,888 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/dog_icon.jpg">
+  <link rel="icon" href="/img/dog_icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Baocheng Wang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="React的核心思想: 快速响应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React的核心思想: 快速响应">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/backtracking/chinese/index.html">
+<meta property="og:site_name" content="Baocheng Wang">
+<meta property="og:description" content="ENASE 2023 - Evaluation of Contemporary Smart Contract Analysis Tools">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
+<meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
+<meta property="article:author" content="Baocheng Wang">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
+  
+  
+  
+  <title>算法与数据结构 - 回溯篇</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库,不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"billyjojojobulido.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt){
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1')|| dntVal.startsWith('yes')|| dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Baocheng Wang</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/notes/">
+                <i class="iconfont icon-note"></i>
+                <span>Notes</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/stars.jpg')no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span>算法与数据结构 - 回溯篇</span>
+        </div>
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-25 23:15" pubdate>
+          July 25, 2024
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          0.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+          25 mins
+        
+      </span>
+    
+  </div>
+
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+
+            
+              <div class="markdown-body">
+
+
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
+
+<p style="font-weight: bold;">回溯是递归的副产品,只要有递归就会有回溯。</p>
+<p>因为回溯的本质是穷举,穷举所有可能,然后选出我们想要的答案,如果想让回溯法高效一些,可以加一些剪枝的操作,但也改不了回溯法就是穷举的本质。</p>
+
+
+<h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>适合回溯解决的问题</h2>
+<p>回溯法,一般普遍用于解决如下几种问题:</p>
+<ul>
+  <li><strong>组合问题</strong></li>
+    <p style="font-weight: bold;">N个数里面按一定规则找出k个数的集合</p>
+    <p>例题: 77. 组合   17.电话号码的字母组合    39.组合总和    40.组合总和II    216.组合总和III</p>
+  <li><strong>切割问题</strong></li>
+    <p style="font-weight: bold;">一个字符串按一定规则有几种切割方式</p>
+    <p>例题: 131. 分割回文串  93. 复原IP地址</p>
+  <li><strong>子集问题</strong></li>
+    <p style="font-weight: bold;">一个N个数的集合里有多少符合条件的子集</p>
+    <p>例题: 78. 子集	90.子集II	491. 递增子序列 (不完全是,但解法很像)</p>
+  <li><strong>排列问题</strong></li>
+    <p style="font-weight: bold;">N个数按一定规则全排列,有几种排列方式</p>
+    <p>例题: 46. 全排列	47. 全排列 II</p>
+  <li><strong>棋盘问题</strong></li>
+    <p style="font-weight: bold;">N皇后,解数独等等</p>
+    <p>例题: 51. N皇后	37. 解数独</p>
+</ul>
+
+
+<h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>树形结构</h2>
+
+
+<p>回溯法是一种经常被用在 深度优先搜索(DFS)和 广度优先搜索(BFS)的技巧。</p>
+
+<p style="font-weight: bold;">其本质是:走不通就回头。</p>
+
+<p>因此, 回溯法解决的问题都可以抽象为树形结构,同样的道理,当发现问题可以抽象为树形结构的时候,要能够想到回溯法。</p>
+
+<p>树形结构必然具有特定的属性: 树宽 和 树高</p>
+<ul>
+  <li>因为回溯法解决的都是在集合中递归查找子集,集合的大小就构成了树的宽度,递归的深度,都构成的树的深度。</li>
+  <li>递归就要有终止条件,所以必然是一棵高度有限的树(N叉树)。</li>
+</ul>
+
+
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>回溯的实现过程 - 基础版</h2>
+
+
+<p>回溯法的本质是: 走不通就回头。那么怎么回头,而且确保回头之后不会重新走这条路,就是在使用回溯算法需要首先思考的。</p>
+
+<h3>纯暴力回溯的实现过程</h3>
+<p>回溯法的搜索过程基本可以概括为以下四步:</p>
+<ol>
+  <li>构造空间树</li>
+  <li>进行横向遍历: 同一层所有元素</li>
+    对于每一个节点来说,需要进行以下操作:
+    <ul>
+      <li><strong>如果达到终止条件</strong>,输出结果</li>
+      <li><strong>否则</strong>不符合条件,向下搜索,到底了则转而搜索另一条链</li>
+    </ul>
+    <strong>关键点: <span style="font-style: italic;">回溯,撤销当前链的处理结果</span></strong>
+</ol>
+
+<h3>代码模板 (基础版)</h3>
+<pre>
+void backtracking(参数){
+  if (终止条件){
+      存放结果;
+      return;
+  }
+  for (选择:本层集合中元素(树中节点孩子的数量就是集合的大小)){      # 横向遍历
+      处理节点;
+      backtracking(路径,选择列表); // 递归                    # 纵向遍历
+      回溯,撤销处理结果
+  }
+}
+</pre>
+
+
+
+<h2 id="Prune"><a href="#Prune" class="headerlink" title="Prune"></a>剪枝优化</h2>
+
+<p style="font-weight: bolder;">优化回溯算法只有剪枝一种方法</p>
+
+<p>剪枝的核心目的,说白了就是减少没必要的搜索空间,从而减少时间和空间的复杂度。</p>
+  
+<p>因此,剪枝的精髓就在于: 在纵向遍历的过程中是否可以敏锐地发现提前终止的时机。</p>
+
+<p>以<strong>组合问题</strong>为例<br>
+  <ul>
+    <li>我们试图通过回溯算法,从N个数里面按一定规则找出k个数的集合</li>
+  </ul>
+</p>
+<p>
+在这个搜索过程中,当搜索执行到了空间树某一层的某一个节点时,剪枝算法发现这个起点到集合终止之间的元素已经不够题目要求的k个元素了,就没有必要搜索了。
+</p>
+<p>
+假设这个节点之后还有M层的子树,那么这一次剪枝就可以替我们减少O(2^M)的复杂度。
+</p>
+
+<h3>代码模板 (剪枝版)</h3>
+<pre>
+void backtracking(参数) {
+  if (终止条件) {
+    存放结果;
+    return;
+  }
+  for i in range(start_index, len(nums))  {      # 横向遍历
+      if ( i 满足剪枝条件):
+        continue
+      处理节点;
+      backtracking(路径,选择列表); // 递归         # 纵向遍历
+      回溯,撤销处理结果
+  }
+}
+</pre>
+
+
+<h2 id="Unique"><a href="#Unique" class="headerlink" title="Unique"></a>⭐️去重优化</h2>
+<h3>剪枝和去重</h3>
+<p>不是说回溯算法唯一的优化方法是剪枝么?那去重是干嘛?</p>
+
+<strong>剪枝是针对代码层次的优化</strong>
+<ul>
+  <li>剪枝是针对回溯算法整体上的通用优化方法,可以直接写到代码模板里。在任何情况下,回溯算法都是可以使用剪枝的方法减少搜索空间,但是很多情况下能够减少的搜索空间较为有限。</li>
+</ul>
+
+<strong>去重是解题思路层次的优化</strong>
+<ul>
+<li>所谓去重,其实就是确保使用过的元素不能重复选取。 实现起来有一定难度,因为往往无法分清楚到底是从(横向,纵向)中的哪个维度避免重复。</li>
+<li>已知回溯法所解决的问题都可以抽象为树形结构,那么“使用过”在这个树形结构上是有两个维度的,纵向维度是同一树枝上使用过,横向维度是同一树层上使用过。</li>
+<li>所以去重优化要解决的第一个问题就是,我们关注的是要同一树层上使用过,还是同一树枝上使用过呢?</li>
+<li>Leetcode 40. 组合综合II为例,我们发现元素在同一个组合内是可以重复的,怎么重复都没事,但两个组合不能相同。即给定原始数组candidates = [1, 1, 2], 
+  target = 3的情况下(方便起见candidates已经排序了)当第一个树枝上使用了index为0的1时,不影响我们在同一树枝上继续使用index为1的1,但是同一层如果再次使用
+  index为0的1,则必定出现重复的情况。</li>
+<li>所以我们要去重的是同一树层上的“使用过”,同一树枝上的都是一个组合里的元素,不用去重。</li>
+</ul>
+
+<h3>⭐️树枝去重</h3>
+<p>树枝:从根节点 到 某一个叶子节点的路径</p>
+<p>为了避免原始数组中,同一个位置的元素(考虑到可能存在重复值)在路径中被反复使用,需要定义一个全局变量来记录哪一个元素被使用了,该变量按惯例通常被称为used。</p>
+
+<pre>
+used = [0 for _ in range (len(nums))]
+
+void backtracking(参数) {
+  if (终止条件) { 
+    … 略过 
+  }
+  for i in range (start_index, len(nums))  {      # 横向遍历
+    if ( i 满足剪枝条件) { 
+      continue 
+    }
+    if (used[i] == 0) { 
+      continue 
+    }
+    处理节点;
+    used[i] = 1
+    backtracking(路径,选择列表); // 递归            # 纵向遍历
+    回溯,撤销处理结果
+    used[i] = 0
+  }
+}
+</pre>
+
+
+<h3>⭐️树层去重</h3>
+<p>树层去重的方式与树枝去重类似,同样可以通过定义一个used变量来记录。</p>
+<p>但是区别在于,<strong>要控制同一个树层的元素不重复,需要定义的是局部变量,而不是全局变量。</strong></p>
+
+<pre>
+void backtracking(参数) {
+  if (终止条件) { 
+    … 略过 
+  }
+  
+  used = [0 for _ in range (len(nums))]
+
+  for i in range (start_index, len(nums))  {      # 横向遍历
+    if ( i 满足剪枝条件) { 
+      continue 
+    }
+    if (used[i] == 0) { 
+      continue 
+    }
+    处理节点;
+    used[i] = 1
+    backtracking(路径,选择列表); // 递归            # 纵向遍历
+    回溯,撤销处理结果
+    used[i] = 0
+  }
+}
+
+</pre>
+
+<p>在很多Leetcode解法中,会发现有人习惯于使用set代替数组进行去重,但是值得注意的是使用used数组去重 和 使用set去重 两种写法存在较大性能差异:</p>
+
+<p>使用set去重的版本相对于used数组的版本效率都要低很多。<strong>而使用used数组在时间复杂度上几乎没有额外负担!</strong></p>
+
+
+<h2 id="Combination"><a href="#Combination" class="headerlink" title="Combination"></a>组合和切割问题的解法</h2>
+
+<h3>组合问题</h3>
+<ul>
+  <li>时间复杂度:O(2^n)</li>
+  <li>空间复杂度:O(n)</li>
+  <li>组合问题其实就是一种子集的问题,所以组合问题最坏的情况,也不会超过子集问题的时间复杂度。而子集问题因为每一个元素的状态无外乎取与不取,所以时间复杂度为O(2^n)</li>
+  <li>递归深度为n,所以系统栈所用空间为O(n),每一层递归所用的空间都是常数级别,注意代码里的result和path都是全局变量,就算是放在参数里,传的也是引用,并不会新申请内存空间,最终空间复杂度为O(n)</li>
+</ul>
+
+<p>组合问题在回溯问题中相对简单,也比较具有代表性,因此<strong>回溯的基础模板和剪枝模板完全可以解决普遍意义上的组合问题,在这里不再重复。</strong></p>
+
+<p>而组合问题本身的一大难点,在于如何避免无序状态下的重复,以Leetcode组合问题为例。</p>
+
+<div style="text-align: center;">
+  <img src="combination_tree.png">
+</div>
+
+<p>第一层,取2的时候,需要把1从candidate中删除,否则会引入重复的风险,3同理需要将2删除。</p>
+
+<pre>
+for i in range(start_index, len(nums))  {      # 横向遍历
+  处理节点;
+  backtracking(路径,选择列表); // 递归           # 纵向遍历
+  回溯,撤销处理结果
+}
+</pre>
+
+<h3>切割问题</h3>
+<ul>
+  <li>时间复杂度:O(2^n), 与组合问题一致</li>
+  <li>空间复杂度:O(n), 与组合问题一致</li>
+</ul>
+<p>切割问题的难点,在于如何模拟切割线,以及判断切割问题中如何终止递归。本身的解法非常类似组合问题。
+  <span style="font-style: italic; font-weight: bold;">能够想到用求解组合问题的思路来解决 切割问题本题就成功一大半了。</span>
+</p>
+
+
+<h2 id="Permutation"><a href="#Permutation" class="headerlink" title="Permutation"></a>排列和子集问题的解法</h2>
+<h3>排列问题</h3>
+<ul>
+  <li>时间复杂度:O(n!)</li>
+  <li>这个可以从排列的树形图中很明显发现,每一层节点为n,第二层每一个分支都延伸了n-1个分支,再往下又是n-2个分支,所以一直到叶子节点一共就是n!。</li>
+  <li>空间复杂度:O(n),和组合问题同理。</li>
+</ul>
+
+<p>组合和排列的核心区别,在于组合不关注顺序,而排列在乎顺序,[1, 2] 和 [2, 1]两个数组,在组合问题中是同一组合,而在排列问题中是不同的排列。</p>
+
+<p>因此,解组合问题中需要用到的start_index参数在排列问题中可以略去。</p>
+
+<pre>
+for i in range(0, len(nums))  {         # 横向遍历
+  if ( i 满足剪枝条件):
+    continue
+  处理节点;
+  backtracking(路径,选择列表); // 递归    # 纵向遍历
+  回溯,撤销处理结果
+}
+</pre>
+
+<h3>子集问题</h3>
+<ul>
+  <li>时间复杂度:O(2^n)</li>
+  <li>因为每一个元素的状态无外乎取与不取,所以时间复杂度为O(2^n)</li>
+  <li>空间复杂度:O(n),与组合问题一致</li>
+</ul>
+
+<p>子集问题和组合问题的核心区别,在于组合问题只需要采集叶子节点,而子集需要采集所有节点。</p>
+
+<p>因此组合问题的终止条件往往是依据节点中元素的数量,而子集问题不需要终止。</p>
+
+<pre>
+if ( len(ans) == len(nums) ) {
+  存放结果;
+  return;
+}
+</pre>
+
+
+<h2 id="Chess"><a href="#Chess" class="headerlink" title="Chess"></a>棋盘问题的解法</h2>
+
+<p>棋盘问题算是回溯算法中最巅峰的困难题了,同时也是人工智能领域的必修课。</p>
+
+<p>传统意义上的棋盘类游戏,包括中国象棋、国际象棋、围棋、数独、五子棋,都是二维的棋盘,那么自然就得考虑到二维递归的可能性。</p>
+
+<p>而不同的游戏规则会直接导致每一层分支的宽度,因此棋盘类解法的性能没办法统一评估。</p>
+
+<p>以<strong>N皇后问题</strong>为例,虽然期盼乍一看是n * n的,但是根据N皇后的游戏规则可以发现,一行必有且仅有一个皇后,因此递归的深度其实只有n。所以比真正意义上的棋盘全搜索要简单一些。</p>
+
+<p>分析可得:</p>
+<ul>
+  <li>时间复杂度:O(n!) ,其实如果看树形图的话,直觉上是O(n^n),但皇后之间不能见面所以在搜索的过程中是有剪枝的,最差也就是O(n!)。</li>
+  <li>空间复杂度:O(n),和子集问题同理</li>
+</ul>
+
+<p>而<strong>解数独问题</strong>,则是标准的二维递归,分析可得:</p>
+<ul>
+  <li>时间复杂度:O(9^m) , m是空格的数目。</li>
+  <li>空间复杂度:O(n^2),递归的深度是n^2</li>
+</ul>
+<p>不考虑问题本身的特性,二维棋盘的代码可以以下模板进行归纳</p>
+
+<pre>
+board = [
+  [......],
+  ……
+]
+
+void backtracking(i, j) {
+  if (终止条件) { 
+    … 略过 
+  }
+  for ( a in board(i, j)位置所有可能的action)  {      # 横向遍历
+      if ( a 满足剪枝条件) { 
+        continue 
+      }
+      处理节点;
+      backtracking( i', j' )                       # 纵向遍历
+      回溯,撤销处理结果
+  }
+}
+
+# 最外层遍历所有可能的起点
+for i in range( 0, len(board) ) {
+  for j in range (0, len(board) ) {
+      backtracking(i, j)
+  }
+}
+</pre>
+
+
+
+
+
+
+
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
+<ul>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html#%E5%9B%9E%E6%BA%AF%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录: 回溯理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html">代码随想录: 回溯总结篇</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/search/backtracking/">OI Wiki: 搜索 - 回溯法</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+
+</ul>
+
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+      <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
+    </div>
+  
+</div>
+
+
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>算法与数据结构 - 回溯篇</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/backtracking/chinese</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Baocheng Wang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 24, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+                <div class="post-prevnext my-3">
+                  <!-- <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/30/USYD/" title="USYD Graduation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Baocheng's Graduation from the University of Sydney</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/15/Navigator/" title="Government Infrastructure Performance Navigator">
+                        <span class="hidden-mobile">Government Infrastructure Performance Navigator</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article> -->
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function(){
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document){
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing){
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function(){
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot){ return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0){
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('tocbot' in window){
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot){
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0){
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function(){
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon){
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el){
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left'){
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('anchors' in window){
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el){
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left'){
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function(){
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项,将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

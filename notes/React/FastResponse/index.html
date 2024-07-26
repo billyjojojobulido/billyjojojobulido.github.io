@@ -16,28 +16,25 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2024 PTE">
+    <meta name="description" content="React的核心思想: 快速响应">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2024 PTE">
-<meta property="og:url" content="https://billyjojojobulido.github.io/2024/03/15/PTE/index.html">
+<meta property="og:title" content="React的核心思想: 快速响应">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/React/overview/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="2024 PTE">
+<meta property="og:description" content="ENASE 2023 - Evaluation of Contemporary Smart Contract Analysis Tools">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://billyjojojobulido.github.io/2024/03/15/PTE/cover.png">
-<meta property="article:published_time" content="2024-03-15T17:10:23.000Z">
-<meta property="article:modified_time" content="2024-03-15T17:10:23.000Z">
+<meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
+<meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
 <meta property="article:author" content="Baocheng Wang">
-<meta property="article:tag" content="Tech">
+<meta property="article:tag" content="Notes">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://billyjojojobulido.github.io/2024/03/15/PTE/cover.png">
+<meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
   
   
   
-  <title>2024 PTE- Baocheng Wang</title>
+  <title>React的核心思想: 快速响应</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
@@ -47,11 +44,10 @@
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- 主题依赖的图标库,不要自行修改 -->
 <!-- Do not modify the link that theme dependent icons -->
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
 
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
@@ -80,8 +76,6 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-  
-
 
   
 <meta name="generator" content="Hexo 7.0.0"></head>
@@ -177,19 +171,16 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Baocheng's 2024 PTE Mark Release"></span>
-          
+            <span>React的核心思想: 快速响应</span>
         </div>
-
-        
           
   <div class="mt-3">
     
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-15 17:10" pubdate>
-          March 15, 2024
+        <time datetime="2024-07-25 23:15" pubdate>
+          July 25, 2024
         </time>
       </span>
     
@@ -200,7 +191,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0.1k words
+          0.7k words
         
       </span>
     
@@ -209,7 +200,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-clock-fill"></i>
         
-          5 mins
+          15 mins
         
       </span>
     
@@ -241,34 +232,58 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Baocheng's 2024 PTE marks</h1>
+            <h1 id="seo-header">React的核心思想: 快速响应</h1>
             
             
               <div class="markdown-body">
-            
-<h2 id="Detail Score"><a href="#Detail Score" class="headerlink" title="Detail Score"></a>Detailed Score</h2>
-<div style="text-align: center;">
-  <img src="detail_marks.png" srcset="/img/loading.gif" lazyload alt="Detail" width="500">
-</div>
 
-<h2 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h2>
+<h1 id="核心快速响应">核心:快速响应</h1>
+<p>制约快速响应的因素是什么? - CPU的瓶颈: -
+当遇到大计算量的操作或者设备性能不足使页面掉帧,导致卡顿。 - IO的瓶颈 -
+发送网络请求后,由于需要等待数据返回才能进一步才做导致不能快速响应。</p>
+<h2 id="cpu的瓶颈">CPU的瓶颈</h2>
+<p>随着项目变得庞大、组件数量越来越多,就很容易遇到CPU瓶颈</p>
+<h3 id="问题的根源浏览器的线程之争">问题的根源:浏览器的线程之争</h3>
 <ul>
-  <li>2023.07 - Start learning about PTE exam.</li>
-  <li>2023.09 - Stop practicing for some reasons.</li>
-  <li>2023.11 - Restarting practicing.</li>
-  <li>2024.02 - Booked the exam, and officially start final preparation.</li>
-  <li>2024.03 - Final PTE Exam, and got the mark.</li>
+<li>主流浏览器的刷新频率是60Hz,也就是(1000ms/60)约等于16.6ms刷新一次浏览器</li>
+<li>JS可以操作DOM,但<code>GUI渲染线程</code>和<code>JS线程</code>是互斥的,所以JS脚本执行无法和浏览器布局、绘制同时进行。</li>
+<li>题外话:浏览器有多个线程:JS引擎线程、GUI渲染线程、http请求线程、事件处理线程、定时器触发线程。</li>
+<li>题外话:GUI渲染线程的主要工作是:1. 解析HTML文档生成DOM 2.
+CSS代码转换为CSSOM 3. 结合DOM和CSSOM生成渲染树 4. 生成layout 5.
+将布局绘制(paint)到屏幕上。</li>
 </ul>
+<p>因此,当JS执行时间太久,超过了16.6ms,这次刷新就没有时间执行样式布局和样式绘制了。</p>
+<h3 id="react解决方法时间切片">React解决方法:时间切片</h3>
+<p><strong>思路: 既然
+一帧里无法执行完所有JS任务,那为什么不把JS任务分开到几帧来做呢?(同步更新转换为异步更新)</strong></p>
+<p><strong>具体的实现方法是:
+在浏览器每一帧的时间中,预留一定的时间给JS线程,React利用这部分时间更新组件
+(源码中是5ms)。
+当预留的时间不够用时,<code>React</code>将线程控制权交还给浏览器使其有时间渲染
+UI,<code>React</code>则等待下一帧时间到来继续被中断的工作。</strong></p>
+<h3 id="小结">小结</h3>
+<p>所以,解决<code>CPU瓶颈</code>的关键是实现<code>时间切片</code>,而<code>时间切片</code>的关键是:将<strong>同步的更新</strong>变为<strong>可中断的异步更新</strong>。</p>
+<h2 id="io的瓶颈">IO的瓶颈</h2>
+<p><code>网络延迟</code>是前端开发者无法解决的。如何在<code>网络延迟</code>客观存在的情况下,减少用户对<code>网络延迟</code>的感知?</p>
+<p><code>React</code>给出的答案是将人机交互研究的结果整合到真实的 UI
+中。</p>
+<p>React的实现
+为此,<code>React</code>实现了Suspense,功能及配套的<code>hook</code>——useDeferredValue。
+# 总结
+实现上,快速响应的关键是解决CPU和IO的瓶颈。而落实到实现上,则需要将<strong>同步的更新</strong>变为<strong>可中断的异步更新</strong>。</p>
 
-<h2 id="Accknowledgement"> <a href="#Accknowledgement" class="headerlink" title="Accknowledgement"></a> Accknowledgement</h2>
-<p>I'm beyond excited to announce that I've achieved a perfect score in the PTE Academic English test. </p>
-<p>This achievement reinforces my commitment to continuous learning and proficiency in the English language. I'm eager to leverage this accomplishment to pursue new opportunities and contribute meaningfully in my professional journey.</p>
-<p>Here's to embracing achievements, setting new goals, and continuing the journey of lifelong learning! 📚 </p>
 
-<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.pearsonpte.com/">Pearson | PTE website</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.fireflyau.com/home">Practice: Firefly Enlightenment Website</a></li>
-<li> <i class="iconfont icon-book"></i> <a target="_blank" rel="noopener" href="https://www.xiaohongshu.com/explore/65f6f1f8000000001400482d">Little Red Book</a></li>
+
+
+
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2>
+<ul>
+  <li><a target="_blank" rel="noopener" href="https://enase.scitevents.org/?y=2023">ENASE 2023</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.scitepress.org/PublicationsDetail.aspx?ID=m87kvKSWvB4=&t=1">Evaluation of Contemporary Smart Contract Analysis Tools</a></li>
+  <li><a target="_blank" rel="noopener" href="https://soliditylang.org/">Solidity</a></li>
+  <li><a target="_blank" rel="noopener" href="https://github.com/crytic/slither">Slither: A Static Analyzer for Solidity and Vyper</a></li>
+  <li><a target="_blank" rel="noopener" href="https://github.com/Consensys/mythril">Slither: A Security analysis tool for EVM bytecode</a></li>
+  <li><a target="_blank" rel="noopener" href="https://github.com/eth-sri/securify2">Securify v2.0: A Security Scanner for Ethereum Smart Contracts</a></li>
 </ul>
 
               </div>
@@ -281,7 +296,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/General/Award/" class="print-no-link">#Award</a>
+      <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
+      <a href="/tags/General/Academic/" class="print-no-link">#Academic</a>
+      <a href="/tags/General/Award/" class="print-no-link">#Award</a>
       
     </div>
   
@@ -291,8 +308,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Baocheng's 2024 PTE Mark Release</div>
-      <div>https://billyjojojobulidogithub.io/2024/03/15/PTE/</div>
+      <div>ENASE 2023 - Evaluation of Contemporary Smart Contract Analysis Tools</div>
+      <div>https://billyjojojobulidogithub.io/2023/04/24/ENASE/</div>
     </div>
     <div class="license-meta">
       
@@ -304,7 +321,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 15, 2024</div>
+          <div>April 24, 2023</div>
         </div>
       
       
@@ -318,8 +335,6 @@
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
-                    <i class="iconfont icon-nc"></i>
-                    <i class="iconfont icon-nd"></i>
                   </span>
                 </a>
               
@@ -335,18 +350,18 @@
                   <article class="post-prev col-6">
                     
                     
-                      <!-- <a href="/2023/10/23/SMART/index.html" title="SMART ORC">
+                      <a href="/2023/05/30/USYD/" title="USYD Graduation">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">n</span>
+                        <span class="hidden-mobile">Baocheng's Graduation from the University of Sydney</span>
                         <span class="visible-mobile">Previous</span>
-                      </a> -->
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/20/SOGA/" title="SOGA">
-                        <span class="hidden-mobile">SOGA: A Scavenger-Hunt Online Game App</span>
+                      <a href="/2021/11/15/Navigator/" title="Government Infrastructure Performance Navigator">
+                        <span class="hidden-mobile">Government Infrastructure Performance Navigator</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -566,7 +581,7 @@
 
 
 
-<!-- 主题的启动项，将它保持在最底部 -->
+<!-- 主题的启动项,将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
