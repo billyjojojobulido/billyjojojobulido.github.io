@@ -16,12 +16,12 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法与数据结构 - 双指针篇">
+    <meta name="description" content="Data Structure and Algorithm - Two Pointers">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法与数据结构 - 双指针篇">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/twopointer/chinese/index.html">
+<meta property="og:title" content="Data Structure and Algorithm - Two Pointers">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/twopointer/english/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="算法与数据结构 - 双指针篇">
+<meta property="og:description" content="Data Structure and Algorithm - Two Pointers">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
 <meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
@@ -32,7 +32,7 @@
   
   
   
-  <title>算法与数据结构 - 双指针篇</title>
+  <title>Data Structure and Algorithm - Two Pointers</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span>算法与数据结构 - 双指针篇</span>
+            <span>Data Structure and Algorithm - Two Pointers</span>
         </div>
           
   <div class="mt-3">
@@ -180,7 +180,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2024-07-25 23:15" pubdate>
-          July 25, 2024
+          July 27, 2024
         </time>
       </span>
     
@@ -236,161 +236,175 @@
             
               <div class="markdown-body">
 
-<p>常见于Leetcode简单和中等题,在特定的题目背景和要求下可能成为困难题。<br>如果是滑动窗口,则难度基本处在中等和困难的段位。</p>
+<p>Two pointers problems are commonly easy and medium questions in Leetcode,, and may become difficult questions under specific question backgrounds and requirements. <br> If it is a sliding window, the difficulty is basically in the medium and difficult level.</p>
 
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-<p>双指针是大多数算法初学者在进阶路上遇到的第一个可以靠自己想出来的中阶算法。</p>
+<p>Two pointer is the first intermediate algorithm that most algorithm beginners can come up with individually on their way to advanced level.</p>
 
-<p>在面对数组中的局部搜索问题(即找一段符合条件的arr[i:j])时,相比于O(N^2)的暴力破解,在特定的要求下,算法初学者会开始思考:有没有一种办法可以在只搜索一遍数组的情况下,就把问题解决。</p>
+<p>When faced with a local search problem in an array (i.e. finding a segment that meets the conditions of arr[i:j]).
+  Compared with O(N^2) brute force cracking, under certain requirements, algorithm beginners will start to think: Is there a way to solve the problem by searching the array only once?
+</p>
 
-<p>一番酣畅淋漓的思考过后,初学者会意识到,<span style="font-weight: bold;">相比于暴力破解的无脑移动 i和j 两个搜索指针,完全可以通过自定义指针的移动规则,来记录更有意义的内容,从而忽略一些不必要的重复搜索</span>,实现O(N)的时间复杂度。</p>
+<p>After some hearty thinking, the beginner will realize that
+  <span style="font-weight: bold;">
+    Compared with the mindless movement of the two search pointers i and j by brute force, 
+    it is entirely possible to record more meaningful content by customizing the movement rules of the pointers, 
+    thereby ignoring some unnecessary repeated searches
+  </span> 
+  and achieving O(N) time complexity.
+</p>
 
-<p>也正是在这时,大多数初学者也开始意识到:空间换时间 的含义。</p>
+<p>It is also at this time that most beginners begin to realize the meaning of exchanging space (complexity) for time (complexity).</p>
 
-<p><strong>当然,双指针,是一种很笼统,很粗糙的称呼,任何使用了两个有特定移动规则的指针的算法,都可以称为双指针。</strong>因此二分法也算是双指针算法,只不过二分法这个算法的精髓还是在于bisection的核心思想。</p>
+<p><strong>Of course, double pointer is a very general and rough name. Any algorithm that uses two pointers with specific movement rules can be called double pointer.</strong>
+  Therefore, the binary search method can also be regarded as a double-pointer algorithm, but the essence of the binary search algorithm still lies in the core idea of binary search.</p>
 
 
-<h3 id="categories">双指针的类型</h3>
-<p>根据两个指针的移动规则,可以将双指针算法分为以下三种:</p>
+<h3 id="categories">Categories of Two Pointers</h3>
+<p>We can categorize the Two Pointers into three main categories based on the moving pattern of the two pointers.</p>
 <ol>
-  <li style="font-weight: bold;">左右指针 / 首尾指针 / 对撞指针</li>
-  <strong>特点:初始化时,两个指针分别指向数组的头和尾,两者不断向中间逼近,直到两指针相遇为止。</strong>
-  <p style="font-weight: bold;">常用于:有序数组中的 (e.g. 二分法)</p>
-  <p>【代码参照 二分法】</p>
-  <li style="font-weight: bold;">快慢指针</li>
-  <strong>特点:两个指针都从数组一端出发,两个指针的移动规则有明显的速度差别,导致一个指针移动的特别快,一个移动的特别慢。</strong><br>
-  <p style="font-weight: bold;">常用于:链表(找中点,找环)</p>
-  <li style="font-weight: bold;">平行指针</li>
-  <strong>特点:两个指针分布于不同的数组,大多数情况下,两个指针的移动策略是相同的。</strong><br>  
-  <p style="font-weight: bold;">常用于: 同时搜索多个数组/链表</p>
-  <li style="font-weight: bold;">滑动窗口</li>
-  <strong>特点:两个指针从数组一端出发,但是两个指针始终保持一定的距离</strong>
-  <p>这个距离大多数情况下是固定值,但如果题目求解的就是这个距离的极值,那就可能是变化的</p>
-  <p style="font-weight: bold;">常用于:子数组、字符串和子字符串问题</p>
+  <li style="font-weight: bold;">Left & Right / Head & Tail / Collision</li>
+  <strong>Feature: One array, move from two sides to the middle / towards each other</strong>
+  <p style="font-weight: bold;">Usually used in: search in ordered array (binary search)</p>
+
+  <li style="font-weight: bold;">Fast & Slow (Forward)</li>
+  <strong>Feature: One array, both move forward/the same direction, in different pattern</strong><br>
+  <p style="font-weight: bold;">Usually used in: Linked List, search for cycle / middle point</p>
+
+  <li style="font-weight: bold;">Parallel</li>
+  <stonrg>Feature: Two arrays, each array has been assigned a pointer.</stonrg><br>
+  <p style="font-weight: bold;">Usually used in: Searching in more than one array</p>
+
+  <li style="font-weight: bold;">Sliding Window</li>
+  <strong>Feature: Both pointers moving in the same direction at a fixed difference of k.</strong>
+  <p style="font-weight: bold;">Usually used in: subarray, string, substring</p>
 </ol>
 
 
-<h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>双指针的难点⭐️</h2>
-<p>难点普遍只有两个,分别对应设计和实现:</p>
+<h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>Difficulty in Two Pointers⭐️</h2>
+<p>There are generally only two difficulties, corresponding to design and implementation:</p>
 <ol>
-  <li><span style="font-weight: bold;">设计:</span>是否可以明确定义两个指针分别的移动策略 (两个指针分别是干啥的)</li>
-  <li><span style="font-weight: bold;">实现:</span>是否可以在coding的过程中考虑到所有的边缘情况(写不写得出来)</li>
+  <li><span style="font-weight: bold;">Design: </span>Is it possible to clearly define the movement strategies of the two pointers (what are the two pointers used for?)</li>
+  <li><span style="font-weight: bold;">Implementation: </span>Can you take all edge cases into account during coding (can you write them down or not)?</li>
 </ol>
 
-<strong>难点一</strong>
-<p>通常是因为缺乏足够的练习,导致想不到可以用双指针算法【这是最不应该的】,或者想不通两个指针的移动逻辑,导致解题失败。
-  <span style="font-weight: bold;">因此,针对难点一,除了多练没有别的技巧。</span>
+<strong>Difficulty 1</strong>
+<p>Usually it is because of lack of sufficient practice that one does not think of using the two-pointer algorithm 
+  [which is the most inappropriate thing], or one cannot figure out the movement logic of the two pointers, 
+  resulting in failure in solving the problem.
+  <span style="font-weight: bold;">Therefore, for Difficulty 1, there is no other technique except practicing more.</span>
 </p>
 
 
-<strong>难点二</strong>
-<p>则是缺乏足够的代码功底,在处理复杂的逻辑时会失去耐心或者疏漏。与难点一不同,这个是可以通过技巧弥补的。</p>
+<strong>Difficulty 2</strong>
+<p>The other problem is that you lack sufficient coding skills and lose patience or make mistakes when dealing with complex logic. 
+  Unlike Difficulty 1, this problem can be solved with some skills.</p>
 
-<h3 id="trick">技巧:「循环不变量」</h3>
+<h3 id="trick">Trick:「Loop Invariant」</h3>
 
-<strong>循环不变量,指的是我们在编写代码的时候,要一只遵循不变的一个性质。</strong>
+<strong>The loop invariant refers to an unchanging property that we must follow when writing code.</strong>
 
-<p>这个性质需要我们根据问题自己定义, <span style="font-weight: bold;">,一定要确保「初始化」「循环遍历」「结束」这三个阶段相同的性质,使得一个问题能够被正确解决。</span></p>
+<p>This property requires us to define it according to the problem, 
+  <span style="font-weight: bold;">
+    It is important to ensure that the three stages of 「initialization」, 「loop traversal」 and 「ending」
+     have the same properties so that a problem can be solved correctly.
+  </span></p>
 
-<p style="font-size: x-large; font-weight: bold; font-style: italic;">区间不同的定义决定了不同的初始化逻辑、遍历过程中的逻辑。</p>
+<p style="font-size: x-large; font-weight: bold; font-style: italic;">Different definitions of intervals determine different initialization logic and logic during the traversal process.</p>
 
-<p style="font-weight: bold;">因此,循环不变量并不是所谓双指针算法的精髓,而是针对复杂的题型,想要把双指针解法写得足够周密的技巧。</p> 这个技巧也同样适用于其他的算法。
-
-
-
-
+<p style="font-weight: bold;">Therefore, the loop invariant is not the essence of the so-called two-pointer algorithm, 
+  but a technique to write a two-pointer solution sufficiently thorough for complex problems.</p> 
+  This trick can also apply to other algorithms.
 
 
 
-
-<h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>双指针基础问题经典合集</h2>
+<h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>Problem Collection of Classic Two Pointers</h2>
 
 <table>
   <thead>
     <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>双指针解法</th>
+      <th>ID</th>
+      <th>Problem</th>
+      <th>Diff</th>
+      <th>Two Pointers Solution</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>26</td>
-      <td>删除有序数组汇总的重复项</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Remove Duplicates from Sorted Array</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针: 不断去寻找下一个未知元素 <br>
-          慢指针:定位下一个元素需要填充的位置</p>
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: Keep searching for next unknown element. <br>
+          Slow pointer: Locate the position to fill the next element</p>
       </td>
     </tr>
     <tr>
       <td>674</td>
-      <td>最长连续递增序列</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Longest Continuous Increasing Subsequence</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针:不断去寻找下一个满足单调递增的元素<br>
-          慢指针:定位这个递增序列的开始</p>
-        <p>当快指针元素违背单调递增时,慢指针移动到当前快指针的位置,意味着搜索新的递增序列</p>
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: Keep searching for the next element that satisfies the monotonically increasing<br>
+          Slow pointer: Locates the start of this incrementing sequence</p>
+        <p>When the fast pointer element violates monotonically increasing, the slow pointer moves to the position of the current fast pointer, which means searching for a new increasing sequence.</p>
       </td>
     </tr>
     <tr>
       <td>977</td>
-      <td>有序数组的平方</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Squares of a Sorted Array</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:对撞指针</strong><br>
-        <p>左指针:表示负数一端可能竞争平方后最大值的元素<br>
-          右指针:表示正数一端可能竞争平方后最大值的元素</p>
-        <p>hint: 当能排除存在负数、正数的情况下可以直接出结果</p>
+        <strong>Type: Collision</strong><br>
+        <p>Left pointer: Indicates that the negative end may compete for the element with the maximum value after square<br>
+          Right pointer: Indicates that the positive end may compete for the element with the maximum value after square</p>
+        <p>Hint: When negative and positive numbers can be excluded, the result can be directly output</p>
       </td>
     </tr>
     <tr>
       <td>27</td>
-      <td>移除元素</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Remove Element</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针:不断去寻找下一个不需要移除的元素<br>
-          慢指针:定位下一个需要填充元素的位置 </p>
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: Constantly looking for the next element that does not need to be removed<br>
+          Slow pointer: Locates the next element to be filled</p>
       </td>
     </tr>
     <tr>
       <td>80</td>
-      <td>删除排序数组中的重复项 II</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Remove Duplicates from Sorted Array II</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针:不断去寻找下一个元素,并根据重复次数决定是否插入和是否更新对照元素<br>
-          慢指针:定位下一个元素的插入位置 </p>
-          <strong>难点:在26题的基础上增加了“重复不超过两次”的特殊限制,但是只是多了一个判断,不算复杂</strong>
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: Continuously searches for the next element and decides whether to insert and update the reference element based on the number of repetitions.<br>
+          Slow pointer: Locates the insertion position of the next element</p>
+          <strong>Difficulty: A special restriction of "no more than two repetitions" was added to question 26, but it is just an additional judgment, not complicated.</strong>
       </td>
     </tr>
     <tr>
       <td>283</td>
-      <td>移动零</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Move Zeroes</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针:不断去寻找下一个非零元素 <br>
-          慢指针:定位下一个非零元素的插入位置
-          </p>
-          <strong>hint: 最后可以用[slow:n)区间去补上所有的0。</strong>
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: Keep looking for the next non-zero element<br>
+          Slow pointer: Locates the insertion position of the next non-zero element </p>
+          <strong>Hint: Can fill up all the 0 using the interval [slow:n) at last.</strong>
       </td>
     </tr>
     <tr>
       <td>11</td>
-      <td>盛最多水的容器</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Container With Most Water</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>双指针类型:对撞指针</strong><br>
-        <p>左指针:指向当前遍历层的左边界<br>
-          右指针:指向当前遍历层的右边界
+        <strong>Type: Collision</strong><br>
+        <p>Left pointer: Points to the left border of the current traversal layer<br>
+          Right pointer: Points to the right border of the current traversal layer
           </p>
-          <strong>移动策略:【贪心】永远移动更矮的那一边,因为长度是以固定的速率减少的,替换矮边不吃亏。</strong>
+          <strong>Pointer Pattern: [Greedy] Always move the shorter side, because the length decreases at a fixed rate, and there is no loss in replacing the shorter side.</strong>
       </td>
     </tr>
 
@@ -398,162 +412,167 @@
 </table>
 
 
-<h2 id="Unchange"><a href="#Unchange" class="headerlink" title="Unchange"></a>双指针循环不变量问题合集</h2>
+<h2 id="Unchange"><a href="#Unchange" class="headerlink" title="Unchange"></a>Problem Collection of Tricky Loop Invariant Two Pointers </h2>
 
 <table>
   <thead>
     <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>双指针解法</th>
+      <th>ID</th>
+      <th>Problem</th>
+      <th>Diff</th>
+      <th>Two Pointers Solution</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>75</td>
-      <td>颜色分类</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Sort Colors</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>【荷兰国旗问题⭐️】</strong><br>
-        <strong>双指针类型:对撞指针【变种】</strong><br>
+        <strong>【Dutch National Flag Problem⭐️】</strong><br>
+        <strong>Type: Collision [variant]</strong><br>
         <p>
-          快指针: 定位交换1的位置<br>
-          慢指针:定位交换2的位置<br>
-          在荷兰国旗问题中,单指针O(2N)也可以做,双指针的解法中两个指针的移动策略跟常规对撞指针不一致。</p>
+          Fast pointer: Locate the position to swap 1<br>
+          Slow pointer: Locate the position to swap 2<br>
+          In the Dutch flag problem, a single pointer O(2N) can also be used. 
+          The moving strategy of the two pointers in the double pointer solution is inconsistent with the conventional collision pointer.</p>
 
-          <strong>难点:case [2, 1, 2]<br>
-            存在右指针和i同时都是2的情况,因此需要使用while i &lt= right and nums[i] == 2: … right -= 1的方式来确保不会漏掉左边的2。【默认i是从0到n-1的话】
+          <strong>Difficulty: Consider the case [2, 1, 2]<br>
+            There exists a situation where both right pointer and i are 2, so we need to use "while i &lt= right and nums[i] == 2: … right -= 1" to make sure that we won't miss the 2 on the left [if we takes the index from 0 to n-1 by default]
             </strong>
       </td>
     </tr>
     <tr>
       <td>215</td>
-      <td>数组中的第K个最大元素</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Kth Largest Element in an Array</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>【快速排序的变种】</strong><br>
-        <strong>双指针类型:对撞指针【变种】</strong><br>
-        <p>左右指针不严格区分,配合<strong>哨兵划分</strong>和<strong>递归</strong>来进行基准值左右的划分,直至终止。</p>
-        <strong>技巧:快速选择</strong><br>
-        <p>题目要求的是找到第K大的值,因此并不需要排序正个数组,而是类似于【二分搜索】,当通过pivot左右两边的数量,可以判断出第K大的必不存在于一个区间时,可以直接舍弃该区间。</p>
-        <strong>因为时间复杂度要求O(N),明显是一个分治算法。</strong>
+        <strong>[A variant of Quick Sort]</strong><br>
+        <strong>Type: Collision [variant]</strong><br>
+        <p>The left and right pointers are not prestigiously distinguished, with the <strong>Sentinel Division</strong> and <strong>Recursion</strong> to partition the left & right of the pivot, till the end.</p>
+        <strong>Trick: Quick Selection</strong><br>
+        <p>The question requires finding the Kth largest value, so there is no need to sort the array. 
+          Instead, it is similar to a binary search. When the number on the left and right sides of the pivot can determine that the Kth largest value does not exist in an interval, 
+          the interval can be discarded directly.</p>
+        <strong>Because the time complexity is required to be O(N), it is obviously a divide-and-conquer algorithm.</strong>
       </td>
     </tr>
     <tr>
       <td>59</td>
-      <td>螺旋矩阵II</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Spiral Matrix II</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>【基于循环不变量的模拟法】</strong><br>
-        <strong>循环不变量:按层模拟,每一层四条边,每一条边的区间分别是:【左,右),【上,下),【右,左),【下,上)。</strong><br>
-        <strong>直到遍历所有层。</strong>
+        <strong>【Simulation Method based on Loop Invariant】</strong><br>
+        <strong>Loop Invariant: Simulated by layer, and there are 4 edges in each layer, can be represented by the intervals:[left,right), [up, down),[right, left), [down, up).</strong><br>
+        <strong>Till all the layers are traversed.</strong>
       </td>
     </tr>
   </tbody>
 </table>
 
 
-<h2 id="Linked"><a href="#Linked" class="headerlink" title="Linked"></a>双指针链表问题合集</h2>
+<h2 id="Linked"><a href="#Linked" class="headerlink" title="Linked"></a>Problem Collection of Two Pointers in Linked List</h2>
 
 <table>
   <thead>
     <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>双指针解法</th>
+      <th>ID</th>
+      <th>Problem</th>
+      <th>Diff</th>
+      <th>Two Pointer Solution</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>141</td>
-      <td>环形链表</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Linked List Cycle</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针: 一次走两个<br>          
-          慢指针:一次走一个</p>
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: traverse 2 nodes each step.<br>          
+          Slow pointer: traverse 1 node each step.</p>
 
-          <strong>【技巧】:如果有环,那么一快一慢两个指针早晚会相遇,没有的话快指针会很快到底。</strong>
+          <strong>[Trick]: If there is a cycle, then the two pointers will eventually meet, otherwise the fast pointer can easily reach the tail.</strong>
       </td>
     </tr>
     <tr>
       <td>19</td>
-      <td>删除链表的倒数第N个节点</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Remove Nth Node From End of List</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针: 领先慢指针N个节点<br>
-          慢指针:从【dummy】头开始
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: N nodes ahead of slow pointer.<br>
+          Slow pointer: starts from the【dummy head】
         </p>
-        <p>快指针到头了,直接移除慢指针指向的下一个节点</p>
+        <p>If the fast pointer has reached the end, then directly remove the next node at the slow pointer.</p>
       </td>
     </tr>
     <tr>
       <td>876</td>
-      <td>链表的中间节点</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Middle of the Linked List</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针: 一次走两个节点<br>
-          慢指针:一次走一个节点
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: traverse 2 nodes at a time.<br>
+         Slow pointer: traverse 1 node at a time.
           </p>
-        <strong>快指针到头了,直接return慢指针</strong>
+        <strong>Once the fast pointer reached the end, directly return the node pointed by slow pointer.</strong>
       </td>
     </tr>
     <tr>
       <td>142</td>
-      <td>环形链表II</td>
-      <td style="background-color: yellow;">中等</td>
+      <td>Linked List Cycle II</td>
+      <td style="background-color: yellow;">Medium</td>
       <td>
-        <strong>双指针类型:快慢指针</strong><br>
-        <p>快指针: 一次走两个节点<br>
-          慢指针:一次走一个节点          
+        <strong>Type: Fast & Slow</strong><br>
+        <p>Fast pointer: traverse 2 nodes at a time.<br>
+          Slow pointer: traverse 1 node at a time.     
         </p>
-        <strong>难点:要用O(1)的空间求出环的入口。</strong><br>
-        <p><span style="font-weight: bold;">需要运用一些数学的思维,</span>
-          假设进环之前要走a个节点,环中有b个节点,会发现:
+        <strong>Difficulty: O(1) time complexity to find the entrance of cycle.</strong><br>
+        <p><span style="font-weight: bold;">Might need some mathematical mindset</span>
+          Assume there are a nodes before the entrance of cycle, and there are b nodes in cycle, you will notice:
         </p>
-        <p>快慢指针相遇时,快指针走了慢指针两倍的步数,而最终两者相遇,可以获得以下关系:</p>
+        <p>Once the two pointers meet, the fast pointer mvoe twice the nodes than slow pointer, so we can have:</p>
         <ul>
-          <li style="font-weight: bold;">2x = a + M*b + w           [w是环中的具体位置]</li>
+          <li style="font-weight: bold;">2x = a + M*b + w           [w is the index of node in cycle]</li>
           <li style="font-weight: bold;">x = a + N*b + w</li>
         </ul>
-        <p>两者做减法,去除重复的区域,则可以证明出</p>
-        <ul><li style="font-weight: bold;">x = (M - N) * b             [设M-N=k]</li></ul>
-        <strong>那么说明,慢指针只需要再走 a 步,就可以刚好回到入口的位置 (a + k * b)</strong>
-        <p>而此时需要再次构快慢指针,将慢指针回到head,用相同的步幅出发,<span style="font-weight: bold;">相遇时则正好指向环的入口。</span></p>
+        <p>Substract x from 2x, and we can prove that</p>
+        <ul><li style="font-weight: bold;">x = (M - N) * b             [let M-N = k]</li></ul>
+        <strong>This means that it only takes `a` more steps for the slow pointer to find the entrance of cycle (a + k * b).</strong>
+        <p>Now we need to reconstruct the Fast & Slow pointers, and the slow pointer can point back to head, and the two pointers now need to walk in the same pace, 
+          <span style="font-weight: bold;">so they will meet at the entrance of the cycle.</span></p>
       </td>
     </tr>
     <tr>
       <td>160</td>
-      <td>相交链表</td>
-      <td style="background-color: lightgreen;">简单</td>
+      <td>Intersection of Two Linked Lists</td>
+      <td style="background-color: lightgreen;">Easy</td>
       <td>
-        <strong>【这题不要求空间复杂度,可以用哈希表做,所以是简单题,但是双指针可以O(1)空间,O(m+n)时间,这一步难一点,算是中等难度】</strong><br>
-        <strong>双指针类型:两个单指针</strong><br>
-        <p><span style="font-weight: bold;">技巧:其实核心的技巧是将两个链表对齐,</span>可以通过遍历求长度,然后根据长度将两者对齐,然后两个链表都给从头用一个指针同步遍历,什么时候遍历到同一个节点,就是相交入口。</p>
+        <strong>[This question does not require space complexity, and can be solved with a hash table, so it is a simple question, 
+          but the double pointer can be O(1) space, O(m+n) time, this step is a little difficult, 
+          it is considered medium difficulty]</strong><br>
+        <strong>Type: Two Single Pointers</strong><br>
+        <p><span style="font-weight: bold;">Trick: the core technique is actually to align the two linked lists.</span>
+          You can find the length by traversing, and then align the two according to the length, and then traverse both linked lists synchronously from the beginning with a pointer. 
+          When you traverse to the same node, it is the intersection entrance.
+        </p>
       </td>
     </tr>
   </tbody>
 </table>
 
 
+<strong>Note: You can get more Two Pointers exercises through the [Similar Questions] function of Leetcode</strong><br>
 
 
-
-
-<strong>注: 通过Leetcode这些题目的【相似题目】功能,可以获得更多双指针练习题。</strong><br>
-
-<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/0027.%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">代码随想录: 双指针法-0027.移除元素-算法公开课</a></li>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%8F%8C%E6%8C%87%E9%92%88%E6%80%BB%E7%BB%93.html#%E6%95%B0%E7%BB%84%E7%AF%87">代码随想录: 双指针法总结</a></li>
-  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/misc/two-pointer/">OI Wiki 双指针</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/0027.%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">Carol's Code Thoughts: Two Pointers - Public Talk</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%8F%8C%E6%8C%87%E9%92%88%E6%80%BB%E7%BB%93.html#%E6%95%B0%E7%BB%84%E7%AF%87">Carol's Code Thoughts: Summary of Two Pointers [translated]</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/misc/two-pointer/">OI Wiki: Two Pointers</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: Top Interview 150</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: Premium Algorithm 100</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode Problem Set</a></li>
 
 </ul>
               </div>
@@ -575,8 +594,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法与数据结构 - 双指针篇</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/twopointer/chinese/index.html</div>
+      <div>Data Structure and Algorithm - Two Pointers</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/twopointer/english/index.html</div>
     </div>
     <div class="license-meta">
       
@@ -588,7 +607,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>July 25, 2024</div>
+          <div>July 27, 2024</div>
         </div>
       
       
