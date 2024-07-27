@@ -16,12 +16,12 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法与数据结构 - 回溯篇">
+    <meta name="description" content="算法与数据结构 - 数组篇 二分法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法与数据结构 - 回溯篇">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/backtracking/chinese/index.html">
+<meta property="og:title" content="算法与数据结构 - 数组篇 二分法">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/bisection/chinese/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="算法与数据结构 - 回溯篇">
+<meta property="og:description" content="算法与数据结构 - 数组篇 二分法">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
 <meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
@@ -32,7 +32,7 @@
   
   
   
-  <title>算法与数据结构 - 回溯篇</title>
+  <title>算法与数据结构 - 数组篇 二分法</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span>算法与数据结构 - 回溯篇</span>
+            <span>算法与数据结构 - 数组篇 二分法</span>
         </div>
           
   <div class="mt-3">
@@ -191,7 +191,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5k words
+          2.4k words
         
       </span>
     
@@ -200,7 +200,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-clock-fill"></i>
         
-          50 mins
+          30 mins
         
       </span>
     
@@ -239,349 +239,150 @@
 
 <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
 
-<p style="font-weight: bold;">回溯是递归的副产品,只要有递归就会有回溯。</p>
-<p>因为回溯的本质是穷举,穷举所有可能,然后选出我们想要的答案,如果想让回溯法高效一些,可以加一些剪枝的操作,但也改不了回溯法就是穷举的本质。</p>
+<p style="font-weight: bold;">二分法是一种源自数学思想的朴素算法。</p>
+<p>属于是最简单的中级算法,因为很多非计算机专业的人,也都会或多或少了解和接触二分法,因此二分法也常被一些企业用来作为综合素质的题来测试应聘者的智商和数字敏感度。
+</p>
+
+<p>二分法的算法题目通常<span style="font-weight: bold;">具有明显的暗示</span>,当题目中明显出现了<span style="font-weight: bold;">有序数组</span>,或者<span style="font-weight: bold;">O(logN)</span>的时间复杂度要求时,一定会优先思考二分法进行搜索。</p>
+
+<p>同时题目还会强调<span style="font-weight: bold;">数组中无重复元素</span>,因为一旦有重复元素,使用二分查找法返回的元素下标可能不是唯一的,这些都是使用二分法的前提条件</p>
 
 
-<h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>适合回溯解决的问题</h2>
-<p>回溯法,一般普遍用于解决如下几种问题:</p>
-<ul>
-  <li><strong>组合问题</strong></li>
-    <p style="font-weight: bold;">N个数里面按一定规则找出k个数的集合</p>
-    <p>例题: 77. 组合   17.电话号码的字母组合    39.组合总和    40.组合总和II    216.组合总和III</p>
-  <li><strong>切割问题</strong></li>
-    <p style="font-weight: bold;">一个字符串按一定规则有几种切割方式</p>
-    <p>例题: 131. 分割回文串  93. 复原IP地址</p>
-  <li><strong>子集问题</strong></li>
-    <p style="font-weight: bold;">一个N个数的集合里有多少符合条件的子集</p>
-    <p>例题: 78. 子集	90.子集II	491. 递增子序列 (不完全是,但解法很像)</p>
-  <li><strong>排列问题</strong></li>
-    <p style="font-weight: bold;">N个数按一定规则全排列,有几种排列方式</p>
-    <p>例题: 46. 全排列	47. 全排列 II</p>
-  <li><strong>棋盘问题</strong></li>
-    <p style="font-weight: bold;">N皇后,解数独等等</p>
-    <p>例题: 51. N皇后	37. 解数独</p>
-</ul>
-
-
-<h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>树形结构</h2>
-
-
-<p>回溯法是一种经常被用在 深度优先搜索(DFS)和 广度优先搜索(BFS)的技巧。</p>
-
-<p style="font-weight: bold;">其本质是:走不通就回头。</p>
-
-<p>因此, 回溯法解决的问题都可以抽象为树形结构,同样的道理,当发现问题可以抽象为树形结构的时候,要能够想到回溯法。</p>
-
-<p>树形结构必然具有特定的属性: 树宽 和 树高</p>
-<ul>
-  <li>因为回溯法解决的都是在集合中递归查找子集,集合的大小就构成了树的宽度,递归的深度,都构成的树的深度。</li>
-  <li>递归就要有终止条件,所以必然是一棵高度有限的树(N叉树)。</li>
-</ul>
-
-
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>回溯的实现过程 - 基础版</h2>
-
-
-<p>回溯法的本质是: 走不通就回头。那么怎么回头,而且确保回头之后不会重新走这条路,就是在使用回溯算法需要首先思考的。</p>
-
-<h3>纯暴力回溯的实现过程</h3>
-<p>回溯法的搜索过程基本可以概括为以下四步:</p>
+<h3 id="difficult">二分搜索的数学逻辑</h3>
 <ol>
-  <li>构造空间树</li>
-  <li>进行横向遍历: 同一层所有元素</li>
-    对于每一个节点来说,需要进行以下操作:
-    <ul>
-      <li><strong>如果达到终止条件</strong>,输出结果</li>
-      <li><strong>否则</strong>不符合条件,向下搜索,到底了则转而搜索另一条链</li>
-    </ul>
-    <strong>关键点: <span style="font-style: italic;">回溯,撤销当前链的处理结果</span></strong>
+  <li>基于左右两个端点的索引,可以在O(1)的时间里求出<span style="font-weight: bold;">中点</span>的值。</li>
+  <li>在数组有序的前提下,<span style="font-weight: bold; font-style: italic;">比较中点可以直接排除一半的可能。</span></li>
+  <li style="font-weight: bold;">因此将O(N)的搜索,简化成了O(log2N)的排除。</li>
 </ol>
 
-<h3>代码模板 (基础版)</h3>
+
+<h2 id="Open"><a href="#Open" class="headerlink" title="Open"></a>循环不变量思想 - 开闭区间 ⭐️</h2>
+<strong>二分查找涉及的最多的就是各种边界条件.</strong>
+<p>虽然逻辑比较简单,但就是写不好。例如到底是 while (left &lt right) 还是 while (left &lt = right),到底是right = middle呢,还是要right = middle - 1呢?</p>
+
+<p>归根结底,问题还是出在对区间的定义没有想清楚,区间的定义就是不变量。要在二分查找的过程中,保持不变量,就是在while寻找中每一次边界的处理都要坚持根据区间的定义来操作,这就是循环不变量规则。</p>
+
+<strong>写二分法,一般有两种区间,左闭右闭即[left, right],或者左闭右开即[left, right)。</strong><br><br>
+
+<p>我个人的习惯是用[left, right]。可以参考如下模板: </p>
+
 <pre>
-void backtracking(参数){
-  if (终止条件){
-      存放结果;
-      return;
-  }
-  for (选择:本层集合中元素(树中节点孩子的数量就是集合的大小)){      # 横向遍历
-      处理节点;
-      backtracking(路径,选择列表); // 递归                    # 纵向遍历
-      回溯,撤销处理结果
-  }
-}
+left, right = 0, len(nums) -1 
+while  ( left &lt= right ):                           # 右边闭区间时,left &lt= right属于有效情况
+  mid =  (left + right) &gt&gt 1                        # 使用位运算防止大数溢出
+  if ( nums[mid] == target ) : return 结果           # 有的题可能还需要后续处理
+  if (nums[mid] &gt target):  right = mid - 1         # mid已经判断过不符合要求,所以大胆-1
+  else: left = mid + 1                              # 此处mid+1 同理
+
+return 异常处理                                      # 通常是针对target不存在的情况下返回特定异常值
 </pre>
 
 
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>问题合集以及分析</h2>
+<p>二分法是数组题型中的经典算法,因此可以看到大多数二分算法的经典题和算法都是在Leetcode序号靠前的题目。</p>
 
-<h2 id="Prune"><a href="#Prune" class="headerlink" title="Prune"></a>剪枝优化</h2>
+<p>二分算法虽然比较直接,二分法的出题难度却比较灵活。纯粹的、最基础的二分搜索就可以单独出题,也是典型的简单题。随后,随着数组的条件开始变得抽象,题目的难度也会增加。</p>
 
-<p style="font-weight: bolder;">优化回溯算法只有剪枝一种方法</p>
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>704</td>
+      <td>二分查找</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        最为基础的二分搜索。
+      </td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>搜索插入位置</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        最为基础的二分搜索。
+      </td>
+    </tr>
+    <tr>
+      <td>74</td>
+      <td>搜索二维矩阵</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>难点: 数组升维</strong><br>
+        <p>但是其实没区别。可以先通过<span style="font-weight: bold; font-style: italic;">行优先思想</span>,确定target会出现在哪行,然后一波普通二分搜索带走。</p>           
+      </td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>在排序数组中查找元素的第一个和最后一个位置</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>难点: 元素重复,答案大概率不唯一</strong><br>
+        <p>这题二分搜索的过程其实还是一样的,但是nums[mid]==target区块对结果的处理不再是直接return,而是需要对[left, right]进行一次遍历(也可以用左右夹逼)来确定最终的【start, end】</p>
+      </td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>搜索旋转排序数组</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>难点: 数组不是无条件有序</strong><br>
+        <p>搜索的过程中就需要处理一个旋转轴心点,需要分别处理数组为[l, r]和[l, p, r]的情况,中间p点代表的是最大值突然跌到最小值的点。但是突破点就是旋转后nums[0]一定大于nums[-1]的特性,可以在搜索中进行判断决定搜索方向。</p>
+      </td>
+    </tr>
 
-<p>剪枝的核心目的,说白了就是减少没必要的搜索空间,从而减少时间和空间的复杂度。</p>
-  
-<p>因此,剪枝的精髓就在于: 在纵向遍历的过程中是否可以敏锐地发现提前终止的时机。</p>
+    <tr>
+      <td>153</td>
+      <td>搜索旋转排序数组中的最小值</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <p>跟33题难点和解法一致。但是需要返回最小值,也就是33题中的旋转轴心点。</p>
+        <p>搜索的过程中,将mid元素和右边界不断比较,会有三种情况:</p>
+        <ol>
+          <li>m &lt r: m在答案右侧,可以忽略[m,r]</li>
+          <li>m &gt r: m在答案左侧,可以忽略[l, m]</li>
+          <li>m = r: 元素不重复,因此不存在这种情况,可以直接结束搜索。</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>寻找两个正序数组中的最小值</td>
+      <td style="background-color: rgb(252, 99, 140);">困难</td>
+      <td>
+        <strong>主要思路: 要找到第 k (k&gt1) 小的元素,那么就取 pivot1 = nums1[k//2-1] 和 pivot2 = nums2[k//2-1] 进行比较。</strong><br>
+        <p>nums1 中小于等于 pivot1 的元素有 nums1[0 .. k/2-2] 共计 k/2-1 个 </p>
+        <p>nums2 中小于等于 pivot2 的元素有 nums2[0 .. k/2-2] 共计 k/2-1 个</p>
+        <p>取 pivot = min(pivot1, pivot2),两个数组中小于等于 pivot 的元素共计不会超过 (k/2-1) + (k/2-1) &lt= k-2 个</p>
+        <p>这样 pivot 本身最大也只能是第 k-1 小的元素</p>
+        <p>如果 pivot = pivot1,那么 nums1[0 .. k/2-1] 都不可能是第 k 小的元素。把这些元素全部 "删除",剩下的作为新的 nums1 数组</p>
+        <p>如果 pivot = pivot2,那么 nums2[0 .. k/2-1] 都不可能是第 k 小的元素。把这些元素全部 "删除",剩下的作为新的 nums2 数组</p>
+        <p>由于我们 "删除" 了一些元素(这些元素都比第 k 小的元素要小),因此需要修改 k 的值,减去删除的数的个数</p>
+      </td>
+    </tr>
 
-<p>以<strong>组合问题</strong>为例<br>
-  <ul>
-    <li>我们试图通过回溯算法,从N个数里面按一定规则找出k个数的集合</li>
-  </ul>
-</p>
-<p>
-在这个搜索过程中,当搜索执行到了空间树某一层的某一个节点时,剪枝算法发现这个起点到集合终止之间的元素已经不够题目要求的k个元素了,就没有必要搜索了。
-</p>
-<p>
-假设这个节点之后还有M层的子树,那么这一次剪枝就可以替我们减少O(2^M)的复杂度。
-</p>
-
-<h3>代码模板 (剪枝版)</h3>
-<pre>
-void backtracking(参数) {
-  if (终止条件) {
-    存放结果;
-    return;
-  }
-  for i in range(start_index, len(nums))  {      # 横向遍历
-      if ( i 满足剪枝条件):
-        continue
-      处理节点;
-      backtracking(路径,选择列表); // 递归         # 纵向遍历
-      回溯,撤销处理结果
-  }
-}
-</pre>
-
-
-<h2 id="Unique"><a href="#Unique" class="headerlink" title="Unique"></a>⭐️去重优化</h2>
-<h3>剪枝和去重</h3>
-<p>不是说回溯算法唯一的优化方法是剪枝么?那去重是干嘛?</p>
-
-<strong>剪枝是针对代码层次的优化</strong>
-<ul>
-  <li>剪枝是针对回溯算法整体上的通用优化方法,可以直接写到代码模板里。在任何情况下,回溯算法都是可以使用剪枝的方法减少搜索空间,但是很多情况下能够减少的搜索空间较为有限。</li>
-</ul>
-
-<strong>去重是解题思路层次的优化</strong>
-<ul>
-<li>所谓去重,其实就是确保使用过的元素不能重复选取。 实现起来有一定难度,因为往往无法分清楚到底是从(横向,纵向)中的哪个维度避免重复。</li>
-<li>已知回溯法所解决的问题都可以抽象为树形结构,那么“使用过”在这个树形结构上是有两个维度的,纵向维度是同一树枝上使用过,横向维度是同一树层上使用过。</li>
-<li>所以去重优化要解决的第一个问题就是,我们关注的是要同一树层上使用过,还是同一树枝上使用过呢?</li>
-<li>Leetcode 40. 组合综合II为例,我们发现元素在同一个组合内是可以重复的,怎么重复都没事,但两个组合不能相同。即给定原始数组candidates = [1, 1, 2], 
-  target = 3的情况下(方便起见candidates已经排序了)当第一个树枝上使用了index为0的1时,不影响我们在同一树枝上继续使用index为1的1,但是同一层如果再次使用
-  index为0的1,则必定出现重复的情况。</li>
-<li>所以我们要去重的是同一树层上的“使用过”,同一树枝上的都是一个组合里的元素,不用去重。</li>
-</ul>
-
-<h3>⭐️树枝去重</h3>
-<p>树枝:从根节点 到 某一个叶子节点的路径</p>
-<p>为了避免原始数组中,同一个位置的元素(考虑到可能存在重复值)在路径中被反复使用,需要定义一个全局变量来记录哪一个元素被使用了,该变量按惯例通常被称为used。</p>
-
-<pre>
-used = [0 for _ in range (len(nums))]
-
-void backtracking(参数) {
-  if (终止条件) { 
-    … 略过 
-  }
-  for i in range (start_index, len(nums))  {      # 横向遍历
-    if ( i 满足剪枝条件) { 
-      continue 
-    }
-    if (used[i] == 0) { 
-      continue 
-    }
-    处理节点;
-    used[i] = 1
-    backtracking(路径,选择列表); // 递归            # 纵向遍历
-    回溯,撤销处理结果
-    used[i] = 0
-  }
-}
-</pre>
-
-
-<h3>⭐️树层去重</h3>
-<p>树层去重的方式与树枝去重类似,同样可以通过定义一个used变量来记录。</p>
-<p>但是区别在于,<strong>要控制同一个树层的元素不重复,需要定义的是局部变量,而不是全局变量。</strong></p>
-
-<pre>
-void backtracking(参数) {
-  if (终止条件) { 
-    … 略过 
-  }
-  
-  used = [0 for _ in range (len(nums))]
-
-  for i in range (start_index, len(nums))  {      # 横向遍历
-    if ( i 满足剪枝条件) { 
-      continue 
-    }
-    if (used[i] == 0) { 
-      continue 
-    }
-    处理节点;
-    used[i] = 1
-    backtracking(路径,选择列表); // 递归            # 纵向遍历
-    回溯,撤销处理结果
-    used[i] = 0
-  }
-}
-
-</pre>
-
-<p>在很多Leetcode解法中,会发现有人习惯于使用set代替数组进行去重,但是值得注意的是使用used数组去重 和 使用set去重 两种写法存在较大性能差异:</p>
-
-<p>使用set去重的版本相对于used数组的版本效率都要低很多。<strong>而使用used数组在时间复杂度上几乎没有额外负担!</strong></p>
+  </tbody>
+</table>
 
 
-<h2 id="Combination"><a href="#Combination" class="headerlink" title="Combination"></a>组合和切割问题的解法</h2>
-
-<h3>组合问题</h3>
-<ul>
-  <li>时间复杂度:O(2^n)</li>
-  <li>空间复杂度:O(n)</li>
-  <li>组合问题其实就是一种子集的问题,所以组合问题最坏的情况,也不会超过子集问题的时间复杂度。而子集问题因为每一个元素的状态无外乎取与不取,所以时间复杂度为O(2^n)</li>
-  <li>递归深度为n,所以系统栈所用空间为O(n),每一层递归所用的空间都是常数级别,注意代码里的result和path都是全局变量,就算是放在参数里,传的也是引用,并不会新申请内存空间,最终空间复杂度为O(n)</li>
-</ul>
-
-<p>组合问题在回溯问题中相对简单,也比较具有代表性,因此<strong>回溯的基础模板和剪枝模板完全可以解决普遍意义上的组合问题,在这里不再重复。</strong></p>
-
-<p>而组合问题本身的一大难点,在于如何避免无序状态下的重复,以Leetcode组合问题为例。</p>
-
-<div style="text-align: center;">
-  <img src="combination_tree.png">
-</div>
-
-<p>第一层,取2的时候,需要把1从candidate中删除,否则会引入重复的风险,3同理需要将2删除。</p>
-
-<pre>
-for i in range(start_index, len(nums))  {      # 横向遍历
-  处理节点;
-  backtracking(路径,选择列表); // 递归           # 纵向遍历
-  回溯,撤销处理结果
-}
-</pre>
-
-<h3>切割问题</h3>
-<ul>
-  <li>时间复杂度:O(2^n), 与组合问题一致</li>
-  <li>空间复杂度:O(n), 与组合问题一致</li>
-</ul>
-<p>切割问题的难点,在于如何模拟切割线,以及判断切割问题中如何终止递归。本身的解法非常类似组合问题。
-  <span style="font-style: italic; font-weight: bold;">能够想到用求解组合问题的思路来解决 切割问题本题就成功一大半了。</span>
-</p>
-
-
-<h2 id="Permutation"><a href="#Permutation" class="headerlink" title="Permutation"></a>排列和子集问题的解法</h2>
-<h3>排列问题</h3>
-<ul>
-  <li>时间复杂度:O(n!)</li>
-  <li>这个可以从排列的树形图中很明显发现,每一层节点为n,第二层每一个分支都延伸了n-1个分支,再往下又是n-2个分支,所以一直到叶子节点一共就是n!。</li>
-  <li>空间复杂度:O(n),和组合问题同理。</li>
-</ul>
-
-<p>组合和排列的核心区别,在于组合不关注顺序,而排列在乎顺序,[1, 2] 和 [2, 1]两个数组,在组合问题中是同一组合,而在排列问题中是不同的排列。</p>
-
-<p>因此,解组合问题中需要用到的start_index参数在排列问题中可以略去。</p>
-
-<pre>
-for i in range(0, len(nums))  {         # 横向遍历
-  if ( i 满足剪枝条件):
-    continue
-  处理节点;
-  backtracking(路径,选择列表); // 递归    # 纵向遍历
-  回溯,撤销处理结果
-}
-</pre>
-
-<h3>子集问题</h3>
-<ul>
-  <li>时间复杂度:O(2^n)</li>
-  <li>因为每一个元素的状态无外乎取与不取,所以时间复杂度为O(2^n)</li>
-  <li>空间复杂度:O(n),与组合问题一致</li>
-</ul>
-
-<p>子集问题和组合问题的核心区别,在于组合问题只需要采集叶子节点,而子集需要采集所有节点。</p>
-
-<p>因此组合问题的终止条件往往是依据节点中元素的数量,而子集问题不需要终止。</p>
-
-<pre>
-if ( len(ans) == len(nums) ) {
-  存放结果;
-  return;
-}
-</pre>
-
-
-<h2 id="Chess"><a href="#Chess" class="headerlink" title="Chess"></a>棋盘问题的解法</h2>
-
-<p>棋盘问题算是回溯算法中最巅峰的困难题了,同时也是人工智能领域的必修课。</p>
-
-<p>传统意义上的棋盘类游戏,包括中国象棋、国际象棋、围棋、数独、五子棋,都是二维的棋盘,那么自然就得考虑到二维递归的可能性。</p>
-
-<p>而不同的游戏规则会直接导致每一层分支的宽度,因此棋盘类解法的性能没办法统一评估。</p>
-
-<p>以<strong>N皇后问题</strong>为例,虽然期盼乍一看是n * n的,但是根据N皇后的游戏规则可以发现,一行必有且仅有一个皇后,因此递归的深度其实只有n。所以比真正意义上的棋盘全搜索要简单一些。</p>
-
-<p>分析可得:</p>
-<ul>
-  <li>时间复杂度:O(n!) ,其实如果看树形图的话,直觉上是O(n^n),但皇后之间不能见面所以在搜索的过程中是有剪枝的,最差也就是O(n!)。</li>
-  <li>空间复杂度:O(n),和子集问题同理</li>
-</ul>
-
-<p>而<strong>解数独问题</strong>,则是标准的二维递归,分析可得:</p>
-<ul>
-  <li>时间复杂度:O(9^m) , m是空格的数目。</li>
-  <li>空间复杂度:O(n^2),递归的深度是n^2</li>
-</ul>
-<p>不考虑问题本身的特性,二维棋盘的代码可以以下模板进行归纳</p>
-
-<pre>
-board = [
-  [......],
-  ……
-]
-
-void backtracking(i, j) {
-  if (终止条件) { 
-    … 略过 
-  }
-  for ( a in board(i, j)位置所有可能的action)  {      # 横向遍历
-      if ( a 满足剪枝条件) { 
-        continue 
-      }
-      处理节点;
-      backtracking( i', j' )                       # 纵向遍历
-      回溯,撤销处理结果
-  }
-}
-
-# 最外层遍历所有可能的起点
-for i in range( 0, len(board) ) {
-  for j in range (0, len(board) ) {
-      backtracking(i, j)
-  }
-}
-</pre>
-
-
-
-
-
-
+<strong>注: 通过Leetcode这些题目的【相似题目】功能,可以获得更多二分法练习题。</strong><br>
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html#%E5%9B%9E%E6%BA%AF%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录: 回溯理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html">代码随想录: 回溯总结篇</a></li>
-  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/search/backtracking/">OI Wiki: 搜索 - 回溯法</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">代码随想录: 数组理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">代码随想录: 二分查找#算法公开课</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/binary/">OI Wiki二分法</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
 
 </ul>
-
               </div>
             
             <hr/>
@@ -601,8 +402,8 @@ for i in range( 0, len(board) ) {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法与数据结构 - 回溯篇</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/backtracking/chinese/index.html</div>
+      <div>算法与数据结构 - 数组篇 二分法</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/bisection/chinese/index.html</div>
     </div>
     <div class="license-meta">
       
@@ -622,9 +423,6 @@ for i in range( 0, len(board) ) {
         <div class="license-meta-item">
           <div>Licensed under</div>
           <div>
-            
-              
-              
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
@@ -679,10 +477,8 @@ for i in range( 0, len(board) ) {
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
     <span>Table of Contents</span>
-  </p>                    
-  <i class="iconfont icon-by"></i>
-  <i class="iconfont icon-nc"></i>
-  <i class="iconfont icon-nd"></i>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
 
