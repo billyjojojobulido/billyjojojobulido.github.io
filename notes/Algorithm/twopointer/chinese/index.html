@@ -542,9 +542,59 @@
 </table>
 
 
+<h2 id="Dedup"><a href="#Dedup" class="headerlink" title="Dedup"></a>双指针优化去重问题合集</h2>
+<p>这一类题型通常解法不唯一,但是往往简化求解过程的算法都会导致去重过程更加复杂,可以通过排序后的双指针简化去重复杂度。</p>
+<p><strong>双指针法将时间复杂度: O(n^2)的解法优化为 O(n)的解法。也就是降一个数量级</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>双指针解法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>三数之和</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>【哈希解法】</strong>
+        <p>在Leetcode门神: 两数之和的基础上,人们第一个想到的解法肯定是哈希, 两层for循环就可以确定 a 和b 的数值了,
+          可以使用哈希法来确定 0-(a+b) 是否在 数组里出现过,其实这个思路是正确的,但是我们有一个非常棘手的问题,就是题目中说的不可以包含重复的三元组</p>
+          <p>先通过哈希找到所有索引上不重复的三元组再去重是非常费时的,很容易超时</p>
+        <strong>这道题目使用双指针法 要比哈希法高效一些</strong><br>
+        <p>基于这种问题的复杂度,我们要使用的双指针类型也比较特殊,我称之为: <strong>循环对撞指针</strong></p>
+        <p>首先将数组排序,然后有一层for循环,i从下标0的地方开始,同时定一个下标left 定义在i+1的位置上,定义下标right 在数组结尾的位置上</p>
 
+        <strong>指针移动策略</strong><br>
+        <p>如果nums[i] + nums[left] + nums[right] &gt 0 就说明 此时三数之和大了,因为数组是排序后了,所以right下标就应该向左移动,这样才能让三数之和小一些。</p>
+        <p>如果 nums[i] + nums[left] + nums[right] &lt 0 说明 此时 三数之和小了,left 就向右移动,才能让三数之和大一些,直到left与right相遇为止。</p>
+      </td>
+    </tr>
 
+    <tr>
+      <td>18</td>
+      <td>四数之和</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <p>和15.三数之和 是一个思路，都是使用双指针法, 基本解法就是在15.三数之和 的基础上再套一层for循环。</p>
 
+        <p>四数之和的双指针解法是两层for循环nums[k] + nums[i]为确定值,依然是循环内有left和right下标作为双指针,
+          找出nums[k] + nums[i] + nums[left] + nums[right] == target的情况,三数之和的时间复杂度是O(n^2),四数之和的时间复杂度是O(n^3) 。</p>
+        <p>那么一样的道理，五数之和、六数之和等等都采用这种解法</p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p><strong>思考: 两数之和 可不可以用双指针简化?</strong></p>
+
+<p>答案是<strong>不行</strong>。道理很简单,因为二数之和最后要求的返回值是索引,因此排序会打乱原有顺序,原有索引就失效了。
+  而不排序的话,双指针无法简化去重,所以无法用双指针求解。
+</p>
 
 <strong>注: 通过Leetcode这些题目的【相似题目】功能,可以获得更多双指针练习题。</strong><br>
 

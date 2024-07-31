@@ -564,10 +564,68 @@
   </tbody>
 </table>
 
+<h2 id="Dedup"><a href="#Dedup" class="headerlink" title="Dedup"></a>Problem Collection of Two Pointers Improving Deduplication</h2>
+<p></p>
+<p><strong>This type of problem usually has one or more typical solutions, but the algorithm that simplifies the retrieving process often makes the deduplication process more complicated. 
+  The deduplication complexity can be simplified by using sorted double pointers.</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Problem</th>
+      <th>Diff</th>
+      <th>Two Pointer Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>3Sum</td>
+      <td style="background-color: yellow;">Medium</td>
+      <td>
+        <strong>【Hash Map Solution】</strong>
+        <p>On the basis of two sum, the most typical solution would be Hash Map, which only takes two nested for loop to determine the value of a + b.
+          And then determine wheter 0-(a+b) exists in the array using HashMap. This idea is actually correct. However, the major issue is deduplication, as the question
+          suggests that the return array should not contain any duplicated combination.</p>
+          <p>It is very time-consuming to first find all the unique triples in the index through hashing and then remove them, which may easily time out.</p>
+        <strong>It would be more efficient to solve this problem by using two pointers than hashmaps</strong><br>
+        <p>Due to the complexity of this problem, the double pointer type we are going to use is also quite special, which I call: <strong>Nested Collision Pointers</strong></p>
+        <p>First we need to sort the array, and has a for loop, where i starts from index 0, and init a pointer left starting at index i+1, along with another pointer right
+          starting at the end of the array.</p>
+
+        <strong>Pointers Startegy</strong><br>
+        <p>if nums[i] + nums[left] + nums[right] &gt 0, then it means that the three sum is too large, and as the array has been sorted, so the right pointer needs to be moves to its left</p>
+        <p>if nums[i] + nums[left] + nums[right] &lt 0, then it means that the three sum is too small, so left needs to go right, until left and right eventually meet.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>18</td>
+      <td>4Sum</td>
+      <td style="background-color: yellow;">Medium</td>
+      <td>
+        <p>The same idea with 15. 3Sum. Using Two Pointers, and only requires one more for loop nested on the basis of 3Sum.</p>
+
+        <p>The solution is to have two nested for loop, where nums[k] + nums[i] are certain, and still have left and right pointers within each for loop,
+          and move based on the three situations of: nums[k] + nums[i] + nums[left] + nums[right] == target, 
+          The time complexsity of 3Sum is O(n^2), where the time complexsity of 4Sum is O(n^3) 。</p>
+        <p>Likewise, 5Sum, 6Sum, etc can be solved in similar manners.</p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p><strong>Think: Can we simplifies the Two Sum problem using Two Pointers?</strong></p>
+
+<p>The answer is <strong>NO</strong>. It is very simple, because the Two Sum problem needs us to return index, instead of values, so we cannot sort the array.
+</p>
 
 <strong>Note: You can get more Two Pointers exercises through the [Similar Questions] function of Leetcode</strong><br>
 
 
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>References</h2>
+<ul>
 <ul>
   <li><a target="_blank" rel="noopener" href="https://programmercarl.com/0027.%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">Carol's Code Thoughts: Two Pointers - Public Talk</a></li>
   <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%8F%8C%E6%8C%87%E9%92%88%E6%80%BB%E7%BB%93.html#%E6%95%B0%E7%BB%84%E7%AF%87">Carol's Code Thoughts: Summary of Two Pointers [translated]</a></li>
