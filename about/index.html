@@ -43,6 +43,66 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
  <style>
+  .chart-container {
+      width: 100%;
+      /* max-width: 600px; */
+      margin: 0 auto;
+  }
+
+  .bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+  }
+
+  .bar-label {
+      width: 35%; /* 根据需要调整 */
+      text-align: right;
+      padding-right: 10px;
+      font-weight: bold;
+  }
+
+  .bar-fill-container {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+  }
+
+  .bar-fill {
+      height: 45px;
+      text-align: center;
+      line-height: 45px;
+      color: #171C1D;
+      border-radius: 1px 0 0 1px; /* 仅左侧圆角 */
+      font-weight: bold;
+      font-family: 'Courier New', Courier, monospace;
+      font-style: italic;
+  }
+
+  /* Tooltip 样式 */
+  .tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .bar-fill:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+  }
+
   .myfont_first{
       display: block;
       font-size: 1.17em;
@@ -135,84 +195,48 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
                 <span>Home</span>
               </a>
             </li>
-            
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
                 <span>Categories</span>
               </a>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="/notes/">
                 <i class="iconfont icon-note"></i>
                 <span>Notes</span>
               </a>
             </li>          
-        
-          
-          
-          
-          
             <li class="nav-item">
               <a class="nav-link" href="/projects/">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>Projects</span>
               </a>
             </li>
-          
-        
-          
-          
-          
-          
- 
-          
-        
-          
-          
-          
-          
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>Tags</span>
               </a>
             </li>
-          
-        
-          
-          
-          
-          
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
                 <span>About</span>
               </a>
             </li>
-          
-        
-        
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
               <i class="iconfont icon-search"></i>
             </a>
           </li>
-          
-        
-        
+
           <li class="nav-item" id="color-toggle-btn">
             <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
               <i class="iconfont icon-dark" id="color-toggle-icon"></i>
@@ -232,15 +256,9 @@
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          
             <span id="subtitle" data-typed-text="About Baocheng..."></span>
-          
         </div>
-
-        
       </div>
-
-      
     </div>
   </div>
 </div>
@@ -310,6 +328,46 @@
   </div>
 
   <div class="markdown-body">
+    <h2 id="techstack" title="TechStack">Tech Stack</h2>
+      <div class="chart-container">
+        <div class="bar">
+            <div class="bar-label" style="text-align: center; font-family:'Courier New', Courier, monospace">Programming Language</div>
+            <div class="bar-fill-container" >
+                <div class="bar-fill" id="python" style="width: 55%; background-color: #FDB338;">Python</div>
+                <div class="bar-fill" id="js"     style="width: 25%; background-color: #9E8774;">JavaScript</div>
+                <div class="bar-fill" id="java"   style="width: 10%; background-color: #78ABAF;">Java</div>
+                <div class="bar-fill" id="c"      style="width: 5%; background-color: #D7B6E7;">C++</div>
+                <div class="bar-fill" id="go"     style="width: 5%; background-color: #5D7FE5;">Go</div>
+            </div>
+        </div>
+        <div class="bar">
+          <div class="bar-label" style="text-align: center; font-family:'Courier New', Courier, monospace">Backend Framework</div>
+          <div class="bar-fill-container" >
+              <div class="bar-fill" id="django" style="width: 70%; background-color: #FDE7A2;">Django</div>
+              <div class="bar-fill" id="springboot"   style="width: 20%; background-color: #5D7FE5;">Springboot</div>
+              <div class="bar-fill" id="qt"      style="width: 10%; background-color: #9899EE;">QT</div>
+          </div>
+      </div>
+        <div class="bar">
+            <div class="bar-label" style="text-align: center; font-family:'Courier New', Courier, monospace">Frontend Framework</div>
+            <div class="bar-fill-container">
+              <div class="bar-fill" id="react" style="width: 85%; background-color: #E86349;">React</div>
+              <div class="bar-fill" id="vue"   style="width: 15%; background-color: #8FB9D1;">Vue</div>
+            </div>
+        </div>
+        <div class="bar">
+            <div class="bar-label" style="text-align: center; font-family:'Courier New', Courier, monospace">Database Management</div>
+            <div class="bar-fill-container">
+              <div class="bar-fill" id="mysql" style="width: 80%; background-color: #AEB6E8;">MySQL</div>
+              <div class="bar-fill" id="neo4j" style="width: 8%; background-color: #B3D236;">Neo4j</div>
+              <div class="bar-fill" id="mongodb"   style="width: 12%; background-color: #FDE7A2;">MongoDB</div>
+            </div>
+        </div>
+    </div>
+  
+    </div>
+
+  <div class="markdown-body">
 
     <h2 id="education" title="Education">Education</h2>
     <ul>
@@ -322,6 +380,7 @@
 
       </li>
   </div>
+
 
 
   <div class="markdown-body">
@@ -385,6 +444,7 @@
 
     </ul>
 
+  </div>
 
   </div>
   
@@ -393,8 +453,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+    </div>
+
     
 
     
@@ -475,6 +535,37 @@
         typing(text);
       
     })(window, document);
+  </script>
+
+  <script>
+    function addHoverText(element, hoverText) {
+      const originalText = element.textContent;
+
+      element.addEventListener('mouseenter', () => {
+          element.textContent = hoverText;
+      });
+
+      element.addEventListener('mouseleave', () => {
+          element.textContent = originalText;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      addHoverText(document.querySelector('#python'), '55%');
+      addHoverText(document.querySelector('#js'), '25%');
+      addHoverText(document.querySelector('#java'), '10%');
+      addHoverText(document.querySelector('#c'), '5%');
+      addHoverText(document.querySelector('#go'), '5%');
+      addHoverText(document.querySelector('#django'), '70%');
+      addHoverText(document.querySelector('#springboot'), '20%');
+      addHoverText(document.querySelector('#qt'), '10%');
+      addHoverText(document.querySelector('#react'), '85%');
+      addHoverText(document.querySelector('#vue'), '15%');
+      addHoverText(document.querySelector('#mysql'), '80%');
+      addHoverText(document.querySelector('#neo4j'), '8%');
+      addHoverText(document.querySelector('#mongodb'), '12%');
+    });
+
   </script>
   
     <script  src="/js/img-lazyload.js" ></script>
