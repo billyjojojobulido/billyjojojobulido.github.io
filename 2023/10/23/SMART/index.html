@@ -276,7 +276,6 @@
 <p>The authentication and authoristation of the Patient and Clinician will rely on the Authorization Server provided by the OpenID. To do so, the SMART-on-FHIR application will first send request to the Authorization Server via OAuth2 protocol APIs. If the Authorization Server could validate the identity, it will return a set of SMART-on-FHIR Context back to the Application, which includes information about the currently selected patient, clinical encounter, styling information, etc.</p>
 
 <div style="text-align: center;">
-
   <img src="architecture.png" srcset="/img/loading.gif" lazyload alt="architects" width="450">
 </div>
 
@@ -290,8 +289,9 @@
 
 <p>Thus, I developed the Authentication function based on OAuth2 protocol in this application, which would be automatically triggered once the clinician attempted to fetch a patient’s medical records from the databases. The clinician would be directed to the Authentication page of the data source, and the clinician would not be allowed to access the patient’s data, unless the patient authorizes the clinician’s request by logging into the databases with his or her own medical account, and clicks the “Authorize” button on the Authorization page. The authentication page was shown below.</p>
 
-
-<img src="OAuth_page.jpg" srcset="/img/loading.gif" lazyload alt="SMART-on-FHIR OAuth Consent Page" width="650">
+<div style="text-align: center;">
+  <img src="OAuth_page.jpg" srcset="/img/loading.gif" lazyload alt="SMART-on-FHIR OAuth Consent Page" width="650">
+</div>
 
 <p>This Authentication mechanism would not be time consuming or complicated in the scenario where the clinician and patient are meeting face-to-face in the clinics or hospitals, and it could ensure that the clinician can only access the data under the supervision of the patients.</p>
 
@@ -300,8 +300,9 @@
 
 <p>We developed an additional interface to calculate the Total CED (Cyclophosphamide Equivalent Dose) from a list of chemotherapy agents. The clinician should be able to enter the dosage for each of the agent. The app will calculate the CED for each from the dosage (logic for calculation of CED is provided by our client Mady Mani) and the total CED will be the sum of all.</p>
 
-<!-- <img src="/2023/11/20/SOGA/home.png" srcset="/img/loading.gif" lazyload class="" title="Home"> -->
-<img src="CED_fetch_data.jpg" srcset="/img/loading.gif" lazyload alt="Cyclophosphamide Equivalent Dose Calculator" width="650">
+<div style="text-align: center;">
+  <img src="CED_fetch_data.jpg" srcset="/img/loading.gif" lazyload alt="Cyclophosphamide Equivalent Dose Calculator" width="650">
+</div>
 
 <p>With the implementation of SMART-on-FHIR protocol, we has enabled the auto data fetching feature that allows the clinicians to fetch patients' historical dosage data from their medical records preserved in some EHR systems, by simply clicking the "Fetch" button.</p>
 
@@ -312,12 +313,15 @@
   Similar to the CED calculator, the auto EHR data fetching via SMART-on-FHIR protocol has been enabled, and clinicians are also able to fill in and change the data by themselves.
 </p>
 
-
-<img src="ORC_fetch_data.jpg" srcset="/img/loading.gif" lazyload alt="Oncofertility Risk Calculator" width="650">
+<div style="text-align: center;">
+  <img src="ORC_fetch_data.jpg" srcset="/img/loading.gif" lazyload alt="Oncofertility Risk Calculator" width="650">
+</div>
 
 <p>After all the information is filled out, the oncofertility risk report will be generated after the clinician clicks the "Submit" Button.</p>
 
-<img src="report_page.jpg" srcset="/img/loading.gif" lazyload alt="Oncofertility Risk Report" width="650">
+<div style="text-align: center;">
+  <img src="report_page.jpg" srcset="/img/loading.gif" lazyload alt="Oncofertility Risk Report" width="650">
+</div>
 
 <h2 id="Accknowledgement"> <a href="#Accknowledgement" class="headerlink" title="Accknowledgement"></a> Accknowledgement</h2>
 <p>
@@ -352,20 +356,23 @@
 
 </ul>
 
-              </div>
+</div>
             
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
+<hr/>
+
+<div class="post-metas my-3">
   
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-      <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
-      <a href="/tags/Technical/Vue/" class="print-no-link">#Vue.js</a>
-      
-    </div>
+  <div class="post-meta">
+
+    <i class="iconfont icon-category"></i>
+    <a href="/categories/" class="category-chain-item">Projects</a>
+
+    <i class="iconfont icon-tags"></i>
+    
+    <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
+    <a href="/tags/Technical/Vue/" class="print-no-link">#Vue.js</a>
+    
+  </div>
   
 </div>
 
