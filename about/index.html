@@ -130,6 +130,18 @@
     margin-right: 0;
     font-weight: normal;
   }
+
+  .speaker-button {
+    width: 40px;
+    height: 40px;
+    margin-left: 5%;
+    background: url('/about/audio/microphone-icon.svg') no-repeat center center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    position: relative;
+  }
+
  </style>
 
 
@@ -314,9 +326,10 @@
 
                         <i class="iconfont icon-book" aria-hidden="true"></i>
                       </a>
-    </div>
-  </div>
-</div>
+                    </div>
+
+                  </div>
+             </div>
 
 <article class="about-content page-content mt-5">
   <div class="markdown-body">
@@ -324,7 +337,25 @@
 
     <p>I am an optimistic and enthusiastic Master student, currently in my last semester at the University of Melbourne. I have experience in Web development based on Python(Django) and Java(Springboot), as well as software development based on C++(Qt), while I am also able to develop competent level UI using React.</p>
 
+    <h4>Hear Me Out in English, Chinese, or Japanese</h4>
+    <button class="speaker-button hint--bottom hint--rounded" aria-label="English" onclick="playAudioENG()"></button>
+    <audio id="audio-player-ENG">
+        <source src="audio/english.m4a" type="audio/mp4">
+        Your browser does not support the audio element.
+    </audio>
 
+    <button class="speaker-button hint--bottom hint--rounded" aria-label="中文" onclick="playAudioCHN()"></button>
+    <audio id="audio-player-CHN">
+        <source src="audio/chinese.m4a" type="audio/mp4">
+        Your browser does not support the audio element.
+    </audio>
+
+
+    <button class="speaker-button hint--bottom hint--rounded" aria-label="にほんご" onclick="playAudioJAP()"></button>
+    <audio id="audio-player-JAP">
+        <source src="audio/japanese.m4a" type="audio/mp4">
+        Your browser does not support the audio element.
+    </audio>
   </div>
 
   <div class="markdown-body">
@@ -454,6 +485,7 @@
 </article>
 
               </div>
+        
             </div>
           </div>
     </div>
@@ -616,6 +648,23 @@
   });
 </script>
 
+<script>
+
+  function playAudioENG() {
+      var audio = document.getElementById('audio-player-ENG');
+      audio.play();
+  }  
+
+  function playAudioCHN() {
+      var audio = document.getElementById('audio-player-CHN');
+      audio.play();
+  }
+
+  function playAudioJAP() {
+      var audio = document.getElementById('audio-player-JAP');
+      audio.play();
+  }
+</script>
 
   
 <script>
