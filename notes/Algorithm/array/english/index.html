@@ -16,15 +16,15 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法与数据结构 - 数组篇">
+    <meta name="description" content="Data Structure and Algorithm - Array">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法与数据结构 - 数组篇">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/array/chinese/index.html">
+<meta property="og:title" content="Data Structure and Algorithm - Array">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/array/english/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="算法与数据结构 - 数组篇">
+<meta property="og:description" content="Data Structure and Algorithm - Array">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-05T011:46:23.000Z">
-<meta property="article:modified_time" content="2024-08-05T04:44:56.262Z">
+<meta property="article:published_time" content="2024-08-06T011:46:23.000Z">
+<meta property="article:modified_time" content="2024-08-06T04:44:56.262Z">
 <meta property="article:author" content="Baocheng Wang">
 <meta property="article:tag" content="Notes">
 <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
   
   
   
-  <title>算法与数据结构 - 数组篇</title>
+  <title>Data Structure and Algorithm - Array</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -173,7 +173,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span>算法与数据结构 - 数组篇</span>
+            <span>Data Structure and Algorithm - Array</span>
         </div>
           
   <div class="mt-3">
@@ -181,8 +181,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-05 13:15" pubdate>
-          August 05, 2024
+        <time datetime="2024-08-06 13:15" pubdate>
+          August 06, 2024
         </time>
       </span>
     
@@ -239,128 +239,151 @@
               <div class="markdown-body">
 
 
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
 
-<p style="font-weight: bold;">数组是存放在连续内存空间上的相同类型数据的集合。</p>
+<p style="font-weight: bold;">An array is a collection of data of the same type stored in contiguous memory space.</p>
 
-<p>也是最基础的数据结构,因为它最适应现代计算机内存结构的数据结构,也被称为<strong>"线性表结构"</strong>, 几乎是所有算法学习者接触的第一个结构。</p>
+<p>It is also the most basic data structure because it is the data structure that best adapts to the memory structure of modern computers,
+  which is also called the <strong>"linear list structure"</strong>. It is the first data structure that almost all algorithm learners come into contact with.</p>
 
-<p>在面试中,考察数组的题目一般不需要多复杂的解题思维,主要是考察对代码的掌控能力,往往拿到数组题的时候,第一感觉就是想法思路很简单,但是基本功如果不到位的话,实现起来总会出错。</p>
+<p>In interviews, questions about arrays generally do not require complex problem-solving thinking. 
+  They mainly test the ability to control code. 
+  Often when getting array questions, the first feeling is that the idea is very simple, 
+  but if the basic skills are not in place, there will always be mistakes in implementation.</p>
 
-<p>想要在面试中不在数组题上翻车,就必须要先理解数组的特性,以及什么情况下更适合使用数组作为数据结构。</p>
+<p>If you want to avoid failure on array questions in the interview, you must first understand the characteristics of arrays and the 
+  situations in which it is more appropriate to use arrays as data structures.</p>
 
 
 
 
-<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>数组的内存结构</h2>
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory Structure of Array</h2>
 <p>
-  因为<strong>数组是存放在连续内存空间上的相同类型数据的集合,</strong>所以可以方便的通过下标索引的方式获取到下标对应的数据。
+  Because <strong>an array is a collection of data of the same type stored in continuous memory space,</strong>
+  the data corresponding to the subscript can be easily obtained through subscript indexing.
 </p>
 
 <div style="text-align: center;">
-  <img src="array-cn.png" srcset="/img/loading.gif" lazyload alt="Array Memory Structure" width="500">
+  <img src="array-en.png" srcset="/img/loading.gif" lazyload alt="Array Memory Structure" width="500">
 </div>
 
-<p>因此,数组的创建会有两个特征:</p>
+<p>Thus, the initiation of array has two features:</p>
 <ul>
-  <li>数组下标都是从0开始的。</li>
-  <li>数组内存空间的地址是连续的</li>
+  <li>Index of an array always starts from 0.</li>
+  <li>The addresses of the array memory space are continuous.</li>
 </ul>
 
-<p>正是因为数组在内存空间的地址是连续的,所以我们在<strong>删除或者增添元素的时候,就难免要移动其他元素的地址。</strong>也是数组主要的性能开销。</p>
+<p>It is because the addresses of arrays in memory space are continuous, that when we
+  <strong>delete or add elements, we have to move the addresses of other elements.</strong>
+  This is also the main performance overhead of arrays.
+</p>
 
-<p>例如,我们从数组中删除下标为3的C。</p>
+<p>For example, we are deleting char "C" with index 3 from the array. </p>
 
 <div style="text-align: center;">
-  <img src="delete-cn.png" srcset="/img/loading.gif" lazyload alt="Delete From Array" width="500">
+  <img src="delete-en.png" srcset="/img/loading.gif" lazyload alt="Delete From Array" width="500">
 </div>
 
 <br>
 
-<p>这是基于数组的特性:<strong>数组的元素是不能删的,只能覆盖。</strong> 
-  因此如果删除了一个元素,那么后续的所有元素都要一次平移覆盖前一个元素。
-  因此最坏的情况就是,如果删除的是第一个元素,那么整个数组剩下的所有元素都要进行一次平移,使得时间复杂度为O(N)。
+<p>This is based on the characteristics of arrays:
+  <strong>array elements cannot be deleted, they can only be overwritten.</strong> 
+  Therefore, if an element is deleted, all subsequent elements must be shifted to overwrite the previous element. 
+  Therefore, in the worst case, if the first element is deleted, all remaining elements in the entire array must be shifted, 
+  making the time complexity O(N).
 </p>
 
-<p>插入也是同样的道理,如果需要在某一个下标处插入元素,且这个位置(包括之后的下标位置)已经有元素了,则该下标以及以后的所有元素都需要向后完成一次平移。
-<strong>所以,当我们面对的问题如果不关注元素的顺序,或者需要频繁的插入和删除操作,那么通常意味着数组并不是理想的选择。</strong></p>
+<p>The same is true for insertion. If you need to insert an element at a certain index, 
+  and there is already an element at this position (including the subsequent index positions), 
+  then the index and all subsequent elements need to be translated backwards.
+<strong>Therefore, when the problem we face does not care about the order of elements, or requires frequent insertion and deletion operations,
+   it usually means that arrays are not an ideal choice.</strong>
+</p>
 
-<h2 id="Tradeoff"><a href="#Tradeoff" class="headerlink" title="Tradeoff"></a>数组的优缺点</h2>
 
-<p><strong>优点:</strong></p>
+<h2 id="Tradeoff"><a href="#Tradeoff" class="headerlink" title="Tradeoff"></a>Pros & Cons of Array</h2>
+
+<p><strong>Pros:</strong></p>
 <ul>
-  <li>查找速度快。</li>
-  <li>允许快速随机访问。</li>
+  <li>Fast search speed.</li>
+  <li>Allows fast random access.</li>
 </ul>
 
-<p><strong>缺点:</strong></p>
+<p><strong>Cons:</strong></p>
 <ul>
-  <li>删除和插入效率低。</li>
-  <li>大小固定,不支持动态扩展</li>
-  <li>要求内存空间必须连续。</li>
+  <li>Low efficiency in deletion and insertion.</li>
+  <li>Fixed size, no support for dynamic expansion.</li>
+  <li>Requires continuous memory space.</li>
 </ul>
 
-<h2 id="HighDim"><a href="#HighDim" class="headerlink" title="HighDim"></a>高维数组空间连续问题</h2>
-<p>通过在array中存放array,数组可以是多维度的, 但是很多人会有一个误区:那就是想当然地认为高维数组内存空间也是连续的,但其实并不是。以一个3*4的二维数组为例</p>
+<h2 id="HighDim"><a href="#HighDim" class="headerlink" title="HighDim"></a>Multi-dimensional Array Continuous Memory Problem</h2>
+<p>By storing arrays in arrays, arrays can be multi-dimensional, but many people have a misunderstanding: that is, 
+  they take it for granted that the memory space of high-dimensional arrays is also continuous, but in fact it is not. 
+  Take a 3*4 two-dimensional array as an example</p>
 
 <div style="text-align: center;">
   <img src="highdim.png" srcset="/img/loading.gif" lazyload alt="3 * 4 Two Dimensional Array" width="500">
 </div>
 
-<p>可以看出来,二维数组在内存中不是想当然的 3*4 的连续地址空间,而是四条连续的地址空间组成。</p>
+<p>It can be seen that the two-dimensional array in the memory is not a 3*4 continuous address space as assumed, but consists of four continuous address spaces.</p>
 
 
-<h2 id="Sorted"><a href="#Sorted" class="headerlink" title="Sorted"></a>数组是否有序</h2>
-<p>从数组的角度,可以分为有序数组和无序数组。在解数组题的过程中,首先要观察题目给出的数组,因为数组是否有序,对某些操作的性能差异很大,会直接影响我们算法的选择。</p>
+<h2 id="Sorted"><a href="#Sorted" class="headerlink" title="Sorted"></a>Sorted Array VS. Non-Sorted Array</h2>
+
+<p>From the perspective of arrays, they can be divided into ordered arrays and unordered arrays. 
+  In the process of solving array problems, we must first observe the array given in the question, 
+  because whether the array is ordered or not will have a great difference in the performance of certain operations, 
+  which will directly affect our choice of algorithm.
+</p>
 
 <table>
   <thead>
     <tr>
-      <th>操作</th>
-      <th>有序数组</th>
-      <th>无序数组</th>
+      <th>Operation</th>
+      <th>Sorted Array</th>
+      <th>Non-Sorted Array</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>下标查询</td>
+      <td>Search By Index</td>
       <td>O(1)</td>
       <td>O(1)</td>
     </tr>
 
     <tr>
-      <td>线性搜索</td>
+      <td>Linear Search</td>
       <td>O(N)</td>
       <td>O(N)</td>
     </tr>
 
     <tr>
-      <td>二分搜索</td>
+      <td>Binary Search</td>
       <td>O(log(N))</td>
-      <td>不支持</td>
+      <td>Not Support</td>
     </tr>
 
     <tr>
-      <td>插入元素 (线性)</td>
+      <td>Insert Element (Linear Search)</td>
       <td>O(2N) = O(N)</td>
       <td>O(2N) = O(N)</td>
     </tr>
     <tr>
-      <td>插入元素 (基于二分)</td>
+      <td>Insert Element (Binary Search)</td>
       <td>O(log(2N)) + O(N) = O(N)</td>
       <td>O(2N) = O(N)</td>
     </tr>
 
     <tr>
-      <td>删除元素</td>
+      <td>Delete Element</td>
       <td>O(1) + O(N) = O(N)</td>
       <td>O(1) + O(N) = O(N)</td>
     </tr>
 
     <tr>
-      <td>排序</td>
-      <td>无需排序</td>
+      <td>Sort Array</td>
+      <td>Already Sorted</td>
       <td>O(N^2)</td>
     </tr>
 
@@ -371,46 +394,52 @@
 </table>
 
 
-<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>数组问题分类</h2>
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Categories of Array Problem</h2>
 
-<p>因为数组作为数据结构,能够支持的操作比较有限,所以数组问题的解决方案相对比较有套路,基本上有五种解题思路。</p>
+<p>Because arrays, as a data structure, can only support limited operations, 
+  the solutions to array problems are relatively routine, and there are basically five ways to solve the problem.
+</p>
+
 <ul>
-  <li><strong>模拟法</strong></li>
-    <p>模拟类的题目在数组中很常见,不涉及到什么算法,就是单纯的模拟,十分考察大家对代码的掌控能力。</p>
-  <li><strong>二分法</strong></li>
-    <p>借助有序数组的条件优化暴力搜索的性能。</p>
+  <li><strong>Simulation</strong></li>
+    <p>Simulation questions are very common in arrays. 
+      They do not involve any algorithms, but are simply simulations, which test your ability to control the code.</p>
+  <li><strong>Binary Search</strong></li>
+    <p>Optimizing performance based on brute force search performance under the ordered array conditions</p>
     <ul>
-      <li>暴力解法时间复杂度:O(n)</li>
-      <li>二分法时间复杂度:O(logn)</li>
+      <li>Brute Force Time Complexity:O(n)</li>
+      <li>Bineary Search Time Complexity:O(logn)</li>
     </ul>
-  <li><strong>双指针法</strong></li>
-    <p>通过使用两个指针在一个for循环下完成两个for循环的工作。</p>
+  <li><strong>Two Pointers</strong></li>
+    <p>By using two pointers, the work of two for loops is done under one for loop.</p>
     <ul>
-      <li>暴力解法时间复杂度:O(n^2)</li>
-      <li>双指针时间复杂度:O(n)</li>
+      <li>Brute Force Time Complexity:O(n^2)</li>
+      <li>Two Pointers Time Complexity:O(n)</li>
     </ul>
-  <li><strong>滑动窗口</strong></li>
-    <p>滑动窗口的精妙之处在于根据当前子序列和大小的情况,不断调节子序列的起始位置。从而将O(n^2)的暴力解法降为O(n)。</p>
+  <li><strong>Sliding Window</strong></li>
+    <p>The subtlety of the sliding window is that it continuously adjusts the starting position of 
+      the subsequence according to the current subsequence and its size, thereby reducing the O(n^2) 
+      brute force solution to O(n).</p>
     <ul>
-      <li>暴力解法时间复杂度:O(n^2)</li>
-      <li>滑动窗口时间复杂度:O(n)</li>
+      <li>Brute Force Time Complexity:O(n^2)</li>
+      <li>Sliding Window Time Complexity:O(n)</li>
     </ul>
-  <li><strong>前缀和</strong></li>
-    <p>针对于求解类似"数列的前 n 项的和"问题,采用预处理的方式减少整体时间开销。</p>
+  <li><strong>Prefix Sum</strong></li>
+    <p>For solving problems like "the sum of the first n terms of a sequence", preprocessing is used to reduce the overall time cost.</p>
     <ul>
-      <li>暴力解法时间复杂度:O(n^2)</li>
-      <li>前缀和时间复杂度:O(n)</li>
+      <li>Brute Force Time Complexity:O(n^2)</li>
+      <li>Prefix Sum Time Complexity:O(n)</li>
     </ul>
 </ul>
 
 
 
-<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>References</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">代码随想录: 数组理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">Carol's Code Thoughts: Array Theory Basic [translated]</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: Top Interview 150</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: Premium Algorithm 100</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode Problem Set</a></li>
 
 </ul>
               </div>
@@ -432,8 +461,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法与数据结构 - 数组篇</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/array/chinese/index.html</div>
+      <div>Data Structure and Algorithm - Array</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/array/english/index.html</div>
     </div>
     <div class="license-meta">
       
@@ -445,7 +474,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 05, 2024</div>
+          <div>August 06, 2024</div>
         </div>
       
       
