@@ -261,7 +261,7 @@
 <ul><li>选择排序、堆排序、快速排序、希尔排序</li></ul>
 
 
-<h2 id="Selection"><a href="#Selection" class="headerlink" title="Selection"></a>算法一: 选择排序</h2>
+<h2 id="SelectionSort"><a href="#SelectionSort" class="headerlink" title="SelectionSort"></a>算法一: 选择排序</h2>
 <p>选择排序是最简单直观的排序算法，它的工作原理是每次找出第i小的元素，然后将这个元素和第i位的元素交换。
 只要能确保i从0到n单调递增，则能确保完成排序。
 </p>
@@ -287,7 +287,7 @@
 
 
 
-<h2 id="Bubble"><a href="#Bubble" class="headerlink" title="Bubble"></a>算法二: 冒泡排序</h2>
+<h2 id="BubbleSort"><a href="#BubbleSort" class="headerlink" title="BubbleSort"></a>算法二: 冒泡排序</h2>
 
 <p>冒泡排序是一种最简单的排序算法之一。之所以叫冒泡排序，是因为算法的排序逻辑就是让较小/大的元素如同气泡一般，从水中慢慢<strong>上浮</strong>到数列的顶端。</p>
 
@@ -326,20 +326,224 @@ def bubble_sort(a, n):
 
 
 
-<h2 id="Insertion"><a href="#Insertion" class="headerlink" title="Insertion"></a>算法三: 插入排序</h2>
-
-
+<h2 id="InsertionSort"><a href="#InsertionSort" class="headerlink" title="InsertionSort"></a>算法三: 插入排序</h2>
+<p>
+  插入排序同样是一种非常直观简单的排序算法，对于平常热衷于打牌的人来说(比如我)，插入排序是最简单的算法，
+  因为我们拿到一副牌的时候理牌过程其实就是在进行插入排序: 从桌面抓一张牌，按牌面大小插到手牌后，再抓下一张牌。。
+</p>
+<p>
+  抽象一点来讲，插入排序的工作原理其实可以总结为:
+  <strong>将待排列元素划分为「已排序」和「未排序」两部分，每次从「未排序的」元素中选择一个插入到「已排序的」元素中的正确位置。</strong>
+</p>
+<div style="text-align: center;">
+  <img src="insert-sort.png" srcset="/img/loading.gif" lazyload alt="Insert Sort" width="550">
+</div>
 
 <h3>稳定性</h3>
+<p>插入排序是一种<strong>稳定的</strong>排序算法。</p>
 
 <h3>时间复杂度</h3>
-
+<p>若数组已经有序，或者接近有序,则效率很高。因为插入排序相当于只是遍历了一遍原数组，并永远在新数组末尾执行插入操作，不需要重排，所以复杂度为: O(n)</p>
+<p>最坏的情况下复杂度为: O(n^2)</p>
 
 
 <h3>代码实例(Python3)</h3>
 <pre >
-
+def insertion_sort(arr, n):
+    for i in range(1, n):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j = j - 1
+        arr[j + 1] = key
 </pre>
+
+<h3>进阶：二分插入排序法</h3>
+
+<p>也被称为<strong>折半插入排序</strong>。旨在通过二分算法优化性能，在排序元素数量较多时优化的效果比较明显。</p>
+<p>不过因为二分插入排序与直接插入排序的基本思想是一致的，折半插入排序仅对插入排序时间复杂度中的常数进行了优化，所以
+  <strong>优化后的时间复杂度仍然不变</strong>。</p>
+
+<h4>代码实例(Python3)</h4>
+<pre>
+def insertion_sort(arr, n):
+    if n &lt 2: return
+    for i in range(1, n):
+        key = arr[i]
+        index = bisect.bisect_right(arr[:i], key)
+        arr[indx+1:i+1] = arr[index:i]
+        arr[index] = key
+</pre>
+
+
+<h2 id="CountSort"><a href="#CountSort" class="headerlink" title="CountSort"></a>算法四: 计数排序</h2>
+
+<p>
+  <strong>计数排序是一种线性时间的排序算法。</strong>
+  线性的时间复杂度是通过牺牲空间换的。计数排序的过程中会用到一个额外的数组，姑且称之为C，原始的数组称之为A。在遍历A的过程中，
+  直接将A[i]的值当作下标去C中找到对应的位置，随后加一。
+</p>
+
+<p>
+  通过这个方式，只需要依靠依照下标遍历一遍C数组，所有的值就已经自然排序了。最后只需要记得根据计数确保重复的值不遗漏就行。
+</p>
+
+<h3>稳定性</h3>
+<p>计数排序是一种<strong>稳定的</strong>排序算法。</p>
+
+
+<h3>时间复杂度</h3>
+<p>计数排序的时间复杂度是线性的。</p>
+<p>最坏的情况下复杂度为: O(n + w), w是辅助数组的大小</p>
+
+
+<h3>代码实例(Python3)</h3>
+<pre>
+min_value, max_value = 0, 100
+cnt = [0] * max_value  
+
+def counting_sort(arr, n):
+    for i in range(n):
+        cnt[arr[i]] += 1
+    sorted_index = 0
+    for i in range(max_value):
+        while cnt[i] > 0:
+            arr[sorted_index] = i
+            cnt[i] -= 1
+            sorted_index += 1
+</pre>
+
+
+
+<h2 id="RadixSort"><a href="#RadixSort" class="headerlink" title="RadixSort"></a>算法五: 基数排序</h2>
+
+<p>上个模块讲到的计数排序有一个致命的缺陷，就是辅助数组的空间完全受限于最大最小值。一个极端点的例子，如果对数组[100000,1]进行计数排序，
+  需要至少创建一个长度为100001的辅助数组，太浪费了。而基数排序一定程度上解决了这个问题。
+</p>
+
+<p>基数排序是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。
+  <strong>通过这种方式可以控制辅助数组的大小，这种大小可控的辅助数组也被称为"桶",
+  无论是基数排序、计数排序、还是之后要讲的桶排序，都利用了"桶"的概念。</strong></p>
+<p>由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。</p>
+<p>E.g. 对一个最大值为50的数组进行基数排序。</p>
+<p>第一轮先建立一个值域为[0, 9]的"桶"，对个位数关键字进行排序。</p>
+<div style="text-align: center;">
+  <img src="radix-sort1.png" srcset="/img/loading.gif" lazyload alt="Radix Sort Keyword 1" width="550">
+</div>
+
+<p>第二轮还是建立一个值域为[0, 9]的"桶"，对十位数关键字进行排序，并最终完成整体的排序。</p>
+<div style="text-align: center;">
+  <img src="radix-sort1.png" srcset="/img/loading.gif" lazyload alt="Radix Sort Keyword 1" width="550">
+</div>
+
+<h3>基数排序的分类</h3>
+<ul>
+  <li>如果是从第 1 关键字到第 k 关键字顺序进行比较，则该基数排序称为 MSD（Most Significant Digit first）基数排序</li>
+  <li>如果是从第 k 关键字到第 1 关键字顺序进行比较，则该基数排序称为 LSD（Least Significant Digit first）基数排序。</li>
+</ul>
+
+<h3>稳定性</h3>
+<p>单独看任何一层关键字的排序，和计数排序一样，都是<strong>稳定的</strong>排序。
+  但是第二层关键字的排序不能保证第一层排序后的稳定性还会维持。
+  反过来也可以这么说: <br>
+  <strong>如果对内层关键字的排序是稳定的，则 MSD 基数排序和 LSD 基数排序都是稳定的排序算法。</strong>
+</p>
+
+<h3>时间复杂度</h3>
+<p>因为关键字值域难以界定，所以最坏情况的探讨优点太广泛，但基本可以理解为<strong>O(kn + kw)</strong>, 其中k是关键字的位数, w是关键字的值域(我们假设每一位的关键字都有相同的值域)。</p>
+<p>通常而言，基数排序比基于比较的排序算法（比如快速排序）要快。</p>
+
+<h3>代码实例(Python3)</h3>
+<pre>
+def radix_sort(arr, max_digit):
+    mod = 10
+    dev = 1
+    for i in range(max_digit):
+        counter = [[] for _ in range(10)]
+        for num in arr:
+            bucket = (num % mod) // dev
+            counter[bucket].append(num)
+        pos = 0
+        for bucket in counter:
+            for num in bucket:
+                arr[pos] = num
+                pos += 1
+        dev *= 10
+        mod *= 10
+    return arr
+</pre>
+
+
+<h2 id="BucketSort"><a href="#BucketSort" class="headerlink" title="BucketSort"></a>算法六: 桶排序</h2>
+
+<p>在基数排序中提到了，桶排序都用到了"桶"的概念，基本的排序思路是一致的，而桶排序比较适用于待排序数据值域较大但分布比较均匀的情况。</p>
+
+<h3>执行流程</h3>
+<p>桶排序按下列步骤进行:</p>
+<ol>
+  <li>设置一个定量的数组当作空桶</li>
+  <li>遍历序列，并将元素一个个放到对应的桶中</li>
+  <li>对每个不是空的桶进行排序</li>
+  <li>从不是空的桶里把元素再放回原来的序列中</li>
+</ol>
+
+<h3>稳定性</h3>
+<p>和基数排序类似，如果能够保证内层的排序是稳定的，那么桶排序也是桶排序。</p>
+<p>当然了，这也基于一定前提，因为桶排序不同于基数排序，每个元素插入到对应的桶中时也有可能会改变相同元素间的顺序。
+  一般来说，每块元素不多的话，可以使用插入排序，那么此时的桶排序就是一种稳定的排序算法。</p>
+<h3>时间复杂度</h3>
+<p>整体来说时间复杂度应该是: <strong>O(n + n^2/k + k)  (将值域平均分成 n 块 + 排序 + 重新合并元素)</strong></p>
+<ul>
+  <li>当n远大于k时,趋近于O(n^2)。</li>
+  <li>当k远大于n时 (几率很小), 趋近于O(k)</li>
+  <li>当n约等于k时, 时间复杂度趋近于线性 O(n)</li>
+  <li>桶排序的最坏时间复杂度为 O(n^2)。</li>
+</ul>
+
+
+<h3>代码实例(Python3)</h3>
+<pre>
+N = 100010
+w = n = 0
+a = [0] * N
+bucket = [[] for i in range(N)]
+  
+def insertion_sort(A):
+    for i in range(1, len(A)):
+        key = A[i]
+        j = i - 1
+        while j >= 0 and A[j] > key:
+            A[j + 1] = A[j]
+            j -= 1
+        A[j + 1] = key
+  
+  
+def bucket_sort():
+    bucket_size = int(w / n + 1)
+    for i in range(0, n):
+        bucket[i].clear()
+    for i in range(1, n + 1):
+        bucket[int(a[i] / bucket_size)].append(a[i])
+    p = 0
+    for i in range(0, n):
+        insertion_sort(bucket[i])
+        for j in range(0, len(bucket[i])):
+            a[p] = bucket[i][j]
+            p += 1
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
