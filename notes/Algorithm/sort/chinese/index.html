@@ -193,7 +193,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          5.6k words
         
       </span>
     
@@ -202,7 +202,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-clock-fill"></i>
         
-          15 mins
+          50 mins
         
       </span>
     
@@ -245,6 +245,10 @@
 <p style="font-weight: bold;">将无序的数组排序是面试中最常见的工具性算法。</p>
 <p>因为单纯的数组排序论难度可能并不配在面试中单独成为一道算法题，所以大多时候排序算法的使用是为了辅佐其他的算法，譬如二分搜索和贪心。
   但也有面试官热衷于让面试者现场手搓Quick Sort算法，这种情况下如果问到了却写不出来，那基本上面试也就可以结束了。</p>
+<p>这篇笔记简单记录一下10种经典排序算法，和2种不是特别常见，但是很实用的排序算法。</p>
+
+
+<h2 id="Stability"><a href="#Stability" class="headerlink" title="Stability"></a>稳定性</h2>
 
 <p>很多资料和文档在讲排序时都会提到<strong>稳定性</strong>的概念，稳定性是什么？有什么用？</p>
 
@@ -253,13 +257,30 @@
 <p>譬如，数组[3,7,3',2]排序的过程中，如果在排序后,3和3'的顺序发生了改变，那么这个排序就是不稳定的。</p>
 
 <h3>稳定性的意义</h3>
-<p>从一个键上排序，然后再从另一个键上排序，第一个键排序的结果可以为第二个键排序所用</p>
+
+<ul>
+  <li>能够节约时间，稳定性算法会减少一次交换时间</li>
+  <li>从一个键上排序，然后再从另一个键上排序，第一个键排序的结果可以为第二个键排序所用</li>
+</ul>
 
 <p><strong>稳定的</strong>排序算法</p>
 <ul><li>基数排序、计数排序、插入排序、冒泡排序、归并排序</li></ul>
 <p><strong>不稳定的</strong>排序算法</p>
 <ul><li>选择排序、堆排序、快速排序、希尔排序</li></ul>
 
+
+<p>站在初学者的角度来说，排序算法稳不稳定确实难以引起重视，这是完全可以理解的(因为我曾经也这么认为)，因为初学者可能更关注一个排序算法的
+  <strong>过程</strong>，而在刷了大量Leetcode但没怎么接触实际应用的情况下，往往会<strong>错误地认为时间复杂度和空间复杂度是评估排序算法性能的唯二指标。</strong></p>
+
+<p>
+  但其实,在某些应用场景中，稳定性是非常重要的，例如当目标数组在排序前的原始顺序已经具有意义的情况下，那么不稳定的算法可能会破坏这个顺序。
+</p>
+<p>E.g.</p>
+<p style="font-style: italic;">
+  "一个班的学生已经按照学号大小排好序了，现在需要按照年龄从小到大再排个序，如果年龄相同，则必须按照学号从小到大的顺序排列。
+  在这种情况下，如果使用不稳定的排序算法对年龄进行排序，排序完了后年龄相同的一组学生学号就乱了，得重复执行一遍学号的排序。
+  但如果排序算法是稳定的，按照年龄排一遍任务就已经完成了。"
+</p>
 
 <h2 id="SelectionSort"><a href="#SelectionSort" class="headerlink" title="SelectionSort"></a>算法一: 选择排序</h2>
 <p>选择排序是最简单直观的排序算法，它的工作原理是每次找出第i小的元素，然后将这个元素和第i位的元素交换。
@@ -533,28 +554,375 @@ def bucket_sort():
             p += 1
 </pre>
 
+<h3>基数排序 vs 计数排序 vs 桶排序</h3>
+<ul>
+  <li>基数排序: 根据键值的每位数字来分配桶</li>
+  <li>计数排序: 每个桶只存储单一键值</li>
+  <li>桶排序: 每个桶存储一定范围的数值</li>
+</ul>
+
+<h2 id="MergeSort"><a href="#MergeSort" class="headerlink" title="MergeSort"></a>算法七: 归并排序</h2>
+
+<p>归并排序是劝退很多算法初学者的排序算法，因为它是基于分治思想将数组分段排序后合并，
+  所以想要掌握这个算法的理解门槛其实是略高的。</p>
+
+<h3>执行流程</h3>
+<p>分治法实现归并排序,可以在递归过程中遵循以下操作:</p>
+<ol>
+  <li>当数组长度为 1 时，该数组就已经是有序的，不用再分解。</li>
+  <li>当数组长度大于 1 时，该数组很可能不是有序的。此时将该数组分为两段，再分别检查两个数组是否有序（用第 1 条）。</li>
+    <ul>
+      <li>如果有序，则将它们合并为一个有序数组</li>
+      <li>否则,不有序的数组重复第 2 条，再合并</li>
+    </ul>
+</ol>
 
 
+<h4>分割</h4>
+<p>为保证排序的复杂度，通常将数组分为尽量等长的两段: mid = floor((l+r) / 2)</p>
+
+<h4>合并</h4>
+<p>从实现的角度出发，归并排序最核心的部分是合并(merge)过程</p>
+<p>要将两个有序的数组 a[i] 和 b[j] 合并为一个有序数组 c[k]。</p>
+<p>这其实完全可以通过双指针的方法轻松解决: 
+  <strong>从左往右枚举 a[i] 和 b[j]，找出最小的值并放入数组 c[k]；重复上述过程直到 a[i] 和 b[j] 有一个为空时，将另一个数组剩下的元素放入 c[k]。</strong></p>
 
 
+<h3>稳定性</h3>
+<p>只要合并的时候能确保用的是&lt=判断，就可以避免数字重复时，右侧数字先于左侧数字被插入最终数组。
+  <strong>那么此时的归并排序就是稳定的。</strong>
+</p>
+
+<h3>时间复杂度</h3>
+<p>平均时间复杂度是:
+  <strong>O(nlog(n))</strong>
+</p>
+
+<h3>代码实例(Python3)</h3>
+<pre>
+def merge(a, b):
+    i, j = 0, 0
+    c = []
+    while i &lt len(a) and j &lt len(b):
+        if b[j] &lt a[i]:
+            c.append(b[j])
+            j += 1
+        else:
+            c.append(a[i])
+            i += 1
+    c.extend(a[i:])
+    c.extend(b[j:])
+    return c
+
+def merge_sort(a, ll, rr):
+    if rr - ll &lt= 1:
+        return
+    mid = (rr + ll) // 2
+    merge_sort(a, ll, mid)
+    merge_sort(a, mid, rr)
+    a[ll:rr] = merge(a[ll:mid], a[mid:rr])
+</pre>
 
 
+<h2 id="QuickSort"><a href="#QuickSort" class="headerlink" title="QuickSort"></a>算法八: 快速排序</h2>
+
+<p>快速排序，也被称为"分区交换排序"，是目前应用最广泛的排序算法。更是面试中最有概率考到的排序算法。</p>
+
+<h3>执行流程</h3>
+<p>和归并排序相似，快速排序的工作原理也是通过 <strong>分治</strong> 的方式来将一个数组排序。</p>
+<p>但是和归并排序不同的是: 第一步并不是直接分成前后两个序列，<strong>而是在分的过程中要保证相对大小关系</strong>。</p>
+<p>具体来说，第一步要是要把数列分成两个部分，然后保证前一个子数列中的数都小于后一个子数列中的数。为了保证平均时间复杂度，
+  一般是随机选择一个数 m 来当做两个子数列的分界。(因此数组中的元素可以快速归类: 大于m 或 小于m)</p>
+
+<p>之后，维护一前一后两个指针 p 和 q，依次考虑当前的数是否放在了应该放的位置(前还是后)。如果当前的数没放对，
+  比如说如果后面的指针 q 遇到了一个比 m 小的数，那么可以交换 p 和 q 位置上的数，再把 p 向后移一位。
+  当前的数的位置全放对后，再移动指针继续处理，直到两个指针相遇。</p>
+<p>其实，快速排序没有指定应如何具体实现第一步，不论是选择 m 的过程还是划分的过程，都有不止一种实现方法。</p>
+
+<p>快速排序分为三个过程:</p>
+<ol>
+  <li>将数列划分为两部分（要求保证相对大小关系）</li>
+  <li>递归到两个子序列中分别进行快速排序</li>
+  <li>不用合并，因为此时数列已经完全有序</li>
+</ol>
 
 
+<p><img decoding="async" src="//www.runoob.com/wp-content/uploads/2019/03/quickSort.gif" alt="Runoob.com QuickSort GIF Demo" /></p>
+
+<h3>稳定性</h3>
+<p>快速排序是一种<strong>不稳定的</strong>排序算法。
+</p>
+
+<h3>时间复杂度</h3>
+<ul>
+  <li>最优时间复杂度是: <strong>O(nlog(n))</strong> (每一次选择的分界值都是序列的中位数)</li>
+  <li>平均时间复杂度是: <strong>O(nlog(n))</strong></li>
+  <li>最坏时间复杂度为: <strong>O(n^2)</strong> (每一次选择的分界值都是序列的最值)</li>
+</ul>
 
 
+<h3>代码实例(Python3)</h3>
+<pre>
+def quick_sort(alist, first, last):
+    if first >= last:
+        return
+    mid_value = alist[first]
+    low = first
+    high = last
+    while low &lt high:
+        while low &lt high and alist[high] >= mid_value:
+            high -= 1
+        alist[low] = alist[high]
+        while low &lt high and alist[low] &lt mid_value:
+            low += 1
+        alist[high] = alist[low]
+    alist[low] = mid_value
+    quick_sort(alist, first, low - 1)
+    quick_sort(alist, low + 1, last)
+</pre>
 
 
+<h2 id="HeapSort"><a href="#HeapSort" class="headerlink" title="HeapSort"></a>算法九: 堆排序</h2>
+
+<p>堆排序是利用 <strong>二叉堆</strong> 这种特定数据结构所设计的一种排序算法，最开始我感觉其实是有点跑题的，毕竟这篇笔记虽然是我用来梳理排序算法的，
+  但名义上还是属于<strong>《数组篇》</strong>。但是转念一想，堆本身就可以在数组上建立，而且尽管他的排序本质是建立在堆上的选择排序，但是不妨碍它可以排序数组，
+  无非就是多了一个<strong>堆的创建</strong>和<strong>排序数组的重构</strong>。</p>
+
+<h3>执行流程</h3>
+<ul>
+  <li>首先根据排序需求建立大顶堆或者小顶堆，然后将堆顶的元素取出，作为最大值，与数组尾部的元素交换，并维持残余堆的性质。</li>
+  <li>之后将堆顶的元素取出，作为次大值，与数组倒数第二位元素交换，并维持残余堆的性质。</li>
+  <li>以此类推，在第n-1次操作后，当堆空了，数组自然也就完成了排序。</li>
+</ul>
+
+<h4>关于"堆"</h4>
+<strong>在排序算法的章节我不准备具体展开 二叉堆 的内容，因为之后准备系统性地整理堆和栈这些常用数据结构。</strong>
+<p>不过可以基本提一嘴为什么二叉堆不需要建立特定的树形数据结构，而是可以直接在数组上创建的原因。</p>
+<p>通过观察树形态的二叉堆，人们可以发现二叉堆中的每个节点，从根节点自上而下，从左至右计数，在该节点之前的节点总数正好是他父节点的计数的两倍，左子节点要算上自己本身(+1)，右子节点要加上自身和左子节点(+2)。</p>
+<p><strong>这个关系可以直接应用到数组中的下标倍数关系。</strong></p>
+<pre>
+iParent(i) = (i - 1) / 2;
+iLeftChild(i) = 2 * i + 1;
+iRightChild(i) = 2 * i + 2;
+</pre>
+
+<h3>稳定性</h3>
+<p>同选择排序一样，由于其中交换位置的操作，所以是<strong>不稳定的</strong>排序算法。
+</p>
+
+<h3>时间复杂度</h3>
+<p>看到二叉堆，时间复杂度则直接 <strong>O(nlogn)</strong></p>
+
+<h3>代码实例(Python3)</h3>
+<pre>
+def sift_down(arr, start, end):
+    parent = int(start)
+    child = int(parent * 2 + 1)
+    while child &lt= end:
+        if child + 1 &lt= end and arr[child] &lt arr[child + 1]:
+            child += 1
+        if arr[parent] >= arr[child]:
+            return
+        else:
+            arr[parent], arr[child] = arr[child], arr[parent]
+            parent = child
+            child = int(parent * 2 + 1)
+
+def heap_sort(arr, len):
+    i = (len - 1 - 1) / 2
+    while i >= 0:
+        sift_down(arr, i, len - 1)
+        i -= 1
+    i = len - 1
+    while i > 0:
+        arr[0], arr[i] = arr[i], arr[0]
+        sift_down(arr, 0, i - 1)
+        i -= 1
+</pre>
 
 
+<h2 id="ShellSort"><a href="#ShellSort" class="headerlink" title="ShellSort"></a>算法十: 希尔排序</h2>
+<p>希尔排序，也被称为缩小增量排序法，是 <strong>插入排序</strong> 的一种改进版本。也是上个世纪中期冲破O(n^2)的第一批算法之一</p>
+
+<p>它的发明者Donald Shell基于插入排序的以下两点性质而提出改进方法</p>
+<ul>
+  <li>插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率</li>
+  <li>但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位</li>
+</ul>
+
+<h3>执行流程</h3>
+<p><strong>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止</strong></p>
+<p>排序对不相邻的记录进行比较和移动:</p>
+<ol>
+  <li>将待排序序列分为若干子序列（每个子序列的元素在原始数组中间距相同）</li>
+  <li>对这些子序列进行插入排序</li>
+  <li>减小每个子序列中元素之间的间距，重复上述过程直至间距减少为 1</li>
+</ol>
+
+<h4>流程图解</h4>
+<div style="text-align: center;">
+  <img src="shell-sort.png" srcset="/img/loading.gif" lazyload alt="Shell Sort" width="550">
+</div>
+
+
+<h3>稳定性</h3>
+<p>希尔排序是<strong>不稳定的</strong>排序算法。</p>
+
+<h3>时间复杂度</h3>
+<p>希尔排序的最优时间复杂度为 <strong>O(n)</strong>。</p>
+<p>但是希尔排序的平均时间复杂度和最坏时间复杂度与间距序列的选取有关:</p>
+<ul>
+  <li>当间距序列选的足够不合适时, 会使得排序算法的复杂度降为O(n^2)</li>
+</ul>
+
+<p>希尔排序本身并不复杂，但是时间复杂度是有一套完善且复杂的证明方式的，这也是Donald Shell在1959年改进该算法后的主要工作。
+  证明时间复杂度的具体过程以及使用的引理和定理就不在这里具体展开了。感兴趣的可以在<a href="https://oi-wiki.org/basic/shell-sort/">此处</a>查看。
+</p>
+
+<h3>代码实例(Python3)</h3>
+<pre>
+import math
+def shellSort(arr):
+    gap=1
+    while(gap &lt len(arr)/3):
+        gap = gap*3+1
+    while gap > 0:
+        for i in range(gap,len(arr)):
+            temp = arr[i]
+            j = i-gap
+            while j >=0 and arr[j] > temp:
+                arr[j+gap]=arr[j]
+                j-=gap
+            arr[j+gap] = temp
+        gap = math.floor(gap/3)
+    return arr
+</pre>
+
+
+<h2 id="TournamentSort"><a href="#TournamentSort" class="headerlink" title="TournamentSort"></a>算法十一: 锦标赛排序</h2>
+<p>
+  锦标赛排序的名字来源于单败淘汰制的竞赛形式。在这种赛制中有许多选手参与比赛，他们两两比较，胜者进入下一轮比赛，这种淘汰方式可以画成完全二叉树的形式，只需要看root就能够知道谁才是number 1。
+</p>
+<p>乍一看非常类似堆排序，但是其实差别很大，因为堆排序推出堆顶元素后，新的堆顶就是第二大/小的元素。但是锦标赛的排序方式，在最后一轮比赛中被第一名淘汰的选手不一定是第二好的，因为他可能不如先前被淘汰的选手(e.g. 第二名在第一轮就被第一名淘汰了)。</p>
+
+<p>
+  因此，锦标赛排序，又被称为树形选择排序，其实是在选择排序的基础上使用堆排序的思想(优先队列)查找下一个该选择的元素。<strong>是 选择排序 的优化版本，堆排序 的一种变体(均采用完全二叉树)。</strong>
+</p>
+
+<h3>执行流程</h3>
+<p>以[7,2,3,4,6,10,8,5]为例，执行最小锦标赛排序，那锦标赛排序树应该如下图所示:</p>
+<div style="text-align: center;">
+  <img src="tournament1.png" srcset="/img/loading.gif" lazyload alt="Tournament Sort Round 1" width="550">
+</div>
+
+<p>很显然，2就是最小的元素，可以先拿出来。完成一次「锦标赛」后需要将被选出的元素去除。直接将其设置为+INF (最大排序就用-INF),然后再次举行「锦标赛」选出次小的元素。</p>
+<div style="text-align: center;">
+  <img src="tournament2.png" srcset="/img/loading.gif" lazyload alt="Tournament Sort Round 2" width="550">
+</div>
+
+<p>之后一直重复这个操作，直至所有元素有序。</p>
+
+<h3>稳定性</h3>
+
+<p>锦标赛排序是<strong>不稳定的</strong>排序算法。</p>
+
+<h3>时间复杂度</h3>
+
+<p>优时间复杂度、平均时间复杂度和最坏时间复杂度均为<strong>O(nlogn)</strong></p>
+<p>初始化锦标赛树只需要O(n)的时间,每一轮「锦标赛」用O(logn)的时间，需要重复n次。</p>
+
+<p><strong>代码实力就略过了，思路不复杂，但是需要实现「初始化」，「竞赛」，「重复比赛」的功能。</strong></p>
+
+
+<h2 id="TimSort"><a href="#TimSort" class="headerlink" title="TimSort"></a>算法十二: Tim排序</h2>
+
+<p>
+  <strong>Tim排序是归并排序和插入排序的结合。是我目前接触到最牛掰的排序算法。
+    由 Tim Peters 于 2002 年用 Python 实现，而且Tim排序是 Python 的标准排序算法，
+    且被 Java SE7 用于对非原始类型的数组排序。</strong>
+</p>
+
+<h3>执行流程</h3>
+
+<p>归并排序是先将数组划分为两部分，然后递归地对两个子数组进行归并排序，最后合并两个子数组。这样一来，归并排序合并操作的最小单位就是单个元素。</p>
+<p>但数组中可能原本就存在连续且有序的子数组，归并排序无法利用这个特性。</p>
+
+<h4>RUN单位</h4>
+<p>Tim排序为了利用数组中本身就存在的连续且有序的子数组，以 RUN 作为合并操作的最小单位。其中，RUN 是一个满足以下性质的子数组</p>
+<ul>
+  <li>一个 RUN 要么是非降序的，要么是严格升序的。</li>
+  <li>一个 RUN 存在一个长度的下限</li>
+</ul>
+<p>Tim排序的过程就是一个类似归并排序的过程，将数组划分为多个 RUN，然后以某种规则不断地合并两个 RUN，直到数组有序</p>
+
+
+<h3>稳定性</h3>
+
+<p>Tim排序是<strong>稳定的</strong>排序算法。</p>
+
+<h3>时间复杂度</h3>
+<ul>
+  <li>最好情况下的时间复杂度为 <storng>O(n)</storng></li>
+  <li>最差情况下的时间复杂度为 <strong>O(nlogn)</strong></li>
+</ul>
+
+
+<h3>代码实例(Java)</h3>
+<p><strong>以下是Java SE7中的实现。</strong></p>
+<pre>
+class TimSort implements SortAlgorithm {
+    private static final int SUB_ARRAY_SIZE = 32;
+    private Comparable[] aux;
+
+    @Override
+    public &ltT extends Comparable&ltT>> T[] sort(T[] a) {
+        int n = a.length;
+        InsertionSort insertionSort = new InsertionSort();
+        for (int i = 0; i &lt n; i += SUB_ARRAY_SIZE) {
+            insertionSort.sort(a, i, Math.min(i + SUB_ARRAY_SIZE, n));
+        }
+        aux = new Comparable[n];
+        for (int sz = SUB_ARRAY_SIZE; sz &lt n; sz = sz + sz) {
+            for (int lo = 0; lo &lt n - sz; lo += sz + sz) {
+                merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, n - 1));
+            }
+        }
+        return a;
+    }
+
+    private &ltT extends Comparable&ltT>> void merge(T[] a, int lo, int mid, int hi) {
+        int i = lo;
+        int j = mid + 1;
+        System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        for (int k = lo; k &lt= hi; k++) {
+            if (j > hi) {
+                a[k] = (T) aux[i++];
+            } else if (i > mid) {
+                a[k] = (T) aux[j++];
+            } else if (less(aux[j], aux[i])) {
+                a[k] = (T) aux[j++];
+            } else {
+                a[k] = (T) aux[i++];
+            }
+        }
+    }
+}
+</pre>
 
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
   <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">代码随想录: 数组理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/127449">排序算法的「稳定性」有何意义？</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/quick-sort-2.html">菜鸟教程: 1.6 快速排序</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/radix-sort.html">菜鸟教程: 1.10 基数排序</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chengxiao/p/6104371.html">图解排序算法(二)之希尔排序</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/sort-intro/">OI Wiki: 排序系列</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/divide-and-conquer/">OI Wiki: 递归 & 分治</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+  <li><a target="_blank" rel="noopener" href="https://github.com/TheAlgorithms/Java/blob/master/src/main/java/com/thealgorithms/sorts/TimSort.java">GitHub: Java Algorithm - TimSort</a></li>
 
 </ul>
               </div>
