@@ -1,45 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  {% if posts %}
-  {% for post in posts.toArray() %}
-  {% if post.indexing == undefined or post.indexing %}
+
   <entry>
-    <title>{{ post.title }}</title>
-    <link href="{{ [url, post.path] | urlJoin | uriencode }}"/>
-    <url>{{ [url, post.path] | urlJoin | uriencode }}</url>
-    {% if content %}
-    <content type="html"><![CDATA[{{ post.content | noControlChars | safe }}]]></content>
-    {% endif %}
-    {% if post.categories and post.categories.length>0 %}
+    <title>🎉 Score 90 in PTE Academic English Test!</title>
+    <link href="/2024/03/15/PTE/"/>
+    <url>/2024/03/15/PTE/</url>
+    <content type="html"><![CDATA[{
+    Detailed Score Detail Timeline 2023.07 - Start learning about PTE exam. 2023.09 - Stop practicing for some reasons. 2023.11 - Restarting practicing. 2024.02 - Booked the exam, and officially start final preparation. 2024.03 - Final PTE Exam, and got the mark. Accknowledgement I'm beyond excited to announce that I've achieved a perfect score in the PTE Academic English test. This achievement reinforces my commitment to continuous learning and proficiency in the English language. I'm eager to leverage this accomplishment to pursue new opportunities and contribute meaningfully in my professional journey. Here's to embracing achievements, setting new goals, and continuing the journey of lifelong learning! Related Pearson | PTE website Practice: Firefly Enlightenment Website Little Red Book
+    ]]></content>
+
     <categories>
-      {% for cate in post.categories.toArray() %}
-      <category>{{ cate.name }}</category>
-      {% endfor %}
+      <category href="/categories/">Award & News</category>
     </categories>
-    {% endif %}
-    {% if post.tags and post.tags.length>0 %}
     <tags>
-      {% for tag in post.tags.toArray() %}
-      <tag>{{ tag.name }}</tag>
-      {% endfor %}
+      <tag href="/tags/General/Certificate/">Certificate</tag>
     </tags>
-    {% endif %}
   </entry>
-  {% endif %}
-  {% endfor %}
-  {% endif %}
-  {% if pages %}
-  {% for page in pages.toArray() %}
-  {% if post.indexing == undefined or post.indexing %}
+
+
   <entry>
     <title>{{ page.title }}</title>
     <link href="{{ [url, post.path] | urlJoin | uriencode }}"/>
     <url>{{ [url, post.path] | urlJoin | uriencode }}</url>
-    {% if content %}
     <content type="html"><![CDATA[{{ page.content | noControlChars | safe }}]]></content>
-    {% endif %}
   </entry>
-  {% endif %}
-  {% endfor %}
-  {% endif %}
 </search>
