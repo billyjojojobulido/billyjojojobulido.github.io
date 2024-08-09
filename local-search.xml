@@ -1,121 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  
-  
-  
+  {% if posts %}
+  {% for post in posts.toArray() %}
+  {% if post.indexing == undefined or post.indexing %}
   <entry>
-    <title>Baocheng Wang</title>
-    <link href="/2023/11/24/Jiafei-Tan/"/>
-    <url>/2023/11/24/Jiafei-Tan/</url>
-    
-    <content type="html"><![CDATA[<p>Hey mate! My name is Jiafei(Felix) Tan. I am a current Post-graduation student in the faculty of Engineering and IT at The University of Melbourne.</p><p>During my study, I have not only improved my IT professional skills but also improved my teamwork and communication skills under pressure. I am proficient in various programming languages including C, Python, and Java. I am also familiar with various types of databases, such as Neo4j and MySQL. I believe I can apply my skills to the real IT industry.</p><p>I am currently looking for a job as a software developer. If you are interested in me, please feel free to contact me. <a href="mailto:tanjiafei1234@gmail.com">📧</a></p><!-- ## About meHey mate! My name is Jiafei Tan(Felix). I am a current Post-graduation student in the faculty of Engineering and IT at The University of Melbourne.During my study, I have not only improved my IT professional skills but also improved my teamwork and communication skills under pressure. I am proficient in various programming languages including C, Python, and Java. I am also familiar with various types of databases, such as Neo4j and MySQL. I believe I can apply my skills to the real IT industry.I am currently looking for a job as a software developer. If you are interested in me, please feel free to contact me. [📧](mailto:tanjiafei1234@gmail.com) --><h2 id="Interests"><a href="#Interests" class="headerlink" title="Interests"></a>Interests</h2><ul><li>💻 Coding</li><li>🫕 Cooking</li><li>⛹ Basketball</li><li>🏋🏻‍♂️ Gym</li><li>🥾 Hiking</li><li>☕️ Coffee</li><li>🍺 Craft Beer</li></ul><h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><h3 id="The-Univeristy-of-Melbourne"><a href="#The-Univeristy-of-Melbourne" class="headerlink" title="The Univeristy of Melbourne"></a>The Univeristy of Melbourne</h3><p>Major: Artificial Intelligence<br>2022 February - 2023 December</p><h3 id="The-Univeristy-of-Sydney"><a href="#The-Univeristy-of-Sydney" class="headerlink" title="The Univeristy of Sydney"></a>The Univeristy of Sydney</h3><p>Majors: Computer Science &amp; Software Development<br>2019 February - 2021 December</p><h3 id="Skills"><a href="#Skills" class="headerlink" title="Skills"></a>Skills</h3><ul><li>Java</li><li>Python</li><li>C Language</li><li>Agile</li><li>Spring MVC</li><li>MySQL</li><li>Neo4j</li><li>FHIR</li><li>Figma</li><li>Canva</li><li>Team Collaboration</li></ul>]]></content>
-    
-    
-    
+    <title>{{ post.title }}</title>
+    <link href="{{ [url, post.path] | urlJoin | uriencode }}"/>
+    <url>{{ [url, post.path] | urlJoin | uriencode }}</url>
+    {% if content %}
+    <content type="html"><![CDATA[{{ post.content | noControlChars | safe }}]]></content>
+    {% endif %}
+    {% if post.categories and post.categories.length>0 %}
+    <categories>
+      {% for cate in post.categories.toArray() %}
+      <category>{{ cate.name }}</category>
+      {% endfor %}
+    </categories>
+    {% endif %}
+    {% if post.tags and post.tags.length>0 %}
     <tags>
-      
-      <tag>about-me</tag>
-      
+      {% for tag in post.tags.toArray() %}
+      <tag>{{ tag.name }}</tag>
+      {% endfor %}
     </tags>
-    
+    {% endif %}
   </entry>
-  
-  
-  
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if pages %}
+  {% for page in pages.toArray() %}
+  {% if post.indexing == undefined or post.indexing %}
   <entry>
-    <title>SOGA, A Scavenger-Hunt Online Game App</title>
-    <link href="/2023/11/20/SOGA/"/>
-    <url>/2023/11/20/SOGA/</url>
-    
-    <content type="html"><![CDATA[<p>Scavenger-Hunt Online Game App (SOGA) is an game application developed based on Android. Team members are students from the COMP90018 Mobile Computing Systems Programming course at the University of Melbourne.</p><h2 id="Project-Introduction"><a href="#Project-Introduction" class="headerlink" title="Project Introduction"></a>Project Introduction</h2><p>SOGA is an Android App for creating, sharing, and playing scavenger hunts of your own design. This game is designed for people to go hiking outdoors or explore the city while playing the game.</p><p>In this app, there are range of predefined options that users can choose to join in，such as Melbourne City Hunt. During the game, users can guess the target location through the hints of the current level. After the user reaches the target location, the user can complete the level task and start the next level after passing the task. Once finishing, the game history will be stored.</p><p>Apart from predefinded game, users are able to create their own game by selecting sites and choosing task of each site. In your customized game, call your friends to join the game and compete together. In the process of playing games, the purpose of socialization and exploration is achieved</p><h2 id="Key-Techonlogies"><a href="#Key-Techonlogies" class="headerlink" title="Key Techonlogies"></a>Key Techonlogies</h2><p>Main technologies involved:</p><ul><li>Android Studio</li><li>Java</li><li>Google Maps APIs</li><li>Firebase Database</li><li>Firebase Authentication</li></ul><h2 id="Key-Implementations"><a href="#Key-Implementations" class="headerlink" title="Key Implementations"></a>Key Implementations</h2><h3 id="User-management"><a href="#User-management" class="headerlink" title="User management"></a>User management</h3><p>The APP allows users to register and log in to the APP. All authentication information is supported and stored in the Firebase Authentication Server.</p><!-- <img src="/2023/11/20/SOGA/login.png" class="" title="Login"> --><img src="login.png" alt="Login" width="200"><h3 id="Home-page"><a href="#Home-page" class="headerlink" title="Home page"></a>Home page</h3><p>In the Home page, there are a number of functionalities, including:</p><ul><li>Join a featured or predefined hunt game</li><li>Create a hunt game by own</li><li>Join a customized hunt game</li><li>Check hunt game history</li><li>Logout</li></ul><p>All configration data is stored in the Firebase Database.</p><!-- <img src="/2023/11/20/SOGA/home.png" class="" title="Home"> --><img src="home.png" alt="Home" width="200"><h3 id="Game-page"><a href="#Game-page" class="headerlink" title="Game page"></a>Game page</h3><p>During the hunt game, the app uses Google map API to track the user’s location. Once arriving at the correct site, the user must finish a small task before going to the next site.</p><p>Tasks include:</p><ul><li>Hold the phone for 30 second</li><li>Spin in place 10 times</li><li>Jump 10 times</li></ul><p>All tasks are accomplished through the phone’s built-in sensors.</p><!-- <img src="/2023/11/20/SOGA/game.png" class="" title="Game page"> --><img src="game.png" alt="Game" width="200"><h2 id="Project-Demo-Video"><a href="#Project-Demo-Video" class="headerlink" title="Project Demo Video"></a>Project Demo Video</h2><div class="video-container"><iframe src="https://www.youtube.com/embed/1MiiHA9jV5c" frameborder="0" loading="lazy" allowfullscreen></iframe></div><h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul><li><a href="https://handbook.unimelb.edu.au/subjects/comp90018">COMP90018 Mobile Computing Systems Programming</a></li><li><a href="https://firebase.google.com/">Firebase</a></li></ul>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Project</tag>
-      
-    </tags>
-    
+    <title>{{ page.title }}</title>
+    <link href="{{ [url, post.path] | urlJoin | uriencode }}"/>
+    <url>{{ [url, post.path] | urlJoin | uriencode }}</url>
+    {% if content %}
+    <content type="html"><![CDATA[{{ page.content | noControlChars | safe }}]]></content>
+    {% endif %}
   </entry>
-  
-  
-  
-  <entry>
-    <title>Virtual Doctor Platform</title>
-    <link href="/2023/07/20/Virtual-Doctor/"/>
-    <url>/2023/07/20/Virtual-Doctor/</url>
-    
-    <content type="html"><![CDATA[<p>Vitual Doctor Platform is a web platform where patients can have a better experience in a realistic online consultation session! This project is from our COMP90082 Software Project course at the University of Melbourne.</p><h2 id="Key-Technologies"><a href="#Key-Technologies" class="headerlink" title="Key Technologies"></a>Key Technologies</h2><ul><li>Java</li><li>Spring MVC</li><li><a href="https://www.hl7.org/fhir/overview.html">FHIR</a></li><li><a href="https://www.keycloak.org/">Keycloak</a></li></ul><h2 id="Project-Background"><a href="#Project-Background" class="headerlink" title="Project Background"></a>Project Background</h2><p>With the increasing demands for digital communication and decision-making in the field of healthcare, the Digital Health Validatron, a pipeline that aims to build a connected healthcare system for enabling digital health innovation, has emerged and developed in recent years.</p><h2 id="Project-Overview"><a href="#Project-Overview" class="headerlink" title="Project Overview"></a>Project Overview</h2><p>The project aims to improve and expand the existing web-based telehealth platform named Validitron Virtual Doctor.</p><p>The current version of the platform has realized fundamental features such as video calls and limited clinical information displays. However, the issue of scalability of the platform arises due to the existing architecture, therefore, the project is expected to refactor the existing architecture as well as add new features, including integrating with an additional FHIR (Fast Healthcare Interoperability Resources) server and displaying more clinical information on UI, etc.</p><h2 id="Stakeholders"><a href="#Stakeholders" class="headerlink" title="Stakeholders:"></a>Stakeholders:</h2><ul><li><a href="https://www.linkedin.com/in/madhavanmani/?originalSubdomain=au">Madhavan Mani</a> - Client</li><li>The University of Melbourne</li><li>Development Team:<ul><li>Zhuoqun Qi - Product Owner</li><li><a href="https://www.linkedin.com/in/tianhao-ye-9957a9225/?originalSubdomain=au">Tianhao Ye</a> - Scrum Master</li><li>Liming Tan - Developer</li><li>Tianan Guo - Developer</li><li><a href="https://www.linkedin.com/in/jiafei-tan-014244286/">Jiafei Tan</a> (me) - Developer</li></ul></li></ul><h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><h3 id="FHIR-server"><a href="#FHIR-server" class="headerlink" title="FHIR server"></a>FHIR server</h3><p>We have chosen to use the Fast Healthcare Interoperability Resources server to store medical information. The Fast Healthcare Interoperability Resources (FHIR, pronounced “fire”) standard is a set of rules and specifications for exchanging electronic health care data. It is designed to be flexible and adaptable, so that it can be used in a wide range of settings and with different health care information systems. The goal of FHIR is to enable the seamless and secure exchange of health care information, so that patients can receive the best possible care.</p><h3 id="Patient-registration-function"><a href="#Patient-registration-function" class="headerlink" title="Patient registration function"></a>Patient registration function</h3><p>New patients using the platform for the first time can register an account. At the same time of registering the account, patients are required to fill in some medical information, which will be stored on our FHIR server.</p><img src="/2023/07/20/Virtual-Doctor/Patient-registration1.png" class="" title="Patient registration"><h3 id="Patient-personal-information-viewing-and-editing"><a href="#Patient-personal-information-viewing-and-editing" class="headerlink" title="Patient personal information viewing and editing"></a>Patient personal information viewing and editing</h3><p>Patients on the platform can see their medical information at any time, and can also change their medical information.</p><img src="/2023/07/20/Virtual-Doctor/Patient-profile-editing.png" class="" title="Patient information"><h3 id="Consultation-and-appointment-function"><a href="#Consultation-and-appointment-function" class="headerlink" title="Consultation and appointment function"></a>Consultation and appointment function</h3><p>Patients can choose their favorite doctor to make an appointment, and they can choose the date. When choosing a doctor, you can check the profile of each doctor.</p><img src="/2023/07/20/Virtual-Doctor/New-appointment1.png" class="" title="Make Appointments"><p>After the appointment is complete, the doctor can view the appointment details. Appointments can also be cancelled in advance if the doctor or the patient has an emergency.</p><img src="/2023/07/20/Virtual-Doctor/Cancel-appointment.png" class="" title="Cancel Appointments"><h3 id="Review-patient-information-during-video-consultation"><a href="#Review-patient-information-during-video-consultation" class="headerlink" title="Review patient information during video consultation"></a>Review patient information during video consultation</h3><p>During a video interview between a doctor and a patient, the doctor can see the basic medical information of the current patient. The doctor can quickly understand the basic condition of the patient.</p><img src="/2023/07/20/Virtual-Doctor/View-patient-during-video.png" class="" title="View Profile"><!-- <iframe width="755" height="644" src="https://www.youtube.com/embed/UXDuOEa8fVk" title="Virtual Doctor Project Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --><h2 id="Project-Demo-Video"><a href="#Project-Demo-Video" class="headerlink" title="Project Demo Video"></a>Project Demo Video</h2><div class="video-container"><iframe src="https://www.youtube.com/embed/UXDuOEa8fVk" frameborder="0" loading="lazy" allowfullscreen></iframe></div><h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul><li><a href="https://handbook.unimelb.edu.au/2023/subjects/comp90082">COMP90082 Software Project</a></li></ul>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Project</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>White Board</title>
-    <link href="/2022/11/12/White-Board/"/>
-    <url>/2022/11/12/White-Board/</url>
-    
-    <content type="html"><![CDATA[<h2 id="Project-Background"><a href="#Project-Background" class="headerlink" title="Project Background"></a>Project Background</h2><p>This whiteboard project is the final project for the University of Melbourne’s COMP90015 Distributed System Subject.</p><p>The purpose of this project is to use the TCP&#x2F;IP network framework to build a shared whiteboard system. In this project, there are two roles: Admin and User. The admin can open a shared drawing board, and other users can join and exit the drawing board at any time. In the shared artboard, users and admins can draw on the artboard together and conduct online chat functions.</p><h2 id="Key-Technologies"><a href="#Key-Technologies" class="headerlink" title="Key Technologies"></a>Key Technologies</h2><ul><li>Java</li><li>Distributed system</li><li>Concurrency</li><li>TCP&#x2F;IP</li></ul><h2 id="Key-Implementations"><a href="#Key-Implementations" class="headerlink" title="Key Implementations"></a>Key Implementations</h2><h3 id="The-admin-page"><a href="#The-admin-page" class="headerlink" title="The admin page"></a>The admin page</h3><p>The admin page is simple. Some functionalities are inclued in the Admin page. Admin can manage users in the room and kick users out of the room at any time. The chatting function is also implemented.</p><img src="/2022/11/12/White-Board/admin.png" class="" title="Admin Page"><h3 id="The-user-page"><a href="#The-user-page" class="headerlink" title="The user page"></a>The user page</h3><p>Users can join the current shared whiteboard and give themselves a favourite name.</p><img src="/2022/11/12/White-Board/username.png" class="" title="Edit Username"><p>Once joined in, everyone inside the room will be able to see the users in the room, and they will be able to chat in the chat box</p><img src="/2022/11/12/White-Board/chat.png" class="" title="Chat"><h3 id="Drawing-Board-Functions"><a href="#Drawing-Board-Functions" class="headerlink" title="Drawing Board Functions"></a>Drawing Board Functions</h3><p>This is main feature of this project. Everyone in the room is able to draw everything in the whiteboard. There are some predefind shapes that the user can choose to draw, including line, circle, rectangle, triangle, and even text.</p><img src="/2022/11/12/White-Board/draw.png" class="" title="Whiteboard"><h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul><li><a href="https://handbook.unimelb.edu.au/2022/subjects/comp90015">COMP90015 Distributed System Subject</a></li></ul>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Project</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Peer-to-Peer file sharing system</title>
-    <link href="/2022/09/25/p2p/"/>
-    <url>/2022/09/25/p2p/</url>
-    
-    <content type="html"><![CDATA[<h2 id="Project-Background"><a href="#Project-Background" class="headerlink" title="Project Background"></a>Project Background</h2><p>This P2P file sharing system project is the first project for the University of Melbourne’s COMP90015 Distributed System Subject. This system is using a hybrid client&#x2F;server and peer-to-peer architecture. In this architecture there are two components:</p><ul><li><strong>Index Server</strong> : a process that acts as a server, to manage an index of files and IP addresses of file sharers</li><li><strong>Peer</strong> : a process that acts as both a client to an Index Server, and as a server for sharing file data with other Peers</li></ul><h2 id="Key-technologies"><a href="#Key-technologies" class="headerlink" title="Key technologies"></a>Key technologies</h2><ul><li>Java</li><li>Concurrency</li><li>TCP&#x2F;IP Connection</li><li>Distributed System</li></ul><h2 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h2><p>The Server accepts TCP connections and uses a request-per-connection session protocol as defined in <code>Server.java</code>. The session consists of a welcome message, an authentication step, and then a single request using a request-reply protocol.</p><ul><li><code>WelcomeMsg</code> : sent by the server as the first message on any new connection</li><li><code>AuthenticateRequest</code> : sent by the client to request authentication</li><li><code>AuthenticateReply</code> : sent by the server in response to a <code>AuthenticateRequest</code></li></ul><p>Following the handshake, a single request can be made, using one of the following messages:</p><ul><li><code>ShareRequest</code> : allows the Peer to provide the Index Server with details of a file to index</li><li><code>DropShareRequest</code> : allows the Peer to request the Index Server to remove the details of a file that it previously indexed</li><li><code>SearchRequest</code> : allows the Peer to search for files on the Index Server</li><li><code>LookupRequest</code> : allows the Peer to obtain a list of Peers that are sharing a given file</li></ul><p>Each of the requests above has an accompanying reply message from the Server.</p><p>The server can be run locally or deployed to run on a cloud server. You can specify the IP address and port number of the server when you start the server. If you don’t, the default IP address is localhost and the port number is 3200.</p><img src="/2022/09/25/p2p/Server.png" class="" title="Server running"><h2 id="Peer"><a href="#Peer" class="headerlink" title="Peer"></a>Peer</h2><p>The Peer uses a terminal text GUI that is best run in a UNIX&#x2F;Linux terminal. When the application runs the <code>h</code> key can be pressed for help on using the application.</p><p>In the peer GUI, there are range of features that users can operate:</p><ul><li><code>File Share</code> : allows the Peer to share a file in the local computer</li><li><code>Search</code> : allows the Peer to search files that have been shared by other peers</li><li><code>Config</code> : allows the Peer to config the server’s IP address that they want to connect</li><li><code>Download</code> : allows the Peer to download the files that was searched</li></ul><img src="/2022/09/25/p2p/Peer.png" class="" title="Peer running"><h2 id="Key-achievement"><a href="#Key-achievement" class="headerlink" title="Key achievement"></a>Key achievement</h2><p>The final score for this project was 9.5&#x2F;10. The system was able to successfully share a one or two gigabyte sized video while successfully downloading and playing it within the allotted time.</p><img src="/2022/09/25/p2p/Result.png" class="" title="Result"><h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul><li><a href="https://handbook.unimelb.edu.au/2022/subjects/comp90015">COMP90015 Distributed System Subject</a></li></ul>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Project</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Government Infrastructure Performance Navigator</title>
-    <link href="/2021/11/15/Navigator/"/>
-    <url>/2021/11/15/Navigator/</url>
-    
-    <content type="html"><![CDATA[<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The project is purposed to help users navigate the performance of some government infrastructure programs by visualising the complex inner dependencies among a huge number of projects, organisations, and vendors etc, with the help of graph databases.</p><p>The objectives that the project is to achieve are to help users better manage and understand the performance as well as the inner dependencies of stakeholders involved in some chosen government infrastructure program by developing a web application to achieve data visualization and finding potential risks or performance among many infrastructure projects. The number of entity types taken into consideration in the development process had been limited to three for higher viability, including Organizations, Projects, and Vendors.Entities are connecting with one another, and they could then form a huge and complex network. As changes in a project could have influences on a series of other projects that is coupling with it, the project should also be responsible for detecting risks caused by the continual changes.</p><img src="/2021/11/15/Navigator/data-view.png" class="" title="Data Visualisation"><h2 id="Key-Technologies"><a href="#Key-Technologies" class="headerlink" title="Key Technologies:"></a>Key Technologies:</h2><ul><li><strong>Django</strong>: a Python framework for web development</li><li><strong>Neo4j</strong>: a graph database management system</li><li><strong>Cyhper</strong>: Neo4j’s graph query language that lets you retrieve data from the graph</li></ul><h2 id="Key-Stakeholders"><a href="#Key-Stakeholders" class="headerlink" title="Key Stakeholders"></a>Key Stakeholders</h2><ul><li><a href="https://www.linkedin.com/in/jamiecerexhe/">Jamie Cerexhe</a> - Our client from Mastt</li><li><a href="https://www.linkedin.com/in/shah-dhruvil/?originalSubdomain=au">Dhruvil Shah</a> - Our supervisor from The University of Sydney</li><li>Dan F - From the Australian Federal Government</li><li>Development Team<ul><li><a href="https://www.linkedin.com/in/baocheng-wang-504b351a5/?originalSubdomain=au">Baocheng Wang</a></li><li><a href="https://www.linkedin.com/in/jiafei-tan-014244286/">Jiafei Tan</a> (me)</li><li><a href="https://www.linkedin.com/in/alan-kang-6497b5239/">Jian Kang</a></li><li>Heyang Li</li><li><a href="https://www.linkedin.com/in/penghui-wen-a00271265/?originalSubdomain=au">Penghui Wen</a></li></ul></li></ul><h2 id="Key-Implementations"><a href="#Key-Implementations" class="headerlink" title="Key Implementations"></a>Key Implementations</h2><ul><li>Rending and viewing data</li><li>Data filter</li><li>Data Insight</li><li>Running Cypher query</li><li>Cypher query management</li><li>Insight report</li></ul><h2 id="Project-Demo-Video"><a href="#Project-Demo-Video" class="headerlink" title="Project Demo Video"></a>Project Demo Video</h2><div class="video-container"><iframe src="https://www.youtube.com/embed/VOSIN-odXWc" frameborder="0" loading="lazy" allowfullscreen></iframe></div><h2 id="Disclaimer"><a href="#Disclaimer" class="headerlink" title="Disclaimer"></a>Disclaimer</h2><p>Because of the non-disclosure agreement signed with Mastt, this page only shows what we have shown with the university, excluding actual code, design documents, data related to government progject, etc.</p><h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>Related</h2><ul><li><a href="https://www.mastt.com/">Mastt</a></li><li><a href="https://www.sydney.edu.au/units/SOFT3888/2021-S2C-ND-RE">SOFT3888 Capstone Project</a></li><li><a href="https://neo4j.com/developer/graph-database/">Neo4j</a></li></ul>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Project</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  
+  {% endif %}
+  {% endfor %}
+  {% endif %}
 </search>
