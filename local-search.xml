@@ -5,7 +5,7 @@
     <title>🎉 Score 90 in PTE Academic English Test!</title>
     <link href="/2024/03/15/PTE/"/>
     <url>/2024/03/15/PTE/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     Detailed Score Detail Timeline 2023.07 - Start learning about PTE exam. 2023.09 - Stop practicing for some reasons. 2023.11 - Restarting practicing. 2024.02 - Booked the exam, and officially start final preparation. 2024.03 - Final PTE Exam, and got the mark. Accknowledgement I'm beyond excited to announce that I've achieved a perfect score in the PTE Academic English test. This achievement reinforces my commitment to continuous learning and proficiency in the English language. I'm eager to leverage this accomplishment to pursue new opportunities and contribute meaningfully in my professional journey. Here's to embracing achievements, setting new goals, and continuing the journey of lifelong learning! Related Pearson | PTE website Practice: Firefly Enlightenment Website Little Red Book
     ]]></content>
   </entry>
@@ -15,7 +15,7 @@
     <title>SOGA: A Scavenger-Hunt Online Game App</title>
     <link href="/2023/11/20/SOGA/"/>
     <url>/2023/11/20/SOGA/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     Scavenger-Hunt Online Game App (SOGA) is a game application developed based on Android. Team members are students from the COMP90018 Mobile Computing Systems Programming course at the University of Melbourne. Project Introduction: SOGA is an Android App for creating, sharing, and playing scavenger hunts of your own design. This game is designed for people to go hiking outdoors or explore the city while playing the game. In this app, there are a range of predefined options that users can choose to join in, such as Melbourne City Hunt. During the game, users can guess the target location through the hints of the current level. After the user reaches the target location, the user can complete the level task and start the next level after passing the task. Once finishing, the game history will be stored. Apart from predefined games, users are able to create their own game by selecting sites and choosing tasks at each site. In your customized game, call your friends to join the game and compete together. In the process of playing games, the purpose of socialization and exploration is achieved. Project Demo Video Key Technologies: Android Studio, Java, Firebase Database & Authentication, Google Maps APIs. Key Features: User management - The app allows users to register and log in to the app. All authentication information is supported and stored in the Firebase Authentication Server. Home page - In the Home page, there are a number of functionalities, including joining a featured or predefined hunt game, creating a hunt game by yourself, joining a customized hunt game, checking hunt game history, and logging out. All configuration data is stored in the Firebase Database. Game page - During the hunt game, the app uses Google Maps API to track the user’s location. Once arriving at the correct site, the user must finish a small task before going to the next site. Tasks include: Hold the phone for 30 seconds, Spin in place 10 times, Jump 10 times. All tasks are accomplished through the phone’s built-in sensors. Acknowledgement: I would like to express my sincere gratitude to all the contributors to this project. Particularly in this project, everyone on the team takes responsibilities and development tasks equally, so contributors are listed below in alphabetical order only (without role specification). Baocheng Wang (He/him), Elena Li (She/her), Jiafei Tan (He/him), Jonathon Thai (He/him), Yanhao Xu (He/him). Related: COMP90018 Mobile Computing Systems Programming, Firebase.
     ]]></content>
   </entry>
@@ -24,7 +24,7 @@
     <title>SMART-on-FHIR Oncofertility Risk Calculator</title>
     <link href="/2023/10/23/SMART/"/>
     <url>/2023/10/23/SMART/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     SMART ORC is an oncofertility calculator app based on SMART on FHIR standards, designed as a demo for the "Developing a SMART on FHIR app" course, enabling clinicians to calculate infertility risk based on treatment drugs and dosages and providing a Cyclophosphamide Equivalent Dose (CED) calculator; the project, funded by ADHA and in collaboration with CSIRO, HL7 Australia, and UniMelb, involves over 700 EOIs from health tech stakeholders and focuses on a national FHIR training program; it utilizes Vue.js, JavaScript, and MELD EHR Sandbox, with a system architecture comprising the SMART-on-FHIR Application, Authorization Server, and Resource Server; the app includes features like SMART-on-FHIR OAuth consent for patient data privacy, a CED calculator, and an oncofertility risk calculator, all leveraging the SMART-on-FHIR protocol for auto data fetching; contributors include Baocheng Wang (Product Owner), Yanhao Xu (Scrum Master), Yuqiu Wang, Zhan Su, and Zhixuan Ye, with stakeholders such as Sebastian Bobadilla, Kayley Lyons, Mady Mani, and Kit Huckvale; related resources include the UniMelb Handbook for COMP90082, SMART-on-FHIR documentation, and the SMART on FHIR JavaScript Library.
     ]]></content>
   </entry>
@@ -33,7 +33,7 @@
     <title>SMV Transmitter Remote Control Software</title>
     <link href="/2023/07/15/Angji-SMV/"/>
     <url>/2023/07/15/Angji-SMV/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     Angji-SMV is a software for multi-parameter flowmeters developed by Angji Flowmeter Company to enable remote data collection, reading history data, and parameter setting; initially designed to address on-site safety hazards by allowing remote adjustments (Version 1.0), it has been enhanced with additional functions like history reading and unit settings in Version 2.0 to improve usability; key technologies include C++, Qt, MODBUS Protocol, and Embedded Systems; features include real-time data collection via MODBUS, historical data retrieval with up to 5 years of storage, and extensive remote parameter settings; contributors include Baocheng Wang (Software Engineer, Tech Lead), Yong Xu (Hardware Engineer), and Yuhao Wang (Software Engineer, Intern); related resources include Angji Flow Meter Inc., MODBUS Protocol, and transmitter applications in industry.
     ]]></content>
   </entry>
@@ -42,7 +42,7 @@
     <title>🎉 Graduated from the University of Sydney</title>
     <link href="/2023/05/30/USYD/"/>
     <url>/2023/05/30/USYD/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     A Glance at Testamur: Awarded a Bachelor Degree of Engineering with First Class Honors in May 2023, had a thesis-based paper accepted by ENASE 2023 in February 2023, achieved a 90 (HD) in ELEC3610: E-Business Analysis and Design in December 2022, earned a 92 (HD) in SOFT3888: Software Development Project in December 2021, completed internships as a Backend Developer at Shanghai Innotech Inc. in October 2021 and as an Algorithm Engineer at Shanghai Angji Flow Meter Inc. in March 2021, scored an 88 (HD) in MATH1023: Multivariable Calculus and Modelling and an 86 (HD) in MATH1002: Linear Algebra in December 2019, was invited to be a Mentor in INFO1110 in September 2019, and obtained a 90 (HD) in INFO1110: Introduction to Programming in July 2019; I would like to express my deepest gratitude to my family, friends, and teachers for their support during my journey in Australia.
     ]]></content>
   </entry>
@@ -51,7 +51,7 @@
     <title>🎉 Paper Accepted At ENASE 2023!</title>
     <link href="/2023/04/24/ENASE/"/>
     <url>/2023/04/24/ENASE/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     Abstract: Smart contracts, an innovative technology in Blockchain 2.0, allow the same program (business logic) to run on multiple nodes for consistent results. While widely used in systems like Ethereum, smart contracts can be vulnerable due to bugs, and their immutability means any errors become permanent, potentially causing significant economic loss. To prevent this, vulnerability detection before deployment is crucial, and various analysis tools have emerged for security assurance. However, the quality of these tools varies, and systematic quality assessments are lacking. Our research aims to fill this gap by systematically evaluating existing smart contract analysis tools. Keywords: Evaluation, Smart Contracts, Vulnerability, Solidity, Analysis Tools. Unfortunately, my presentation at the conference was not recorded, but a backup presentation was uploaded. I also delivered a public talk at the Ethereum Engineering Group Meet-up, thanks to Dr. Peter Robinson from the University of Queensland, where I discussed this research into smart contract vulnerability analysis tools. The PDF of the slides is available. ENASE (Evaluation of Novel Approaches to Software Engineering) is an international forum to discuss and publish research findings related to novel approaches in software engineering, particularly in evolving computing paradigms. ENASE 2023 was held in Prague, Czech Republic, from 24-25 April 2023. I would like to express my sincere gratitude to my supervisor, Professor Shiping Chen, for his patient guidance, and to Dr. Dong Yuan, Dr. Yan Liu, and Dr. Peter Robinson for their valuable insights. Lastly, I am deeply grateful to my family and friends for their support during my studies. Related: ENASE 2023, Evaluation of Contemporary Smart Contract Analysis Tools, Solidity, Slither, Securify v2.0.
     ]]></content>
   </entry>
@@ -60,7 +60,7 @@
     <title>SORA: Online Student Oriented Recruitment App</title>
     <link href="/2022/10/23/SORA/"/>
     <url>/2022/10/23/SORA/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     SORA: An Online Student Oriented Recruitment Application is an online recruitment platform designed for students and employers, developed by students from the ELEC5619 Object Oriented Application Frameworks course, using JavaScript, React, Java, Springboot, MySQL, and Redis. SORA aims to simplify the resume evaluation process for recruiters and provide feedback to students, helping them improve their skills, revise their resumes, and plan their careers. The system uses the MVC Pattern, with key features including user management, email verification, profile and resume updates, job post creation, commenting, notifications, and responses to job applications. The project team members include Baocheng Wang, Tian Xia, Yanhao Xu, and Shuning Dong. Related resources include Springboot Documents, MyBatis Documents, and Redis Docs.
     ]]></content>
   </entry>
@@ -69,7 +69,7 @@
     <title>PwP: Promotion with Peers</title>
     <link href="/2021/12/05/PwP/"/>
     <url>/2021/12/05/PwP/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     Promotion with Peers (PwP) is an online discussion platform designed to enhance student study efficiency, created by students from the ELEC3609 Internet Software Platforms course using JavaScript, Vue.js, Python3, Django, MySQL, and Redis. PwP addresses decreased study efficiency during COVID-19 by simulating a library environment where students can share goals and tasks with peers for motivation. Key features include secure user verification, profile updates, goal and task management, a forum for public goal sharing, admin user management, post banning, subscription management, and robust security measures including POST method, CSRF token, password encryption, email verification, and ORM prevention. Contributors include Baocheng Wang, Jian Kang, and Yanhao Xu. Related: ELEC3609, Django Docs, Vue.js v2 Docs, Google Python/HTML/CSS/JavaScript Style Guides, Redis Docs.
     ]]></content>
   </entry>
@@ -78,7 +78,7 @@
     <title>Gov Infrastructure Performance Navigator</title>
     <link href="/2021/11/15/Navigator/"/>
     <url>/2021/11/15/Navigator/</url>
-    <content type="html"><![CDATA[{
+    <content type="html"><![CDATA[
     The project aims to help users navigate government infrastructure programs by visualizing complex dependencies among projects, organizations, and vendors using graph databases. It involves developing a web application for data visualization, risk detection, and performance management, focusing on three entity types: Organizations, Projects, and Vendors. Key technologies include Django, Neo4j, and Cypher. Key implementations involve data rendering, filtering, insight generation, and query management. Due to a non-disclosure agreement with Mastt, actual code and design documents are excluded. The developed website has been launched by Mastt. Contributors include Jamie Cerexhe (Client), Dhruvil Shah (Supervisor), and the development team: Baocheng Wang (Scrum Master, Developer), Jiafei Tan (Developer), Jian Kang (Developer), Heyang Li (Developer), and Penghui Wen (Product Owner, Developer).
     ]]></content>
   </entry>
