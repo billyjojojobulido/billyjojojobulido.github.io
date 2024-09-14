@@ -246,7 +246,7 @@
 
 <p style="font-weight: bold;">
   <span style="font-style: italic; font-weight: bold;">前文我有一直在强调前缀和是"算法技巧",而不是"算法"。</span>
-  这是因为前缀和算法其实是一种数据预处理方法，可用于快速求数组的区间和，本身不具备解决问题的能力(除非题目明确让你生成前缀和数组)。</p>
+  这是因为前缀和其实是一种数据预处理方法，可用于快速求数组的区间和，本身不具备解决问题的能力(除非题目明确让你生成前缀和数组)。</p>
 <p style="font-weight: bold;">不难发现: 前缀和是一种典型的空间换时间思想的应用</p>
 
 <h3 id="difficult">什么时候用前缀和</h3>
@@ -294,6 +294,16 @@ class Solution(object):
 </p>
 
 <h3 id="PreSumSolution">前缀和解法</h3>
+
+<p>
+  在外层遍历数组的过程中，如果想要避免重复计算从0到i数组的和，我们最直接的方式自然就是把它存起来，求下一位的时候，就可以直接用，如此我们就可以用O(1)的空间,就可以换O(N)的时间，
+  整个算法运行下来，可以用O(N)的空间将O(N^2)的时间强行换成O(N)。
+</p>
+
+<div style="text-align: center;">
+<img src="../presum_demo.png" width="500">
+</div>
+
 <pre>
 class Solution(object):
     def runningSum(self, nums):
@@ -320,350 +330,156 @@ class Solution(object):
 
 
 
-<h2 id="How"><a href="#How" class="headerlink" title="How"></a>怎么贪?</h2>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>前缀和通用解题流程</h2>
 
-<p style="font-weight: bold;">首先明确一点:贪心没有套路,说白了就是常识性推导加上举反例。</p>
+<h3 id="WhenTo"><a href="#WhenTo" class="headerlink" title="WhenTo"></a>何时使用前缀和算法？</h3>
 
-<strong>原则一</strong>
-<ul><li>贪心思路往往很巧妙,并不简单。</li></ul>
+<p>
+  前文已经很明确，前缀和最明显的信号就是: <strong>区间和</strong>，如果非要加上一个特征，那就是<strong>重复</strong>。
+</p>
+<p>光说区间，可能会存在混淆的地方，因为在数组的背景下，我们通常说的区间其实就是子数组，但是对子数组的算法其实很多，一般处理连续子数组会使用双指针或滑动窗口。</p>
+<p>但当解题思路没有明确的指针移动判断条件时，可以尝试使用前缀和，因为就算需要通过穷举遍历数组，如果有条件用前缀和预处理，那整体算法复杂度也不会太高。</p>
+<p>更为重要的是，如果题目中明确涉及到频繁要计算数组中不同区间的和\差\乘积等，那么用前缀和必不会错。</p>
 
-<strong>原则二</strong>
-<ul><li>贪心无套路,也没有框架之类的,需要多看多练培养感觉才能想到贪心的思路。</li></ul>
+<h3 id="Process"><a href="#Process" class="headerlink" title="Process"></a>流程</h3>
 
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
 
-<h3 id="straight">直观贪心问题</h3>
-<strong>特点:</strong>
-<ul><li>这类题目普遍是简单题,会给人一种贪心算法很简单的错觉,因为贪心有时候接近于常识,或者题目本身比较生活化,符合人们日常的逻辑。</li></ul>
+<p>总结下来，前缀和通常只有两个步骤：</p>
+<ol>
+  <li><strong>预处理:</strong> 通过遍历原数组先求得前缀和数组 preSum。</li>
+  <li><strong>使用:</strong> 根据需要，通过前缀和数组计算数组中某个区间和，其中需要明确需要求解的区间左右端点，以及前缀和数组和原数组下标之间的关系。</li>
+</ol>
 
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>贪心策略</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>455</td>
-      <td>分发饼干</td>
-      <td style="background-color: lightgreen;">简单</td>
-      <td>
-        全局:喂饱尽可能多的小孩。<br>
-        局部:大饼干优先喂给胃口大的 / 小饼干优先喂给胃口小的
-      </td>
-    </tr>
-    <tr>
-      <td>860</td>
-      <td>柠檬水找零</td>
-      <td style="background-color: lightgreen;">简单</td>
-      <td>
-        全局:完成全部账单的找零。<br>
-        局部:遇到账单20,优先消耗美元10,完成本次找零。
-      </td>
-    </tr>
-  </tbody>
-</table>
+<h2 id="2D"><a href="#2D" class="headerlink" title="2D"></a>二维数组前缀和</h2>
+
+<p>一维数组的前缀和还是比较简单，毕竟只需要做减法就可以获得同一维度上任何一段区间和。
+  但是数组的问题都要考虑升维问题，如果在M*N的二维前缀和数组中，每一行 或 某一列的区间和都和一维前缀和同理，很好求。
+  现在如果要求某个特定范围的“二维区间和”，解法会有很大区别么？</p>
 
 
 
-<h3 id="peak">极值/峰值问题</h3>
-<strong>特点:</strong>
-<ul>
-  <li>这类题型大多为中等难度,会让初学算法的人开始逐渐意识到贪心算法的难度。</li>
-  <li>这类题目对于学习了比较完整的算法技术栈,但还没有完全熟练掌握的人来说更容易出现误区(但只是针对贪心而言)。因为极值、峰值问题,可能第一反应是用动态规划做(其中很多用DP也确实是可以做的,但肯定是贪心效率高)。</li>
-  <li>中等难度的题,往往动态规划的递推关系不难发现,而相比之下贪心策略则并不直观。面试中还是应该功利一点,想出来哪个用哪个。尽管贪心往往在时间复杂度上更有优势,但动态规划的算法还是更能证明面试者的水平。</li>
-</ul>
+<p>以LeetCode 第 304 题「<a href="https://leetcode.cn/problems/range-sum-query-2d-immutable/description/">二维区域和检索 - 矩阵不可变</a>」为例，
+  这道题让我们计算二维矩阵中子矩阵的元素之和，题目如下：</p>
+<pre>
+  给定一个二维矩阵 matrix，以下类型的多个请求：
 
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>贪心策略</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>376</td>
-      <td>摆动序列</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        全局:整个序列有最多的局部峰值。<br>
-        局部:删除单调坡度上的节点(不包括单调坡度两端的节点),那么这个坡度就可以有两个局部峰值。        
-      </td>
-    </tr>
-    <tr>
-      <td>53</td>
-      <td>最大子序和</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        全局:选取最大“连续和” <br>
-        局部:当前“连续和”为负数的时候立刻放弃,从下一个元素重新计算“连续和”,因为负数加上下一个元素 “连续和”只会越来越小。        
-      </td>
-    </tr>
-    <tr>
-      <td>122</td>
-      <td>买卖股票的最佳时机 II</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>这题可以用动态规划做,但贪心更优。</strong> <br>
-        <strong>技巧:理解利润拆分是关键点。把整体利润拆为每天的利润,就很容易想到贪心了。</strong>
-        全局:得到最大利润。<br>
-        局部:只收集每天的正利润。            
-      </td>
-    </tr>
-    <tr>
-      <td>1005</td>
-      <td>K次取反后的最大数组和</td>
-      <td style="background-color: lightgreen;">简单</td>
-      <td>
-        <strong>贪心思路比较直观:两次贪心。</strong> <br>
-        <strong>第一次:先解决负数(贪心增长)</strong>
+  计算其子矩形范围内元素的总和，该子矩阵的 左上角 为 (row1, col1) ，右下角 为 (row2, col2) 。
+  实现 NumMatrix 类：
+  
+  NumMatrix(int[][] matrix) 给定整数矩阵 matrix 进行初始化
+  int sumRegion(int row1, int col1, int row2, int col2) 
+  返回 左上角 (row1, col1) 、右下角 (row2, col2) 所描述的子矩阵的元素 总和 。
+</pre>
+
+<h3 id="SumArray"><a href="#SumArray" class="headerlink" title="SumArray"></a>解法一: 低维数组阵列</h3>
+<p>如果让我们使用M*N二维前缀和的第一反应，可能是想要构建一个M个长度为N的一维前缀和数组。</p>
+  
+<p> 我个人喜欢称之为<strong>“低维数组阵列”</strong>(并不是官方叫法😓)<p></p>
+  <p> 这确实可以一定程度上解决问题，最起码在遍历列区间的时候，可以快速获得行的区间和。</p>
+
+<pre>
+  preSumArray = [
+    [ .... ],   // 第一行的一维前缀和数组
+    [ .... ],   // 第二行的一维前缀和数组
+    ...
+  ]
+
+  ret = 0
+  for i in range(开始行, 结束行+1):
+      列区间和 = preSumArray[i][结束列-1] - preSumArray(i)[开始列-1]
+      ret += 列区间和
+</pre>
+
+
+<h3 id="2DArray"><a href="#2DArray" class="headerlink" title="2DArray"></a>解法二: 高维前缀和</h3>
+
+<p>但是这个事实上使用“低维数组阵列”构建的二维前缀和数组并不够优秀，因为使用相同的构建时间，M个一维前缀和数组只能在一个维度上节约开销，
+  而理想中的前缀和数组应该可以在所有维度上节约开销,这需要更高维的设计思想。</p>
+
+<p>可能会有人疑问，直接把前缀和数组升维会不会导致运算变复杂？因为很明显 一维数组求一维区间和 比 使用这个二维前缀和数组 求 二维区间和 更加的简单直接。</p>
+
+<p>答案是：复杂是一定的，毕竟升维本身就意味这复杂度的飙升，而“低纬数组阵列”其实是一种<strong>心智复杂度和时间复杂度的Tradeoff</strong>，
+  即在牺牲了一定算法性能的前提下，允许我延用更加简单的低维运算，以更高的时间开销作为代价，降低了算法的心智消耗。
+</p> 
+<p>
+  不过，貌似“为了降低性能开销而进行复杂的思考”才更加符合现在算法开发的主流意识形态（不敢说一定就是正确的），毕竟当前互联网的现状就是数据吞吐量太大，算法和数据结构都是能省就省，
+  不然溢出的开销都是真金白银的成本，反观压榨人力资源的心智成本反而成了更加优惠的选择😭。
+</p>
+
+
+<p>现在，我们定义 preSum[i][j] 表示 <strong>从 [0,0] 位置到 [i,j] 位置的子矩形所有元素之和</strong>。</p>
+
+<p style="font-weight: bold;">preSum[i][j]的递推公式将会是：</p>
+<pre>
+  preSum[i][j]=preSum[i−1][j]+preSum[i][j−1]−preSum[i−1][j−1]+matrix[i][j]
+</pre>
+
+<p>递推关系如下图所示:</p>
+<p style="font-style: italic; font-size: xx-large;">
+  S(O,D)=S(O,C)+S(O,B) − S(O,A)+D
+</p>
+
+<div style="text-align: center;">
+  <img src="../2d_presum.png" width="300">
+</div>
+
+<p>根据以上递推关系可以完成第一步，构建出二维前缀和数组 preSum, preSum[i][j]表示的是以[0,0]为左上角，以[i,j]为右下角的矩形元素之和(区间和)。</p>
+
+<p>那么第二步就需要使用前缀和数组了，先通过右下角的节点锁定大范围，再根据左上角的节点去删去多余的部分就行。递推关系如下：</p>
+<pre>
+preSum[row2][col2]−preSum[row2][col1−1]−preSum[row1−1][col2]+preSum[row1−1][col1−1]
+</pre>
+
+<p>至此，算法就实现了。总结复杂度如下</p>
+<ol>
+  <li style="font-weight: bold;">解法一: 低维前缀和数组阵列</li>
+    <ul>
+      <li>构建前缀和阵列: O(N^2)</li>
+      <li>计算特定矩形面积 * N次</li>
         <ul>
-          <li>全局:整个数组和达到最大。</li>
-          <li>局部:让绝对值大的负数变为正数,当前数值达到最大。</li>
+          <li>单次计算: O(N)</li>
+          <li>整体运算: O(N^2)</li>
         </ul>
-        <strong>第二次:全是正数(贪心亏损)</strong>       
+      <li style="font-weight: bold;">整体复杂度: O(N^2) + O(N^2)</li>
+    </ul>
+  <li style="font-weight: bold;">解法二: 高维前缀和</li>
+      <ul>
+      <li>构建前缀和数组: O(N^2)</li>
+      <li>计算特定矩形面积 * N次</li>
         <ul>
-          <li>全局:同上。</li>
-          <li>局部:只找数值最小的正整数取反,这样亏损最少,当剩余k为偶数时甚至不亏,当前数值可以达到最大。</li>
+          <ol>单次计算: O(1)</ol>
+          <ol>整体运算: O(N)</ol>
         </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <li style="font-weight: bold;">整体复杂度: O(N^2) + O(N)</li>
+    </ul>
+  
+</ol>
 
-
-<h3 id="move">约束条件下移动问题</h3>
-<strong>特点:</strong>
-<ul>
-  <li>这类问题大多数难度为中等,也有少量简单和困难题,但这两个难度的移动问题通常不具有贪心代表性。</li>
-  <li>移动问题本身有种暗示使用指针的感觉,因此贪心思想往往是针对约束条件的,譬如移动的损耗、移动耗油、移动的最远距离等。</li>
-</ul>
-
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>贪心策略</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>55</td>
-      <td>跳跃游戏</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:看覆盖范围,覆盖范围内一定是可以跳过来的,不用管是怎么跳的。</strong><br>
-        <p>那么问题就转化为<span style="font-weight: bold; font-style: italic;">跳跃覆盖范围可不可以覆盖到终点!</span></p>
-        全局:最后得到整体最大覆盖范围,看是否能到终点。<br>
-        局部:移动下标每次取最大跳跃步数(取最大覆盖范围)。            
-      </td>
-    </tr>
-    <tr>
-      <td>45</td>
-      <td>跳跃游戏II</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:以最小的步数增加最大的覆盖范围,直到覆盖范围覆盖了终点</strong><br>
-        全局:达到终点,步数最少。<br>
-        局部:求当前这步的最大覆盖,那么尽可能多走,到达覆盖范围的终点            
-      </td>
-    </tr>
-    <tr>
-      <td>134</td>
-      <td>加油站</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>误区:乍一看是模拟题,但是最直观的模拟思路并不是贪心的做法。</strong><br>
-        <strong>技巧:每个加油站的补充和损耗相减,定义净增长。当从0跑到index为i的加油站,发现累积净增长为负数,则说明0-i之间不存在可以跑完全程的出发点,从i+1继续尝试。</strong><br>
-        全局:找到可以跑一圈的起始位置。<br>
-        局部:累积净增长为负,局部非最优,一定不是全局最优。                  
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<h3 id="overlap">区间重叠问题</h3>
-<strong>特点:</strong>
-<ul>
-  <li>这类问题的难度基本集中在中等。也是少有的比较有套路的贪心算法题。</li>
-  <li>这种题目的核心是可以将问题转换求解区间的重叠部分,需要谨慎辨别。而求解区间重叠问题的关键技巧就是要选定一个方向(左边界/右边界)对数组进行排序,从而让区间尽可能地重叠。</li>
-  <li>排序后只需要关注重叠区间的右边是否能够超过新区间右边界就行。在此基础上就可以对重叠和不重叠的情况下分别作出对应处理,从而解决不同的问题。</li>
-</ul>
-
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>贪心策略</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>452</td>
-      <td>用最少数量的箭引爆气球</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:排序,让可能重叠的气球凑到一起。</strong><br>
-        全局:把所有气球射爆所用弓箭最少。<br>
-        局部:当气球出现重叠,一起射,所用弓箭最             
-      </td>
-    </tr>
-    <tr>
-      <td>435</td>
-      <td>无重叠区间</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:排序,让区间尽可能的重叠</strong><br>
-        全局:让所有区间不重叠<br>
-        局部:当两个区间重叠时,舍弃右边界(从左往右遍历)更远的区间。                   
-      </td>
-    </tr>
-    <tr>
-      <td>763</td>
-      <td>划分字母区间</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:统计每个字符出现的最远index。</strong><br>
-        <p>从头遍历字符,并更新字符的最远出现下标,如果找到字符最远出现位置下标和当前下标相等了,说明找到分割点。</p>           
-        <strong>【其实是模拟法,但是有点贪心的意思】</strong>   
-      </td>
-    </tr>
-    <tr>
-      <td>56</td>
-      <td>合并区间</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:和452/435一样,只不过结果呈现不同</strong>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<h3 id="multidimension">多维度约束贪心问题</h3>
-<strong>特点:</strong>
-<ul>
-  <li>这类问题大多数是困难题和较难的中等题。因为需要考虑至少两个维度的情况(一般最多也就是两个维度)。</li>
-  <li>这类问题有个共同的技巧:</li> <br>
-  <strong>先考虑哪一边都可以! 就别两边一起考虑,那样就把自己陷进去了。</strong>
-</ul>
-
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>贪心策略</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>135</td>
-      <td>分发糖果</td>
-      <td style="background-color: rgb(252, 99, 140);">困难</td>
-      <td>
-        <strong>维度一:从左往右遍历</strong><br>
-        <ul>
-          <li>全局:相邻的孩子中,评分高的右孩子获得比左边孩子更多的糖果</li>
-          <li>局部:只要右边评分比左边大,右边的孩子就多一个糖果。</li>
-        </ul>    
-        
-        <strong>维度二:从右往左遍历</strong><br>      
-        <ul>
-          <li>全局:相邻的孩子中,评分高的孩子获得更多的糖果。</li>
-          <li>局部:只要左边评分比右边大,左边的孩子就多一个糖果,同一个小孩,分到的糖果取维度一和维度二中的较大值。</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>406</td>
-      <td>根据身高重建队列</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>技巧:先从大到小按照h排个序,再来贪心k</strong><br>
-        <p>因为先排序k会发现两个维度都没确定下来。</p>
-        全局:最后都做完插入操作,整个队列满足题目队列属性。<br>
-        局部:优先按身高高的people的k来插入。插入操作过后的people满足队列属性                
-      </td>
-    </tr>
-
-  </tbody>
-</table>
-
-<h3 id="suprise">意想不到贪心问题</h3>
-<strong>特点:</strong>
-<ul>
-  <li>这类问题一般出现于中等和困难题。这种问题对贪心的暗示不强,甚至出题者可能会刻意误导。但是在求极值的时候会发现,求极值思路符合贪心思想。</li>
-  <li>通常这种题在处理的过程中,设计和实施贪心算法有较高难度,也往往正是因为没办法在第一时间构思出足以说服自己的贪心框架,导致错失贪心的解法。</li>
-</ul>
-
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>贪心策略</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>738</td>
-      <td>单调递增的数字</td>
-      <td style="background-color: yellow;">中等</td>
-      <td>
-        <strong>误区: 单纯看题以为是暴力破解,但铁timeout,因此不得不从贪心出发。</strong><br>
-        <strong>技巧:从后往前遍历数字时,遇到非单调递增情,前数退位,后数可以直接为9</strong><br>
-        <strong>【坑:所有后数都要为9,否则无法处理1000000的情况】</strong><br>
-        全局:最终数字是小于原数字的最大单调递增数字。<br>
-        局部:使得当前相邻两位数满足单调递增。                    
-      </td>
-    </tr>
-    <tr>
-      <td>968</td>
-      <td>监控二叉树</td>
-      <td style="background-color: rgb(252, 99, 140);">困难</td>
-      <td>
-        <p>尽管是二叉树,但是摄像头放置的最小数量还是遵从贪心思路。</p>
-        <strong>技巧:发现叶子节点的父节点,和根节点的子节点放摄像头最划算。但只能从一头开始遍历,相比之下,从叶子节点开始遍历更划算(指数级增长),<span style="font-weight: bold;">因此DFS选择后序搜索</span>。</strong><br>
-        全局:全部摄像头数量所用最少<br>
-        局部:让叶子节点的父节点安摄像头,所用摄像头最少。<br>
-        <strong>难点:想到通过dfs传参的方式,进行父节点摄像头覆盖状态的流转。</strong>
-      </td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+<h2 id="Practice"><a href="#Practice"  class="headerlink"></a>更多前缀和练习</h2>
+<p>
+  前缀和的思想很简单，用起来也确实好用，但是从面试角度来说，还是要以刷题为主，因为有些专门设计的题型，即便掌握了前缀和也得思维拐几个弯才能想出来怎么写。
+</p>
+<p>
+  <strong>请参考以下链接，详细囊括了很多前缀和的典型例题</strong>
+  [<a href="https://www.cnblogs.com/ZghzzZyu/p/16407303.html">点击此处</a>]
+</p>
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">代码随想录: 贪心算法理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E8%B4%AA%E5%BF%83%E4%B8%80%E8%88%AC%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4">代码随想录: 贪心一般解题步骤</a></li>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93%E7%AF%87.html#%E8%B4%AA%E5%BF%83%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录: 贪心算法总结篇</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ZghzzZyu/p/16407303.html">ZghzzZyu博客 - 算法: 前缀和</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/prefix-sum/">OI WIKI: 前缀和 & 差分</a></li>
+  <li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7005057884555837476">面试必会的算法题——前缀和</a></li>
+  <li><a target="_blank" rel="noopener" href="https://labuladong.online/algo/data-structure/prefix-sum/">小而美的算法技巧：前缀和数组</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
 
 </ul>
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
+  </div>
+
+<hr/>
+<div>
+  <div class="post-metas my-3">
   
   
     <div class="post-meta">
