@@ -193,7 +193,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k words
+          1.7k words
         
       </span>
     
@@ -242,16 +242,16 @@
 <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
 
 <p style="font-weight: bold;">前缀和是数组中的一种高级技巧,不过学习难度很低,应用场景也比较具象,属于是听起来很难,学起来很简单的算法技巧。</p>
-<p>Leetcode中可以用前缀和求解的题，普遍是简单或中等难度的数组题，也有可能会出现在困难题中，但是在困难题中，前缀和一般只能作为辅助，帮助核心算法减少重复的数组区间运算，避免算法运行超时(Timeout)。</p>
+<p>Leetcode中可以用前缀和求解的题,普遍是简单或中等难度的数组题,也有可能会出现在困难题中,但是在困难题中,前缀和一般只能作为辅助,帮助核心算法减少重复的数组区间运算,避免算法运行超时(Timeout)。</p>
 
 <p style="font-weight: bold;">
   <span style="font-style: italic; font-weight: bold;">前文我有一直在强调前缀和是"算法技巧",而不是"算法"。</span>
-  这是因为前缀和其实是一种数据预处理方法，可用于快速求数组的区间和，本身不具备解决问题的能力(除非题目明确让你生成前缀和数组)。</p>
+  这是因为前缀和其实是一种数据预处理方法,可用于快速求数组的区间和,本身不具备解决问题的能力(除非题目明确让你生成前缀和数组)。</p>
 <p style="font-weight: bold;">不难发现: 前缀和是一种典型的空间换时间思想的应用</p>
 
 <h3 id="difficult">什么时候用前缀和</h3>
 <p style="font-weight: bold;">前缀和技巧适用于快速、频繁地计算一个索引区间内的元素之和。</p>
-<p style="font-weight: bold;">整体来讲，前缀和基本有以下三种用途:</p>
+<p style="font-weight: bold;">整体来讲,前缀和基本有以下三种用途:</p>
 <ol>
   <li><span style="font-weight: bold; font-style: italic;"> sum(arr[:i]) </span> | 求数组前i 个数之和 </li>
   <li><span style="font-weight: bold; font-style: italic;"> sum(arr[i:j]) </span> | 求数组的区间和</li>
@@ -261,17 +261,17 @@
 
 <h2 id="PreSumArray"><a href="#PreSumArray" class="headerlink" title="PreSumArray"></a>前缀和数组</h2>
 <p>
-<strong>前缀和的实现是比较有规律的，因此确实有模板可以借鉴，但是我个人认为前缀和本身的实现不复杂，而且意图很明确，还是应该尝试理解透彻，而不应该依赖套用代码模板。</strong>
+<strong>前缀和的实现是比较有规律的,因此确实有模板可以借鉴,但是我个人认为前缀和本身的实现不复杂,而且意图很明确,还是应该尝试理解透彻,而不应该依赖套用代码模板。</strong>
 </p>
 
-<p>首先，通过做这道Leetcode中堪称<strong>“前缀和敲门砖”(仅个人观点😓)</strong>的题目 (<a href="https://leetcode.cn/problems/running-sum-of-1d-array/description/">1480. 一维数组的动态和</a>)，就可以清楚明白前缀和数组是怎么生成的，以及前缀和数组的意义。</p>
+<p>首先,通过做这道Leetcode中堪称<strong>“前缀和敲门砖”(仅个人观点😓)</strong>的题目 (<a href="https://leetcode.cn/problems/running-sum-of-1d-array/description/">1480. 一维数组的动态和</a>),就可以清楚明白前缀和数组是怎么生成的,以及前缀和数组的意义。</p>
 <p>题目如下:</p>
 <pre>
-  给你一个数组 nums 。数组「动态和」的计算公式为：runningSum[i] = sum(nums[0]...nums[i]) 。
+  给你一个数组 nums 。数组「动态和」的计算公式为,runningSum[i] = sum(nums[0]...nums[i]) 。
   请返回 nums 的动态和。
-  输入：nums = [1,2,3,4]
-  输出：[1,3,6,10]
-  解释：动态和计算过程为 [1, 1+2, 1+2+3, 1+2+3+4] 。
+  输入,nums = [1,2,3,4]
+  输出,[1,3,6,10]
+  解释,动态和计算过程为 [1, 1+2, 1+2+3, 1+2+3+4] 。
 </pre>
 
 <p>最直接的解法毫无疑问就是<strong>暴力求解</strong>, 先遍历一边[0, N-1],我们就获得了i,再针对每个i获取sum(arr[:i])</p>
@@ -289,15 +289,15 @@ class Solution(object):
 </pre>
 
 <p>
-  <strong>这样的时间复杂度为 O(n^2)</strong>，不难发现，对于每一个计算 preSum[i] 都会从位置 0 开始计算一遍,导致长度为N的数组,preSum[i]会被重复扫描 N - i 次。
+  <strong>这样的时间复杂度为 O(n^2)</strong>,不难发现,对于每一个计算 preSum[i] 都会从位置 0 开始计算一遍,导致长度为N的数组,preSum[i]会被重复扫描 N - i 次。
   <strong>这些重复的运算是完全可以避免的!</strong>
 </p>
 
 <h3 id="PreSumSolution">前缀和解法</h3>
 
 <p>
-  在外层遍历数组的过程中，如果想要避免重复计算从0到i数组的和，我们最直接的方式自然就是把它存起来，求下一位的时候，就可以直接用，如此我们就可以用O(1)的空间,就可以换O(N)的时间，
-  整个算法运行下来，可以用O(N)的空间将O(N^2)的时间强行换成O(N)。
+  在外层遍历数组的过程中,如果想要避免重复计算从0到i数组的和,我们最直接的方式自然就是把它存起来,求下一位的时候,就可以直接用,如此我们就可以用O(1)的空间,就可以换O(N)的时间,
+  整个算法运行下来,可以用O(N)的空间将O(N^2)的时间强行换成O(N)。
 </p>
 
 <div style="text-align: center;">
@@ -318,13 +318,13 @@ class Solution(object):
 </pre>
 
 <p>
-  <strong>这样，时间复杂度降为 O(n)。有了前缀和数组，我们就可以快速得到数组的区间和。</strong>
+  <strong>这样,时间复杂度降为 O(n)。有了前缀和数组,我们就可以快速得到数组的区间和。</strong>
 </p>
 <p>
-  <strong>这道题中我们只关注从头开始的区间和，但是前缀和最妙的地方就是他同样可以轻松算出任何一个段区间的区间和</strong>
+  <strong>这道题中我们只关注从头开始的区间和,但是前缀和最妙的地方就是他同样可以轻松算出任何一个段区间的区间和</strong>
   <ol>
-    <li>数组 [0,i] 区间和：preSum[i]</li>
-    <li>数组 [i,j] 区间和：preSum[j] - preSum[i-1]</li>
+    <li>数组 [0,i] 区间和,preSum[i]</li>
+    <li>数组 [i,j] 区间和,preSum[j] - preSum[i-1]</li>
   </ol>
 </p>
 
@@ -335,36 +335,36 @@ class Solution(object):
 <h3 id="WhenTo"><a href="#WhenTo" class="headerlink" title="WhenTo"></a>何时使用前缀和算法？</h3>
 
 <p>
-  前文已经很明确，前缀和最明显的信号就是: <strong>区间和</strong>，如果非要加上一个特征，那就是<strong>重复</strong>。
+  前文已经很明确,前缀和最明显的信号就是: <strong>区间和</strong>,如果非要加上一个特征,那就是<strong>重复</strong>。
 </p>
-<p>光说区间，可能会存在混淆的地方，因为在数组的背景下，我们通常说的区间其实就是子数组，但是对子数组的算法其实很多，一般处理连续子数组会使用双指针或滑动窗口。</p>
-<p>但当解题思路没有明确的指针移动判断条件时，可以尝试使用前缀和，因为就算需要通过穷举遍历数组，如果有条件用前缀和预处理，那整体算法复杂度也不会太高。</p>
-<p>更为重要的是，如果题目中明确涉及到频繁要计算数组中不同区间的和\差\乘积等，那么用前缀和必不会错。</p>
+<p>光说区间,可能会存在混淆的地方,因为在数组的背景下,我们通常说的区间其实就是子数组,但是对子数组的算法其实很多,一般处理连续子数组会使用双指针或滑动窗口。</p>
+<p>但当解题思路没有明确的指针移动判断条件时,可以尝试使用前缀和,因为就算需要通过穷举遍历数组,如果有条件用前缀和预处理,那整体算法复杂度也不会太高。</p>
+<p>更为重要的是,如果题目中明确涉及到频繁要计算数组中不同区间的和\差\乘积等,那么用前缀和必不会错。</p>
 
 <h3 id="Process"><a href="#Process" class="headerlink" title="Process"></a>流程</h3>
 
 
-<p>总结下来，前缀和通常只有两个步骤：</p>
+<p>总结下来,前缀和通常只有两个步骤,</p>
 <ol>
   <li><strong>预处理:</strong> 通过遍历原数组先求得前缀和数组 preSum。</li>
-  <li><strong>使用:</strong> 根据需要，通过前缀和数组计算数组中某个区间和，其中需要明确需要求解的区间左右端点，以及前缀和数组和原数组下标之间的关系。</li>
+  <li><strong>使用:</strong> 根据需要,通过前缀和数组计算数组中某个区间和,其中需要明确需要求解的区间左右端点,以及前缀和数组和原数组下标之间的关系。</li>
 </ol>
 
 <h2 id="2D"><a href="#2D" class="headerlink" title="2D"></a>二维数组前缀和</h2>
 
-<p>一维数组的前缀和还是比较简单，毕竟只需要做减法就可以获得同一维度上任何一段区间和。
-  但是数组的问题都要考虑升维问题，如果在M*N的二维前缀和数组中，每一行 或 某一列的区间和都和一维前缀和同理，很好求。
-  现在如果要求某个特定范围的“二维区间和”，解法会有很大区别么？</p>
+<p>一维数组的前缀和还是比较简单,毕竟只需要做减法就可以获得同一维度上任何一段区间和。
+  但是数组的问题都要考虑升维问题,如果在M*N的二维前缀和数组中,每一行 或 某一列的区间和都和一维前缀和同理,很好求。
+  现在如果要求某个特定范围的“二维区间和”,解法会有很大区别么？</p>
 
 
 
-<p>以LeetCode 第 304 题「<a href="https://leetcode.cn/problems/range-sum-query-2d-immutable/description/">二维区域和检索 - 矩阵不可变</a>」为例，
-  这道题让我们计算二维矩阵中子矩阵的元素之和，题目如下：</p>
+<p>以LeetCode 第 304 题「<a href="https://leetcode.cn/problems/range-sum-query-2d-immutable/description/">二维区域和检索 - 矩阵不可变</a>」为例,
+  这道题让我们计算二维矩阵中子矩阵的元素之和,题目如下,</p>
 <pre>
-  给定一个二维矩阵 matrix，以下类型的多个请求：
+  给定一个二维矩阵 matrix,以下类型的多个请求,
 
-  计算其子矩形范围内元素的总和，该子矩阵的 左上角 为 (row1, col1) ，右下角 为 (row2, col2) 。
-  实现 NumMatrix 类：
+  计算其子矩形范围内元素的总和,该子矩阵的 左上角 为 (row1, col1) ,右下角 为 (row2, col2) 。
+  实现 NumMatrix 类,
   
   NumMatrix(int[][] matrix) 给定整数矩阵 matrix 进行初始化
   int sumRegion(int row1, int col1, int row2, int col2) 
@@ -372,10 +372,10 @@ class Solution(object):
 </pre>
 
 <h3 id="SumArray"><a href="#SumArray" class="headerlink" title="SumArray"></a>解法一: 低维数组阵列</h3>
-<p>如果让我们使用M*N二维前缀和的第一反应，可能是想要构建一个M个长度为N的一维前缀和数组。</p>
+<p>如果让我们使用M*N二维前缀和的第一反应,可能是想要构建一个M个长度为N的一维前缀和数组。</p>
   
 <p> 我个人喜欢称之为<strong>“低维数组阵列”</strong>(并不是官方叫法😓)<p></p>
-  <p> 这确实可以一定程度上解决问题，最起码在遍历列区间的时候，可以快速获得行的区间和。</p>
+  <p> 这确实可以一定程度上解决问题,最起码在遍历列区间的时候,可以快速获得行的区间和。</p>
 
 <pre>
   preSumArray = [
@@ -393,23 +393,23 @@ class Solution(object):
 
 <h3 id="2DArray"><a href="#2DArray" class="headerlink" title="2DArray"></a>解法二: 高维前缀和</h3>
 
-<p>但是这个事实上使用“低维数组阵列”构建的二维前缀和数组并不够优秀，因为使用相同的构建时间，M个一维前缀和数组只能在一个维度上节约开销，
+<p>但是这个事实上使用“低维数组阵列”构建的二维前缀和数组并不够优秀,因为使用相同的构建时间,M个一维前缀和数组只能在一个维度上节约开销,
   而理想中的前缀和数组应该可以在所有维度上节约开销,这需要更高维的设计思想。</p>
 
-<p>可能会有人疑问，直接把前缀和数组升维会不会导致运算变复杂？因为很明显 一维数组求一维区间和 比 使用这个二维前缀和数组 求 二维区间和 更加的简单直接。</p>
+<p>可能会有人疑问,直接把前缀和数组升维会不会导致运算变复杂？因为很明显 一维数组求一维区间和 比 使用这个二维前缀和数组 求 二维区间和 更加的简单直接。</p>
 
-<p>答案是：复杂是一定的，毕竟升维本身就意味这复杂度的飙升，而“低纬数组阵列”其实是一种<strong>心智复杂度和时间复杂度的Tradeoff</strong>，
-  即在牺牲了一定算法性能的前提下，允许我延用更加简单的低维运算，以更高的时间开销作为代价，降低了算法的心智消耗。
+<p>答案是,复杂是一定的,毕竟升维本身就意味这复杂度的飙升,而“低纬数组阵列”其实是一种<strong>心智复杂度和时间复杂度的Tradeoff</strong>,
+  即在牺牲了一定算法性能的前提下,允许我延用更加简单的低维运算,以更高的时间开销作为代价,降低了算法的心智消耗。
 </p> 
 <p>
-  不过，貌似“为了降低性能开销而进行复杂的思考”才更加符合现在算法开发的主流意识形态（不敢说一定就是正确的），毕竟当前互联网的现状就是数据吞吐量太大，算法和数据结构都是能省就省，
-  不然溢出的开销都是真金白银的成本，反观压榨人力资源的心智成本反而成了更加优惠的选择😭。
+  不过,貌似“为了降低性能开销而进行复杂的思考”才更加符合现在算法开发的主流意识形态（不敢说一定就是正确的）,毕竟当前互联网的现状就是数据吞吐量太大,算法和数据结构都是能省就省,
+  不然溢出的开销都是真金白银的成本,反观压榨人力资源的心智成本反而成了更加优惠的选择😭。
 </p>
 
 
-<p>现在，我们定义 preSum[i][j] 表示 <strong>从 [0,0] 位置到 [i,j] 位置的子矩形所有元素之和</strong>。</p>
+<p>现在,我们定义 preSum[i][j] 表示 <strong>从 [0,0] 位置到 [i,j] 位置的子矩形所有元素之和</strong>。</p>
 
-<p style="font-weight: bold;">preSum[i][j]的递推公式将会是：</p>
+<p style="font-weight: bold;">preSum[i][j]的递推公式将会是,</p>
 <pre>
   preSum[i][j]=preSum[i−1][j]+preSum[i][j−1]−preSum[i−1][j−1]+matrix[i][j]
 </pre>
@@ -423,14 +423,14 @@ class Solution(object):
   <img src="../2d_presum.png" width="300">
 </div>
 
-<p>根据以上递推关系可以完成第一步，构建出二维前缀和数组 preSum, preSum[i][j]表示的是以[0,0]为左上角，以[i,j]为右下角的矩形元素之和(区间和)。</p>
+<p>根据以上递推关系可以完成第一步,构建出二维前缀和数组 preSum, preSum[i][j]表示的是以[0,0]为左上角,以[i,j]为右下角的矩形元素之和(区间和)。</p>
 
-<p>那么第二步就需要使用前缀和数组了，先通过右下角的节点锁定大范围，再根据左上角的节点去删去多余的部分就行。递推关系如下：</p>
+<p>那么第二步就需要使用前缀和数组了,先通过右下角的节点锁定大范围,再根据左上角的节点去删去多余的部分就行。递推关系如下,</p>
 <pre>
 preSum[row2][col2]−preSum[row2][col1−1]−preSum[row1−1][col2]+preSum[row1−1][col1−1]
 </pre>
 
-<p>至此，算法就实现了。总结复杂度如下</p>
+<p>至此,算法就实现了。总结复杂度如下</p>
 <ol>
   <li style="font-weight: bold;">解法一: 低维前缀和数组阵列</li>
     <ul>
@@ -457,10 +457,10 @@ preSum[row2][col2]−preSum[row2][col1−1]−preSum[row1−1][col2]+preSum[row1
 
 <h2 id="Practice"><a href="#Practice"  class="headerlink"></a>更多前缀和练习</h2>
 <p>
-  前缀和的思想很简单，用起来也确实好用，但是从面试角度来说，还是要以刷题为主，因为有些专门设计的题型，即便掌握了前缀和也得思维拐几个弯才能想出来怎么写。
+  前缀和的思想很简单,用起来也确实好用,但是从面试角度来说,还是要以刷题为主,因为有些专门设计的题型,即便掌握了前缀和也得思维拐几个弯才能想出来怎么写。
 </p>
 <p>
-  <strong>请参考以下链接，详细囊括了很多前缀和的典型例题</strong>
+  <strong>请参考以下链接,详细囊括了很多前缀和的典型例题</strong>
   [<a href="https://www.cnblogs.com/ZghzzZyu/p/16407303.html">点击此处</a>]
 </p>
 
@@ -469,7 +469,7 @@ preSum[row2][col2]−preSum[row2][col1−1]−preSum[row1−1][col2]+preSum[row1
   <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ZghzzZyu/p/16407303.html">ZghzzZyu博客 - 算法: 前缀和</a></li>
   <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/prefix-sum/">OI WIKI: 前缀和 & 差分</a></li>
   <li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7005057884555837476">面试必会的算法题——前缀和</a></li>
-  <li><a target="_blank" rel="noopener" href="https://labuladong.online/algo/data-structure/prefix-sum/">小而美的算法技巧：前缀和数组</a></li>
+  <li><a target="_blank" rel="noopener" href="https://labuladong.online/algo/data-structure/prefix-sum/">小而美的算法技巧,前缀和数组</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>

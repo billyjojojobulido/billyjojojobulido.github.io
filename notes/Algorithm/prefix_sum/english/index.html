@@ -16,15 +16,15 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Algorithm and Data Strcture - Array(III): Binary Search">
+    <meta name="description" content="Algorithm and Data Strcture - Array(V): Binary Search">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Algorithm and Data Strcture - Array(III): Binary Search">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/bisection/english/index.html">
+<meta property="og:title" content="Algorithm and Data Strcture - Array(V): Prefix Sum">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/prefix_sum/english/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="Algorithm and Data Strcture - Array(III): Binary Search">
+<meta property="og:description" content="Algorithm and Data Strcture - Array(V): Prefix Sum">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
-<meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
+<meta property="article:published_time" content="2024-09-14T16:03:23.000Z">
+<meta property="article:modified_time" content="2024-08-21T16:03:56.262Z">
 <meta property="article:author" content="Baocheng Wang">
 <meta property="article:tag" content="Notes">
 <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
   
   
   
-  <title>Algorithm and Data Strcture - Array(III): Binary Search</title>
+  <title>Algorithm and Data Strcture - Array(V): Prefix Sum</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -173,7 +173,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span>Algorithm and Data Strcture - Array(III): Binary Search</span>
+            <span>Algorithm and Data Strcture - Array(V): Prefix Sum</span>
         </div>
           
   <div class="mt-3">
@@ -181,8 +181,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-25 23:15" pubdate>
-          July 27, 2024
+        <time datetime="2024-09-14 16:02" pubdate>
+          September 14, 2024
         </time>
       </span>
     
@@ -193,7 +193,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k words
+          1.7k words
         
       </span>
     
@@ -202,7 +202,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-clock-fill"></i>
         
-          30 mins
+          20 mins
         
       </span>
     
@@ -238,183 +238,234 @@
             
               <div class="markdown-body">
 
-
 <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-<p style="font-weight: bold;">The binary search method is a simple algorithm derived from mathematical ideas.</p>
-<p>
-  It is the simplest intermediate algorithm. Because many people who are not computer professionals know and are 
-  exposed to dichotomy to some extent, dichotomy is often used by some companies as a comprehensive quality question to test the IQ and numerical sensitivity of applicants.
-</p>
+<p style="font-weight: bold;">Prefix sum is an advanced technique in arrays, but it is relatively easy to learn and has specific application scenarios. It sounds difficult but is actually a simple algorithmic trick to learn.</p>
+<p>In Leetcode, problems that can be solved using prefix sums are generally easy or medium-level array problems. They may also appear in hard problems, but in such cases, prefix sums usually act as a helper to reduce repetitive interval calculations and avoid timeout errors in the main algorithm.</p>
 
-<p>
-  Binary search algorithm questions usually have <span style="font-weight: bold;">obvious hints.</span>
-  When an <span style="font-weight: bold;">ordered array</span> or <span style="font-weight: bold;">O(logN) time complexity requirement</span> appears in the question, binary search will be the first choice.
-</p>
+<p style="font-weight: bold;">
+<span style="font-style: italic; font-weight: bold;">I have been emphasizing that prefix sum is a "technique" rather than an "algorithm."</span>
+This is because the prefix sum is a data preprocessing method used to quickly calculate the sum of elements within a range in an array. It does not solve problems by itself (unless the problem explicitly asks you to generate a prefix sum array).</p>
+<p style="font-weight: bold;">It is easy to notice: The prefix sum is a typical application of the space-for-time trade-off.</p>
 
-<p>
-  At the same time, the question will also emphasize that there are <span style="font-weight: bold;">no duplicate elements in the array</span>, 
-  because once there are duplicate elements, the element index returned by the binary search method may not be unique. 
-  These are the prerequisites for using the binary search method.
-</p>
-
-<h3 id="difficult">Mathematical Logic of Binary Search</h3>
+<h3 id="difficult">When to Use Prefix Sum</h3>
+<p style="font-weight: bold;">The prefix sum technique is useful for quickly and frequently calculating the sum of elements within a given index range.</p>
+<p style="font-weight: bold;">In general, prefix sums have three main uses:</p>
 <ol>
-  <li>Based on the indices of the left and right endpoints, the value of the midpoint can be found in O(1) time.</li>
-  <li>Under the premise that the array is ordered, <span style="font-weight: bold;">comparing the midpoints can directly eliminate half of the possibilities.</span></li>
-  <li> <span style="font-weight: bold;">Therefore, the O(N) search is simplified to O(log2N) elimination.</span></li>
+<li><span style="font-weight: bold; font-style: italic;"> sum(arr[:i]) </span> | Calculate the sum of the first i elements of an array</li>
+<li><span style="font-weight: bold; font-style: italic;"> sum(arr[i:j]) </span> | Calculate the sum of a subarray</li>
+<li><span style="font-weight: bold; font-style: italic;"> sum(two_dim_arr[i:j][x:y]) </span> | Quickly calculate the sum of a submatrix in a 2D array</li>
 </ol>
-
-
-<h2 id="Open"><a href="#Open" class="headerlink" title="Open"></a>Loop Invariant- Open/Closed Interval ⭐️</h2>
-<strong>Binary search involves various boundary conditions.</strong>
-<p>Although the logic is relatively simple, it is difficult to write.
-  For example, whether should we write  "while (left &lt right)" or "while (left &lt = right)"? Moreover,
-  whether should we write "right = middle" or "right = middle - 1"?</p>
-
+<h2 id="PreSumArray"><a href="#PreSumArray" class="headerlink" title="PreSumArray"></a>Prefix Sum Array</h2>
 <p>
-  The real problem is that the developers might not have thought clearly about the definition of interval. 
-  <span style="font-weight: bold;">The definition of interval is an invariant. </span>
-  To maintain the invariant in the binary search process, every boundary processing in the while loop must be operated according to the definition of interval. 
-  This is the loop invariant rule.
+<strong>The implementation of prefix sum follows a consistent pattern, so there are indeed templates to refer to. However, I personally believe that the implementation of the prefix sum itself is not complicated, and its purpose is very clear. It is better to try to fully understand it rather than relying on template code.</strong>
 </p>
-<strong>There are two kinds of intervals in writing binary search: left closed and right closed, i.e. [left, right], or left closed and right open, i.e.[left, right)。</strong><br><br>
 
-<p>My personal habit is to use [left, right]. You can refer to the following template: </p>
-
+<p>First, by solving this problem, which I personally consider to be a <strong>"stepping stone to prefix sum" (just my personal opinion 😓)</strong> on Leetcode (<a href="https://leetcode.cn/problems/running-sum-of-1d-array/description/">1480. Running Sum of 1d Array</a>), you can clearly understand how the prefix sum array is generated and what its significance is.</p>
+<p>The problem is as follows:</p>
 <pre>
-left, right = 0, len(nums) -1 
-while  ( left &lt= right ): 
-  mid =  (left + right) &gt&gt 1 
-  if ( nums[mid] == target ) : return ret 
-  if (nums[mid] &gt target):  right = mid - 1   
-  else: left = mid + 1    
-
-return err                  
+  Given an array nums, the formula to calculate the "running sum" of the array is: runningSum[i] = sum(nums[0]...nums[i]).
+  Return the running sum of nums.
+  Input: nums = [1,2,3,4]
+  Output: [1,3,6,10]
+  Explanation: The running sum is calculated as [1, 1+2, 1+2+3, 1+2+3+4].
 </pre>
 
+<p>The most straightforward solution is undoubtedly <strong>brute force</strong>: first traverse from [0, N-1], and for each i, calculate sum(arr[:i]).</p>
+<pre>
+class Solution(object):
+    def runningSum(self, nums):
+        N = len(nums)
+        preSum = [0] * N
+        for i in range(N):
+            curSum = 0
+            for j in range(i + 1):
+                curSum += nums[j]
+            preSum[i] = curSum
+        return preSum
+</pre>
 
-<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem Set and Analysis</h2>
-<p>Binary search is a classic algorithm in array search problems, so you can see that most of the classic binary search questions and algorithms are at the top of the Leetcode problem set.</p>
+<p>
+  <strong>The time complexity of this solution is O(n^2)</strong>. It is easy to see that for each calculation of preSum[i], the sum is recalculated starting from position 0, which means for an array of length N, preSum[i] is scanned N - i times repeatedly.
+  <strong>These redundant calculations can be completely avoided!</strong>
+</p>
 
-<p>Although the binary search algorithm is relatively straightforward, the difficulty of binary search questions is relatively flexible. 
-  The pure and most basic binary search can be asked on its own, and it is also a typical simple question. 
-  Later, as the conditions of the array begin to become more abstract, the difficulty of the questions will also increase.</p>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Problem</th>
-      <th>Diff</th>
-      <th>Binary Search Strategy</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>704</td>
-      <td>Binary Search</td>
-      <td style="background-color: lightgreen;">Easy</td>
-      <td>
-        The most basic binary search.
-      </td>
-    </tr>
-    <tr>
-      <td>35</td>
-      <td>Search Insert Position</td>
-      <td style="background-color: lightgreen;">Easy</td>
-      <td>
-        The most basic binary search.
-      </td>
-    </tr>
-    <tr>
-      <td>74</td>
-      <td>Search a 2D Matrix</td>
-      <td style="background-color: yellow;">Medium</td>
-      <td>
-        <strong>Difficulty: transform the 2D Array into 3D</strong><br>
-        <p>But there is no difference. You can first use<span style="font-weight: bold; font-style: italic;"> the row-first idea</span> to determine which row the target will appear in, and then use a normal binary search to take it away.</p>           
-      </td>
-    </tr>
-    <tr>
-      <td>34</td>
-      <td>Find First and Last Position of Element in Sorted Array</td>
-      <td style="background-color: yellow;">Medium</td>
-      <td>
-        <strong>Difficulty: Elements are repeated, the answer is likely not unique</strong><br>
-        <p>
-          The binary search process is still the same, but the nums[mid]==target block no longer directly returns the result. 
-          Instead, it needs to traverse [left, right] 
-          (you can also use left and right clamping) to determine the final [start, end].
-        </p>
-      </td>
-    </tr>
-    <tr>
-      <td>33</td>
-      <td>Search in Rotated Sorted Array</td>
-      <td style="background-color: yellow;">Medium</td>
-      <td>
-        <strong>Difficulty: Arrays are not Unconditionally Ordered</strong><br>
-        <p>
-          During the search, we need to process a rotation axis point.
-          We need to process the arrays [l, r] and [l, p, r] respectively. 
-          The middle point p represents the point where the maximum value suddenly drops to the minimum value. 
-          However, the breakthrough point is that after rotation, nums[0] must be greater than nums[-1]. 
-          This can be used to determine the search direction.
-        </p>
-      </td>
-    </tr>
+<h3 id="PreSumSolution">Prefix Sum Solution</h3>
 
-    <tr>
-      <td>153</td>
-      <td>Find Minimum in Rotated Sorted Array</td>
-      <td style="background-color: yellow;">Medium</td>
-      <td>
-        <p>The difficulty and solution are the same as those of question 33. However, you need to return the minimum value, which is the rotation axis point in question 33.</p>
-        <p>During the search process, the mid element is constantly compared with the right border, and there will be three situations:</p>
-        <ol>
-          <li>m &lt r: m is on the right side of the answer, [m,r] can be ignored</li>
-          <li>m &gt r: m is on the left side of the answer, so [l, m] can be ignored</li>
-          <li>m = r: The elements are not repeated, so this situation does not exist and the search can be ended directly.</li>
-        </ol>
-      </td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Median of Two Sorted Arrays</td>
-      <td style="background-color: rgb(252, 99, 140);">Hard</td>
-      <td>
-        <strong>Primary Idea: To find the k-th (k&gt1) smallest element, so we can compare pivot1 = nums1[k//2-1] with pivot2 = nums2[k//2-1] </strong><br>
-        <p>There are k/2-1 elements in nums1 that is smaller or equal to pivot1: nums1[0 .. k/2-2]</p>
-        <p>There are k/2-1 elements in nums2 that is smaller or equal to pivot2: nums2[0 .. k/2-2]</p>
-        <p>Takes pivot = min(pivot1, pivot2), the number of elemnts in the two arraies that are smaller or equal to pivot will not exceed (k/2-1) + (k/2-1) &lt= k-2</p>
-        <p>In this way, the pivot itself can only be the k-1th smallest element at most.</p>
-        <p>If pivot = pivot1, then nums1[0 .. k/2-1] can never be the k-th smallest element. "Delete" all these elements and use the remaining elements as the new nums1 array</p>
-        <p>If pivot = pivot2, then nums2[0 .. k/2-1] can never be the k-th smallest element. "Delete" all these elements and use the remaining elements as the new nums2 array</p>
-        <p>Since we "deleted" some elements (these elements are smaller than the k-th smallest element), we need to modify the value of k by subtracting the number of deleted elements.</p>
-      </td>
-    </tr>
+<p>
+  While traversing the array in the outer loop, if we want to avoid recalculating the sum of the array from 0 to i, the most direct way is to store it. For the next element, we can directly use the stored value. By doing this, we can use O(1) space to trade for O(N) time, and the entire algorithm can run with O(N) space, reducing the time complexity from O(N^2) to O(N).
+</p>
 
-  </tbody>
-</table>
+<div style="text-align: center;">
+<img src="../presum_demo.png" width="500">
+</div>
 
+<pre>
+class Solution(object):
+    def runningSum(self, nums):
+        N = len(nums)
+        preSum = [0] * N
+        for i in range(N):
+            if i == 0:
+                preSum[i] = nums[i]
+                continue
+            preSum[i] = preSum[i-1] + nums[i]
+        return preSum
+</pre>
 
-<strong>Note: You can get more Binary Search exercises through the [Similar Questions] function of Leetcode</strong><br>
+<p>
+  <strong>This way, the time complexity is reduced to O(n). With the prefix sum array, we can quickly calculate the sum of any subarray.</strong>
+</p>
+<p>
+  <strong>In this problem, we are only interested in the sum of the subarrays starting from the beginning, but the beauty of the prefix sum is that it can easily calculate the sum of any subarray:</strong>
+  <ol>
+    <li>Sum of subarray [0, i]: preSum[i]</li>
+    <li>Sum of subarray [i, j]: preSum[j] - preSum[i-1]</li>
+  </ol>
+</p>
+
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>General Problem-Solving Process for Prefix Sum</h2>
+
+<h3 id="WhenTo"><a href="#WhenTo" class="headerlink" title="WhenTo"></a>When to Use the Prefix Sum Algorithm?</h3>
+
+<p>
+  As previously mentioned, the most obvious signal for using a prefix sum is: <strong>interval sum</strong>. If we were to add one more feature, it would be <strong>repetition</strong>.
+</p>
+<p>Talking about intervals might be confusing because, in the context of arrays, what we typically refer to as an interval is actually a subarray. However, there are many algorithms for handling subarrays, and for continuous subarrays, we often use two pointers or a sliding window approach.</p>
+<p>When there are no clear conditions for moving the pointers, you can consider using a prefix sum. Even if you have to exhaustively traverse the array, if there is an opportunity to preprocess with a prefix sum, the overall time complexity will not be too high.</p>
+<p>More importantly, if the problem explicitly involves frequently calculating sums, differences, or products of different intervals in an array, using a prefix sum is a safe bet.</p>
+
+<h3 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h3>
+
+<p>To summarize, the prefix sum usually involves only two steps:</p>
+<ol>
+  <li><strong>Preprocessing:</strong> Traverse the original array to calculate the prefix sum array preSum.</li>
+  <li><strong>Usage:</strong> As needed, use the prefix sum array to calculate the sum of a specific interval in the array. It is crucial to clearly identify the left and right endpoints of the interval you want to solve, and understand the relationship between the prefix sum array and the original array indices.</li>
+</ol>
+
+<h2 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D Array Prefix Sum</h2>
+
+<p>Prefix sums in a 1D array are relatively simple, as you only need to subtract values to obtain the sum of any segment in the same dimension. 
+  However, array problems often need to consider higher dimensions. In a 2D prefix sum array of M*N, calculating the sum of intervals along any row or column is similar to the 1D prefix sum, which is straightforward. 
+  But if we need to calculate the “2D interval sum” for a specific range, will the solution differ significantly?</p>
+
+<p>Let’s use LeetCode problem 304, "<a href="https://leetcode.cn/problems/range-sum-query-2d-immutable/description/">Range Sum Query 2D - Immutable</a>," as an example. 
+  This problem asks us to calculate the sum of elements in a submatrix within a 2D matrix. The problem is as follows:</p>
+<pre>
+  Given a 2D matrix matrix, handle multiple requests of the following type:
+
+  Calculate the total sum of the elements within a subrectangle, 
+  with the top-left corner at (row1, col1) and the bottom-right corner at (row2, col2).
+  
+  Implement the NumMatrix class:
+  
+  NumMatrix(int[][] matrix) Initializes the object with the integer matrix matrix.
+  int sumRegion(int row1, int col1, int row2, int col2) 
+  Returns the total sum of the elements of the submatrix described by the top-left corner 
+  (row1, col1) and bottom-right corner (row2, col2).
+</pre>
+
+<h3 id="SumArray"><a href="#SumArray" class="headerlink" title="SumArray"></a>Solution 1: Low-Dimensional Array Arrays</h3>
+<p>When we first think about using an M*N 2D prefix sum, we might want to construct a 1D prefix sum array for each of the M rows.</p>
+
+<p> I personally like to call this a <strong>"low-dimensional array array"</strong> (this is not an official term 😓).<p></p>
+  <p>This can solve the problem to some extent. At least when traversing the column interval, we can quickly obtain the sum of the interval across rows.</p>
+
+<pre>
+  preSumArray = [
+    [ .... ],   // 1D prefix sum array for the first row
+    [ .... ],   // 1D prefix sum array for the second row
+    ...
+  ]
+
+  ret = 0
+  for i in range(start_row, end_row + 1):
+      col_interval_sum = preSumArray[i][end_col - 1] - preSumArray[i][start_col - 1]
+      ret += col_interval_sum
+</pre>
+
+<h3 id="2DArray"><a href="#2DArray" class="headerlink" title="2DArray"></a>Solution 2: Higher-Dimensional Prefix Sum</h3>
+
+<p>However, using a "low-dimensional array array" to construct a 2D prefix sum array is not optimal. With the same construction time, M one-dimensional prefix sum arrays only reduce costs in one dimension, while an ideal prefix sum array should reduce costs in all dimensions. This requires a higher-dimensional design approach.</p>
+
+<p>Some might wonder, will directly extending the prefix sum array to higher dimensions make the calculations more complex? After all, calculating the sum of a 1D interval in a one-dimensional array seems much simpler and more straightforward than using a 2D prefix sum array to calculate the sum of a 2D region.</p>
+
+<p>The answer is: Yes, it will be more complex. After all, moving to higher dimensions inherently increases complexity. The "low-dimensional array array" is essentially a <strong>tradeoff between cognitive complexity and time complexity</strong>. By sacrificing some algorithmic performance, we allow ourselves to use simpler, low-dimensional calculations, accepting higher time complexity in exchange for lower cognitive load in the algorithm.</p>
+
+<p>However, it seems that “thinking more complexly to reduce performance costs” aligns more with the current mainstream ideology in algorithm development (though it’s not necessarily the only correct approach). The current state of the internet demands handling vast amounts of data, and both algorithms and data structures are designed to save as much as possible. Otherwise, the overflow costs translate into real financial expenses. On the other hand, squeezing human cognitive effort seems to be the more cost-effective option 😭.</p>
+
+<p>Now, we define preSum[i][j] to represent the <strong>sum of all elements in the subrectangle from [0,0] to [i,j]</strong>.</p>
+
+<p style="font-weight: bold;">The recursive formula for preSum[i][j] is:</p>
+<pre>
+  preSum[i][j] = preSum[i−1][j] + preSum[i][j−1] − preSum[i−1][j−1] + matrix[i][j]
+</pre>
+
+<p>The recursive relationship is illustrated below:</p>
+<p style="font-style: italic; font-size: xx-large;">
+  S(O,D) = S(O,C) + S(O,B) − S(O,A) + D
+</p>
+
+<div style="text-align: center;">
+  <img src="../2d_presum.png" width="300">
+</div>
+
+<p>Based on this recursive relationship, we can complete the first step: constructing the 2D prefix sum array preSum. preSum[i][j] represents the sum of the elements in the submatrix with the top-left corner at [0,0] and the bottom-right corner at [i,j].</p>
+
+<p>The second step is to use the prefix sum array. We first lock in the large range with the bottom-right corner, and then subtract the extra parts using the top-left corner. The recursive formula is as follows:</p>
+<pre>
+preSum[row2][col2] − preSum[row2][col1−1] − preSum[row1−1][col2] + preSum[row1−1][col1−1]
+</pre>
+
+<p>At this point, the algorithm is complete. The complexity summary is as follows:</p>
+<ol>
+  <li style="font-weight: bold;">Solution 1: Low-Dimensional Prefix Sum Array</li>
+    <ul>
+      <li>Constructing the prefix sum array: O(N^2)</li>
+      <li>Calculating the area of a specific rectangle * N times</li>
+        <ul>
+          <li>Single calculation: O(N)</li>
+          <li>Overall computation: O(N^2)</li>
+        </ul>
+      <li style="font-weight: bold;">Overall complexity: O(N^2) + O(N^2)</li>
+    </ul>
+  <li style="font-weight: bold;">Solution 2: Higher-Dimensional Prefix Sum</li>
+    <ul>
+      <li>Constructing the prefix sum array: O(N^2)</li>
+      <li>Calculating the area of a specific rectangle * N times</li>
+        <ul>
+          <li>Single calculation: O(1)</li>
+          <li>Overall computation: O(N)</li>
+        </ul>
+      <li style="font-weight: bold;">Overall complexity: O(N^2) + O(N)</li>
+    </ul>
+</ol>
+
+<h2 id="Practice"><a href="#Practice" class="headerlink"></a>More Prefix Sum Practice</h2>
+<p>
+  The prefix sum concept is simple and very practical. However, from an interview perspective, it is crucial to focus on solving problems, as some specifically designed questions require multiple logical steps to figure out even when you are familiar with the prefix sum.
+</p>
+<p>
+  <strong>Refer to the following link, which includes many typical examples of prefix sum problems:</strong>
+  [<a href="https://www.cnblogs.com/ZghzzZyu/p/16407303.html">Click here</a>]
+</p>
+
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>References</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">Carol's Code Thoughts: Array Theory Basic [translated]</a></li>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">Carol's Code Thoughts: Binary Search [translated]</a></li>
-  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/binary/">OI Wiki: Binary Search</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: Top Interview 150</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: Premium Algorithm 100</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode Problem Set</a></li>
-
+  <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ZghzzZyu/p/16407303.html">ZghzzZyu Blog - Algorithm: Prefix Sum</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/prefix-sum/">OI WIKI: Prefix Sum & Difference</a></li>
+  <li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7005057884555837476">Must-Know Interview Algorithm Problems: Prefix Sum</a></li>
+  <li><a target="_blank" rel="noopener" href="https://labuladong.online/algo/data-structure/prefix-sum/">Small and Beautiful Algorithm Technique: Prefix Sum Array</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: Top 150 Interview Questions</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: Premium Interview 100 Questions</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode Algorithms</a></li>  
 </ul>
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
+  </div>
+
+<hr/>
+<div>
+  <div class="post-metas my-3">
   
   
     <div class="post-meta">
@@ -429,8 +480,8 @@ return err
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Algorithm and Data Strcture - Array(III): Binary Search</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/bisection/english/index.html</div>
+      <div>Algorithm and Data Strcture - Array(V): Prefix Sum</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/prefix_sum/english/index.html</div>
     </div>
     <div class="license-meta">
       
@@ -442,7 +493,7 @@ return err
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>July 27, 2024</div>
+          <div>September 14, 2024</div>
         </div>
       
       
