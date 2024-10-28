@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/dog_icon.jpg">
+  <link rel="icon" href="/img/dog_icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Baocheng Wang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="算法与数据结构 - 并查集篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法与数据结构 - 并查集篇">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/unionfind/chinese/index.html">
+<meta property="og:site_name" content="Baocheng Wang">
+<meta property="og:description" content="算法与数据结构 - 并查集篇">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
+<meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
+<meta property="article:author" content="Baocheng Wang">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
+  
+  
+  
+  <title>算法与数据结构 - 并查集篇</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+<!-- 主题依赖的图标库,不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"billyjojojobulido.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt){
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1')|| dntVal.startsWith('yes')|| dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+
+  <header>
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Baocheng Wang</strong>
+    </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/notes/">
+                <i class="iconfont icon-note"></i>
+                <span>Notes</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Projects</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/stars.jpg')no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+            <span>算法与数据结构 - 并查集篇</span>
+        </div>
+          
+  <div class="mt-3">
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-28 14:53" pubdate>
+          October 28, 2024
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+          2.1k words
+      </span>
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+          30 mins
+      </span>
+
+  </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+    </div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+              <div class="markdown-body">
+
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
+
+<p>并查集(Union Find)是图论中的高级算法,常用来<strong>解决连通性问题</strong>, 不过因为并查集算法本身是树结构的,所以有不少人把并查集归类在树的下面。Leetcode上需要用并查集解的题目没有"简单"的,大多数单纯使用并查集的题目难度属于"普通"偏难的,而如果题目在使用并查集的基础上随便加点什么陷阱或限制,基本是典型的"困难"题。</p>
+
+<p>不开玩笑的说, 很多已经找到工作的开发者也未必系统了解过并查集, 因为并查集学习难度比较大，再加上图论的问题本身在coding test中不占特别大的比重，而且图论值得考察的题型又特别多，DFS/BFS和Dijkstra出现的概率远比并查集高得多，所以因为不会并查集而挂掉面试其实属于小概率事件，因此也有人就认为并查集没必要钻研 (当准备时间有限的时候确实需要作出这样的取舍)。</p>
+
+<p>不过好在，类似并查集这种高级算法的一大特点就是他们能够解决的问题通常比较specific，因此在遇到<strong>连通性问题的</strong>时候也很容易想到要用并查集。再加上并查集的实现也相对有套路,最坏的情况下套用代码模板也基本上可以解决"普通"难度的并查集问题。</p>
+
+<p><strong>总结一下, 并查集需要关注两个点:</strong></p>
+<ol>
+<li>并查集能解决什么问题(什么时候该用并查集)</li>
+<li>并查集怎么实现(为什么并查集可以做到，而别的算法不行)</li>
+</ol>
+
+<h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>并查集的难点⭐️</h2>
+<p>学习并查集的时候有两个非常大的误区,要尽可能避免:</p>
+<ol>
+  <li><span style="font-weight: bold;">硬钢概念: </span>有的算法初学者喜欢脱离问题，直接去看一些算法的概念，对于一些简单的算法这么做无可厚非，但是对于高阶算法，这种学习方式应该尽可能避免。因为并查集本身的实现相对于其他的高阶算法也是偏复杂的，直接看代码模板和背后的原理很容易被难度劝退。</li>
+  <li><span style="font-weight: bold;">硬套模板: </span>这个其实是在有通用模板的算法笔记下会反复强调的，毕竟模板是基于算法设计的，而不是基于问题设计的，我不否认遇到类似的问题使用模板效率很高，但是如果问题稍微套一层壳子，那么硬套模板一定会陷入非常狼狈的境地。</li>
+</ol>
+
+<h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>并查集基本概念</h2>
+<p>前面简单提了一下，并查集解决的是连通性的问题。直白点讲，就是<strong>当我们需要判断两个元素是否在同一个集合里的时候，我们就要想到用并查集。</storng>
+
+<p>而想要判断两个元素是否在同一个集合，算法最起码需要能够做到两点:</p>
+<ol>
+<li>将两个元素添加到一个集合中。</li>
+<li>判断两个元素在不在同一个集合。</li>
+</ol>
+
+<p>这两点乍一听有种把人当智障一般的简单，但其实想要做到这两点其实并不容易。</p>
+
+<h3 id="trick">代码实现的秘诀:「表示"连通"的数据结构」</h3>
+
+<strong>从代码层面，我们如何将两个元素添加到同一个集合中呢?</strong>
+
+<p>最直观的方案可能是: 创建一个数组里或者set 或者 map，当两个元素被放置到同一个set/map/array时,就表述两个元素在同一个集合。</p>
+
+<p>逻辑上这个方案其实是最符合实际的，但是在算法领域中我们不得不考虑的问题是: <strong>对这些元素分门别类，可不止一个集合，可能是成百上千个集合，那么要定义这么多个数组吗？</strong></p>
+
+<p>但是可以退一步，上述问题，其实可以使用二维数组来解决，但是还是治标不治本，因为目前为止我们还只是解决了第一点「将两个元素添加到一个集合中」，如果使用二维数组解决第二点「判断两个元素在不在同一个集合」，会发现除了遍历完整个额为数组外没有任何捷径。更重要的是，每一次添加元素到某一集合也需要把二维数组都遍历一遍，才知道要放在哪个集合里。</p>
+
+<p>这个性质需要我们根据问题自己定义, <span style="font-weight: bold;">,一定要确保「初始化」「循环遍历」「结束」这三个阶段相同的性质,使得一个问题能够被正确解决。</span></p>
+
+<p style="font-size: x-large; font-weight: bold; font-style: italic;">区间不同的定义决定了不同的初始化逻辑、遍历过程中的逻辑。</p>
+
+<p style="font-weight: bold;">因此,循环不变量并不是所谓并查集算法的精髓,而是针对复杂的题型,想要把并查集解法写得足够周密的技巧。</p> 这个技巧也同样适用于其他的算法。
+
+<h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>并查集基础问题经典合集</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>并查集解法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>26</td>
+      <td>删除有序数组汇总的重复项</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针: 不断去寻找下一个未知元素 <br>
+          慢指针:定位下一个元素需要填充的位置</p>
+      </td>
+    </tr>
+    <tr>
+      <td>674</td>
+      <td>最长连续递增序列</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针:不断去寻找下一个满足单调递增的元素<br>
+          慢指针:定位这个递增序列的开始</p>
+        <p>当快指针元素违背单调递增时,慢指针移动到当前快指针的位置,意味着搜索新的递增序列</p>
+      </td>
+    </tr>
+    <tr>
+      <td>977</td>
+      <td>有序数组的平方</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:对撞指针</strong><br>
+        <p>左指针:表示负数一端可能竞争平方后最大值的元素<br>
+          右指针:表示正数一端可能竞争平方后最大值的元素</p>
+        <p>hint: 当能排除存在负数、正数的情况下可以直接出结果</p>
+      </td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>移除元素</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针:不断去寻找下一个不需要移除的元素<br>
+          慢指针:定位下一个需要填充元素的位置 </p>
+      </td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td>删除排序数组中的重复项 II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针:不断去寻找下一个元素,并根据重复次数决定是否插入和是否更新对照元素<br>
+          慢指针:定位下一个元素的插入位置 </p>
+          <strong>难点:在26题的基础上增加了“重复不超过两次”的特殊限制,但是只是多了一个判断,不算复杂</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>283</td>
+      <td>移动零</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针:不断去寻找下一个非零元素 <br>
+          慢指针:定位下一个非零元素的插入位置
+          </p>
+          <strong>hint: 最后可以用[slow:n)区间去补上所有的0。</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>盛最多水的容器</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>并查集类型:对撞指针</strong><br>
+        <p>左指针:指向当前遍历层的左边界<br>
+          右指针:指向当前遍历层的右边界
+          </p>
+          <strong>移动策略:【贪心】永远移动更矮的那一边,因为长度是以固定的速率减少的,替换矮边不吃亏。</strong>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2 id="Unchange"><a href="#Unchange" class="headerlink" title="Unchange"></a>并查集循环不变量问题合集</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>并查集解法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>75</td>
+      <td>颜色分类</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>【荷兰国旗问题⭐️】</strong><br>
+        <strong>并查集类型:对撞指针【变种】</strong><br>
+        <p>
+          快指针: 定位交换1的位置<br>
+          慢指针:定位交换2的位置<br>
+          在荷兰国旗问题中,单指针O(2N)也可以做,并查集的解法中两个指针的移动策略跟常规对撞指针不一致。</p>
+
+          <strong>难点:case [2, 1, 2]<br>
+            存在右指针和i同时都是2的情况,因此需要使用while i &lt= right and nums[i] == 2: … right -= 1的方式来确保不会漏掉左边的2。【默认i是从0到n-1的话】
+            </strong>
+      </td>
+    </tr>
+    <tr>
+      <td>215</td>
+      <td>数组中的第K个最大元素</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>【快速排序的变种】</strong><br>
+        <strong>并查集类型:对撞指针【变种】</strong><br>
+        <p>左右指针不严格区分,配合<strong>哨兵划分</strong>和<strong>递归</strong>来进行基准值左右的划分,直至终止。</p>
+        <strong>技巧:快速选择</strong><br>
+        <p>题目要求的是找到第K大的值,因此并不需要排序正个数组,而是类似于【二分搜索】,当通过pivot左右两边的数量,可以判断出第K大的必不存在于一个区间时,可以直接舍弃该区间。</p>
+        <strong>因为时间复杂度要求O(N),明显是一个分治算法。</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td>螺旋矩阵II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>【基于循环不变量的模拟法】</strong><br>
+        <strong>循环不变量:按层模拟,每一层四条边,每一条边的区间分别是:【左,右),【上,下),【右,左),【下,上)。</strong><br>
+        <strong>直到遍历所有层。</strong>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2 id="Linked"><a href="#Linked" class="headerlink" title="Linked"></a>并查集链表问题合集</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>并查集解法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>141</td>
+      <td>环形链表</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针: 一次走两个<br>          
+          慢指针:一次走一个</p>
+
+          <strong>【技巧】:如果有环,那么一快一慢两个指针早晚会相遇,没有的话快指针会很快到底。</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>删除链表的倒数第N个节点</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针: 领先慢指针N个节点<br>
+          慢指针:从【dummy】头开始
+        </p>
+        <p>快指针到头了,直接移除慢指针指向的下一个节点</p>
+      </td>
+    </tr>
+    <tr>
+      <td>876</td>
+      <td>链表的中间节点</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针: 一次走两个节点<br>
+          慢指针:一次走一个节点
+          </p>
+        <strong>快指针到头了,直接return慢指针</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>142</td>
+      <td>环形链表II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>并查集类型:快慢指针</strong><br>
+        <p>快指针: 一次走两个节点<br>
+          慢指针:一次走一个节点
+        </p>
+        <strong>难点:要用O(1)的空间求出环的入口。</strong><br>
+        <p><span style="font-weight: bold;">需要运用一些数学的思维,</span>
+          假设进环之前要走a个节点,环中有b个节点,会发现:
+        </p>
+        <p>快慢指针相遇时,快指针走了慢指针两倍的步数,而最终两者相遇,可以获得以下关系:</p>
+        <ul>
+          <li style="font-weight: bold;">2x = a + M*b + w           [w是环中的具体位置]</li>
+          <li style="font-weight: bold;">x = a + N*b + w</li>
+        </ul>
+        <p>两者做减法,去除重复的区域,则可以证明出</p>
+        <ul><li style="font-weight: bold;">x = (M - N) * b             [设M-N=k]</li></ul>
+        <strong>那么说明,慢指针只需要再走 a 步,就可以刚好回到入口的位置 (a + k * b)</strong>
+        <p>而此时需要再次构快慢指针,将慢指针回到head,用相同的步幅出发,<span style="font-weight: bold;">相遇时则正好指向环的入口。</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td>160</td>
+      <td>相交链表</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>【这题不要求空间复杂度,可以用哈希表做,所以是简单题,但是并查集可以O(1)空间,O(m+n)时间,这一步难一点,算是中等难度】</strong><br>
+        <strong>并查集类型:两个单指针</strong><br>
+        <p><span style="font-weight: bold;">技巧:其实核心的技巧是将两个链表对齐,</span>可以通过遍历求长度,然后根据长度将两者对齐,然后两个链表都给从头用一个指针同步遍历,什么时候遍历到同一个节点,就是相交入口。</p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2 id="Dedup"><a href="#Dedup" class="headerlink" title="Dedup"></a>并查集优化去重问题合集</h2>
+<p>这一类题型通常解法不唯一,但是往往简化求解过程的算法都会导致去重过程更加复杂,可以通过排序后的并查集简化去重复杂度。</p>
+<p><strong>并查集法将时间复杂度: O(n^2)的解法优化为 O(n)的解法。也就是降一个数量级</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>并查集解法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>三数之和</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>【哈希解法】</strong>
+        <p>在Leetcode门神: 两数之和的基础上,人们第一个想到的解法肯定是哈希, 两层for循环就可以确定 a 和b 的数值了,
+          可以使用哈希法来确定 0-(a+b) 是否在 数组里出现过,其实这个思路是正确的,但是我们有一个非常棘手的问题,就是题目中说的不可以包含重复的三元组</p>
+          <p>先通过哈希找到所有索引上不重复的三元组再去重是非常费时的,很容易超时</p>
+        <strong>这道题目使用并查集法 要比哈希法高效一些</strong><br>
+        <p>基于这种问题的复杂度,我们要使用的并查集类型也比较特殊,我称之为: <strong>循环对撞指针</strong></p>
+        <p>首先将数组排序,然后有一层for循环,i从下标0的地方开始,同时定一个下标left 定义在i+1的位置上,定义下标right 在数组结尾的位置上</p>
+
+        <strong>指针移动策略</strong><br>
+        <p>如果nums[i] + nums[left] + nums[right] &gt 0 就说明 此时三数之和大了,因为数组是排序后了,所以right下标就应该向左移动,这样才能让三数之和小一些。</p>
+        <p>如果 nums[i] + nums[left] + nums[right] &lt 0 说明 此时 三数之和小了,left 就向右移动,才能让三数之和大一些,直到left与right相遇为止。</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>18</td>
+      <td>四数之和</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <p>和15.三数之和 是一个思路，都是使用并查集法, 基本解法就是在15.三数之和 的基础上再套一层for循环。</p>
+
+        <p>四数之和的并查集解法是两层for循环nums[k] + nums[i]为确定值,依然是循环内有left和right下标作为并查集,
+          找出nums[k] + nums[i] + nums[left] + nums[right] == target的情况,三数之和的时间复杂度是O(n^2),四数之和的时间复杂度是O(n^3) 。</p>
+        <p>那么一样的道理，五数之和、六数之和等等都采用这种解法</p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p><strong>思考: 两数之和 可不可以用并查集简化?</strong></p>
+
+<p>答案是<strong>不行</strong>。道理很简单,因为二数之和最后要求的返回值是索引,因此排序会打乱原有顺序,原有索引就失效了。
+  而不排序的话,并查集无法简化去重,所以无法用并查集求解。
+</p>
+
+<strong>注: 通过 Leetcode 这些题目的【相似题目】功能,可以获得更多并查集练习题。</strong><br>
+
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
+<ul>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/kamacoder/%E5%9B%BE%E8%AE%BA%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3">代码随想录: 图论并查集理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://algo.itcharge.cn/07.Tree/05.Union-Find/01.Union-Find/#_1-%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%AE%80%E4%BB%8B">算法通关手册（LeetCode）: 并查集
+</a></li>
+  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/misc/two-pointer/">OI Wiki 并查集</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+
+</ul>
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+      <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
+    </div>
+  
+</div>
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>算法与数据结构 - 并查集篇</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/unionfind/chinese/index.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Baocheng Wang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 25, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                    <i class="iconfont icon-nc"></i>
+                    <i class="iconfont icon-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+                <div class="post-prevnext my-3">
+                  <!-- <article class="post-prev col-6">
+
+
+                      <a href="/2023/05/30/USYD/" title="USYD Graduation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Baocheng's Graduation from the University of Sydney</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+
+                  </article>
+                  <article class="post-next col-6">
+
+
+                      <a href="/2021/11/15/Navigator/" title="Government Infrastructure Performance Navigator">
+                        <span class="hidden-mobile">Government Infrastructure Performance Navigator</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+
+                  </article> -->
+                </div>
+
+            </div>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+  </aside>
+
+    </div>
+
+  </div>
+</div>
+
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function(){
+      NProgress.done();
+    })
+  </script>
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document){
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing){
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+    <script  src="/js/img-lazyload.js" ></script>
+
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function(){
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot){ return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0){
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('tocbot' in window){
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot){
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0){
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function(){
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon){
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el){
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left'){
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('anchors' in window){
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el){
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left'){
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function(){
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+<!-- 主题的启动项,将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
