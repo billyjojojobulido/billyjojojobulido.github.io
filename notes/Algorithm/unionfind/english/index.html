@@ -256,40 +256,39 @@
                 
                 <p>With this understanding, the code implementation begins to take shape. This recursive, nested tracing is well-suited for recursion, and the code template for this part is as follows.</p>
                 
-
-<pre>
-  father = dict()
-  ... # 有向连通图的构建过程略
-
-  def find(u: int) -> int:
-      if (u == father[u]):    # 如果根就是自己, 直接返回
-          return u
-      return find(father[u])  # 如果根不是自己, 继续一层层找根
-</pre>
-
-<p>代码中使用的是一维数组实现有向连通图,为了更优雅地设置递归的终止条件,选择让根元素指向自己,所以在实际上的初始化中,别忘了father[i]=i,默认自己指向自己,之后再根据连通情况更新。初始化部分代码如下。</p>
-
-<pre>
-  arr = [...] # 入参的连通数组
-
-  def init():
-      for i in range(max(arr)):
-          father[i] = i
-</pre>
-
-<p>当然了,如果使用哈希表的话,就可以通过判断father[u]是否为空来判断是否为根。</p>
-
-<p>在这个基础上,想要判断两个元素是否在同一个集合内就简单了,代码如下。</p>
-
-<pre>
-  def is_same(u: int, v: int) -> bool:
-      u = find(u)
-      v = find(v)
-      return u == v
-</pre>
-
-<p>至此, 我们已经正式实现了第二点「判断两个元素在不在同一个集合」。至于第一点「将两个元素添加到一个集合中」,除了无脑构建有向连通图,其实还有更聪明的办法。</p>
-
+                <pre>
+                  father = dict()
+                  ... # Construction process of the directed connected graph omitted
+                
+                  def find(u: int) -> int:
+                      if (u == father[u]):    # If the root is itself, return directly
+                          return u
+                      return find(father[u])  # If the root is not itself, keep finding the root layer by layer
+                </pre>
+                
+                <p>The code uses a 1D array to implement a directed connected graph. To set a more elegant stopping condition for recursion, we make the root element point to itself. Therefore, during the actual initialization, don’t forget to set father[i] = i, meaning each element points to itself by default, and then update based on connectivity. The initialization code is as follows.</p>
+                
+                <pre>
+                  arr = [...] # Array of connected elements from input
+                
+                  def init():
+                      for i in range(max(arr)):
+                          father[i] = i
+                </pre>
+                
+                <p>Of course, if using a hash table, we can determine if an element is a root by checking if father[u] is empty.</p>
+                
+                <p>With this setup, checking if two elements are in the same set becomes straightforward. Here is the code:</p>
+                
+                <pre>
+                  def is_same(u: int, v: int) -> bool:
+                      u = find(u)
+                      v = find(v)
+                      return u == v
+                </pre>
+                
+                <p>At this point, we have successfully implemented the second point, "checking if two elements are in the same set." As for the first point, "adding two elements to the same set," there is actually a smarter way than simply constructing a directed connected graph.</p>
+                
 
 <h3 id="enhance">优化:「路径压缩」</h3>
 
