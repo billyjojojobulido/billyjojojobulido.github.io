@@ -226,36 +226,36 @@
                 <p>At first glance, these tasks may seem trivial, but achieving them is actually not that easy.</p>
                 
 
-
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>并查集的实现⭐️</h2>
-<h3 id="trick">代码实现的秘诀:「表示"连通"的数据结构」</h3>
-
-<strong>从代码层面,我们如何将两个元素添加到同一个集合中呢?</strong>
-
-<p>最直观的方案可能是: 创建一个数组里或者set 或者 map,当两个元素被放置到同一个set/map/array时,就表述两个元素在同一个集合。</p>
-
-<p>逻辑上这个方案其实是最符合实际的,但是在算法领域中我们不得不考虑的问题是: <strong>对这些元素分门别类,可不止一个集合,可能是成百上千个集合,那么要定义这么多个数组吗？</strong></p>
-
-<p>但是可以退一步,上述问题,其实可以使用二维数组来解决, 可以实现对大量集合的管理,但是还是治标不治本,因为目前为止我们还只是解决了第一点「将两个元素添加到一个集合中」,如果使用二维数组解决第二点「判断两个元素在不在同一个集合」,会发现除了遍历完整个额为数组外没有任何捷径。更重要的是,每一次添加元素到某一集合也需要把二维数组都遍历一遍,才知道要放在哪个集合里。</p>
-
-<p>如果将思维固化在使用数组或者哈希表,那么代码的实现一定会飞航复杂,因为管理集合需要大量的逻辑去控制,因此我们显然需要换一个思路: <strong>一个从连通性角度出发的思路。</strong></p>
-
-<p>如果我想要表示三个元素,记为 A, B, C,三者是<strong>连通的</strong>, 只需要一个简单的哈希表,甚至一维数组就可以实现, 只要能够表达出 father[A] = B, father[B] = C的关系就行。</p>
-
-<p>熟悉图论的其实都能理解,这就是<strong>有向连通图</strong></p>
-
-<p>其实很多算法学习者在思考的过程中应该也考虑过这种表达,但是可能后来自我否决了。因为想要继续深入思考的一个思辨难关就是: <strong>father[A] = B可以表示从A可以联通B, 如何表示B也连通A?</strong></p>
-
-<p>会卡在这个问题无可厚非, 因为开发的过程中难免要思考: "当在遍历题目入参数组时, 如果先遍历到B, 岂不是无法从B确定跟A的连通性?"</p> 
-
-<p>这个问题的答案是: <strong>不能表示, 也不用表示</strong>。</p>
-
-<p>因为我们的目的是判断三个元素是不是存在于一个集合, 所以只需要确定单向的连通性足矣。道理也很简单: 那就是<strong>溯源</strong>, 既然光从B出发无法确定跟A的连通性, 那索性规定大家一起往大家都同一个方向一起走到底。</p>
-
-<p> 我们不难发现通过father[A] = B, father[B] = C有向连通图, 给出B, 可以知道B与C联通, 给出A可以知道, A与B连通, 而B又与C连通, 因此,<strong>我们可以称C为 A和B共同的"根"</strong>, 
-    所以我们可以大胆去构建有向连通图, 只要能够确定任何两个元素具有相同的连通根时,就一定可以确定两者在同一个集合,反之亦然。</p>
-
-<p>思考至此,代码实现也初见眉目,这种层层嵌套的溯源非常适合用递归来写,该部分代码模板如下。</p>
+                <h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Union-Find Implementation ⭐️</h2>
+                <h3 id="trick">Trick to Code Implementation: "Data Structure for Representing 'Connectivity'"</h3>
+                
+                <strong>From a coding perspective, how do we add two elements to the same set?</strong>
+                
+                <p>The most straightforward approach might be: create an array, set, or map; when two elements are placed in the same set/map/array, it represents that they are in the same set.</p>
+                
+                <p>Logically, this approach actually makes sense in practice. However, in algorithms, we have to consider: <strong>there might be not just one set, but hundreds or thousands of sets. Should we define that many arrays?</strong></p>
+                
+                <p>Alternatively, the above problem could be managed with a 2D array to handle a large number of sets. But this is still a temporary solution, as it only solves the first point, "adding two elements to a set." If we use a 2D array to address the second point, "checking if two elements are in the same set," we’ll find that there is no shortcut other than traversing the entire array. More importantly, each time we add an element to a set, we would have to traverse the 2D array to determine which set it belongs to.</p>
+                
+                <p>If we limit ourselves to using arrays or hash tables, the code implementation will certainly become complex, as managing sets requires a lot of control logic. Therefore, we clearly need a different approach: <strong>an approach based on connectivity.</strong></p>
+                
+                <p>If I want to represent three elements, A, B, and C, that are <strong>connected</strong>, a simple hash table or even a 1D array can achieve this, as long as we can establish the relationship father[A] = B, father[B] = C.</p>
+                
+                <p>Those familiar with graph theory will recognize this as a <strong>directed connected graph</strong>.</p>
+                
+                <p>Many algorithm learners may have thought of this representation but perhaps dismissed it. One of the challenging questions to overcome is: <strong>If father[A] = B can represent that A is connected to B, how do we represent that B is also connected to A?</strong></p>
+                
+                <p>This question is understandable, as in development, one might think: "When traversing the input array, if we first encounter B, won’t we be unable to determine B’s connectivity with A?"</p>
+                
+                <p>The answer to this question is: <strong>we don't need to represent it bidirectionally.</strong></p>
+                
+                <p>Since our goal is to determine whether three elements are in the same set, establishing one-way connectivity is sufficient. The reasoning is simple: <strong>trace the root.</strong> Since starting from B doesn’t determine connectivity with A, we can simply enforce that all elements move in the same direction to reach a common root.</p>
+                
+                <p>We can see that with a directed graph defined by father[A] = B and father[B] = C, giving B allows us to see B is connected to C, and giving A shows A is connected to B, which in turn is connected to C. Therefore, <strong>we can refer to C as the "root" of both A and B</strong>. 
+                    So, we can confidently build a directed graph. As long as any two elements share the same root, they are in the same set, and if they do not, they are not.</p>
+                
+                <p>With this understanding, the code implementation begins to take shape. This recursive, nested tracing is well-suited for recursion, and the code template for this part is as follows.</p>
+                
 
 <pre>
   father = dict()
