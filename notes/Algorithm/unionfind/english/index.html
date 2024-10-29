@@ -196,9 +196,9 @@
 
                 <p>The Union-Find is an advanced algorithm in graph theory commonly used to <strong>solve connectivity problems</strong>. However, since the implementation of the Union-Find algorithm is based on a tree structure, many people categorize it under trees. On LeetCode, there are no "easy" problems requiring Union-Find; most problems purely using Union-Find are of "medium" to "hard" difficulty, and if a problem adds any traps or constraints on top of Union-Find, it's usually a typical "hard" problem.</p>
                 
-                <p>To be frank, many developers already employed might not have systematically studied Union-Find, as it has a relatively high learning difficulty. Additionally, graph theory problems do not occupy a major portion of coding tests (the weight of graph theory in tests correlates with its usage in company tasks), and there are numerous other types of graph theory questions worth considering. DFS/BFS and Dijkstra appear far more often than Union-Find, so failing an interview due to Union-Find is relatively rare. Consequently, some believe Union-Find isn’t essential to study (especially when preparation time is limited, making prioritization necessary).</p>
+                <p>To be frank, many developers already employed might not have systematically studied Union-Find, as it has a relatively high learning difficulty. Additionally, graph theory problems do not occupy a major portion of coding tests (the weight of graph theory in tests correlates with its usage in company tasks), and there are numerous other types of graph theory questions worth considering. DFS/BFS and Dijkstra appear far more often than Union-Find, so failing an interview due to Union-Find is relatively rare. Consequently, some believe Union-Find isn't essential to study (especially when preparation time is limited, making prioritization necessary).</p>
                 
-                <p>Fortunately, one characteristic of advanced algorithms like Union-Find is that they usually solve specific types of problems. Therefore, when facing <strong>connectivity problems</strong>, it’s easy to think of Union-Find. Furthermore, the implementation of Union-Find follows a familiar pattern; in the worst case, using a code template can usually solve "medium" difficulty Union-Find problems.</p>
+                <p>Fortunately, one characteristic of advanced algorithms like Union-Find is that they usually solve specific types of problems. Therefore, when facing <strong>connectivity problems</strong>, it's easy to think of Union-Find. Furthermore, the implementation of Union-Find follows a familiar pattern; in the worst case, using a code template can usually solve "medium" difficulty Union-Find problems.</p>
                 
                 <p><strong>In summary, there are two key points to focus on with Union-Find:</strong></p>
                 <ol>
@@ -235,7 +235,7 @@
                 
                 <p>Logically, this approach actually makes sense in practice. However, in algorithms, we have to consider: <strong>there might be not just one set, but hundreds or thousands of sets. Should we define that many arrays?</strong></p>
                 
-                <p>Alternatively, the above problem could be managed with a 2D array to handle a large number of sets. But this is still a temporary solution, as it only solves the first point, "adding two elements to a set." If we use a 2D array to address the second point, "checking if two elements are in the same set," we’ll find that there is no shortcut other than traversing the entire array. More importantly, each time we add an element to a set, we would have to traverse the 2D array to determine which set it belongs to.</p>
+                <p>Alternatively, the above problem could be managed with a 2D array to handle a large number of sets. But this is still a temporary solution, as it only solves the first point, "adding two elements to a set." If we use a 2D array to address the second point, "checking if two elements are in the same set," we'll find that there is no shortcut other than traversing the entire array. More importantly, each time we add an element to a set, we would have to traverse the 2D array to determine which set it belongs to.</p>
                 
                 <p>If we limit ourselves to using arrays or hash tables, the code implementation will certainly become complex, as managing sets requires a lot of control logic. Therefore, we clearly need a different approach: <strong>an approach based on connectivity.</strong></p>
                 
@@ -245,11 +245,11 @@
                 
                 <p>Many algorithm learners may have thought of this representation but perhaps dismissed it. One of the challenging questions to overcome is: <strong>If father[A] = B can represent that A is connected to B, how do we represent that B is also connected to A?</strong></p>
                 
-                <p>This question is understandable, as in development, one might think: "When traversing the input array, if we first encounter B, won’t we be unable to determine B’s connectivity with A?"</p>
+                <p>This question is understandable, as in development, one might think: "When traversing the input array, if we first encounter B, won't we be unable to determine B's connectivity with A?"</p>
                 
                 <p>The answer to this question is: <strong>we don't need to represent it bidirectionally.</strong></p>
                 
-                <p>Since our goal is to determine whether three elements are in the same set, establishing one-way connectivity is sufficient. The reasoning is simple: <strong>trace the root.</strong> Since starting from B doesn’t determine connectivity with A, we can simply enforce that all elements move in the same direction to reach a common root.</p>
+                <p>Since our goal is to determine whether three elements are in the same set, establishing one-way connectivity is sufficient. The reasoning is simple: <strong>trace the root.</strong> Since starting from B doesn't determine connectivity with A, we can simply enforce that all elements move in the same direction to reach a common root.</p>
                 
                 <p>We can see that with a directed graph defined by father[A] = B and father[B] = C, giving B allows us to see B is connected to C, and giving A shows A is connected to B, which in turn is connected to C. Therefore, <strong>we can refer to C as the "root" of both A and B</strong>. 
                     So, we can confidently build a directed graph. As long as any two elements share the same root, they are in the same set, and if they do not, they are not.</p>
@@ -266,7 +266,7 @@
                       return find(father[u])  # If the root is not itself, keep finding the root layer by layer
                 </pre>
                 
-                <p>The code uses a 1D array to implement a directed connected graph. To set a more elegant stopping condition for recursion, we make the root element point to itself. Therefore, during the actual initialization, don’t forget to set father[i] = i, meaning each element points to itself by default, and then update based on connectivity. The initialization code is as follows.</p>
+                <p>The code uses a 1D array to implement a directed connected graph. To set a more elegant stopping condition for recursion, we make the root element point to itself. Therefore, during the actual initialization, don't forget to set father[i] = i, meaning each element points to itself by default, and then update based on connectivity. The initialization code is as follows.</p>
                 
                 <pre>
                   arr = [...] # Array of connected elements from input
@@ -306,7 +306,7 @@
                 
                 <p>This way, root search becomes very quick, requiring only one step. To achieve this effect, we use "path compression," where all non-root nodes point directly to the root.</p>
                 
-                <p>The implementation isn’t complicated; during recursion, we propagate the root information back and assign it to <code>father[u]</code>. Here’s the code:</p>
+                <p>The implementation isn't complicated; during recursion, we propagate the root information back and assign it to <code>father[u]</code>. Here's the code:</p>
                 
                 <pre>
                   def find(u: int) -> int:
@@ -352,39 +352,39 @@
                     <li>Checking if two nodes are in the same set, function: <code>is_same(int u, int v)</code>, which verifies if two nodes share the same root</li>
                 </ol>
                 
+                <h3 id="trap">Development Pitfall: "Equivalent Replacement"</h3>
 
-<h3 id="trap">开发误区:「等效替代」</h3>
-
-<p>并查集算法的实现中有一个很恶毒的陷阱,很容易翻车。因为很多不完全熟悉并查集原理的开发者都会注意到,在join函数和is_same函数中有一部分是重合的:</p>
-<pre>
-  # 原始版
-  def is_same(u, v):
-      u = find(u)
-      v = find(v)
-      return u == v
-  
-  def join(u, v):
-      u = find(u)     # 重复
-      v = find(v)     # 重复
-      if (u == v):    # 重复
-          return
-      father[v] = u    
-</pre>
-
-<p>于是,秉承复用的开发原则,很多开发者会做出如下优化</p>
-
-<pre>
-  # "优化"版
-  def join(u, v):
-      if is_same(u, v):
-          return
-      father[v] = u
-</pre>
-
-<p>如果正在阅读的你认为这个优化没有问题,则请好好反思一下是否完全理解上文中的并查集原理。</p>
-
-<p>错误的根源并不是在重复的部分, 而是在father[v] = u这部分。如果代入一些例子, 你就会发现在"优化"版的join函数中, 执行到father[v] = u这一行时, 和原始版执行到father[v] = u这一行时, u和v的值是可能不一样的。</p>
-
+                <p>There is a tricky pitfall in the implementation of the Union-Find algorithm that can easily lead to errors. Many developers who are not fully familiar with the principles of Union-Find will notice that some parts of the <code>join</code> and <code>is_same</code> functions overlap:</p>
+                
+                <pre>
+                  # Original version
+                  def is_same(u, v):
+                      u = find(u)
+                      v = find(v)
+                      return u == v
+                  
+                  def join(u, v):
+                      u = find(u)     # Repeated
+                      v = find(v)     # Repeated
+                      if (u == v):    # Repeated
+                          return
+                      father[v] = u    
+                </pre>
+                
+                <p>Following the principle of code reuse, many developers might attempt the following optimization:</p>
+                
+                <pre>
+                  # "Optimized" version
+                  def join(u, v):
+                      if is_same(u, v):
+                          return
+                      father[v] = u
+                </pre>
+                
+                <p>If you think this optimization has no issues, take a moment to consider whether you fully understand the principles of Union-Find discussed above.</p>
+                
+                <p>The error's root isn't in the repeated parts but in the line <code>father[v] = u</code>. If you substitute some examples, youll see that in the "optimized" version of the <code>join</code> function, when <code>father[v] = u</code> is executed, the values of <code>u</code> and <code>v</code> may differ from those in the original version.</p>
+                
 <p>e.g. 按顺序执行join(1,2), join(2,3)</p>
 <p>原始版</p>
 <pre>
