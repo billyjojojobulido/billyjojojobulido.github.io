@@ -290,32 +290,33 @@
                 <p>At this point, we have successfully implemented the second point, "checking if two elements are in the same set." As for the first point, "adding two elements to the same set," there is actually a smarter way than simply constructing a directed connected graph.</p>
                 
 
-<h3 id="enhance">优化:「路径压缩」</h3>
+                <h3 id="enhance">Optimization: "Path Compression"</h3>
 
-<p>之前的做法是通过递归的方式去实现find函数,不断获取father数组下标对应的数值,直到找到根。但是递归深度是一个决定性能的问题,如果有向连通图的深度很深,那么每次find函数都要递归很多次去寻找根,重复之下会拉高性能, 如图。</p>
-
-<div style="text-align: center;">
-    <img src="../union-find-1.jpg" alt="深有向连通图">
-</div>
-
-<p>我们的目标只需要知道这些节点在同一个根下就行,所以完全可以通过把所有节点全部直接挂载在根节点下的方式来控制这个递归树的深度。如图:</p>
-
-<div style="text-align: center;">
-    <img src="../union-find-2.jpg" alt="压缩有向连通图">
-</div>
-
-<p>这样我们在寻根的时候就很快,只需要一步。而我们想达到这样的效果,就需要 「路径压缩」,将非根节点的所有节点直接指向根节点。</p>
-
-<p>具体的实现方式其实也不复杂, 只需要在递归的过程中让最终获取到的根节点信息不断往回传,并且重新赋予给father[u]就行。代码如下:</p>
-
-<pre>
-  def find(u: int)->int:
-      if (u == father[u]):
-          return u
-      return father[u] = find(father[u])  # 这一步就是路径压缩的精髓
-</pre>
-
-<p style="font-weight: bold;">至此, 并查集的基础实现和原理就已经清楚了,整体代码模板见下。</p>
+                <p>The previous approach used recursion to implement the <code>find</code> function, continually retrieving values from the <code>father</code> array indices until the root was found. However, recursion depth impacts performance. If the directed graph has significant depth, the <code>find</code> function would need to recurse many times to locate the root, reducing performance with repeated calls, as shown in the diagram.</p>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-1.jpg" alt="Deep Directed Connected Graph">
+                </div>
+                
+                <p>Our goal is simply to identify that these nodes share the same root, so we can control the depth of this recursive tree by attaching all nodes directly to the root. See the diagram:</p>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-2.jpg" alt="Compressed Directed Connected Graph">
+                </div>
+                
+                <p>This way, root search becomes very quick, requiring only one step. To achieve this effect, we use "path compression," where all non-root nodes point directly to the root.</p>
+                
+                <p>The implementation isn’t complicated; during recursion, we propagate the root information back and assign it to <code>father[u]</code>. Here’s the code:</p>
+                
+                <pre>
+                  def find(u: int) -> int:
+                      if (u == father[u]):
+                          return u
+                      return father[u] = find(father[u])  # This line is the core of path compression
+                </pre>
+                
+                <p style="font-weight: bold;">With this, the basic implementation and principle of Union-Find are clear. The complete code template is shown below.</p>
+                
 
 
 <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>并查集代码模板</h2>
