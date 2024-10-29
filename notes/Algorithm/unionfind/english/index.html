@@ -192,20 +192,20 @@
         <div id="board">
           <article class="post-content mx-auto">
               <div class="markdown-body">
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
-
-<p>并查集(Union Find)是图论中的高级算法,常用来<strong>解决连通性问题</strong>, 不过因为并查集算法本身的实现是基于树结构的,所以有不少人把并查集算法归类在树的下面。Leetcode上需要用并查集解的题目没有"简单"的,大多数单纯使用并查集的题目难度都是属于"普通"偏难的,而如果题目在使用并查集的基础上随便加点什么陷阱或限制,基本是典型的"困难"题。</p>
-
-<p>不开玩笑的说, 很多已经找到工作的开发者也未必系统了解过并查集, 因为并查集学习难度比较大,再加上图论的问题本身在coding test中不占特别大的比重(这个比重正比于图论的使用在公司业务中的占比),而且图论值得考察的题型又特别多,DFS/BFS和Dijkstra出现的概率远比并查集高得多,所以因为不会并查集而挂掉面试其实属于小概率事件,因此也有人就认为并查集没必要钻研 (当准备时间有限的时候确实需要作出这样的取舍)。</p>
-
-<p>不过好在,类似并查集这种高级算法的一大特点就是他们能够解决的问题通常比较specific,因此在遇到<strong>连通性问题的</strong>时候也很容易想到要用并查集。再加上并查集的实现也相对有套路,最坏的情况下套用代码模板也基本上可以解决"普通"难度的并查集问题。</p>
-
-<p><strong>总结一下, 并查集需要关注两个点:</strong></p>
-<ol>
-<li>并查集能解决什么问题(什么时候该用并查集)</li>
-<li>并查集怎么实现(为什么并查集可以做到,而别的算法不行)</li>
-</ol>
+                <p>The Union-Find is an advanced algorithm in graph theory commonly used to <strong>solve connectivity problems</strong>. However, since the implementation of the Union-Find algorithm is based on a tree structure, many people categorize it under trees. On LeetCode, there are no "easy" problems requiring Union-Find; most problems purely using Union-Find are of "medium" to "hard" difficulty, and if a problem adds any traps or constraints on top of Union-Find, it's usually a typical "hard" problem.</p>
+                
+                <p>To be frank, many developers already employed might not have systematically studied Union-Find, as it has a relatively high learning difficulty. Additionally, graph theory problems do not occupy a major portion of coding tests (the weight of graph theory in tests correlates with its usage in company tasks), and there are numerous other types of graph theory questions worth considering. DFS/BFS and Dijkstra appear far more often than Union-Find, so failing an interview due to Union-Find is relatively rare. Consequently, some believe Union-Find isn’t essential to study (especially when preparation time is limited, making prioritization necessary).</p>
+                
+                <p>Fortunately, one characteristic of advanced algorithms like Union-Find is that they usually solve specific types of problems. Therefore, when facing <strong>connectivity problems</strong>, it’s easy to think of Union-Find. Furthermore, the implementation of Union-Find follows a familiar pattern; in the worst case, using a code template can usually solve "medium" difficulty Union-Find problems.</p>
+                
+                <p><strong>In summary, there are two key points to focus on with Union-Find:</strong></p>
+                <ol>
+                <li>What problems Union-Find can solve (when to use Union-Find)</li>
+                <li>How to implement Union-Find (why Union-Find can achieve this while other algorithms cannot)</li>
+                </ol>
+                
 
 <h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>并查集的难点⭐️</h2>
 <p>学习并查集的时候有两个非常大的误区,要尽可能避免:</p>
