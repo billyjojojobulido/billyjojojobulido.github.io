@@ -424,29 +424,24 @@
                 
                 <h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>Optimization: "Union by Rank"</h2>
                 
+                <p>In addition to "Path Compression," another optimization technique for Union-Find is "Union by Rank." When I first learned Union-Find, I went straight to the concepts, and seeing "Union by Rank" initially discouraged me. The term "rank" was unfamiliar, and the shorter the term, the more complex it seemed, making me think it must be difficult.</p>
 
-<p>针对于并查集的优化方式, 除了「路径压缩」之外, 还有「按秩合并」。最开始我学习并查集的时候, 是直接看得概念, 看到按秩合并的时候给我劝退了。因为秩「rank」本身是一个很陌生的概念, 秉承着字越少事儿越大的心理, 想必秩也是个很难的概念。</p>
-
-<p>但是事实上, <strong>秩其实指的就是树的高度, 即有向连通图中从根到最远节点的距离。</strong></p>
-
-<p>按秩合并啥意思? 说白了就是当某一条边连通时, 需要将两个集合(递归树)合并时, A并入B 和 B并入A存在性能上的差异。</p>
-
-<p>假设A的rank为2, B的rank为3。 若A并入B, 最终的连通图的rank是3。 而B并入A, 最终连通图的rank是4。 合并过程如图所示。</p>
-
-<div style="text-align: center;">
-    <img src="../union-find-4.jpg" alt="按秩合并的展示">
-</div>
-
-<p>因此我们可以得出结论: <strong>一定是rank小的树并入rank大的树</strong>, 从而降低整体树的rank, 以降低在树上查询的路径长度。</p>
-
-
-<p>不过说句题外话。<strong>其实我们在优化并查集查询效率的时候，只用「路径压缩」的思路就够了，不仅代码实现精简，而且效率足够高。</strong></p>
-
-
-
-<p>这个性质需要我们根据问题自己定义, <span style="font-weight: bold;">,一定要确保「初始化」「循环遍历」「结束」这三个阶段相同的性质,使得一个问题能够被正确解决。</span>按秩合并的思路并没有将树形结构尽可能的扁平化，所以在整理效率上是没有路径压缩高的。</p>
-
-
+                <p>But in reality, <strong>rank simply refers to the height of the tree, which is the distance from the root to the farthest node in the directed connected graph.</strong></p>
+                
+                <p>What does Union by Rank mean? Simply put, when connecting two sets (recursive trees) with an edge, there’s a performance difference between merging A into B versus B into A.</p>
+                
+                <p>Suppose the rank of A is 2 and the rank of B is 3. If A merges into B, the final connected graph will have a rank of 3. However, if B merges into A, the final connected graph will have a rank of 4. The merging process is illustrated in the diagram below.</p>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-4.jpg" alt="Union by Rank Illustration">
+                </div>
+                
+                <p>Thus, we can conclude: <strong>the tree with the smaller rank should always merge into the tree with the larger rank</strong>, reducing the overall rank of the tree to minimize the path length during searches.</p>
+                
+                <p>However, on a side note, <strong>when optimizing Union-Find for query efficiency, "Path Compression" alone is usually sufficient. It’s simpler to implement and provides excellent performance.</strong></p>
+                
+                <p>This property requires us to define the solution based on the problem, ensuring that the stages of <span style="font-weight: bold;">"initialization," "loop traversal," and "end" maintain the same properties so that the problem can be solved correctly.</span> Union by Rank doesn’t flatten the tree structure as much as Path Compression, so it’s less efficient in organizing the structure.</p>
+                
 <h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>并查集基础问题经典合集</h2>
 
 <table>
