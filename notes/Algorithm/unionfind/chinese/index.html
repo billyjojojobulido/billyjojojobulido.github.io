@@ -214,9 +214,12 @@
 </ol>
 
 <h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>并查集基本概念</h2>
-<p>前面简单提了一下,并查集解决的是连通性的问题。直白点讲,就是<strong>当我们需要判断两个元素是否在同一个集合里的时候,我们就要想到用并查集。</storng>
+<p>前面简单提了一下,并查集解决的是连通性的问题。直白点讲,就是
+  <strong>当我们需要判断两个元素是否在同一个集合里的时候,我们就要想到用并查集</strong>。
+  </p>
 
 <p>而想要判断两个元素是否在同一个集合,算法最起码需要能够做到两点:</p>
+
 <ol>
 <li>将两个元素添加到一个集合中。</li>
 <li>判断两个元素在不在同一个集合。</li>
@@ -256,23 +259,23 @@
 <p>思考至此,代码实现也初见眉目,这种层层嵌套的溯源非常适合用递归来写,该部分代码模板如下。</p>
 
 <pre>
-    father = dict()
-    ... # 有向连通图的构建过程略
+  father = dict()
+  ... # 有向连通图的构建过程略
 
-    def find(u: int) -> int:
-        if (u == father[u]):    # 如果根就是自己, 直接返回
-            return u
-        return find(father[u])  # 如果根不是自己, 继续一层层找根
+  def find(u: int) -> int:
+      if (u == father[u]):    # 如果根就是自己, 直接返回
+          return u
+      return find(father[u])  # 如果根不是自己, 继续一层层找根
 </pre>
 
 <p>代码中使用的是一维数组实现有向连通图,为了更优雅地设置递归的终止条件,选择让根元素指向自己,所以在实际上的初始化中,别忘了father[i]=i,默认自己指向自己,之后再根据连通情况更新。初始化部分代码如下。</p>
 
 <pre>
-    arr = [...] # 入参的连通数组
+  arr = [...] # 入参的连通数组
 
-    def init():
-        for i in range(max(arr)):
-            father[i] = i
+  def init():
+      for i in range(max(arr)):
+          father[i] = i
 </pre>
 
 <p>当然了,如果使用哈希表的话,就可以通过判断father[u]是否为空来判断是否为根。</p>
@@ -280,10 +283,10 @@
 <p>在这个基础上,想要判断两个元素是否在同一个集合内就简单了,代码如下。</p>
 
 <pre>
-    def is_same(u: int, v: int) -> bool:
-        u = find(u)
-        v = find(v)
-        return u == v
+  def is_same(u: int, v: int) -> bool:
+      u = find(u)
+      v = find(v)
+      return u == v
 </pre>
 
 <p>至此, 我们已经正式实现了第二点「判断两个元素在不在同一个集合」。至于第一点「将两个元素添加到一个集合中」,除了无脑构建有向连通图,其实还有更聪明的办法。</p>
@@ -294,13 +297,13 @@
 <p>之前的做法是通过递归的方式去实现find函数,不断获取father数组下标对应的数值,直到找到根。但是递归深度是一个决定性能的问题,如果有向连通图的深度很深,那么每次find函数都要递归很多次去寻找根,重复之下会拉高性能, 如图。</p>
 
 <div style="text-align: center;">
-    <img src="union-find-1.png" alt="深有向连通图">
+    <img src="../union-find-1.jpg" alt="深有向连通图">
 </div>
 
 <p>我们的目标只需要知道这些节点在同一个根下就行,所以完全可以通过把所有节点全部直接挂载在根节点下的方式来控制这个递归树的深度。如图:</p>
 
 <div style="text-align: center;">
-    <img src="union-find-2.png" alt="压缩有向连通图">
+    <img src="../union-find-2.jpg" alt="压缩有向连通图">
 </div>
 
 <p>这样我们在寻根的时候就很快,只需要一步。而我们想达到这样的效果,就需要 「路径压缩」,将非根节点的所有节点直接指向根节点。</p>
@@ -308,10 +311,10 @@
 <p>具体的实现方式其实也不复杂, 只需要在递归的过程中让最终获取到的根节点信息不断往回传,并且重新赋予给father[u]就行。代码如下:</p>
 
 <pre>
-    def find(u: int)->int:
-        if (u == father[u]):
-            return u
-        return father[u] = find(father[u])  # 这一步就是路径压缩的精髓
+  def find(u: int)->int:
+      if (u == father[u]):
+          return u
+      return father[u] = find(father[u])  # 这一步就是路径压缩的精髓
 </pre>
 
 <p style="font-weight: bold;">至此, 并查集的基础实现和原理就已经清楚了,整体代码模板见下。</p>
@@ -320,28 +323,28 @@
 <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>并查集代码模板</h2>
 
 <pre>
-    n = 1005;                   # n根据题目中节点数量而定,一般比节点数量大一点就好
-    father = [i for i in n]     # 并查集初始化
+  n = 1005;                   # n根据题目中节点数量而定,一般比节点数量大一点就好
+  father = [i for i in n]     # 并查集初始化
 
-    # 并查集里寻根的过程
-    def find(u: int) -> int:
-        if u == father[u]:
-            return u
-        return father[u] = find(father[u])  # 路径压缩
+  # 并查集里寻根的过程
+  def find(u: int) -> int:
+      if u == father[u]:
+          return u
+      return father[u] = find(father[u])  # 路径压缩
 
-    # 判断 u 和 v是否找到同一个根
-    def is_same(u: int, v: int) -> bool:
-        u = find(u)
-        v = find(v)
-        return u == v
+  # 判断 u 和 v是否找到同一个根
+  def is_same(u: int, v: int) -> bool:
+      u = find(u)
+      v = find(v)
+      return u == v
 
-    # 将v->u 这条边加入并查集
-    def join(u: int, v: int):
-        u = find(u)             # 寻找u的根
-        v = find(v)             # 寻找v的根
-        if (u == v):            # 如果发现根相同,则说明在一个集合,不用两个节点相连直接返回
-            return
-        father[v] = u    
+  # 将v->u 这条边加入并查集
+  def join(u: int, v: int):
+      u = find(u)             # 寻找u的根
+      v = find(v)             # 寻找v的根
+      if (u == v):            # 如果发现根相同,则说明在一个集合,不用两个节点相连直接返回
+          return
+      father[v] = u    
 </pre>
 
 <p>通过模板,我们可以知道,并查集主要有三个功能。</p>
@@ -356,28 +359,28 @@
 
 <p>并查集算法的实现中有一个很恶毒的陷阱,很容易翻车。因为很多不完全熟悉并查集原理的开发者都会注意到,在join函数和is_same函数中有一部分是重合的:</p>
 <pre>
-    # 原始版
-    def is_same(u, v):
-        u = find(u)
-        v = find(v)
-        return u == v
-    
-    def join(u, v):
-        u = find(u)     # 重复
-        v = find(v)     # 重复
-        if (u == v):    # 重复
-            return
-        father[v] = u    
+  # 原始版
+  def is_same(u, v):
+      u = find(u)
+      v = find(v)
+      return u == v
+  
+  def join(u, v):
+      u = find(u)     # 重复
+      v = find(v)     # 重复
+      if (u == v):    # 重复
+          return
+      father[v] = u    
 </pre>
 
 <p>于是,秉承复用的开发原则,很多开发者会做出如下优化</p>
 
 <pre>
-    # "优化"版
-    def join(u, v):
-        if is_same(u, v):
-            return
-        father[v] = u
+  # "优化"版
+  def join(u, v):
+      if is_same(u, v):
+          return
+      father[v] = u
 </pre>
 
 <p>如果正在阅读的你认为这个优化没有问题,则请好好反思一下是否完全理解上文中的并查集原理。</p>
@@ -387,20 +390,20 @@
 <p>e.g. 按顺序执行join(1,2), join(2,3)</p>
 <p>原始版</p>
 <pre>
-    join(1, 2)
-        father[2] = 1   (u = 1, v = 2)
+  join(1, 2)
+      father[2] = 1   (u = 1, v = 2)
 
-    join(2, 3)
-        father[3] = 1   (u = father[2] = 1, v = 3)
+  join(2, 3)
+      father[3] = 1   (u = father[2] = 1, v = 3)
 </pre>
 
 <p>"优化"版</p>
 <pre>
-    join(1, 2)
-        father[2] = 1   (u = 1, v = 2)
-    
-    join(2, 3)
-        father[3] = 2   (u = 2, v = 3)
+  join(1, 2)
+      father[2] = 1   (u = 1, v = 2)
+  
+  join(2, 3)
+      father[3] = 2   (u = 2, v = 3)
 </pre>
 
 <p>可以发现,"优化"版最大的问题就是: 跑完join(1,2)和join(2,3)之后, 执行is_same(1, 3)会return false, 因此完全违背了连通性的初衷。因此, 这个优化不应该被采纳。</p>
@@ -419,7 +422,7 @@
 </ol>
 
 <div style="text-align: center;">
-    <img src="union-find-3.png" alt="并查集join和路径压缩的展示">
+    <img src="../union-find-3.jpg" alt="并查集join和路径压缩的展示">
 </div>
 
 
@@ -435,7 +438,7 @@
 <p>假设A的rank为2, B的rank为3。 若A并入B, 最终的连通图的rank是3。 而B并入A, 最终连通图的rank是4。 合并过程如图所示。</p>
 
 <div style="text-align: center;">
-    <img src="union-find-4.png" alt="按秩合并的展示">
+    <img src="../union-find-4.jpg" alt="按秩合并的展示">
 </div>
 
 <p>因此我们可以得出结论: <strong>一定是rank小的树并入rank大的树</strong>, 从而降低整体树的rank, 以降低在树上查询的路径长度。</p>
