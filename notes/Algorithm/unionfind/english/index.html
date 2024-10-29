@@ -12,23 +12,24 @@
   <meta name="author" content="Baocheng Wang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法与数据结构 - 并查集篇">
-<meta property="og:type" content="article">
-<meta property="og:title" content="算法与数据结构 - 并查集篇">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/unionfind/chinese/index.html">
-<meta property="og:site_name" content="Baocheng Wang">
-<meta property="og:description" content="算法与数据结构 - 并查集篇">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
-<meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
-<meta property="article:author" content="Baocheng Wang">
-<meta property="article:tag" content="Notes">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
+  <meta name="description" content="Data Structure and Algorithm - Union-Find">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Data Structure and Algorithm - Union-Find">
+  <meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/unionfind/english/index.html">
+  <meta property="og:site_name" content="Baocheng Wang">
+  <meta property="og:description" content="Data Structure and Algorithm - Union-Find">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2024-10-29T011:46:23.000Z">
+  <meta property="article:modified_time" content="2024-10-29T04:44:56.262Z">
+  <meta property="article:author" content="Baocheng Wang">
+  <meta property="article:tag" content="Notes">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
+    
+    
+    
+    <title>Data Structure and Algorithm - Union-Find</title>
   
-  
-  
-  <title>算法与数据结构 - 并查集篇</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -146,7 +147,7 @@
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-            <span>算法与数据结构 - 并查集篇</span>
+            <span>Data Structure and Algorithm - Union-Find</span>
         </div>
           
   <div class="mt-3">
@@ -191,334 +192,321 @@
         <div id="board">
           <article class="post-content mx-auto">
               <div class="markdown-body">
-
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
-
-<p>并查集(Union Find)是图论中的高级算法,常用来<strong>解决连通性问题</strong>, 不过因为并查集算法本身的实现是基于树结构的,所以有不少人把并查集算法归类在树的下面。Leetcode上需要用并查集解的题目没有"简单"的,大多数单纯使用并查集的题目难度都是属于"普通"偏难的,而如果题目在使用并查集的基础上随便加点什么陷阱或限制,基本是典型的"困难"题。</p>
-
-<p>不开玩笑的说, 很多已经找到工作的开发者也未必系统了解过并查集, 因为并查集学习难度比较大,再加上图论的问题本身在coding test中不占特别大的比重(这个比重正比于图论的使用在公司业务中的占比),而且图论值得考察的题型又特别多,DFS/BFS和Dijkstra出现的概率远比并查集高得多,所以因为不会并查集而挂掉面试其实属于小概率事件,因此也有人就认为并查集没必要钻研 (当准备时间有限的时候确实需要作出这样的取舍)。</p>
-
-<p>不过好在,类似并查集这种高级算法的一大特点就是他们能够解决的问题通常比较specific,因此在遇到<strong>连通性问题的</strong>时候也很容易想到要用并查集。再加上并查集的实现也相对有套路,最坏的情况下套用代码模板也基本上可以解决"普通"难度的并查集问题。</p>
-
-<p><strong>总结一下, 并查集需要关注两个点:</strong></p>
-<ol>
-<li>并查集能解决什么问题(什么时候该用并查集)</li>
-<li>并查集怎么实现(为什么并查集可以做到,而别的算法不行)</li>
-</ol>
-
-<h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>并查集的难点⭐️</h2>
-<p>学习并查集的时候有两个非常大的误区,要尽可能避免:</p>
-<ol>
-  <li><span style="font-weight: bold;">硬钢概念: </span>有的算法初学者喜欢脱离问题,直接去看一些算法的概念,对于一些简单的算法这么做无可厚非,但是对于高阶算法,这种学习方式应该尽可能避免。因为并查集本身的实现相对于其他的高阶算法也是偏复杂的,直接看代码模板和背后的原理很容易被难度劝退。</li>
-  <li><span style="font-weight: bold;">硬套模板: </span>这个其实是在有通用模板的算法笔记下会反复强调的,毕竟模板是基于算法设计的,而不是基于问题设计的,我不否认遇到类似的问题使用模板效率很高,但是如果问题稍微套一层壳子,那么硬套模板一定会陷入非常狼狈的境地。</li>
-</ol>
-
-<h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>并查集基本概念</h2>
-<p>前面简单提了一下,并查集解决的是连通性的问题。直白点讲,就是
-  <strong>当我们需要判断两个元素是否在同一个集合里的时候,我们就要想到用并查集</strong>。
-  </p>
-
-<p>而想要判断两个元素是否在同一个集合,算法最起码需要能够做到两点:</p>
-
-<ol>
-<li>将两个元素添加到一个集合中。</li>
-<li>判断两个元素在不在同一个集合。</li>
-</ol>
-
-<p>这两点乍一听有种把人当智障一般的简单,但其实想要做到这两点其实并不容易。</p>
-
-
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>并查集的实现⭐️</h2>
-<h3 id="trick">代码实现的秘诀:「表示"连通"的数据结构」</h3>
-
-<strong>从代码层面,我们如何将两个元素添加到同一个集合中呢?</strong>
-
-<p>最直观的方案可能是: 创建一个数组里或者set 或者 map,当两个元素被放置到同一个set/map/array时,就表述两个元素在同一个集合。</p>
-
-<p>逻辑上这个方案其实是最符合实际的,但是在算法领域中我们不得不考虑的问题是: <strong>对这些元素分门别类,可不止一个集合,可能是成百上千个集合,那么要定义这么多个数组吗？</strong></p>
-
-<p>但是可以退一步,上述问题,其实可以使用二维数组来解决, 可以实现对大量集合的管理,但是还是治标不治本,因为目前为止我们还只是解决了第一点「将两个元素添加到一个集合中」,如果使用二维数组解决第二点「判断两个元素在不在同一个集合」,会发现除了遍历完整个额为数组外没有任何捷径。更重要的是,每一次添加元素到某一集合也需要把二维数组都遍历一遍,才知道要放在哪个集合里。</p>
-
-<p>如果将思维固化在使用数组或者哈希表,那么代码的实现一定会飞航复杂,因为管理集合需要大量的逻辑去控制,因此我们显然需要换一个思路: <strong>一个从连通性角度出发的思路。</strong></p>
-
-<p>如果我想要表示三个元素,记为 A, B, C,三者是<strong>连通的</strong>, 只需要一个简单的哈希表,甚至一维数组就可以实现, 只要能够表达出 father[A] = B, father[B] = C的关系就行。</p>
-
-<p>熟悉图论的其实都能理解,这就是<strong>有向连通图</strong></p>
-
-<p>其实很多算法学习者在思考的过程中应该也考虑过这种表达,但是可能后来自我否决了。因为想要继续深入思考的一个思辨难关就是: <strong>father[A] = B可以表示从A可以联通B, 如何表示B也连通A?</strong></p>
-
-<p>会卡在这个问题无可厚非, 因为开发的过程中难免要思考: "当在遍历题目入参数组时, 如果先遍历到B, 岂不是无法从B确定跟A的连通性?"</p> 
-
-<p>这个问题的答案是: <strong>不能表示, 也不用表示</strong>。</p>
-
-<p>因为我们的目的是判断三个元素是不是存在于一个集合, 所以只需要确定单向的连通性足矣。道理也很简单: 那就是<strong>溯源</strong>, 既然光从B出发无法确定跟A的连通性, 那索性规定大家一起往大家都同一个方向一起走到底。</p>
-
-<p> 我们不难发现通过father[A] = B, father[B] = C有向连通图, 给出B, 可以知道B与C联通, 给出A可以知道, A与B连通, 而B又与C连通, 因此,<strong>我们可以称C为 A和B共同的"根"</strong>, 
-    所以我们可以大胆去构建有向连通图, 只要能够确定任何两个元素具有相同的连通根时,就一定可以确定两者在同一个集合,反之亦然。</p>
-
-<p>思考至此,代码实现也初见眉目,这种层层嵌套的溯源非常适合用递归来写,该部分代码模板如下。</p>
-
-<pre>
-  father = dict()
-  ... # 有向连通图的构建过程略
-
-  def find(u: int) -> int:
-      if (u == father[u]):    # 如果根就是自己, 直接返回
-          return u
-      return find(father[u])  # 如果根不是自己, 继续一层层找根
-</pre>
-
-<p>代码中使用的是一维数组实现有向连通图,为了更优雅地设置递归的终止条件,选择让根元素指向自己,所以在实际上的初始化中,别忘了father[i]=i,默认自己指向自己,之后再根据连通情况更新。初始化部分代码如下。</p>
-
-<pre>
-  arr = [...] # 入参的连通数组
-
-  def init():
-      for i in range(max(arr)):
-          father[i] = i
-</pre>
-
-<p>当然了,如果使用哈希表的话,就可以通过判断father[u]是否为空来判断是否为根。</p>
-
-<p>在这个基础上,想要判断两个元素是否在同一个集合内就简单了,代码如下。</p>
-
-<pre>
-  def is_same(u: int, v: int) -> bool:
-      u = find(u)
-      v = find(v)
-      return u == v
-</pre>
-
-<p>至此, 我们已经正式实现了第二点「判断两个元素在不在同一个集合」。至于第一点「将两个元素添加到一个集合中」,除了无脑构建有向连通图,其实还有更聪明的办法。</p>
-
-
-<h3 id="enhance">优化:「路径压缩」</h3>
-
-<p>之前的做法是通过递归的方式去实现find函数,不断获取father数组下标对应的数值,直到找到根。但是递归深度是一个决定性能的问题,如果有向连通图的深度很深,那么每次find函数都要递归很多次去寻找根,重复之下会拉高性能, 如图。</p>
-
-<div style="text-align: center;">
-    <img src="../union-find-1.jpg" alt="深有向连通图">
-</div>
-
-<p>我们的目标只需要知道这些节点在同一个根下就行,所以完全可以通过把所有节点全部直接挂载在根节点下的方式来控制这个递归树的深度。如图:</p>
-
-<div style="text-align: center;">
-    <img src="../union-find-2.jpg" alt="压缩有向连通图">
-</div>
-
-<p>这样我们在寻根的时候就很快,只需要一步。而我们想达到这样的效果,就需要 「路径压缩」,将非根节点的所有节点直接指向根节点。</p>
-
-<p>具体的实现方式其实也不复杂, 只需要在递归的过程中让最终获取到的根节点信息不断往回传,并且重新赋予给father[u]就行。代码如下:</p>
-
-<pre>
-  def find(u: int)->int:
-      if (u == father[u]):
-          return u
-      return father[u] = find(father[u])  # 这一步就是路径压缩的精髓
-</pre>
-
-<p style="font-weight: bold;">至此, 并查集的基础实现和原理就已经清楚了,整体代码模板见下。</p>
-
-
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>并查集代码模板</h2>
-
-<pre>
-  n = 1005;                   # n根据题目中节点数量而定,一般比节点数量大一点就好
-  father = [i for i in n]     # 并查集初始化
-
-  # 并查集里寻根的过程
-  def find(u: int) -> int:
-      if u == father[u]:
-          return u
-      return father[u] = find(father[u])  # 路径压缩
-
-  # 判断 u 和 v是否找到同一个根
-  def is_same(u: int, v: int) -> bool:
-      u = find(u)
-      v = find(v)
-      return u == v
-
-  # 将v->u 这条边加入并查集
-  def join(u: int, v: int):
-      u = find(u)             # 寻找u的根
-      v = find(v)             # 寻找v的根
-      if (u == v):            # 如果发现根相同,则说明在一个集合,不用两个节点相连直接返回
-          return
-      father[v] = u    
-</pre>
-
-<p>通过模板,我们可以知道,并查集主要有三个功能。</p>
-<ol>
-    <li>寻找根节点,函数:find(int u),也就是判断这个节点的祖先节点是哪个</li>
-    <li>将两个节点接入到同一个集合,函数:join(int u, int v),将两个节点连在同一个根节点上</li>
-    <li>判断两个节点是否在同一个集合,函数:isSame(int u, int v),就是判断两个节点是不是同一个根节点</li>
-</ol>
-
-
-<h3 id="trap">开发误区:「等效替代」</h3>
-
-<p>并查集算法的实现中有一个很恶毒的陷阱,很容易翻车。因为很多不完全熟悉并查集原理的开发者都会注意到,在join函数和is_same函数中有一部分是重合的:</p>
-<pre>
-  # 原始版
-  def is_same(u, v):
-      u = find(u)
-      v = find(v)
-      return u == v
-  
-  def join(u, v):
-      u = find(u)     # 重复
-      v = find(v)     # 重复
-      if (u == v):    # 重复
-          return
-      father[v] = u    
-</pre>
-
-<p>于是,秉承复用的开发原则,很多开发者会做出如下优化</p>
-
-<pre>
-  # "优化"版
-  def join(u, v):
-      if is_same(u, v):
-          return
-      father[v] = u
-</pre>
-
-<p>如果正在阅读的你认为这个优化没有问题,则请好好反思一下是否完全理解上文中的并查集原理。</p>
-
-<p>错误的根源并不是在重复的部分, 而是在father[v] = u这部分。如果代入一些例子, 你就会发现在"优化"版的join函数中, 执行到father[v] = u这一行时, 和原始版执行到father[v] = u这一行时, u和v的值是可能不一样的。</p>
-
-<p>e.g. 按顺序执行join(1,2), join(2,3)</p>
-<p>原始版</p>
-<pre>
-  join(1, 2)
-      father[2] = 1   (u = 1, v = 2)
-
-  join(2, 3)
-      father[3] = 1   (u = father[2] = 1, v = 3)
-</pre>
-
-<p>"优化"版</p>
-<pre>
-  join(1, 2)
-      father[2] = 1   (u = 1, v = 2)
-  
-  join(2, 3)
-      father[3] = 2   (u = 2, v = 3)
-</pre>
-
-<p>可以发现,"优化"版最大的问题就是: 跑完join(1,2)和join(2,3)之后, 执行is_same(1, 3)会return false, 因此完全违背了连通性的初衷。因此, 这个优化不应该被采纳。</p>
-
-<h3 id="example">图示:「并查集工作流程」</h3>
-
-
- <p>在该图示中, 依此执行如下操作:</p>
-<ol>
-    <li>join(1, 8)</li>
-    <li>join(3, 8)</li>
-    <li>join(1, 7)</li>
-    <li>join(8, 5) <strong>发生「路径压缩」, 3取代1成为8新的根</strong></li>
-    <li>join(2, 9)</li>
-    <li>join(6, 9)</li>
-</ol>
-
-<div style="text-align: center;">
-    <img src="../union-find-3.jpg" alt="并查集join和路径压缩的展示">
-</div>
-
-
-<h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>优化:「按秩合并」</h2>
-
-
-<p>针对于并查集的优化方式, 除了「路径压缩」之外, 还有「按秩合并」。最开始我学习并查集的时候, 是直接看得概念, 看到按秩合并的时候给我劝退了。因为秩「rank」本身是一个很陌生的概念, 秉承着字越少事儿越大的心理, 想必秩也是个很难的概念。</p>
-
-<p>但是事实上, <strong>秩其实指的就是树的高度, 即有向连通图中从根到最远节点的距离。</strong></p>
-
-<p>按秩合并啥意思? 说白了就是当某一条边连通时, 需要将两个集合(递归树)合并时, A并入B 和 B并入A存在性能上的差异。</p>
-
-<p>假设A的rank为2, B的rank为3。 若A并入B, 最终的连通图的rank是3。 而B并入A, 最终连通图的rank是4。 合并过程如图所示。</p>
-
-<div style="text-align: center;">
-    <img src="../union-find-4.jpg" alt="按秩合并的展示">
-</div>
-
-<p>因此我们可以得出结论: <strong>一定是rank小的树并入rank大的树</strong>, 从而降低整体树的rank, 以降低在树上查询的路径长度。</p>
-
-
-<p>不过说句题外话。<strong>其实我们在优化并查集查询效率的时候，只用「路径压缩」的思路就够了，不仅代码实现精简，而且效率足够高。</strong></p>
-
-
-
-<p>这个性质需要我们根据问题自己定义, <span style="font-weight: bold;">,一定要确保「初始化」「循环遍历」「结束」这三个阶段相同的性质,使得一个问题能够被正确解决。</span>按秩合并的思路并没有将树形结构尽可能的扁平化，所以在整理效率上是没有路径压缩高的。</p>
-
-
-<h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>并查集基础问题经典合集</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>684</td>
-      <td>冗余连接</td>
-      <td style="background-color: yellow;">中等</td>
-    </tr>
-    <tr>
-      <td>685</td>
-      <td>冗余连接II</td>
-      <td style="background-color: red;">困难</td>
-    </tr>
-    <tr>
-      <td>128</td>
-      <td>最长连续序列</td>
-      <td style="background-color: yellow;">中等</td>
-    </tr>
-    <tr>
-      <td>200</td>
-      <td>岛屿数量</td>
-      <td style="background-color: yellow;">中等</td>
-    </tr>
-    <tr>
-        <td>305</td>
-        <td>岛屿数量II</td>
-        <td style="background-color: red;">困难</td>
-    </tr>
-    <tr>
-        <td>765</td>
-        <td>情侣牵手</td>
-        <td style="background-color: red;">困难</td>
-    </tr>
-    <tr>
-        <td>547</td>
-        <td>省份数量</td>
-        <td style="background-color: yellow;">中等</td>
-      </tr>
-      <tr>
-    <tr>
-        <td>803</td>
-        <td>打砖块</td>
-        <td style="background-color: red;">困难</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
-<ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/kamacoder/%E5%9B%BE%E8%AE%BA%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3">代码随想录: 图论并查集理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://algo.itcharge.cn/07.Tree/05.Union-Find/01.Union-Find/#_1-%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%AE%80%E4%BB%8B">算法通关手册(LeetCode): 并查集
-</a></li>
-  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/misc/two-pointer/">OI Wiki 并查集</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problem-list/union-find/">Leetcode算法: 并查集系列</a></li>
-
-</ul>
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
+
+                <p>The Union-Find is an advanced algorithm in graph theory commonly used to <strong>solve connectivity problems</strong>. However, since the implementation of the Union-Find algorithm is based on a tree structure, many people categorize it under trees. On LeetCode, there are no "easy" problems requiring Union-Find; most problems purely using Union-Find are of "medium" to "hard" difficulty, and if a problem adds any traps or constraints on top of Union-Find, it's usually a typical "hard" problem.</p>
+                
+                <p>To be frank, many developers already employed might not have systematically studied Union-Find, as it has a relatively high learning difficulty. Additionally, graph theory problems do not occupy a major portion of coding tests (the weight of graph theory in tests correlates with its usage in company tasks), and there are numerous other types of graph theory questions worth considering. DFS/BFS and Dijkstra appear far more often than Union-Find, so failing an interview due to Union-Find is relatively rare. Consequently, some believe Union-Find isn't essential to study (especially when preparation time is limited, making prioritization necessary).</p>
+                
+                <p>Fortunately, one characteristic of advanced algorithms like Union-Find is that they usually solve specific types of problems. Therefore, when facing <strong>connectivity problems</strong>, it's easy to think of Union-Find. Furthermore, the implementation of Union-Find follows a familiar pattern; in the worst case, using a code template can usually solve "medium" difficulty Union-Find problems.</p>
+                
+                <p><strong>In summary, there are two key points to focus on with Union-Find:</strong></p>
+                <ol>
+                <li>What problems Union-Find can solve (when to use Union-Find)</li>
+                <li>How to implement Union-Find (why Union-Find can achieve this while other algorithms cannot)</li>
+                </ol>
+                
+                <h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>Challenges of Union-Find ⭐️</h2>
+                <p>There are two major misconceptions to avoid when learning Union-Find:</p>
+                <ol>
+                  <li><span style="font-weight: bold;">Focusing too much on concepts:</span> Some algorithm beginners like to study concepts directly without context, which can work for simpler algorithms, but this approach should be avoided for advanced algorithms. Union-Find is relatively complex compared to other advanced algorithms, so diving directly into code templates and underlying principles can be overwhelming and discouraging.</li>
+                  <li><span style="font-weight: bold;">Over-relying on templates:</span> This point is often emphasized in notes for algorithms with general templates. Templates are designed based on the algorithm, not the problem itself. While using a template can be highly efficient for similar problems, if the problem is slightly modified, rigidly applying a template can lead to difficult and frustrating situations.</li>
+                </ol>
+                
+                <h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Basic Concept of Union-Find</h2>
+                <p>As mentioned briefly, Union-Find is used to solve connectivity problems. Simply put, <strong>when we need to determine whether two elements belong to the same set, we should think of using Union-Find</strong>.</p>
+                
+                <p>To determine if two elements are in the same set, the algorithm needs to be able to achieve at least two things:</p>
+                
+                <ol>
+                <li>Add two elements to the same set.</li>
+                <li>Check if two elements are in the same set.</li>
+                </ol>
+                
+                <p>At first glance, these tasks may seem trivial, but achieving them is actually not that easy.</p>
+                
+
+                <h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Union-Find Implementation ⭐️</h2>
+                <h3 id="trick">Trick to Code Implementation: "Data Structure for Representing 'Connectivity'"</h3>
+                
+                <strong>From a coding perspective, how do we add two elements to the same set?</strong>
+                
+                <p>The most straightforward approach might be: create an array, set, or map; when two elements are placed in the same set/map/array, it represents that they are in the same set.</p>
+                
+                <p>Logically, this approach actually makes sense in practice. However, in algorithms, we have to consider: <strong>there might be not just one set, but hundreds or thousands of sets. Should we define that many arrays?</strong></p>
+                
+                <p>Alternatively, the above problem could be managed with a 2D array to handle a large number of sets. But this is still a temporary solution, as it only solves the first point, "adding two elements to a set." If we use a 2D array to address the second point, "checking if two elements are in the same set," we'll find that there is no shortcut other than traversing the entire array. More importantly, each time we add an element to a set, we would have to traverse the 2D array to determine which set it belongs to.</p>
+                
+                <p>If we limit ourselves to using arrays or hash tables, the code implementation will certainly become complex, as managing sets requires a lot of control logic. Therefore, we clearly need a different approach: <strong>an approach based on connectivity.</strong></p>
+                
+                <p>If I want to represent three elements, A, B, and C, that are <strong>connected</strong>, a simple hash table or even a 1D array can achieve this, as long as we can establish the relationship father[A] = B, father[B] = C.</p>
+                
+                <p>Those familiar with graph theory will recognize this as a <strong>directed connected graph</strong>.</p>
+                
+                <p>Many algorithm learners may have thought of this representation but perhaps dismissed it. One of the challenging questions to overcome is: <strong>If father[A] = B can represent that A is connected to B, how do we represent that B is also connected to A?</strong></p>
+                
+                <p>This question is understandable, as in development, one might think: "When traversing the input array, if we first encounter B, won't we be unable to determine B's connectivity with A?"</p>
+                
+                <p>The answer to this question is: <strong>we don't need to represent it bidirectionally.</strong></p>
+                
+                <p>Since our goal is to determine whether three elements are in the same set, establishing one-way connectivity is sufficient. The reasoning is simple: <strong>trace the root.</strong> Since starting from B doesn't determine connectivity with A, we can simply enforce that all elements move in the same direction to reach a common root.</p>
+                
+                <p>We can see that with a directed graph defined by father[A] = B and father[B] = C, giving B allows us to see B is connected to C, and giving A shows A is connected to B, which in turn is connected to C. Therefore, <strong>we can refer to C as the "root" of both A and B</strong>. 
+                    So, we can confidently build a directed graph. As long as any two elements share the same root, they are in the same set, and if they do not, they are not.</p>
+                
+                <p>With this understanding, the code implementation begins to take shape. This recursive, nested tracing is well-suited for recursion, and the code template for this part is as follows.</p>
+                
+                <pre>
+                  father = dict()
+                  ... # Construction process of the directed connected graph omitted
+                
+                  def find(u: int) -> int:
+                      if (u == father[u]):    # If the root is itself, return directly
+                          return u
+                      return find(father[u])  # If the root is not itself, keep finding the root layer by layer
+                </pre>
+                
+                <p>The code uses a 1D array to implement a directed connected graph. To set a more elegant stopping condition for recursion, we make the root element point to itself. Therefore, during the actual initialization, don't forget to set father[i] = i, meaning each element points to itself by default, and then update based on connectivity. The initialization code is as follows.</p>
+                
+                <pre>
+                  arr = [...] # Array of connected elements from input
+                
+                  def init():
+                      for i in range(max(arr)):
+                          father[i] = i
+                </pre>
+                
+                <p>Of course, if using a hash table, we can determine if an element is a root by checking if father[u] is empty.</p>
+                
+                <p>With this setup, checking if two elements are in the same set becomes straightforward. Here is the code:</p>
+                
+                <pre>
+                  def is_same(u: int, v: int) -> bool:
+                      u = find(u)
+                      v = find(v)
+                      return u == v
+                </pre>
+                
+                <p>At this point, we have successfully implemented the second point, "checking if two elements are in the same set." As for the first point, "adding two elements to the same set," there is actually a smarter way than simply constructing a directed connected graph.</p>
+                
+
+                <h3 id="enhance">Optimization: "Path Compression"</h3>
+
+                <p>The previous approach used recursion to implement the <code>find</code> function, continually retrieving values from the <code>father</code> array indices until the root was found. However, recursion depth impacts performance. If the directed graph has significant depth, the <code>find</code> function would need to recurse many times to locate the root, reducing performance with repeated calls, as shown in the diagram.</p>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-1.jpg" alt="Deep Directed Connected Graph">
+                </div>
+                
+                <p>Our goal is simply to identify that these nodes share the same root, so we can control the depth of this recursive tree by attaching all nodes directly to the root. See the diagram:</p>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-2.jpg" alt="Compressed Directed Connected Graph">
+                </div>
+                
+                <p>This way, root search becomes very quick, requiring only one step. To achieve this effect, we use "path compression," where all non-root nodes point directly to the root.</p>
+                
+                <p>The implementation isn't complicated; during recursion, we propagate the root information back and assign it to <code>father[u]</code>. Here's the code:</p>
+                
+                <pre>
+                  def find(u: int) -> int:
+                      if (u == father[u]):
+                          return u
+                      return father[u] = find(father[u])  # This line is the core of path compression
+                </pre>
+                
+                <p style="font-weight: bold;">With this, the basic implementation and principle of Union-Find are clear. The complete code template is shown below.</p>
+                
+
+                <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Union-Find Code Template</h2>
+
+                <pre>
+                  n = 1005                    # n is set based on the number of nodes in the problem; typically, slightly larger than the number of nodes
+                  father = [i for i in range(n)]  # Union-Find initialization
+                
+                  # Root-finding process in Union-Find
+                  def find(u: int) -> int:
+                      if u == father[u]:
+                          return u
+                      return father[u] = find(father[u])  # Path compression
+                
+                  # Check if u and v have the same root
+                  def is_same(u: int, v: int) -> bool:
+                      u = find(u)
+                      v = find(v)
+                      return u == v
+                
+                  # Add edge v->u to the Union-Find
+                  def join(u: int, v: int):
+                      u = find(u)             # Find root of u
+                      v = find(v)             # Find root of v
+                      if (u == v):            # If roots are the same, they are in the same set; no need to connect the two nodes, so return
+                          return
+                      father[v] = u    
+                </pre>
+                
+                <p>This template shows that Union-Find has three main functions:</p>
+                <ol>
+                    <li>Finding the root node, function: <code>find(int u)</code>, which determines the ancestor node of a given node</li>
+                    <li>Connecting two nodes into the same set, function: <code>join(int u, int v)</code>, which links two nodes under the same root</li>
+                    <li>Checking if two nodes are in the same set, function: <code>is_same(int u, int v)</code>, which verifies if two nodes share the same root</li>
+                </ol>
+                
+                <h3 id="trap">Development Pitfall: "Equivalent Replacement"</h3>
+
+                <p>There is a tricky pitfall in the implementation of the Union-Find algorithm that can easily lead to errors. Many developers who are not fully familiar with the principles of Union-Find will notice that some parts of the <code>join</code> and <code>is_same</code> functions overlap:</p>
+                
+                <pre>
+                  # Original version
+                  def is_same(u, v):
+                      u = find(u)
+                      v = find(v)
+                      return u == v
+                  
+                  def join(u, v):
+                      u = find(u)     # Repeated
+                      v = find(v)     # Repeated
+                      if (u == v):    # Repeated
+                          return
+                      father[v] = u    
+                </pre>
+                
+                <p>Following the principle of code reuse, many developers might attempt the following optimization:</p>
+                
+                <pre>
+                  # "Optimized" version
+                  def join(u, v):
+                      if is_same(u, v):
+                          return
+                      father[v] = u
+                </pre>
+                
+                <p>If you think this optimization has no issues, take a moment to consider whether you fully understand the principles of Union-Find discussed above.</p>
+                
+                <p>The error's root isn't in the repeated parts but in the line <code>father[v] = u</code>. If you substitute some examples, youll see that in the "optimized" version of the <code>join</code> function, when <code>father[v] = u</code> is executed, the values of <code>u</code> and <code>v</code> may differ from those in the original version.</p>
+                <p>e.g., Execute <code>join(1, 2)</code>, then <code>join(2, 3)</code> in order</p>
+
+                <p>Original Version</p>
+                <pre>
+                  join(1, 2)
+                      father[2] = 1   (u = 1, v = 2)
+                
+                  join(2, 3)
+                      father[3] = 1   (u = father[2] = 1, v = 3)
+                </pre>
+                
+                <p>"Optimized" Version</p>
+                <pre>
+                  join(1, 2)
+                      father[2] = 1   (u = 1, v = 2)
+                  
+                  join(2, 3)
+                      father[3] = 2   (u = 2, v = 3)
+                </pre>
+                
+                <p>As we can see, the biggest problem with the "optimized" version is that after running <code>join(1, 2)</code> and <code>join(2, 3)</code>, calling <code>is_same(1, 3)</code> will return <code>false</code>, which completely contradicts the purpose of connectivity. Therefore, this optimization should not be adopted.</p>
+                
+                <h3 id="example">Diagram: "Union-Find Workflow"</h3>
+                
+                <p>In the following illustration, the operations are executed as follows:</p>
+                <ol>
+                    <li><code>join(1, 8)</code></li>
+                    <li><code>join(3, 8)</code></li>
+                    <li><code>join(1, 7)</code></li>
+                    <li><code>join(8, 5)</code> <strong>Path compression occurs, and 3 replaces 1 as the new root of 8</strong></li>
+                    <li><code>join(2, 9)</code></li>
+                    <li><code>join(6, 9)</code></li>
+                </ol>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-3.jpg" alt="Union-Find Join and Path Compression Illustration">
+                </div>
+                
+                <h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>Optimization: "Union by Rank"</h2>
+                
+                <p>In addition to "Path Compression," another optimization technique for Union-Find is "Union by Rank." When I first learned Union-Find, I went straight to the concepts, and seeing "Union by Rank" initially discouraged me. The term "rank" was unfamiliar, and the shorter the term, the more complex it seemed, making me think it must be difficult.</p>
+
+                <p>But in reality, <strong>rank simply refers to the height of the tree, which is the distance from the root to the farthest node in the directed connected graph.</strong></p>
+                
+                <p>What does Union by Rank mean? Simply put, when connecting two sets (recursive trees) with an edge, there’s a performance difference between merging A into B versus B into A.</p>
+                
+                <p>Suppose the rank of A is 2 and the rank of B is 3. If A merges into B, the final connected graph will have a rank of 3. However, if B merges into A, the final connected graph will have a rank of 4. The merging process is illustrated in the diagram below.</p>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-4.jpg" alt="Union by Rank Illustration">
+                </div>
+                
+                <p>Thus, we can conclude: <strong>the tree with the smaller rank should always merge into the tree with the larger rank</strong>, reducing the overall rank of the tree to minimize the path length during searches.</p>
+                
+                <p>However, on a side note, <strong>when optimizing Union-Find for query efficiency, "Path Compression" alone is usually sufficient. It’s simpler to implement and provides excellent performance.</strong></p>
+                
+                <p>This property requires us to define the solution based on the problem, ensuring that the stages of <span style="font-weight: bold;">"initialization," "loop traversal," and "end" maintain the same properties so that the problem can be solved correctly.</span> Union by Rank doesn’t flatten the tree structure as much as Path Compression, so it’s less efficient in organizing the structure.</p>
+                <h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>Union-Find Basic Problems - Classic Collection</h2>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Difficulty</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>684</td>
+                      <td>Redundant Connection</td>
+                      <td style="background-color: yellow;">Medium</td>
+                    </tr>
+                    <tr>
+                      <td>685</td>
+                      <td>Redundant Connection II</td>
+                      <td style="background-color: red;">Hard</td>
+                    </tr>
+                    <tr>
+                      <td>128</td>
+                      <td>Longest Consecutive Sequence</td>
+                      <td style="background-color: yellow;">Medium</td>
+                    </tr>
+                    <tr>
+                      <td>200</td>
+                      <td>Number of Islands</td>
+                      <td style="background-color: yellow;">Medium</td>
+                    </tr>
+                    <tr>
+                        <td>305</td>
+                        <td>Number of Islands II</td>
+                        <td style="background-color: red;">Hard</td>
+                    </tr>
+                    <tr>
+                        <td>765</td>
+                        <td>Couples Holding Hands</td>
+                        <td style="background-color: red;">Hard</td>
+                    </tr>
+                    <tr>
+                        <td>547</td>
+                        <td>Number of Provinces</td>
+                        <td style="background-color: yellow;">Medium</td>
+                      </tr>
+                      <tr>
+                        <td>803</td>
+                        <td>Bricks Falling When Hit</td>
+                        <td style="background-color: red;">Hard</td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+
+
+                <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>References</h2>
+                <ul>
+                  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/kamacoder/%E5%9B%BE%E8%AE%BA%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3">Programmer Carl: Basics of Graph Theory and Union-Find</a></li>
+                  <li><a target="_blank" rel="noopener" href="https://algo.itcharge.cn/07.Tree/05.Union-Find/01.Union-Find/#_1-%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%AE%80%E4%BB%8B">Algorithm Guide (LeetCode): Union-Find</a></li>
+                  <li><a target="_blank" rel="noopener" href="https://oi-wiki.org/misc/two-pointer/">OI Wiki: Union-Find</a></li>
+                  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">LeetCode: Top Interview 150 Questions</a></li>
+                  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">LeetCode: Premium Interview 100 Questions</a></li>
+                  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problem-list/union-find/">LeetCode Algorithms: Union-Find Series</a></li>
+                </ul>
+                
               </div>
             
             <hr/>
@@ -536,8 +524,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法与数据结构 - 并查集篇</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/unionfind/chinese/index.html</div>
+      <div>Data Structure and Algorithm - Union-Find</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/unionfind/english/index.html</div>
     </div>
     <div class="license-meta">
       
