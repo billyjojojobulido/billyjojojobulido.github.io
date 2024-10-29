@@ -318,41 +318,40 @@
                 <p style="font-weight: bold;">With this, the basic implementation and principle of Union-Find are clear. The complete code template is shown below.</p>
                 
 
+                <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Union-Find Code Template</h2>
 
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>并查集代码模板</h2>
-
-<pre>
-  n = 1005;                   # n根据题目中节点数量而定,一般比节点数量大一点就好
-  father = [i for i in n]     # 并查集初始化
-
-  # 并查集里寻根的过程
-  def find(u: int) -> int:
-      if u == father[u]:
-          return u
-      return father[u] = find(father[u])  # 路径压缩
-
-  # 判断 u 和 v是否找到同一个根
-  def is_same(u: int, v: int) -> bool:
-      u = find(u)
-      v = find(v)
-      return u == v
-
-  # 将v->u 这条边加入并查集
-  def join(u: int, v: int):
-      u = find(u)             # 寻找u的根
-      v = find(v)             # 寻找v的根
-      if (u == v):            # 如果发现根相同,则说明在一个集合,不用两个节点相连直接返回
-          return
-      father[v] = u    
-</pre>
-
-<p>通过模板,我们可以知道,并查集主要有三个功能。</p>
-<ol>
-    <li>寻找根节点,函数:find(int u),也就是判断这个节点的祖先节点是哪个</li>
-    <li>将两个节点接入到同一个集合,函数:join(int u, int v),将两个节点连在同一个根节点上</li>
-    <li>判断两个节点是否在同一个集合,函数:isSame(int u, int v),就是判断两个节点是不是同一个根节点</li>
-</ol>
-
+                <pre>
+                  n = 1005                    # n is set based on the number of nodes in the problem; typically, slightly larger than the number of nodes
+                  father = [i for i in range(n)]  # Union-Find initialization
+                
+                  # Root-finding process in Union-Find
+                  def find(u: int) -> int:
+                      if u == father[u]:
+                          return u
+                      return father[u] = find(father[u])  # Path compression
+                
+                  # Check if u and v have the same root
+                  def is_same(u: int, v: int) -> bool:
+                      u = find(u)
+                      v = find(v)
+                      return u == v
+                
+                  # Add edge v->u to the Union-Find
+                  def join(u: int, v: int):
+                      u = find(u)             # Find root of u
+                      v = find(v)             # Find root of v
+                      if (u == v):            # If roots are the same, they are in the same set; no need to connect the two nodes, so return
+                          return
+                      father[v] = u    
+                </pre>
+                
+                <p>This template shows that Union-Find has three main functions:</p>
+                <ol>
+                    <li>Finding the root node, function: <code>find(int u)</code>, which determines the ancestor node of a given node</li>
+                    <li>Connecting two nodes into the same set, function: <code>join(int u, int v)</code>, which links two nodes under the same root</li>
+                    <li>Checking if two nodes are in the same set, function: <code>is_same(int u, int v)</code>, which verifies if two nodes share the same root</li>
+                </ol>
+                
 
 <h3 id="trap">开发误区:「等效替代」</h3>
 
