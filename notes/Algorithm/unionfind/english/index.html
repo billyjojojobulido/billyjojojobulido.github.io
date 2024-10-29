@@ -206,27 +206,25 @@
                 <li>How to implement Union-Find (why Union-Find can achieve this while other algorithms cannot)</li>
                 </ol>
                 
-
-<h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>并查集的难点⭐️</h2>
-<p>学习并查集的时候有两个非常大的误区,要尽可能避免:</p>
-<ol>
-  <li><span style="font-weight: bold;">硬钢概念: </span>有的算法初学者喜欢脱离问题,直接去看一些算法的概念,对于一些简单的算法这么做无可厚非,但是对于高阶算法,这种学习方式应该尽可能避免。因为并查集本身的实现相对于其他的高阶算法也是偏复杂的,直接看代码模板和背后的原理很容易被难度劝退。</li>
-  <li><span style="font-weight: bold;">硬套模板: </span>这个其实是在有通用模板的算法笔记下会反复强调的,毕竟模板是基于算法设计的,而不是基于问题设计的,我不否认遇到类似的问题使用模板效率很高,但是如果问题稍微套一层壳子,那么硬套模板一定会陷入非常狼狈的境地。</li>
-</ol>
-
-<h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>并查集基本概念</h2>
-<p>前面简单提了一下,并查集解决的是连通性的问题。直白点讲,就是
-  <strong>当我们需要判断两个元素是否在同一个集合里的时候,我们就要想到用并查集</strong>。
-  </p>
-
-<p>而想要判断两个元素是否在同一个集合,算法最起码需要能够做到两点:</p>
-
-<ol>
-<li>将两个元素添加到一个集合中。</li>
-<li>判断两个元素在不在同一个集合。</li>
-</ol>
-
-<p>这两点乍一听有种把人当智障一般的简单,但其实想要做到这两点其实并不容易。</p>
+                <h2 id="Difficulty"><a href="#Difficulty" class="headerlink" title="Difficulty"></a>Challenges of Union-Find ⭐️</h2>
+                <p>There are two major misconceptions to avoid when learning Union-Find:</p>
+                <ol>
+                  <li><span style="font-weight: bold;">Focusing too much on concepts:</span> Some algorithm beginners like to study concepts directly without context, which can work for simpler algorithms, but this approach should be avoided for advanced algorithms. Union-Find is relatively complex compared to other advanced algorithms, so diving directly into code templates and underlying principles can be overwhelming and discouraging.</li>
+                  <li><span style="font-weight: bold;">Over-relying on templates:</span> This point is often emphasized in notes for algorithms with general templates. Templates are designed based on the algorithm, not the problem itself. While using a template can be highly efficient for similar problems, if the problem is slightly modified, rigidly applying a template can lead to difficult and frustrating situations.</li>
+                </ol>
+                
+                <h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Basic Concept of Union-Find</h2>
+                <p>As mentioned briefly, Union-Find is used to solve connectivity problems. Simply put, <strong>when we need to determine whether two elements belong to the same set, we should think of using Union-Find</strong>.</p>
+                
+                <p>To determine if two elements are in the same set, the algorithm needs to be able to achieve at least two things:</p>
+                
+                <ol>
+                <li>Add two elements to the same set.</li>
+                <li>Check if two elements are in the same set.</li>
+                </ol>
+                
+                <p>At first glance, these tasks may seem trivial, but achieving them is actually not that easy.</p>
+                
 
 
 <h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>并查集的实现⭐️</h2>
