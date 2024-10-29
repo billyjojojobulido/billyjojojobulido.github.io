@@ -384,48 +384,46 @@
                 <p>If you think this optimization has no issues, take a moment to consider whether you fully understand the principles of Union-Find discussed above.</p>
                 
                 <p>The error's root isn't in the repeated parts but in the line <code>father[v] = u</code>. If you substitute some examples, youll see that in the "optimized" version of the <code>join</code> function, when <code>father[v] = u</code> is executed, the values of <code>u</code> and <code>v</code> may differ from those in the original version.</p>
+                <p>e.g., Execute <code>join(1, 2)</code>, then <code>join(2, 3)</code> in order</p>
+
+                <p>Original Version</p>
+                <pre>
+                  join(1, 2)
+                      father[2] = 1   (u = 1, v = 2)
                 
-<p>e.g. 按顺序执行join(1,2), join(2,3)</p>
-<p>原始版</p>
-<pre>
-  join(1, 2)
-      father[2] = 1   (u = 1, v = 2)
-
-  join(2, 3)
-      father[3] = 1   (u = father[2] = 1, v = 3)
-</pre>
-
-<p>"优化"版</p>
-<pre>
-  join(1, 2)
-      father[2] = 1   (u = 1, v = 2)
-  
-  join(2, 3)
-      father[3] = 2   (u = 2, v = 3)
-</pre>
-
-<p>可以发现,"优化"版最大的问题就是: 跑完join(1,2)和join(2,3)之后, 执行is_same(1, 3)会return false, 因此完全违背了连通性的初衷。因此, 这个优化不应该被采纳。</p>
-
-<h3 id="example">图示:「并查集工作流程」</h3>
-
-
- <p>在该图示中, 依此执行如下操作:</p>
-<ol>
-    <li>join(1, 8)</li>
-    <li>join(3, 8)</li>
-    <li>join(1, 7)</li>
-    <li>join(8, 5) <strong>发生「路径压缩」, 3取代1成为8新的根</strong></li>
-    <li>join(2, 9)</li>
-    <li>join(6, 9)</li>
-</ol>
-
-<div style="text-align: center;">
-    <img src="../union-find-3.jpg" alt="并查集join和路径压缩的展示">
-</div>
-
-
-<h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>优化:「按秩合并」</h2>
-
+                  join(2, 3)
+                      father[3] = 1   (u = father[2] = 1, v = 3)
+                </pre>
+                
+                <p>"Optimized" Version</p>
+                <pre>
+                  join(1, 2)
+                      father[2] = 1   (u = 1, v = 2)
+                  
+                  join(2, 3)
+                      father[3] = 2   (u = 2, v = 3)
+                </pre>
+                
+                <p>As we can see, the biggest problem with the "optimized" version is that after running <code>join(1, 2)</code> and <code>join(2, 3)</code>, calling <code>is_same(1, 3)</code> will return <code>false</code>, which completely contradicts the purpose of connectivity. Therefore, this optimization should not be adopted.</p>
+                
+                <h3 id="example">Diagram: "Union-Find Workflow"</h3>
+                
+                <p>In the following illustration, the operations are executed as follows:</p>
+                <ol>
+                    <li><code>join(1, 8)</code></li>
+                    <li><code>join(3, 8)</code></li>
+                    <li><code>join(1, 7)</code></li>
+                    <li><code>join(8, 5)</code> <strong>Path compression occurs, and 3 replaces 1 as the new root of 8</strong></li>
+                    <li><code>join(2, 9)</code></li>
+                    <li><code>join(6, 9)</code></li>
+                </ol>
+                
+                <div style="text-align: center;">
+                    <img src="../union-find-3.jpg" alt="Union-Find Join and Path Compression Illustration">
+                </div>
+                
+                <h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>Optimization: "Union by Rank"</h2>
+                
 
 <p>针对于并查集的优化方式, 除了「路径压缩」之外, 还有「按秩合并」。最开始我学习并查集的时候, 是直接看得概念, 看到按秩合并的时候给我劝退了。因为秩「rank」本身是一个很陌生的概念, 秉承着字越少事儿越大的心理, 想必秩也是个很难的概念。</p>
 
