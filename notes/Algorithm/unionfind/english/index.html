@@ -428,7 +428,7 @@
 
                 <p>But in reality, <strong>rank simply refers to the height of the tree, which is the distance from the root to the farthest node in the directed connected graph.</strong></p>
                 
-                <p>What does Union by Rank mean? Simply put, when connecting two sets (recursive trees) with an edge, there’s a performance difference between merging A into B versus B into A.</p>
+                <p>What does Union by Rank mean? Simply put, when connecting two sets (recursive trees) with an edge, there's a performance difference between merging A into B versus B into A.</p>
                 
                 <p>Suppose the rank of A is 2 and the rank of B is 3. If A merges into B, the final connected graph will have a rank of 3. However, if B merges into A, the final connected graph will have a rank of 4. The merging process is illustrated in the diagram below.</p>
                 
@@ -438,9 +438,10 @@
                 
                 <p>Thus, we can conclude: <strong>the tree with the smaller rank should always merge into the tree with the larger rank</strong>, reducing the overall rank of the tree to minimize the path length during searches.</p>
                 
-                <p>However, on a side note, <strong>when optimizing Union-Find for query efficiency, "Path Compression" alone is usually sufficient. It’s simpler to implement and provides excellent performance.</strong></p>
+                <p>However, on a side note, <strong>when optimizing Union-Find for query efficiency, "Path Compression" alone is usually sufficient. It's simpler to implement and provides excellent performance.</strong></p>
                 
-                <p>This property requires us to define the solution based on the problem, ensuring that the stages of <span style="font-weight: bold;">"initialization," "loop traversal," and "end" maintain the same properties so that the problem can be solved correctly.</span> Union by Rank doesn’t flatten the tree structure as much as Path Compression, so it’s less efficient in organizing the structure.</p>
+                <p style="font-weight: bold;">Union by Rank doesn't flatten the tree structure as much as Path Compression, so it's less efficient in organizing the structure.</p>
+                
                 <h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>Union-Find Basic Problems - Classic Collection</h2>
 
                 <table>
