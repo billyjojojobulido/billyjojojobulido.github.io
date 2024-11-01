@@ -19,7 +19,7 @@
     <meta name="description" content="算法与数据结构 - 哈希表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法与数据结构 - 哈希表">
-<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/hash-map/chinese/index.html">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/hash_map/chinese/index.html">
 <meta property="og:site_name" content="Baocheng Wang">
 <meta property="og:description" content="算法与数据结构 - 哈希表">
 <meta property="og:locale" content="en_US">
@@ -284,7 +284,7 @@
 
 <p>哈希函数是一种源自于密码学的数学方法, 可以通过特定方式(hashCode)将其他数据格式转换为不同的数值, 这样就可以把非整数类型的key映射为数组的索引数字了。</p>
 
-<p>相比于类型转换的特性, 哈希函数真正最彪悍的特征其实是其<p>不可逆</p>。根据A = hash(B), 只要我知道B可以随时求出A, 但是我知道A却无法确定B是多少。一个简单的例子是:</p>
+<p>相比于类型转换的特性, 哈希函数真正最彪悍的特征其实是其<strong>「运算不可逆」</strong>。根据A = hash(B), 只要我知道B可以随时求出A, 但是我知道A却无法确定B是多少。一个简单的例子是:</p>
 <pre>
     def hash(val):
         return "0" if val % 2 == 0 else "1"
@@ -311,10 +311,14 @@
 
 <p>碰撞问题的本质上其实是冲突问题。当出现「哈希碰撞」时, 意味着存在至少两个不同的key指向同一块内存, 而两个内存都是同等得有意义, 哪个也不能轻易得丢弃, 否则如果用新值覆盖原先的key, 当拿新key搜索时, 就会获取到意料之外的值, 严重的时候可以导致重大事故</p>
 
-  <p>由此可得, 唯一合理的解决方案就是思考如何将所有的。</p>
+  <p>由此可得, 唯一合理的解决方案就是思考如何才能设计一个<strong>「可以将所有的碰撞结果保存的数据结构」</strong>。</p>
 
+  <p>很显然, 「保存碰撞结果」比「避免碰撞」简单太多了。</p>
 
+  
+<h3 id="Admin"><a href="#Admin" class="headerlink" title="Admin"></a>拉链</h3>
 
+  <p></p>
 
 
 <p>原则上来说, 至此哈希表已经足够称为独当一面的数据结构了, 但是一些较为悲观的(非贬义🤐)计算机领域前辈们还是哈希碰撞问题提出了一些新的质疑, 这也就是我们最后的一个历史遗留问题 「当大量发生哈希碰撞的时候, 如何解决长链表的查询性能问题」。</p>
@@ -326,97 +330,42 @@
 <table>
   <thead>
     <tr>
-      <th>操作</th>
-      <th>有序数组</th>
-      <th>无序数组</th>
+      <th></th>
+      <th>数组</th>
+      <th>链表</th>
+      <th>哈希表</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>下标查询</td>
-      <td>O(1)</td>
-      <td>O(1)</td>
-    </tr>
-
-    <tr>
-      <td>线性搜索</td>
+      <td>查找元素</td>
       <td>O(N)</td>
       <td>O(N)</td>
+      <td>O(1)</td>
     </tr>
 
     <tr>
-      <td>二分搜索</td>
-      <td>O(log(N))</td>
-      <td>不支持</td>
-    </tr>
-
-    <tr>
-      <td>插入元素 (线性)</td>
-      <td>O(2N) = O(N)</td>
-      <td>O(2N) = O(N)</td>
-    </tr>
-    <tr>
-      <td>插入元素 (基于二分)</td>
-      <td>O(log(2N)) + O(N) = O(N)</td>
-      <td>O(2N) = O(N)</td>
+      <td>添加元素</td>
+      <td>O(1)</td>
+      <td>O(1)</td>
+      <td>O(1)</td>
     </tr>
 
     <tr>
       <td>删除元素</td>
-      <td>O(1) + O(N) = O(N)</td>
-      <td>O(1) + O(N) = O(N)</td>
+      <td>O(N)</td>
+      <td>O(N)</td>
+      <td>O(1)</td>
     </tr>
-
-    <tr>
-      <td>排序</td>
-      <td>无需排序</td>
-      <td>O(N^2)</td>
-    </tr>
-
-
-
-
   </tbody>
 </table>
-
-
-<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>数组问题分类</h2>
-
-<p>因为数组作为数据结构,能够支持的操作比较有限,所以数组问题的解决方案相对比较有套路,基本上有五种解题思路。</p>
-<ul>
-  <li><strong>模拟法</strong></li>
-    <p>模拟类的题目在数组中很常见,不涉及到什么算法,就是单纯的模拟,十分考察大家对代码的掌控能力。</p>
-  <li><strong>二分法</strong></li>
-    <p>借助有序数组的条件优化暴力搜索的性能。</p>
-    <ul>
-      <li>暴力解法时间复杂度:O(n)</li>
-      <li>二分法时间复杂度:O(logn)</li>
-    </ul>
-  <li><strong>双指针法</strong></li>
-    <p>通过使用两个指针在一个for循环下完成两个for循环的工作。</p>
-    <ul>
-      <li>暴力解法时间复杂度:O(n^2)</li>
-      <li>双指针时间复杂度:O(n)</li>
-    </ul>
-  <li><strong>滑动窗口</strong></li>
-    <p>滑动窗口的精妙之处在于根据当前子序列和大小的情况,不断调节子序列的起始位置。从而将O(n^2)的暴力解法降为O(n)。</p>
-    <ul>
-      <li>暴力解法时间复杂度:O(n^2)</li>
-      <li>滑动窗口时间复杂度:O(n)</li>
-    </ul>
-  <li><strong>前缀和</strong></li>
-    <p>针对于求解类似"数列的前 n 项的和"问题,采用预处理的方式减少整体时间开销。</p>
-    <ul>
-      <li>暴力解法时间复杂度:O(n^2)</li>
-      <li>前缀和时间复杂度:O(n)</li>
-    </ul>
-</ul>
 
 
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">代码随想录: 数组理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%93%88%E5%B8%8C%E8%A1%A8">代码随想录: 哈希表理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hashing/hash_collision/">Hello算法: 哈希冲突</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
@@ -442,7 +391,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>算法与数据结构 - 哈希表</div>
-      <div>https://billyjojojobulidogithub.io/notes/Algorithm/hash-map/chinese/index.html</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/hash_map/chinese/index.html</div>
     </div>
     <div class="license-meta">
       
