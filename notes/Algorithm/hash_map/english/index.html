@@ -309,31 +309,32 @@
                 
                 <p>This brings us to the second historical problem: <strong>"hash collisions."</strong> If hash collisions cannot be addressed, hash functions remain impractical.</p>
                 
-<h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>哈希碰撞的解决方案</h2>
+                <h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>Solutions to Hash Collisions</h2>
 
-<p>哈希碰撞本身是个概率问题, 所以如何避免哈希碰撞其实是个无解的问题。 从离散数学的角度, 最多就是通过增加哈希空间的方式来减少碰撞概率, 但是无法在理论上将概率归零。所以既然避免不了, 索性就思考一下碰撞发生了如何解决。</p>
-
-<p>碰撞问题的本质上其实是冲突问题。当出现「哈希碰撞」时, 意味着存在至少两个不同的key指向同一块内存, 而两个被存储的内容都是同等得有意义, 哪个也不能轻易得丢弃, 否则如果用新值覆盖原先的key, 当拿新key搜索时, 就会获取到意料之外的值, 严重的时候可以导致重大事故</p>
-
-  <p>由此可得, 唯一合理的解决方案就是思考如何才能<strong>「将所有的碰撞结果保存, 等到查询时再做辨别」</strong>。</p>
-
-  <p>很显然, 「保存碰撞结果」比「避免碰撞」简单太多了。最直接的一个方案就是「改良哈希表数据结构」,使得哈希表可以在出现哈希冲突时正常工作。</p>
-
-  <p>事实上, 业界里哈希表的结构改良方法主要包括两种, 分别是 <strong>"链式地址"</strong> 和 <strong>"开放寻址"</strong>。</p>
-  
-<h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>「链式地址」</h3>
-
-  <p>在原始哈希表中，每个内存区块(也被称为"桶")仅能存储一个键值对, 链式地址(separate chaining)所做的, 就是将单个元素转换为链表, 将键值对作为链表节点, 将所有发生冲突的键值对都存储在同一链表中。</p>
-
-  <p>站在学习者的角度, 至此可能会有一个问题(至少我学的时候很久没想通), 那就是既然hash后的key已经重复了, 我们靠着hash后的key如何在链表中找到想要的元素?</p>
-
-  <p>如果站在开发者的角度, 这个问题其实非常好解决, 只需要数据结构中保留哈希前的原始key, 就能在哈希碰撞发生时顺着链表找到特定的元素。</p>
-
-  <p>至此, 「链式地址」的基本原理已经清晰, 我们就可以设计出如下的数据结构。</p>
-
-  <div style="text-align: center;">
-    <img src="../chain.png" width="40%">
-  </div>
+                <p>Hash collisions are inherently a probability issue, so preventing collisions entirely is an unsolvable problem. From the perspective of discrete mathematics, increasing the hash space can reduce the likelihood of collisions, but it can’t eliminate the probability entirely. Since collisions are inevitable, let’s focus on how to handle them when they occur.</p>
+                
+                <p>The essence of the collision problem is actually a conflict problem. When a "hash collision" occurs, it means that at least two different keys point to the same memory block, and both stored values are equally meaningful, so neither can be discarded. Overwriting the original key with a new value could result in unexpected values during searches, potentially leading to severe issues.</p>
+                
+                <p>Thus, the only reasonable solution is to consider how to <strong>"store all collision results and distinguish them during lookup."</strong></p>
+                
+                <p>Clearly, "storing collision results" is much simpler than "avoiding collisions." The most straightforward approach is to "improve the hash table structure" to allow it to function correctly even with hash collisions.</p>
+                
+                <p>In practice, there are two main structural improvements for hash tables: <strong>"Separate Chaining"</strong> and <strong>"Open Addressing."</strong></p>
+                
+                <h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>"Separate Chaining"</h3>
+                
+                <p>In a basic hash table, each memory block (also called a "bucket") can store only one key-value pair. Separate chaining converts a single element into a linked list, with key-value pairs as nodes, storing all colliding key-value pairs in the same linked list.</p>
+                
+                <p>From a learner's perspective, a question might arise (at least it puzzled me for a while when I was learning): since the hashed keys are already the same, how do we find the desired element in the linked list?</p>
+                
+                <p>For a developer, this is quite simple to address. By retaining the original, pre-hashed key in the data structure, we can locate the specific element in the linked list when a hash collision occurs.</p>
+                
+                <p>With this, the basic principle of "Separate Chaining" is clear, and we can design the following data structure.</p>
+                
+                <div style="text-align: center;">
+                  <img src="../chain.png" width="40%">
+                </div>
+                
 
   <h4>链式地址存在以下局限性</h4>
   <ol>
