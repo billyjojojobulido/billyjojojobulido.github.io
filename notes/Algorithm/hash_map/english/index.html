@@ -336,37 +336,37 @@
                 </div>
                 
 
-  <h4>链式地址存在以下局限性</h4>
-  <ol>
-    <li><strong>占用空间增大:</strong> 将原本的数组结构加入链表设计后, 需要包含节点指针, 会更加消耗内存空间</li>
-    <li><strong>查询效率降低:</strong> 加入了链表后, 引入了线性搜索的时间复杂度, 虽然只会发生在「哈希碰撞」时, 但是worst case就等同于线性搜索链表。</li>
-  </ol>
- 
-<h3 id="Open"><a href="#Open" class="headerlink" title="Open"></a>「开放寻址」</h3>
-
-<p>「链式地址」虽然解决了「哈希碰撞」的问题, 但因为引入了额外的数据结构, 在性能上其实并不占优。
-    尤其是很多开发者习惯性地考虑悲观情况时, 也就是在「链式地址」中所有元素都发生碰撞并挤在一个桶里。那么查询的效率也会退化成O(N)的时间复杂度。</p>
-
-<p>这时候很多开发者注意到, 哈希表因为其插入操作不具备连续性, 所以实际上的内存使用是零散的、稀疏的, 明明哈希表里还有那么多内存浪费, 何必通过增加链表的方式来解决碰撞问题?</p>
-
-<p>于是<strong>「开放寻址」</strong>算法的雏形就诞生了。</p>
-
-<p>除了不借助额外的数据结构,「开放寻址」相比于「链式地址」最大的不同就是「不在原地解决问题」。我个人认为「开放寻址」的思想其实更加符合生活中的逻辑, 
-    毕竟在现实生活中, 人们发现自己的位置被占了的第一反应可能都是既然位置被占了就哪个空的坐哪个, 而不是非要搬一把新椅子来。 (我自己就是靠这个例子理解「开放寻址」的🤦)</p>
-
-<p>那问题来了, 「链式地址」之所以不惜使用额外的数据结构也要在「原地解决问题」的目的就是为了方便查询, 毕竟根据哈希值, 只会找到那一个"桶", 而「开放寻址」直接就近放到别的桶里, 这在查找的时候怎么找得到?</p>
-
-<p>我们也可以多想一层, 当发生碰撞时, 我们就把新的键值对就近放到下一个空桶, 但是如果紧接着这个桶的"正主", 也就是实际上指向这个桶的第一个哈希值, 出现了, 它如何能够知道这个位置因为别的地方的碰撞已经被占据了?</p>
-
-<p>这就需要算法主动去<strong>探测</strong>来处理哈希碰撞, 会牵扯到另外一个算法<strong>「线性探测」</strong></p>
-
-<p>探测的逻辑也非常简单, 如果哈希值指向的桶不为空, 那就意味着已经发生了碰撞。我采用固定的步长从哈希值指向的桶往下探测, 当我找到符合的原始key时, 就能锁定桶的位置。而当探测到空的桶时, 意味着这个key不存在, 
-    因为如果按照约定的插入规则, 这个值如果被插入, 则不应该在找到该值之前出现空桶。</p>
-
-    <div style="text-align: center;">
-      <img src="../open_address.png" height="300px">
-    </div>
-
+                <h4>Limitations of Separate Chaining</h4>
+                <ol>
+                  <li><strong>Increased space usage:</strong> Adding a linked list structure to the original array requires node pointers, which consumes more memory.</li>
+                  <li><strong>Reduced search efficiency:</strong> With the addition of linked lists, linear search time complexity is introduced. Although it only occurs during "hash collisions," the worst case is equivalent to a linear search through the linked list.</li>
+                </ol>
+                 
+                <h3 id="Open"><a href="#Open" class="headerlink" title="Open"></a>"Open Addressing"</h3>
+                
+                <p>While "Separate Chaining" solves the "hash collision" problem, it introduces additional data structures, which may not be optimal for performance. 
+                    Particularly when developers consider the pessimistic scenario—where all elements collide and cluster in one bucket—the search efficiency would degrade to O(N) time complexity.</p>
+                
+                <p>At this point, many developers notice that since hash tables don’t require contiguous insertions, memory usage is actually sparse, scattered, and inefficient. Given that there’s so much unused memory, why add linked lists to handle collisions?</p>
+                
+                <p>This is where the concept of <strong>"Open Addressing"</strong> emerges.</p>
+                
+                <p>Unlike separate chaining, which relies on extra data structures, the main difference with open addressing is that it doesn’t "solve the problem in place." Personally, I find that the open addressing approach aligns more with real-world logic: 
+                    if people find their seat occupied, their first instinct is to sit in the next available spot rather than bring a new chair. (This is actually how I grasped the concept of open addressing 🤦)</p>
+                
+                <p>However, this raises a question: Separate chaining uses extra data structures to handle collisions "in place" for easy lookup, since the hash value directly points to a single bucket. But with open addressing, placing entries in adjacent buckets—how will we find them during lookups?</p>
+                
+                <p>We can think a bit further: when a collision occurs, we place the new key-value pair in the next available bucket. But if the "primary owner" of this bucket, the initial hash value intended for that spot, arrives later, how will it know the spot is occupied due to another key’s collision?</p>
+                
+                <p>This requires the algorithm to actively <strong>probe</strong> for handling hash collisions, introducing another method called <strong>"Linear Probing."</strong></p>
+                
+                <p>The probing logic is straightforward: if the bucket pointed to by the hash value is not empty, a collision has occurred. I then use a fixed step size to probe forward from the hash bucket. When I find a bucket with a matching original key, I lock in that position. 
+                    If I encounter an empty bucket during probing, it means the key doesn’t exist, as by the insertion rule, an empty bucket wouldn’t appear before locating the value.</p>
+                
+                <div style="text-align: center;">
+                  <img src="../open_address.png" height="300px">
+                </div>
+                
 <p>如果足够细心, 会发现这个操作同样有问题: 如果插入发生冲突, 就近插入空桶后, 原始桶和插入桶之间的某个桶的元素被删除了怎么办? 按照现有的「线性探测」逻辑, 当遇到空桶时就会直接结束探测, 从而使得插入后的值也失去意义。</p>
 
 <p>这个问题的解决方案比想象中更简单粗暴: 不直接从桶里移除元素, <strong>而是利用一个特定常量「TOMBSTONE」来标记这个桶</strong>, 这样既不会因为空桶而提前中断「线性探测」, 又不妨碍插入新的值。</p>
