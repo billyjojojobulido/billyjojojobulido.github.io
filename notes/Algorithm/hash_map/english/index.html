@@ -385,47 +385,45 @@
                 <p>This issue is not too distant from us and is still somewhat controversial. Most programming languages haven’t made adjustments for this problem. Currently, only Java and C++ have modified the underlying implementation of HashMap, using a "Red-Black Tree" in certain cases to replace the linked list, thereby improving search efficiency from O(n) to O(log n) when a large number of collisions occur.</p>
                 
                 <h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>Hash Table Performance Comparison</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Array</th>
+                      <th>Linked List</th>
+                      <th>Hash Table</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Search Element</td>
+                      <td>O(N)</td>
+                      <td>O(N)</td>
+                      <td>O(1)</td>
+                    </tr>
                 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>数组</th>
-      <th>链表</th>
-      <th>哈希表</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>查找元素</td>
-      <td>O(N)</td>
-      <td>O(N)</td>
-      <td>O(1)</td>
-    </tr>
-
-    <tr>
-      <td>添加元素</td>
-      <td>O(1)</td>
-      <td>O(1)</td>
-      <td>O(1)</td>
-    </tr>
-
-    <tr>
-      <td>删除元素</td>
-      <td>O(N)</td>
-      <td>O(N)</td>
-      <td>O(1)</td>
-    </tr>
-    <tr>
-        <td>遍历所有元素</td>
-        <td>O(N)</td>
-        <td>O(N)</td>
-        <td>O(N)</td>
-      </tr>
-  </tbody>
-</table>
-
-
+                    <tr>
+                      <td>Add Element</td>
+                      <td>O(1)</td>
+                      <td>O(1)</td>
+                      <td>O(1)</td>
+                    </tr>
+                
+                    <tr>
+                      <td>Delete Element</td>
+                      <td>O(N)</td>
+                      <td>O(N)</td>
+                      <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td>Traverse All Elements</td>
+                        <td>O(N)</td>
+                        <td>O(N)</td>
+                        <td>O(N)</td>
+                      </tr>
+                  </tbody>
+                </table>
+                
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
