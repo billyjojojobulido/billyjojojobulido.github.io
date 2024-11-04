@@ -378,14 +378,14 @@
                 
                 <p>Besides "linear probing," there are other probing methods like "quadratic probing" and "double hashing," both commonly used in open addressing strategies. These two methods aim to mitigate the clustering problem in linear probing.</p>
                 
-<h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>一些额外的优化方式: 红黑树 「会在后面Tree的章节详细写」</h3>
+                <h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>Additional Optimization: Red-Black Tree (Detailed in the Tree Chapter)</h3>
 
-<p>原则上来说, 至此哈希表已经足够称为独当一面的数据结构了, 但是一些较为悲观的(非贬义🤐)计算机领域前辈们还是哈希碰撞问题提出了一些新的质疑, 这也就是我们最后的一个历史遗留问题 「当大量发生哈希碰撞的时候, 如何解决长链表的查询性能问题」。</p>
-
-<p>这个问题其实距离我们不算太远, 目前似乎仍存在争议, 大多数编程语言都没有针对这个问题做出修改, 目前只有Java和C++在HashMap的底层实现中, 在某些情况采用了「红黑树」取代原本的链表来将大量碰撞时的查找效率从 O(n) 优化到了 O(log n)。</p>
-
-<h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>哈希表性能对比</h2>
-
+                <p>In principle, hash tables are already robust enough as standalone data structures. However, some cautious (in a non-pejorative sense 🤐) pioneers in computer science have raised new concerns about hash collisions, leading to our final historical issue: <strong>"How to handle the query performance problem of long linked lists when numerous hash collisions occur."</strong></p>
+                
+                <p>This issue is not too distant from us and is still somewhat controversial. Most programming languages haven’t made adjustments for this problem. Currently, only Java and C++ have modified the underlying implementation of HashMap, using a "Red-Black Tree" in certain cases to replace the linked list, thereby improving search efficiency from O(n) to O(log n) when a large number of collisions occur.</p>
+                
+                <h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>Hash Table Performance Comparison</h2>
+                
 <table>
   <thead>
     <tr>
