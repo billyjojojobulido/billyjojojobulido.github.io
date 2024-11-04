@@ -240,7 +240,7 @@
 
                 <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-                <p>The hash table is a basic data structure that is highly valued by developers and widely used in practical development. It is also a frequently tested data structure in interviews and algorithm assessments. It’s a classic example of a space-for-time algorithm.</p>
+                <p>The hash table is a basic data structure that is highly valued by developers and widely used in practical development. It is also a frequently tested data structure in interviews and algorithm assessments. It‘s a classic example of a space-for-time algorithm.</p>
                 
                 <p style="font-weight: bold;">If an array is akin to a pawn in chess, suitable for basic algorithms and steady progression, but always ready to make way for mid-to-high-level algorithms, then a hash table is like a knight in chess: when used at the right moment, this simple data structure can achieve effects comparable to any advanced algorithm.</p>
                 
@@ -254,40 +254,38 @@
                 <div style="text-align: center;">
                   <img src="../map.png" width="50%">
                 </div>
+                <p>
+                  Based on this definition, we could say that arrays are also a type of hash table. However, to avoid ambiguity, it's necessary to clarify that when I refer to "array algorithms," I mean "arrays (as a data structure) + algorithms based on the structural properties of arrays (e.g., binary search, prefix sum, etc.)."
+                </p>
                 
-<p>
-  根据这个定义, 我们完全可以说数组也是一种哈希表。不过为了避免出现歧义, 我想有必要明确一下我所说的「数组算法」指的是「数组(数据结构) + 
-  基于数组结构特性而生的算法(e.g. 二分搜索, 前缀和, etc)」</p>
-
-<p> 当然, 哈希表如此受欢迎, 背后的原因远比一句轻飘飘的O(1)搜索复杂。毕竟O(1)时间的查询其实数组也完全可以做到, 但是只限于基于索引的搜索, 但如果实际应用中搜索的key无法作为索引, 那只能放弃这个做法。</p>
-
-<p>而<strong>哈希表的原理背后就是计算机领域的前辈们不断解决这个问题, 以及一系列历史遗留问题而慢慢总结出来的最优解合集</strong>。</p>
-
-<p>
-  相信在还没有发明哈希表的某个时期, 所有常数时间的搜索必须依赖数组。
-  因此我们的第一个历史遗留问题自然就是<strong>「如何将非整数类型的key变成数组可用的int索引」</strong>。
-  因此, 当人们试图解决"如何根据string类型的key完成常数时间的搜索"问题时, 自然就会想到一种最为直接的方案: "干脆将字符串想个办法变成int用来作为索引", 这样就可以基于数组实现O(1)的搜索了。
-</p>
-
-<div style="text-align: center;">
-  <img src="../hash_func.png" width="50%">
-</div>
-
-
-<p>这个方案从工程的角度其实是非常合理的, 因为我们可以有效利用已经存在的资源(数组), 只要开发一套将字符串转换成int的逻辑就行。
-    如果只是为了将str转成int, 那这种逻辑有很多, 最简单的方法其实就是将字符串根据ASCII码对应的十进制的表达, 但至今无人采用, 是因为转换的数组会随着字符串长度的增加而无限制地增长, 那么理论上也需要创建更大的数组来容纳对应的索引。
-    我们甚至不用去探讨索引分布是否稀疏的情况, 单是空间复杂度的upper bound取决于最长字符串的长度就已经注定了这个方案必不可能被开发者接受。</p>
-    
-<p>因此, 从性能的角度出发, 理想的转换逻辑最起码需要满足以下的限制, 才有可能构建出理想的哈希表数据结构: </p>
-
-<ol>
-    <li><strong>「强确定性」 生成的int可以被复现</strong>  相同的str必须要能够生成相同的int <strong>(否则搜索根本没意义)</strong></li>
-    <li><strong>「抗碰撞性」 生成的int可以不重复</strong>  不同的str必须要生成不同的int <strong>(否则信息可能会被意外覆盖)</strong></li>
-    <li><strong>「范围可控」 生成的int范围有限</strong>  能够确定生成int的范围 <strong>(否则可能会导致内存开销过大)</strong></li>
-</ol>
-
-<p>而这种方法很早就已经被数学家们研究出来了, 那就是<strong>哈希函数 (Hash Function)</strong></p>
-
+                <p>Of course, the popularity of hash tables is driven by reasons far more complex than just a simplistic O(1) search. While arrays can also achieve O(1) time complexity for searches, this is limited to index-based searches. If the search key cannot serve as an index in practical applications, this approach falls short.</p>
+                
+                <p><strong>The principle behind hash tables represents the culmination of efforts by pioneers in computer science to tackle this issue, along with various historical challenges, and ultimately arriving at an optimal solution.</strong></p>
+                
+                <p>
+                  Imagine a time before hash tables were invented, when all constant-time searches relied on arrays.
+                  Naturally, the first historical problem that arose was <strong>"how to transform a non-integer key into an integer index that an array can use."</strong>
+                  Thus, when people attempted to solve the issue of "performing constant-time searches based on a string key," the most straightforward solution was: "simply find a way to convert the string into an integer to use as an index," allowing O(1) searches based on arrays.
+                </p>
+                
+                <div style="text-align: center;">
+                  <img src="../hash_func.png" width="50%">
+                </div>
+                
+                <p>From an engineering perspective, this solution is quite practical because it allows us to efficiently use existing resources (arrays) by developing a logic to convert strings to integers. 
+                    While there are many ways to convert a string to an integer, the simplest method is using the ASCII decimal representation of the string characters. However, this approach is not adopted because the resulting array size would grow without bound as the string length increases, theoretically requiring larger arrays to accommodate the corresponding indices.
+                    We don‘t even need to discuss whether the indices are sparsely distributed; the fact that the upper bound of space complexity depends on the length of the longest string already makes this approach unacceptable for developers.</p>
+                    
+                <p>Therefore, from a performance perspective, an ideal conversion logic must meet the following criteria to make building an ideal hash table possible:</p>
+                
+                <ol>
+                    <li><strong>"Strong Determinism": The generated integer must be reproducible.</strong> The same string must generate the same integer <strong>(otherwise, the search is meaningless).</strong></li>
+                    <li><strong>"Collision Resistance": The generated integer should be unique.</strong> Different strings should generate different integers <strong>(otherwise, information could be unintentionally overwritten).</strong></li>
+                    <li><strong>"Controlled Range": The generated integer should have a limited range.</strong> The range of generated integers should be predictable <strong>(otherwise, memory usage could become excessive).</strong></li>
+                </ol>
+                
+                <p>Mathematicians developed this approach long ago, known as the <strong>Hash Function</strong>.</p>
+                
 
 <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>哈希函数</h2>
 
