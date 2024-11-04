@@ -193,7 +193,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          2.8k words
         
       </span>
     
@@ -202,7 +202,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-clock-fill"></i>
         
-          15 mins
+          25 mins
         
       </span>
     
@@ -238,25 +238,23 @@
             
               <div class="markdown-body">
 
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
-
-<p>哈希表是一种初级数据结构, 但是非常受开发者的重视, 在实际开发中应用极广, 因此也是面试和算法笔试中高频出现的数据结构。 也是典型的空间换时间的算法。</p>
-
-<p style="font-weight: bold;">如果说数组相当于象棋里的卒,适合作为基础算法稳扎稳打, 但需要随时做好为中高阶算法让位的准备。
-  那么哈希表就相当于象棋里的马,在合适的时候使用,简单的数据结构能够起到的效果不亚于任何高阶算法。</p>
-
-<p>哈希表之所以有如此高的评价,是因为他可以保证O(1)时间的查询,所以<strong>一般来说哈希表都是用来快速判断一个元素是否出现集合里</strong>。这是链表和数组都无法轻易做到的。</p>
-
-<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>哈希表的理论基础</h2>
-<p>
-    首先, 官方对哈希表的定义是比较简单粗暴的: <strong>"哈希表是根据关键码的值而直接进行访问的数据结构。"</strong>
-</p>
-
-<div style="text-align: center;">
-  <img src="../map.png" width="50%">
-</div>
-
+                <p>The hash table is a basic data structure that is highly valued by developers and widely used in practical development. It is also a frequently tested data structure in interviews and algorithm assessments. It’s a classic example of a space-for-time algorithm.</p>
+                
+                <p style="font-weight: bold;">If an array is akin to a pawn in chess, suitable for basic algorithms and steady progression, but always ready to make way for mid-to-high-level algorithms, then a hash table is like a knight in chess: when used at the right moment, this simple data structure can achieve effects comparable to any advanced algorithm.</p>
+                
+                <p>The hash table is so highly regarded because it can guarantee O(1) time complexity for lookups. Therefore, <strong>hash tables are generally used to quickly check if an element exists in a set</strong>, something that linked lists and arrays cannot easily accomplish.</p>
+                
+                <h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Theoretical Basis of Hash Tables</h2>
+                <p>
+                    First, the official definition of a hash table is fairly straightforward: <strong>"A hash table is a data structure that accesses data directly based on the value of the key."</strong>
+                </p>
+                
+                <div style="text-align: center;">
+                  <img src="../map.png" width="50%">
+                </div>
+                
 <p>
   根据这个定义, 我们完全可以说数组也是一种哈希表。不过为了避免出现歧义, 我想有必要明确一下我所说的「数组算法」指的是「数组(数据结构) + 
   基于数组结构特性而生的算法(e.g. 二分搜索, 前缀和, etc)」</p>
