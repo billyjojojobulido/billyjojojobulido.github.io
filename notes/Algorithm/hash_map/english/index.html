@@ -286,30 +286,29 @@
                 
                 <p>Mathematicians developed this approach long ago, known as the <strong>Hash Function</strong>.</p>
                 
+                <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash Function</h2>
 
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>哈希函数</h2>
-
-<p>哈希函数是一种源自于密码学的数学方法, 可以通过特定方式(hashCode)将其他数据格式转换为不同的数值, 这样就可以把非整数类型的key映射为数组的索引数字了。</p>
-
-<p>相比于类型转换的特性, 哈希函数真正最彪悍的特征其实是其<strong>「运算不可逆」</strong>。根据A = hash(B), 只要我知道B可以随时求出A, 但是我知道A却无法确定B是多少。一个简单的例子是:</p>
-<pre>
-    def hash(val):
-        return "0" if val % 2 == 0 else "1"
-</pre>
-
-<p>在以上的例子中, 我可以根据手中val=7的奇偶性得到哈希值是"1", 但是根据哈希值我最多可以反向推出val是奇数, 无法确定它到底是哪个奇数。</p>
-
-<p>这也是哈希函数通用的特性, 正因为这个特性, 哈希函数被广泛应用于网络安全和区块链, 因为它能允许用户在将隐私数据/密码/密钥哈希后直接公布, 而不用担心被解码。(这不完全是哈希函数的功劳, 需要遵循一整套非对称加密的流程)</p>
-
-<p>以上关于密码学和网络安全的内容虽然是题外话, 但它其实也其实暴露了哈希函数的一个问题, 那就是<strong>不能保证「独一无二」的特性</strong>。 还是存在不同的A和B两个字符串, 通过哈希函数后, 使得hash(A) = hash(B), 这种现象被称为<strong>「哈希碰撞」</strong>, 
-    哪怕这个概率很小, 但是也不足以在应用中可以忽略，这是因为人们需要在内存消耗中取舍。 (补充: 哈希碰撞的概率取决于哈希空间, 可以理解为哈希映射后int的范围, 哈希空间越小, 就越容易发生碰撞)。 </p>
-    
-<p>区块链中常用的SHA2哈希函数因为哈希空间较大, 在实际中我们认为哈希碰撞的概率小到可以忽略, 但是成本意味着它能生成的哈希值范围是所有的32位整数, 意味着我们需要生成一个对应的长度为2**32的一维数组。这是不现实的, 因此只能做一个tradeoff,
-    <strong>「用更高的碰撞的概率换更小的内存开销」。</strong>。
-</p>
-
-<p>因此, 我就就有了第二个历史遗留的问题<strong>「哈希碰撞」</strong>。如果无法解决哈希碰撞的问题, 那么哈希函数依旧不够实用。</p>
-
+                <p>A hash function is a mathematical method derived from cryptography that can convert other data formats into different values through a specific process (<code>hashCode</code>), allowing non-integer keys to be mapped to array indices.</p>
+                
+                <p>Beyond type conversion, the most remarkable feature of hash functions is their <strong>"irreversibility."</strong> Given <code>A = hash(B)</code>, if I know <code>B</code>, I can always find <code>A</code>, but knowing <code>A</code> does not allow me to determine what <code>B</code> is. A simple example is:</p>
+                <pre>
+                    def hash(val):
+                        return "0" if val % 2 == 0 else "1"
+                </pre>
+                
+                <p>In the above example, I can get the hash value "1" based on the oddness of <code>val = 7</code>, but from the hash value, I can at most infer that <code>val</code> is odd, without knowing the exact odd number.</p>
+                
+                <p>This is a general characteristic of hash functions, which is why they are widely used in network security and blockchain. They allow users to hash sensitive data/passwords/keys and share them without fear of decoding (though this also requires following an entire asymmetric encryption protocol).</p>
+                
+                <p>While the above discussion on cryptography and network security is tangential, it reveals a limitation of hash functions: <strong>they cannot guarantee uniqueness.</strong> There are cases where two different strings, <code>A</code> and <code>B</code>, may produce the same hash result, <code>hash(A) = hash(B)</code>. This phenomenon is called a <strong>"hash collision."</strong> 
+                    Although this probability may be small, it cannot be ignored in applications due to memory trade-offs. (Note: The likelihood of hash collisions depends on the hash space, which is the range of integers after mapping. The smaller the hash space, the more likely collisions become.)</p>
+                    
+                <p>For example, the commonly used SHA-2 hash function in blockchain has a large hash space, making hash collisions virtually negligible. However, this means it generates hashes over the entire 32-bit integer range, implying the need for an array of size <code>2**32</code>, which is impractical. Thus, a tradeoff is necessary:
+                    <strong>"a higher collision probability for reduced memory usage."</strong>
+                </p>
+                
+                <p>This brings us to the second historical problem: <strong>"hash collisions."</strong> If hash collisions cannot be addressed, hash functions remain impractical.</p>
+                
 <h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>哈希碰撞的解决方案</h2>
 
 <p>哈希碰撞本身是个概率问题, 所以如何避免哈希碰撞其实是个无解的问题。 从离散数学的角度, 最多就是通过增加哈希空间的方式来减少碰撞概率, 但是无法在理论上将概率归零。所以既然避免不了, 索性就思考一下碰撞发生了如何解决。</p>
