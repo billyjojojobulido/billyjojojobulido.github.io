@@ -367,17 +367,17 @@
                   <img src="../open_address.png" height="300px">
                 </div>
                 
-<p>如果足够细心, 会发现这个操作同样有问题: 如果插入发生冲突, 就近插入空桶后, 原始桶和插入桶之间的某个桶的元素被删除了怎么办? 按照现有的「线性探测」逻辑, 当遇到空桶时就会直接结束探测, 从而使得插入后的值也失去意义。</p>
+                <p>If you’re observant, you might notice an issue with this approach: if an insertion encounters a conflict and is placed in the nearest empty bucket, what happens if an element between the original bucket and the insertion bucket is deleted? According to the current "linear probing" logic, probing stops when it encounters an empty bucket, rendering the inserted value meaningless.</p>
 
-<p>这个问题的解决方案比想象中更简单粗暴: 不直接从桶里移除元素, <strong>而是利用一个特定常量「TOMBSTONE」来标记这个桶</strong>, 这样既不会因为空桶而提前中断「线性探测」, 又不妨碍插入新的值。</p>
-
-<p>这种操作被称为 <strong>「懒删除」 Lazy Deletion</strong></p>
-
-<h4>「线性探测」容易引起"聚集现象"</h4>
-<p>当哈希碰撞大量出现时, 需要频繁越位插入就近的空桶, 会导致底层数组中连续被占用的位置越来越长, 从而使得哈希冲突的可能性更大, 进一步促使聚集生长, 形成恶性循环。这种情况下, 每一次查询都会有不小的开销。</p>
-
-<p>除了「线性探测」, 还有「平方探测」和「多次哈希」等其他的探测算法, 都是「开放寻址」中常用的策略, 后两种策略都是旨在解决「线性探测」中的聚集问题。 </p>
-
+                <p>The solution to this problem is simpler and more straightforward than it seems: instead of removing elements from the bucket, we <strong>use a specific constant, "TOMBSTONE," to mark the bucket</strong>. This way, linear probing won’t prematurely terminate due to an empty bucket, and new values can still be inserted.</p>
+                
+                <p>This approach is called <strong>"Lazy Deletion."</strong></p>
+                
+                <h4>"Clustering" in Linear Probing</h4>
+                <p>When hash collisions occur frequently, constant overwriting to place values in the nearest available bucket results in increasingly long occupied sequences within the underlying array. This increases the likelihood of further collisions, creating a vicious cycle of clustering. In such cases, each lookup incurs a considerable overhead.</p>
+                
+                <p>Besides "linear probing," there are other probing methods like "quadratic probing" and "double hashing," both commonly used in open addressing strategies. These two methods aim to mitigate the clustering problem in linear probing.</p>
+                
 <h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>一些额外的优化方式: 红黑树 「会在后面Tree的章节详细写」</h3>
 
 <p>原则上来说, 至此哈希表已经足够称为独当一面的数据结构了, 但是一些较为悲观的(非贬义🤐)计算机领域前辈们还是哈希碰撞问题提出了一些新的质疑, 这也就是我们最后的一个历史遗留问题 「当大量发生哈希碰撞的时候, 如何解决长链表的查询性能问题」。</p>
