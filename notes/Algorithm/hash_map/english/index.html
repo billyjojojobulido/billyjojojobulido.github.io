@@ -1,0 +1,742 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/dog_icon.jpg">
+  <link rel="icon" href="/img/dog_icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Baocheng Wang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="算法与数据结构 - 哈希表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法与数据结构 - 哈希表">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/hash_map/chinese/index.html">
+<meta property="og:site_name" content="Baocheng Wang">
+<meta property="og:description" content="算法与数据结构 - 哈希表">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-01T011:39:23.000Z">
+<meta property="article:modified_time" content="2024-11-01T11:39:56.262Z">
+<meta property="article:author" content="Baocheng Wang">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
+  
+  
+  
+  <title>算法与数据结构 - 哈希表</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库,不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"billyjojojobulido.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt){
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1')|| dntVal.startsWith('yes')|| dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Baocheng Wang</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/notes/">
+                <i class="iconfont icon-note"></i>
+                <span>Notes</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Projects</span>
+              </a>
+            </li>
+
+ 
+
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/stars.jpg')no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span>算法与数据结构 - 哈希表</span>
+        </div>
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-01 11:40" pubdate>
+          November 01, 2024
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+          15 mins
+        
+      </span>
+    
+  </div>
+
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+
+            
+              <div class="markdown-body">
+
+
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
+
+<p>哈希表是一种初级数据结构, 但是非常受开发者的重视, 在实际开发中应用极广, 因此也是面试和算法笔试中高频出现的数据结构。 也是典型的空间换时间的算法。</p>
+
+<p style="font-weight: bold;">如果说数组相当于象棋里的卒,适合作为基础算法稳扎稳打, 但需要随时做好为中高阶算法让位的准备。
+  那么哈希表就相当于象棋里的马,在合适的时候使用,简单的数据结构能够起到的效果不亚于任何高阶算法。</p>
+
+<p>哈希表之所以有如此高的评价,是因为他可以保证O(1)时间的查询,所以<strong>一般来说哈希表都是用来快速判断一个元素是否出现集合里</strong>。这是链表和数组都无法轻易做到的。</p>
+
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>哈希表的理论基础</h2>
+<p>
+    首先, 官方对哈希表的定义是比较简单粗暴的: <strong>"哈希表是根据关键码的值而直接进行访问的数据结构。"</strong>
+</p>
+
+<div style="text-align: center;">
+  <img src="../map.png" width="50%">
+</div>
+
+<p>
+  根据这个定义, 我们完全可以说数组也是一种哈希表。不过为了避免出现歧义, 我想有必要明确一下我所说的「数组算法」指的是「数组(数据结构) + 
+  基于数组结构特性而生的算法(e.g. 二分搜索, 前缀和, etc)」</p>
+
+<p> 当然, 哈希表如此受欢迎, 背后的原因远比一句轻飘飘的O(1)搜索复杂。毕竟O(1)时间的查询其实数组也完全可以做到, 但是只限于基于索引的搜索, 但如果实际应用中搜索的key无法作为索引, 那只能放弃这个做法。</p>
+
+<p>而<strong>哈希表的原理背后就是计算机领域的前辈们不断解决这个问题, 以及一系列历史遗留问题而慢慢总结出来的最优解合集</strong>。</p>
+
+<p>
+  相信在还没有发明哈希表的某个时期, 所有常数时间的搜索必须依赖数组。
+  因此我们的第一个历史遗留问题自然就是<strong>「如何将非整数类型的key变成数组可用的int索引」</strong>。
+  因此, 当人们试图解决"如何根据string类型的key完成常数时间的搜索"问题时, 自然就会想到一种最为直接的方案: "干脆将字符串想个办法变成int用来作为索引", 这样就可以基于数组实现O(1)的搜索了。
+</p>
+
+<div style="text-align: center;">
+  <img src="../hash_func.png" width="50%">
+</div>
+
+
+<p>这个方案从工程的角度其实是非常合理的, 因为我们可以有效利用已经存在的资源(数组), 只要开发一套将字符串转换成int的逻辑就行。
+    如果只是为了将str转成int, 那这种逻辑有很多, 最简单的方法其实就是将字符串根据ASCII码对应的十进制的表达, 但至今无人采用, 是因为转换的数组会随着字符串长度的增加而无限制地增长, 那么理论上也需要创建更大的数组来容纳对应的索引。
+    我们甚至不用去探讨索引分布是否稀疏的情况, 单是空间复杂度的upper bound取决于最长字符串的长度就已经注定了这个方案必不可能被开发者接受。</p>
+    
+<p>因此, 从性能的角度出发, 理想的转换逻辑最起码需要满足以下的限制, 才有可能构建出理想的哈希表数据结构: </p>
+
+<ol>
+    <li><strong>「强确定性」 生成的int可以被复现</strong>  相同的str必须要能够生成相同的int <strong>(否则搜索根本没意义)</strong></li>
+    <li><strong>「抗碰撞性」 生成的int可以不重复</strong>  不同的str必须要生成不同的int <strong>(否则信息可能会被意外覆盖)</strong></li>
+    <li><strong>「范围可控」 生成的int范围有限</strong>  能够确定生成int的范围 <strong>(否则可能会导致内存开销过大)</strong></li>
+</ol>
+
+<p>而这种方法很早就已经被数学家们研究出来了, 那就是<strong>哈希函数 (Hash Function)</strong></p>
+
+
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>哈希函数</h2>
+
+<p>哈希函数是一种源自于密码学的数学方法, 可以通过特定方式(hashCode)将其他数据格式转换为不同的数值, 这样就可以把非整数类型的key映射为数组的索引数字了。</p>
+
+<p>相比于类型转换的特性, 哈希函数真正最彪悍的特征其实是其<strong>「运算不可逆」</strong>。根据A = hash(B), 只要我知道B可以随时求出A, 但是我知道A却无法确定B是多少。一个简单的例子是:</p>
+<pre>
+    def hash(val):
+        return "0" if val % 2 == 0 else "1"
+</pre>
+
+<p>在以上的例子中, 我可以根据手中val=7的奇偶性得到哈希值是"1", 但是根据哈希值我最多可以反向推出val是奇数, 无法确定它到底是哪个奇数。</p>
+
+<p>这也是哈希函数通用的特性, 正因为这个特性, 哈希函数被广泛应用于网络安全和区块链, 因为它能允许用户在将隐私数据/密码/密钥哈希后直接公布, 而不用担心被解码。(这不完全是哈希函数的功劳, 需要遵循一整套非对称加密的流程)</p>
+
+<p>以上关于密码学和网络安全的内容虽然是题外话, 但它其实也其实暴露了哈希函数的一个问题, 那就是<strong>不能保证「独一无二」的特性</strong>。 还是存在不同的A和B两个字符串, 通过哈希函数后, 使得hash(A) = hash(B), 这种现象被称为<strong>「哈希碰撞」</strong>, 
+    哪怕这个概率很小, 但是也不足以在应用中可以忽略，这是因为人们需要在内存消耗中取舍。 (补充: 哈希碰撞的概率取决于哈希空间, 可以理解为哈希映射后int的范围, 哈希空间越小, 就越容易发生碰撞)。 </p>
+    
+<p>区块链中常用的SHA2哈希函数因为哈希空间较大, 在实际中我们认为哈希碰撞的概率小到可以忽略, 但是成本意味着它能生成的哈希值范围是所有的32位整数, 意味着我们需要生成一个对应的长度为2**32的一维数组。这是不现实的, 因此只能做一个tradeoff,
+    <strong>「用更高的碰撞的概率换更小的内存开销」。</strong>。
+</p>
+
+<p>因此, 我就就有了第二个历史遗留的问题<strong>「哈希碰撞」</strong>。如果无法解决哈希碰撞的问题, 那么哈希函数依旧不够实用。</p>
+
+<h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>哈希碰撞的解决方案</h2>
+
+<p>哈希碰撞本身是个概率问题, 所以如何避免哈希碰撞其实是个无解的问题。 从离散数学的角度, 最多就是通过增加哈希空间的方式来减少碰撞概率, 但是无法在理论上将概率归零。所以既然避免不了, 索性就思考一下碰撞发生了如何解决。</p>
+
+<p>碰撞问题的本质上其实是冲突问题。当出现「哈希碰撞」时, 意味着存在至少两个不同的key指向同一块内存, 而两个被存储的内容都是同等得有意义, 哪个也不能轻易得丢弃, 否则如果用新值覆盖原先的key, 当拿新key搜索时, 就会获取到意料之外的值, 严重的时候可以导致重大事故</p>
+
+  <p>由此可得, 唯一合理的解决方案就是思考如何才能<strong>「将所有的碰撞结果保存, 等到查询时再做辨别」</strong>。</p>
+
+  <p>很显然, 「保存碰撞结果」比「避免碰撞」简单太多了。最直接的一个方案就是「改良哈希表数据结构」,使得哈希表可以在出现哈希冲突时正常工作。</p>
+
+  <p>事实上, 业界里哈希表的结构改良方法主要包括两种, 分别是 <strong>"链式地址"</strong> 和 <strong>"开放寻址"</strong>。</p>
+  
+<h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>「链式地址」</h3>
+
+  <p>在原始哈希表中，每个内存区块(也被称为"桶")仅能存储一个键值对, 链式地址(separate chaining)所做的, 就是将单个元素转换为链表, 将键值对作为链表节点, 将所有发生冲突的键值对都存储在同一链表中。</p>
+
+  <p>站在学习者的角度, 至此可能会有一个问题(至少我学的时候很久没想通), 那就是既然hash后的key已经重复了, 我们靠着hash后的key如何在链表中找到想要的元素?</p>
+
+  <p>如果站在开发者的角度, 这个问题其实非常好解决, 只需要数据结构中保留哈希前的原始key, 就能在哈希碰撞发生时顺着链表找到特定的元素。</p>
+
+  <p>至此, 「链式地址」的基本原理已经清晰, 我们就可以设计出如下的数据结构。</p>
+
+  <div style="text-align: center;">
+    <img src="../chain.png" width="40%">
+  </div>
+
+  <h4>链式地址存在以下局限性</h4>
+  <ol>
+    <li><strong>占用空间增大:</strong> 将原本的数组结构加入链表设计后, 需要包含节点指针, 会更加消耗内存空间</li>
+    <li><strong>查询效率降低:</strong> 加入了链表后, 引入了线性搜索的时间复杂度, 虽然只会发生在「哈希碰撞」时, 但是worst case就等同于线性搜索链表。</li>
+  </ol>
+ 
+<h3 id="Open"><a href="#Open" class="headerlink" title="Open"></a>「开放寻址」</h3>
+
+<p>「链式地址」虽然解决了「哈希碰撞」的问题, 但因为引入了额外的数据结构, 在性能上其实并不占优。
+    尤其是很多开发者习惯性地考虑悲观情况时, 也就是在「链式地址」中所有元素都发生碰撞并挤在一个桶里。那么查询的效率也会退化成O(N)的时间复杂度。</p>
+
+<p>这时候很多开发者注意到, 哈希表因为其插入操作不具备连续性, 所以实际上的内存使用是零散的、稀疏的, 明明哈希表里还有那么多内存浪费, 何必通过增加链表的方式来解决碰撞问题?</p>
+
+<p>于是<strong>「开放寻址」</strong>算法的雏形就诞生了。</p>
+
+<p>除了不借助额外的数据结构,「开放寻址」相比于「链式地址」最大的不同就是「不在原地解决问题」。我个人认为「开放寻址」的思想其实更加符合生活中的逻辑, 
+    毕竟在现实生活中, 人们发现自己的位置被占了的第一反应可能都是既然位置被占了就哪个空的坐哪个, 而不是非要搬一把新椅子来。 (我自己就是靠这个例子理解「开放寻址」的🤦)</p>
+
+<p>那问题来了, 「链式地址」之所以不惜使用额外的数据结构也要在「原地解决问题」的目的就是为了方便查询, 毕竟根据哈希值, 只会找到那一个"桶", 而「开放寻址」直接就近放到别的桶里, 这在查找的时候怎么找得到?</p>
+
+<p>我们也可以多想一层, 当发生碰撞时, 我们就把新的键值对就近放到下一个空桶, 但是如果紧接着这个桶的"正主", 也就是实际上指向这个桶的第一个哈希值, 出现了, 它如何能够知道这个位置因为别的地方的碰撞已经被占据了?</p>
+
+<p>这就需要算法主动去<strong>探测</strong>来处理哈希碰撞, 会牵扯到另外一个算法<strong>「线性探测」</strong></p>
+
+<p>探测的逻辑也非常简单, 如果哈希值指向的桶不为空, 那就意味着已经发生了碰撞。我采用固定的步长从哈希值指向的桶往下探测, 当我找到符合的原始key时, 就能锁定桶的位置。而当探测到空的桶时, 意味着这个key不存在, 
+    因为如果按照约定的插入规则, 这个值如果被插入, 则不应该在找到该值之前出现空桶。</p>
+
+    <div style="text-align: center;">
+      <img src="../open_address.png" height="300px">
+    </div>
+
+<p>如果足够细心, 会发现这个操作同样有问题: 如果插入发生冲突, 就近插入空桶后, 原始桶和插入桶之间的某个桶的元素被删除了怎么办? 按照现有的「线性探测」逻辑, 当遇到空桶时就会直接结束探测, 从而使得插入后的值也失去意义。</p>
+
+<p>这个问题的解决方案比想象中更简单粗暴: 不直接从桶里移除元素, <strong>而是利用一个特定常量「TOMBSTONE」来标记这个桶</strong>, 这样既不会因为空桶而提前中断「线性探测」, 又不妨碍插入新的值。</p>
+
+<p>这种操作被称为 <strong>「懒删除」 Lazy Deletion</strong></p>
+
+<h4>「线性探测」容易引起"聚集现象"</h4>
+<p>当哈希碰撞大量出现时, 需要频繁越位插入就近的空桶, 会导致底层数组中连续被占用的位置越来越长, 从而使得哈希冲突的可能性更大, 进一步促使聚集生长, 形成恶性循环。这种情况下, 每一次查询都会有不小的开销。</p>
+
+<p>除了「线性探测」, 还有「平方探测」和「多次哈希」等其他的探测算法, 都是「开放寻址」中常用的策略, 后两种策略都是旨在解决「线性探测」中的聚集问题。 </p>
+
+<h3 id="Zip"><a href="#Zip" class="headerlink" title="Zip"></a>一些额外的优化方式: 红黑树 「会在后面Tree的章节详细写」</h3>
+
+<p>原则上来说, 至此哈希表已经足够称为独当一面的数据结构了, 但是一些较为悲观的(非贬义🤐)计算机领域前辈们还是哈希碰撞问题提出了一些新的质疑, 这也就是我们最后的一个历史遗留问题 「当大量发生哈希碰撞的时候, 如何解决长链表的查询性能问题」。</p>
+
+<p>这个问题其实距离我们不算太远, 目前似乎仍存在争议, 大多数编程语言都没有针对这个问题做出修改, 目前只有Java和C++在HashMap的底层实现中, 在某些情况采用了「红黑树」取代原本的链表来将大量碰撞时的查找效率从 O(n) 优化到了 O(log n)。</p>
+
+<h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>哈希表性能对比</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>数组</th>
+      <th>链表</th>
+      <th>哈希表</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>查找元素</td>
+      <td>O(N)</td>
+      <td>O(N)</td>
+      <td>O(1)</td>
+    </tr>
+
+    <tr>
+      <td>添加元素</td>
+      <td>O(1)</td>
+      <td>O(1)</td>
+      <td>O(1)</td>
+    </tr>
+
+    <tr>
+      <td>删除元素</td>
+      <td>O(N)</td>
+      <td>O(N)</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+        <td>遍历所有元素</td>
+        <td>O(N)</td>
+        <td>O(N)</td>
+        <td>O(N)</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
+<ul>
+  <li><a target="_blank" rel="noopener" href="https://www.programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%93%88%E5%B8%8C%E8%A1%A8">代码随想录: 哈希表理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hashing/hash_collision/">Hello算法: 哈希冲突</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+
+</ul>
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+      <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
+    </div>
+  
+</div>
+
+
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>算法与数据结构 - 哈希表</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/hash_map/chinese/index.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Baocheng Wang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 01, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                    <i class="iconfont icon-nc"></i>
+                    <i class="iconfont icon-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+                <div class="post-prevnext my-3">
+                  <!-- <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/30/USYD/" title="USYD Graduation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Baocheng's Graduation from the University of Sydney</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/15/Navigator/" title="Government Infrastructure Performance Navigator">
+                        <span class="hidden-mobile">Government Infrastructure Performance Navigator</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article> -->
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+      <p class="toc-header">
+        <i class="iconfont icon-list"></i>
+        <span>Table of Contents</span>
+      </p>
+      <div class="toc-body" id="toc-body"></div>
+    </div>
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function(){
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document){
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing){
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function(){
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot){ return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0){
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('tocbot' in window){
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot){
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0){
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function(){
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon){
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el){
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left'){
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('anchors' in window){
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el){
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left'){
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function(){
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项,将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
