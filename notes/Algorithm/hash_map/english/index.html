@@ -423,6 +423,74 @@
                       </tr>
                   </tbody>
                 </table>
+
+
+                <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Problem-Solving Experience Summary</h2>
+
+<h3 id="straight">Conclusion: When to Use Hash Tables?</h3>
+<p>
+<strong>When we need to check if an element has appeared or if an element is in a set, hash tables should be the first method to consider.</strong>
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Difficulty</th>
+      <th>Hash-Based Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>1</td>
+        <td>Two Sum</td>
+        <td style="background-color: lightgreen;">Easy</td>
+        <td>
+            The first problem in the entire LeetCode library is a classic hash table problem, as we need to check if the complementary element for element i has already been seen while iterating.
+        </td>
+      </tr>
+    <tr>
+        <td>202</td>
+        <td>Happy Number</td>
+        <td style="background-color: lightgreen;">Easy</td>
+        <td>
+            As the problem states, during the sum process, the sum may repeat. Therefore, we can use a hash table to check if the sum has appeared before.
+        </td>
+    </tr>
+    <tr>
+        <td>242</td>
+        <td>Valid Anagram</td>
+        <td style="background-color: lightgreen;">Easy</td>
+        <td>
+            The brute-force solution requires two nested loops, but we can define a hash table to record character occurrences in <code>s</code> in a single loop. (Since the problem only includes 26 lowercase letters, a length-26 array can replace the hash table.)
+        </td>
+    </tr>
+    <tr>
+        <td>349</td>
+        <td>Intersection of Two Arrays</td>
+        <td style="background-color: lightgreen;">Easy</td>
+        <td>
+            Instead of repeatedly iterating over array A to find intersections, it’s more efficient to store elements of A in a hash table and check if elements from B exist in A in O(1) time.
+        </td>
+    </tr>
+    <tr>
+        <td>383</td>
+        <td>Ransom Note</td>
+        <td style="background-color: lightgreen;">Easy</td>
+        <td>
+            Since the problem only includes lowercase letters, we can use a space-for-time strategy with a hash table, using a length-26 array to record letter occurrences in <code>magazine</code>.
+        </td>
+    </tr>
+    <tr>
+        <td>454</td>
+        <td>4Sum II</td>
+        <td style="background-color: yellow;">Medium</td>
+        <td>
+            Unlike Two Sum, this problem involves more variables, making O(N) infeasible. By defining a hash table where the key is the sum of <code>a</code> and <code>b</code> and the value is their occurrence count, we can reduce the time complexity from O(N^4) to O(N^2) by iterating through <code>C + D</code>.
+        </td>
+    </tr>
+  </tbody>
+</table>
                 
                 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>References</h2>
                 <ul>
