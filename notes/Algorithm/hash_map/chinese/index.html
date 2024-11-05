@@ -431,6 +431,76 @@
 
 
 
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
+
+<h3 id="straight">先说结论: 什么时候使用哈希表?</h3>
+<strong>当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法。</strong>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>哈希解题思路</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>1</td>
+        <td>两数之和</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            全LeetCode题库开篇第一题就是很典型的哈希表, 因为我们遍历的同时要寻找符合元素i的另一半是否遍历过。
+        </td>
+      </tr>
+    <tr>
+        <td>202</td>
+        <td>快乐数</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            如题, 求和的过程中, sum会重复出现, 所以我们完全可以用哈希表来判断sum是否重复出现。
+        </td>
+    </tr>
+    <tr>
+        <td>242</td>
+        <td>有效的字母异位词</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            暴力解法两层for循环, 可以定义哈希表一次for循环记录s中字符出现次数(因为题目元素只包括26个小写字母, 所以直接定义长度为26的数组代替哈希表也行「严格意义上数组也算哈希表」)
+        </td>
+    </tr>
+    <tr>
+        <td>349</td>
+        <td>两个数组的交集</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            与其反复遍历A数组求交集, 不如将A出现的元素全存到哈希表, 遍历B数组时可以O(1)时间确认元素在A中是否存在
+        </td>
+    </tr>
+    <tr>
+        <td>383</td>
+        <td>赎金信</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            题目说只有小写字母, 那可以采用空间换取时间的哈希策略, 用一个长度为26的数组来记录magazine里字母出现的次数即可。
+        </td>
+    </tr>
+    <tr>
+        <td>454</td>
+        <td>四数相加II</td>
+        <td style="background-color: yellow;">中等</td>
+        <td>
+            相比于两数之和, 这道题牵扯的变量更多, 所以O(N)确实没可能, 但是定义哈希表, key放a和b两数之和, value 放a和b两数之和出现的次数, 再去遍历C+D数组, 完全可以将O(N^4)的时间复杂度降到O(N^2)。
+        </td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
   <li><a target="_blank" rel="noopener" href="https://www.programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%93%88%E5%B8%8C%E8%A1%A8">代码随想录: 哈希表理论基础</a></li>
