@@ -240,7 +240,7 @@
 
                 <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-                <p>The hash table is a basic data structure that is highly valued by developers and widely used in practical development. It is also a frequently tested data structure in interviews and algorithm assessments. It‘s a classic example of a space-for-time algorithm.</p>
+                <p>The hash table is a basic data structure that is highly valued by developers and widely used in practical development. It is also a frequently tested data structure in interviews and algorithm assessments. It's a classic example of a space-for-time algorithm.</p>
                 
                 <p style="font-weight: bold;">If an array is akin to a pawn in chess, suitable for basic algorithms and steady progression, but always ready to make way for mid-to-high-level algorithms, then a hash table is like a knight in chess: when used at the right moment, this simple data structure can achieve effects comparable to any advanced algorithm.</p>
                 
@@ -274,7 +274,7 @@
                 
                 <p>From an engineering perspective, this solution is quite practical because it allows us to efficiently use existing resources (arrays) by developing a logic to convert strings to integers. 
                     While there are many ways to convert a string to an integer, the simplest method is using the ASCII decimal representation of the string characters. However, this approach is not adopted because the resulting array size would grow without bound as the string length increases, theoretically requiring larger arrays to accommodate the corresponding indices.
-                    We don‘t even need to discuss whether the indices are sparsely distributed; the fact that the upper bound of space complexity depends on the length of the longest string already makes this approach unacceptable for developers.</p>
+                    We don't even need to discuss whether the indices are sparsely distributed; the fact that the upper bound of space complexity depends on the length of the longest string already makes this approach unacceptable for developers.</p>
                     
                 <p>Therefore, from a performance perspective, an ideal conversion logic must meet the following criteria to make building an ideal hash table possible:</p>
                 
@@ -311,7 +311,7 @@
                 
                 <h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>Solutions to Hash Collisions</h2>
 
-                <p>Hash collisions are inherently a probability issue, so preventing collisions entirely is an unsolvable problem. From the perspective of discrete mathematics, increasing the hash space can reduce the likelihood of collisions, but it can’t eliminate the probability entirely. Since collisions are inevitable, let’s focus on how to handle them when they occur.</p>
+                <p>Hash collisions are inherently a probability issue, so preventing collisions entirely is an unsolvable problem. From the perspective of discrete mathematics, increasing the hash space can reduce the likelihood of collisions, but it can't eliminate the probability entirely. Since collisions are inevitable, let's focus on how to handle them when they occur.</p>
                 
                 <p>The essence of the collision problem is actually a conflict problem. When a "hash collision" occurs, it means that at least two different keys point to the same memory block, and both stored values are equally meaningful, so neither can be discarded. Overwriting the original key with a new value could result in unexpected values during searches, potentially leading to severe issues.</p>
                 
@@ -347,29 +347,29 @@
                 <p>While "Separate Chaining" solves the "hash collision" problem, it introduces additional data structures, which may not be optimal for performance. 
                     Particularly when developers consider the pessimistic scenario—where all elements collide and cluster in one bucket—the search efficiency would degrade to O(N) time complexity.</p>
                 
-                <p>At this point, many developers notice that since hash tables don’t require contiguous insertions, memory usage is actually sparse, scattered, and inefficient. Given that there’s so much unused memory, why add linked lists to handle collisions?</p>
+                <p>At this point, many developers notice that since hash tables don't require contiguous insertions, memory usage is actually sparse, scattered, and inefficient. Given that there's so much unused memory, why add linked lists to handle collisions?</p>
                 
                 <p>This is where the concept of <strong>"Open Addressing"</strong> emerges.</p>
                 
-                <p>Unlike separate chaining, which relies on extra data structures, the main difference with open addressing is that it doesn’t "solve the problem in place." Personally, I find that the open addressing approach aligns more with real-world logic: 
+                <p>Unlike separate chaining, which relies on extra data structures, the main difference with open addressing is that it doesn't "solve the problem in place." Personally, I find that the open addressing approach aligns more with real-world logic: 
                     if people find their seat occupied, their first instinct is to sit in the next available spot rather than bring a new chair. (This is actually how I grasped the concept of open addressing 🤦)</p>
                 
                 <p>However, this raises a question: Separate chaining uses extra data structures to handle collisions "in place" for easy lookup, since the hash value directly points to a single bucket. But with open addressing, placing entries in adjacent buckets—how will we find them during lookups?</p>
                 
-                <p>We can think a bit further: when a collision occurs, we place the new key-value pair in the next available bucket. But if the "primary owner" of this bucket, the initial hash value intended for that spot, arrives later, how will it know the spot is occupied due to another key’s collision?</p>
+                <p>We can think a bit further: when a collision occurs, we place the new key-value pair in the next available bucket. But if the "primary owner" of this bucket, the initial hash value intended for that spot, arrives later, how will it know the spot is occupied due to another key's collision?</p>
                 
                 <p>This requires the algorithm to actively <strong>probe</strong> for handling hash collisions, introducing another method called <strong>"Linear Probing."</strong></p>
                 
                 <p>The probing logic is straightforward: if the bucket pointed to by the hash value is not empty, a collision has occurred. I then use a fixed step size to probe forward from the hash bucket. When I find a bucket with a matching original key, I lock in that position. 
-                    If I encounter an empty bucket during probing, it means the key doesn’t exist, as by the insertion rule, an empty bucket wouldn’t appear before locating the value.</p>
+                    If I encounter an empty bucket during probing, it means the key doesn't exist, as by the insertion rule, an empty bucket wouldn't appear before locating the value.</p>
                 
                 <div style="text-align: center;">
                   <img src="../open_address.png" height="300px">
                 </div>
                 
-                <p>If you’re observant, you might notice an issue with this approach: if an insertion encounters a conflict and is placed in the nearest empty bucket, what happens if an element between the original bucket and the insertion bucket is deleted? According to the current "linear probing" logic, probing stops when it encounters an empty bucket, rendering the inserted value meaningless.</p>
+                <p>If you're observant, you might notice an issue with this approach: if an insertion encounters a conflict and is placed in the nearest empty bucket, what happens if an element between the original bucket and the insertion bucket is deleted? According to the current "linear probing" logic, probing stops when it encounters an empty bucket, rendering the inserted value meaningless.</p>
 
-                <p>The solution to this problem is simpler and more straightforward than it seems: instead of removing elements from the bucket, we <strong>use a specific constant, "TOMBSTONE," to mark the bucket</strong>. This way, linear probing won’t prematurely terminate due to an empty bucket, and new values can still be inserted.</p>
+                <p>The solution to this problem is simpler and more straightforward than it seems: instead of removing elements from the bucket, we <strong>use a specific constant, "TOMBSTONE," to mark the bucket</strong>. This way, linear probing won't prematurely terminate due to an empty bucket, and new values can still be inserted.</p>
                 
                 <p>This approach is called <strong>"Lazy Deletion."</strong></p>
                 
@@ -382,7 +382,7 @@
 
                 <p>In principle, hash tables are already robust enough as standalone data structures. However, some cautious (in a non-pejorative sense 🤐) pioneers in computer science have raised new concerns about hash collisions, leading to our final historical issue: <strong>"How to handle the query performance problem of long linked lists when numerous hash collisions occur."</strong></p>
                 
-                <p>This issue is not too distant from us and is still somewhat controversial. Most programming languages haven’t made adjustments for this problem. Currently, only Java and C++ have modified the underlying implementation of HashMap, using a "Red-Black Tree" in certain cases to replace the linked list, thereby improving search efficiency from O(n) to O(log n) when a large number of collisions occur.</p>
+                <p>This issue is not too distant from us and is still somewhat controversial. Most programming languages haven't made adjustments for this problem. Currently, only Java and C++ have modified the underlying implementation of HashMap, using a "Red-Black Tree" in certain cases to replace the linked list, thereby improving search efficiency from O(n) to O(log n) when a large number of collisions occur.</p>
                 
                 <h2 id="Classic"><a href="#Classic" class="headerlink" title="Classic"></a>Hash Table Performance Comparison</h2>
                 <table>
@@ -470,7 +470,7 @@
         <td>Intersection of Two Arrays</td>
         <td style="background-color: lightgreen;">Easy</td>
         <td>
-            Instead of repeatedly iterating over array A to find intersections, it’s more efficient to store elements of A in a hash table and check if elements from B exist in A in O(1) time.
+            Instead of repeatedly iterating over array A to find intersections, it's more efficient to store elements of A in a hash table and check if elements from B exist in A in O(1) time.
         </td>
     </tr>
     <tr>
