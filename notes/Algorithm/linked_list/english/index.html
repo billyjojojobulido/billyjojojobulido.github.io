@@ -282,27 +282,25 @@
                 
                 <h3>5. Searching for a Node</h3>
                 <p>Searching for a node in a linked list is the same as accessing a node. In fact, accessing a node = searching for the node + accessing the node.</p>
+                <h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Linked List vs. Array</h2>
+
+                <p>For many algorithm learners and interviewees, the sole criterion for using a linked list is whether the problem explicitly requires it. From a learner's perspective, this is understandable. 
+                    However, as a software engineer designing algorithms from scratch for a given requirement, how should one choose a basic data structure?</p>
                 
-<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>链表 vs. 数组</h2>
-
-<p>相信对于很多算法学习者和面试者来说, 判断是否应该使用链表的唯一条件就是题目是否要求使用链表。站在学习者的角度这个想法其实没有问题, 
-    但如果作为一个软件工程师, 拿到一个需求后从零开始设计算法时又应该如何选择基本数据结构?</p>
-
-<p>思考至此, 或许有些人会对链表的存在产生质疑: <strong>数组的出现是因为其线性结构最符合计算机内存的结构, 那我们为什么需要多此一举, 搞出来链表这种「离散」但还是「线性」的数据结构呢?</strong></p>
-
-<p>在我看来, 有了这一层思考, 才算是真正开始学习链表的精髓了, 我们可以通过对比数组和链表来更加深入思考链表存在的意义。</p>
-
-
-<h3>链表的生存之道: 碎片内存大团结</h3>
-
-<p>
-    首先, 我们回到计算机系统的层次考虑问题, 内存空间是所有程序的公共资源, 在一个复杂的系统运行环境下, <strong>空闲的内存空间可能散落在内存各处</strong>, 就算再高级、智能的内存调度系统也无法避免这个现象的存在。
-</p>
-<p>
-  而根据数组篇第一章我们已经知道, 存储数组的内存空间必须是连续的。 那么考虑当数组非常大的情况时, 在某一次扩容向系统申请双倍空间时, 内存可能已经无法提供如此大的连续空间。
-  此时链表的灵活性优势就体现出来了: <strong>通过指针有效链接碎片内存空间, 也可以形成线性数据结构, 而不需要依赖于连续的内存空间。</strong>
-</p>
-
+                <p>With this in mind, some may start to question the existence of linked lists: <strong>Arrays are popular because their linear structure aligns well with computer memory architecture, so why create linked lists, which are "discrete" but still "linear" data structures?</strong></p>
+                
+                <p>In my opinion, reaching this level of questioning marks the true beginning of understanding the essence of linked lists. We can explore the significance of linked lists by comparing them with arrays.</p>
+                
+                <h3>The Survival Edge of Linked Lists: Uniting Fragmented Memory</h3>
+                
+                <p>
+                    First, let’s consider the problem from the perspective of computer systems. Memory space is a shared resource for all programs, and in a complex system environment, <strong>free memory may be scattered throughout</strong>, even with the most advanced and intelligent memory management systems.
+                </p>
+                <p>
+                  As discussed in the first chapter on arrays, memory allocated for an array must be contiguous. When dealing with large arrays, during a resize operation that requests double the space, the system might not have sufficient contiguous space available.
+                  This is where the flexibility of linked lists shines: <strong>by using pointers to effectively link fragmented memory, linked lists can form a linear data structure without needing contiguous memory.</strong>
+                </p>
+                
 <div style="text-align: center;">
     <img src="../memory.jpg" width="50%">
 </div>
