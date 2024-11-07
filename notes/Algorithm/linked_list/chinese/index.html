@@ -253,17 +253,9 @@
 
 <h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>链表基础</h2>
 
-<p>如上文所说, 链表基础很重要, 但真的不复杂, 很多人只是不关注。其实只需要做好如下几点, 掌握链表就如同掌上观纹一般清晰。</p>
+<p>如上文所说, 链表基础很重要, 但实现起来真的不复杂, 只需要做好「增、删、访、查、初始化」, 掌握链表就如同掌上观纹一般清晰。</p>
 
-<ol>
-    <li>初始化链表</li>
-    <li>删除节点</li>
-    <li>插入节点</li>
-    <li>访问节点</li>
-    <li>查找节点</li>
-</ol>
-
-<h3>初始化链表</h3>
+<h3>1. 初始化链表</h3>
 <p>链表的组成单位是节点(node)对象。每个节点都包含两项数据: 节点的“值”和指向下一节点的“引用”。基于这个定义, 我们可以写出如下代码:</p>
 <pre>
 class Node:
@@ -273,29 +265,63 @@ class Node:
 </pre>
 
 <p>初始化链表需要特别注意的气势就是头节点和尾节点, 因为头节点是访问整个链表的入口, 做题时轻易不可以乱修改这个指针。至于尾节点, 则需要确保指针指向空 (Python中的None, JS中的null, etc), 否则遍历链表时不知何时终止。</p>
+<div style="text-align: center;">
+    <img src="../node.png" width="50%">
+</div>
 
-
-<h3>删除节点</h3>
+<h3>2. 删除节点</h3>
 <p>不同于数组中删除元素后还需要把其余元素重新排列以填充空缺的位置, 我们在链表中找到了需要删除的节点后, 只需要将其父亲节点的next指针直接指向下一个节点后, 删除后的链表就已经成型了, 被分离出来的节点可以当场destroy也可以另作他用。</p>
+<div style="text-align: center;">
+    <img src="../delete.png" width="50%">
+</div>
 
-
-<h3>插入节点</h3>
+<h3>3. 插入节点</h3>
 <p>和删除节点逻辑类似,在链表中添加元素只需要修改前后两个节点而已,让前面节点的next指向自己, 并让自己的next指向下一个节点。</p>
+<div style="text-align: center;">
+    <img src="../insert.png" width="50%">
+</div>
 
-
-<h3>访问节点</h3>
+<h3>4. 访问节点</h3>
 <p><strong>不得不承认, 在链表中访问节点的效率较低。</strong> 不同于数组可以根据索引再O(1)时间内找到元素, 链表需要从头节点出发向后遍历, 知道找到目标节点, 然后访问。</p>
 
-<h3>查找节点</h3>
+
+<h3>5. 查找节点</h3>
 <p>链表中查找节点和访问节点的方法一致, 事实上, 访问节点 = 查找节点 + 访问节点 。</p>
 
 
 <h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>链表 vs. 数组</h2>
 
-<p>当我们回望过去, 会发现数组的出现并不奇怪, 因为数组是最符合计算机内存的线性数据结构, 但是链表的出现似乎并没有那么合理。</p>
+<p>相信对于很多算法学习者和面试者来说, 判断是否应该使用链表的唯一条件就是题目是否要求使用链表。站在学习者的角度这个想法其实没有问题, 
+    但如果作为一个软件工程师, 拿到一个需求后从零开始设计算法时又应该如何选择基本数据结构?</p>
+
+<p>思考至此, 或许有些人会对链表的存在产生质疑: <strong>数组的出现是因为其线性结构最符合计算机内存的结构, 那我们为什么需要多此一举, 搞出来链表这种「离散」但还是「线性」的数据结构呢?</strong></p>
+
+<p>在我看来, 有了这一层思考, 才算是真正开始学习链表的精髓了, 我们可以通过对比数组和链表来更加深入思考链表存在的意义。</p>
 
 
-<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>链表性能对比</h3>
+<h3>链表的生存之道: 碎片内存大团结</h3>
+
+<p>
+    首先, 我们回到计算机系统的层次考虑问题, 内存空间是所有程序的公共资源, 在一个复杂的系统运行环境下, <strong>空闲的内存空间可能散落在内存各处</strong>, 就算再高级、智能的内存调度系统也无法避免这个现象的存在。
+</p>
+<p>
+  而根据数组篇第一章我们已经知道, 存储数组的内存空间必须是连续的。 那么考虑当数组非常大的情况时, 在某一次扩容向系统申请双倍空间时, 内存可能已经无法提供如此大的连续空间。
+  此时链表的灵活性优势就体现出来了: <strong>通过指针有效链接碎片内存空间, 也可以形成线性数据结构, 而不需要依赖于连续的内存空间。</strong>
+</p>
+
+<div style="text-align: center;">
+    <img src="../memory.png" width="50%">
+</div>
+
+<p>无可否认的是, 链表节点除了包含值, 还需额外保存一个引用(指针)。因此在相同数据量下, 链表比数组占用更多的内存空间。
+    <strong>因此也就有了我们第一条tradeoff: 「总占用内存 Vs 内存灵活性」</strong></p>
+
+
+
+<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>数组和链表性能对比</h3>
+
+<p> 数组和链表都旨在实现一个「线性结构」, 而为了达成共同的目的, 两者又似乎才用了完全相反的存储策略, 导致了他们在操作效率上呈现对立的特点。</p>
+
 <table>
     <thead>
       <tr>
@@ -349,6 +375,29 @@ class Node:
     </tbody>
   </table>
 
+  <p>很显然, 因为离散的结构, 链表在元素的访问上远不如数组高效, 但是在增加和删除元素时, 也不需要如数组一般需要操作整个臃肿的内存区块, 来维持线性。
+    
+    <strong>因此也就有了我们第二条tradeoff: 「插入/删除的性能 Vs 查询的性能」</strong></p>
+
+
+<h3>拓展知识: 物理层次的Tradeoff</h3>
+
+<p>学习过数据库相关知识的其实不陌生, 计算机物理结构中, 缓存因为离CPU更近, 所以其读写效率远高于内存, 远远高于硬盘, 但是代价就是容量非常小, 而且价格非常贵, 故肯定是没有办法把大量数据都存到缓存里。
+    所以如果从某个数据结构中读取数据时, 恰巧这部分内容在缓存中, 那效率会高到可怕, 这被称为「缓存命中」。<strong>这也成了我们第三条tradeoff: 「缓存命中率 Vs 空间利用率」</strong></p>
+
+<p>在算法的性能评估时很少有人提到缓存的事情, 我认为是合理的, 因为(理论中)通过界算法消耗时间和空间的上界来评估算法本身的性能, 其实更加公平。
+    但也不可以否认一个事实, <strong>「(实际应用中)物理结构在很大程度上决定了程序对内存和缓存的使用效率」</strong>, 进而影响算法程序的整体性能。</p>
+
+<p>而<strong>数组和链表对缓存的利用效率也是不同的。</strong></p>
+<ul>
+    <li><strong>占用空间</strong>: 链表元素比数组元素占用空间更多，导致缓存中容纳的有效数据量更少。</li>
+    <li><strong>缓存行</strong>: 链表数据分散在内存各处，而缓存是“按行加载”的，因此加载到无效数据的比例更高。</li>
+    <li><strong>预取机制</strong>: 数组比链表的数据访问模式更具“可预测性”，即系统更容易猜出即将被加载的数据。</li>
+    <li><strong>空间局部性</strong>: 数组被存储在集中的内存空间中，因此被加载数据附近的数据更有可能即将被访问。</li>
+</ul>
+
+<p style="font-weight: bold;">总体而言, 从「物理结构」上的角度考虑, 数组会具有更高的「缓存命中率」, 因此数组在实际应用中的效率通常会优于链表。但是这并不意味着数组在什么情况下都比链表强, 
+    大多数时候数组与链表的选择主要取决于前两条tradeoff, 以及特定的应用场景和需求 (之后「栈」的篇章会举例讲)。</p>
 
 <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>链表类型</h2>
 
@@ -385,17 +434,44 @@ class Node:
 </div>
 
 
-
 <h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>链表典型应用</h2>
 
+<p>设计不同的链表显然是为了解决不同的问题, 下面罗列一些常见的应用。</p>
+
+<h3>单链表</h3>
+<ul>
+    <li><strong>「栈与队列」: </strong>当插入和删除操作都在链表的一端进行时，它表现的特性为先进后出，对应栈；当插入操作在链表的一端进行，删除操作在链表的另一端进行，它表现的特性为先进先出，对应队列。</li>
+
+    <li><strong>「哈希表」: </strong>链式地址是解决哈希冲突的主流方案之一，在该方案中，所有冲突的元素都会被放到一个链表中。</li>
+
+    <li><strong>「图」: </strong>邻接表是表示图的一种常用方式，其中图的每个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连的其他顶点。</li>
+
+    <li><strong>「React - Hook」: </strong>在React源代码中是通过链表实现Hook这个核心特性的, 我猜测原因是因为Hook可以更高效的删除和增加, 而并不需要关注查询。</li>
+</ul>
+
+<h3>双链表</h3>
+<p>适用于需要快速查找前一个元素和后一个元素的场景。</p>
+<ul>
+    <li><strong>「高级数据结构」: </strong>比如在红黑树、B 树中，我们需要访问节点的父节点，这可以通过在节点中保存一个指向父节点的引用来实现，类似于双向链表。</li>
+
+    <li><strong>「浏览器历史」: </strong>在网页浏览器中，当用户点击前进或后退按钮时，浏览器需要知道用户访问过的前一个和后一个网页。双向链表的特性使得这种操作变得简单。</li>
+
+    <li><strong>「LRU 算法」: </strong>在缓存淘汰(LRU)算法中, 我们需要快速找到最近最少使用的数据, 以及支持快速添加和删除节点。这时候使用双向链表就非常合适。</li>
+</ul>
+
+<h3>循环链表</h3>
+<p>适用于需要周期性操作的场景，比如操作系统的资源调度。</p>
+<ul>
+    <li><strong>「时间片轮转调度算法」: </strong>在操作系统中，时间片轮转调度算法是一种常见的 CPU 调度算法, 它需要对一组进程进行循环。每个进程被赋予一个时间片, 当时间片用完时, CPU 将切换到下一个进程。这种循环操作可以通过环形链表来实现。</li>
+
+    <li><strong>「数据缓冲区」: </strong>在某些数据缓冲区的实现中, 也可能会使用环形链表。比如在音频、视频播放器中, 数据流可能会被分成多个缓冲块并放入一个环形链表, 以便实现无缝播放。</li>
+
+</ul>
+
+<p>不难发现, 适合使用链表来实现的很多应用, 尤其是「循环链表」相关的, 如果替换成数组会很麻烦。因此在选择数据结构的时候, 最先考虑的一定是「具体的应用场景和需求」, 如果有多个备选数据结构的话, 然后才开始考虑性能的tradeoff。</p>
 
 
 <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
-
-<h4 id="straight">先说结论: 什么时候使用链表?</h4>
-<p>
-<strong>当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法。</strong>
-</p>
 
 <table>
   <thead>
@@ -403,56 +479,65 @@ class Node:
       <th>编号</th>
       <th>名称</th>
       <th>难度</th>
-      <th>哈希解题思路</th>
+      <th>链表技巧</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-        <td>1</td>
-        <td>两数之和</td>
+        <td>203</td>
+        <td>移除链表元素</td>
         <td style="background-color: lightgreen;">简单</td>
         <td>
-            全LeetCode题库开篇第一题就是很典型的哈希表, 因为我们遍历的同时要寻找符合元素i的另一半是否遍历过。
+            「虚拟头节点」 + 「原地操作」
         </td>
       </tr>
     <tr>
-        <td>202</td>
-        <td>快乐数</td>
-        <td style="background-color: lightgreen;">简单</td>
-        <td>
-            如题, 求和的过程中, sum会重复出现, 所以我们完全可以用哈希表来判断sum是否重复出现。
-        </td>
-    </tr>
-    <tr>
-        <td>242</td>
-        <td>有效的字母异位词</td>
-        <td style="background-color: lightgreen;">简单</td>
-        <td>
-            暴力解法两层for循环, 可以定义哈希表一次for循环记录s中字符出现次数(因为题目元素只包括26个小写字母, 所以直接定义长度为26的数组代替哈希表也行「严格意义上数组也算哈希表」)
-        </td>
-    </tr>
-    <tr>
-        <td>349</td>
-        <td>两个数组的交集</td>
-        <td style="background-color: lightgreen;">简单</td>
-        <td>
-            与其反复遍历A数组求交集, 不如将A出现的元素全存到哈希表, 遍历B数组时可以O(1)时间确认元素在A中是否存在
-        </td>
-    </tr>
-    <tr>
-        <td>383</td>
-        <td>赎金信</td>
-        <td style="background-color: lightgreen;">简单</td>
-        <td>
-            题目说只有小写字母, 那可以采用空间换取时间的哈希策略, 用一个长度为26的数组来记录magazine里字母出现的次数即可。
-        </td>
-    </tr>
-    <tr>
-        <td>454</td>
-        <td>四数相加II</td>
+        <td>707</td>
+        <td>设计链表</td>
         <td style="background-color: yellow;">中等</td>
         <td>
-            相比于两数之和, 这道题牵扯的变量更多, 所以O(N)确实没可能, 但是定义哈希表, key放a和b两数之和, value 放a和b两数之和出现的次数, 再去遍历C+D数组, 完全可以将O(N^4)的时间复杂度降到O(N^2)。
+            「虚拟头节点」 + 「原地操作」
+        </td>
+    </tr>
+    <tr>
+        <td>206</td>
+        <td>反转链表</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            「虚拟头节点」+ (「递归」 or 「原地操作」 + 「双指针」)
+        </td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>两两交换链表中的节点</td>
+        <td style="background-color: yellow;">中等</td>
+        <td>
+            「虚拟头节点」 + 「原地操作」 + 「模拟 (会比较复杂)」
+        </td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>删除链表的倒数第N个节点</td>
+        <td style="background-color: yellow;">中等</td>
+        <td>
+            「虚拟头节点」 + 「双指针」
+        </td>
+    </tr>
+    <tr>
+        <td>160</td>
+        <td>链表相交</td>
+        <td style="background-color: lightgreen;">简单</td>
+        <td>
+            「虚拟头节点」 + (「双指针」or 「哈希集合」)
+        </td>
+    </tr>
+
+    <tr>
+        <td>142</td>
+        <td>环形链表II</td>
+        <td style="background-color: yellow;">中等</td>
+        <td>
+            「虚拟头节点」 + (「双指针」 or 「哈希表」) + 「数学」(面试可能会问背后的数学逻辑)
         </td>
     </tr>
 
@@ -463,8 +548,9 @@ class Node:
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
-  <li><a target="_blank" rel="noopener" href="https://www.programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E5%93%88%E5%B8%8C%E8%A1%A8">代码随想录: 哈希表理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hashing/hash_collision/">Hello算法: 哈希冲突</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">代码随想录: 链表理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list/">Hello算法: 链表</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/ram_and_cache/">Hello算法: 内存与缓存</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
   <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
