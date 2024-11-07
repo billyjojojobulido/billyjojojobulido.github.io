@@ -16,4 +16,4 @@
 2. About Me - DONE (needs update sometimes)
 3. Projects - DONE (needs update sometimes)
 4. News - DONE (needs update sometimes)
-5. Notes - Work In Progress (55%)
+5. Notes - Work In Progress (60%)
