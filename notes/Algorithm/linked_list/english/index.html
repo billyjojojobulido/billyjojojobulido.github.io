@@ -412,28 +412,26 @@
 <div style="text-align: center;">
     <img src="../double_linked_list.jpg" width="50%">
 </div>
-
-<h3>循环链表</h3>
-<p>如果我们令单向链表的尾节点指向头节点（首尾相接）, 则得到一个环形链表。在环形链表中, 任意节点都可以视作头节点。</p>
+<h3>Circular Linked List</h3>
+<p>If the tail node of a singly linked list points to the head node (forming a loop), it becomes a circular linked list. In a circular linked list, any node can be considered the head node.</p>
 
 <div style="text-align: center;">
     <img src="../circle_linked_list.jpg" width="50%">
 </div>
 
+<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Typical Applications of Linked Lists</h2>
 
-<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>链表典型应用</h2>
+<p>Different types of linked lists are designed to solve different problems. Below are some common applications.</p>
 
-<p>设计不同的链表显然是为了解决不同的问题, 下面罗列一些常见的应用。</p>
-
-<h3>单链表</h3>
+<h3>Singly Linked List</h3>
 <ul>
-    <li><strong>「栈与队列」: </strong>当插入和删除操作都在链表的一端进行时，它表现的特性为先进后出，对应栈；当插入操作在链表的一端进行，删除操作在链表的另一端进行，它表现的特性为先进先出，对应队列。</li>
+    <li><strong>"Stack and Queue":</strong> When insertions and deletions occur at one end of the linked list, it behaves as a last-in-first-out (LIFO) structure, like a stack. When insertions occur at one end and deletions at the other, it behaves as a first-in-first-out (FIFO) structure, like a queue.</li>
 
-    <li><strong>「哈希表」: </strong>链式地址是解决哈希冲突的主流方案之一，在该方案中，所有冲突的元素都会被放到一个链表中。</li>
+    <li><strong>"Hash Table":</strong> Separate chaining is one of the main solutions for handling hash collisions, where all colliding elements are placed in a linked list.</li>
 
-    <li><strong>「图」: </strong>邻接表是表示图的一种常用方式，其中图的每个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连的其他顶点。</li>
+    <li><strong>"Graph":</strong> The adjacency list is a common way to represent a graph, where each vertex of the graph is associated with a linked list, and each element in the list represents other vertices connected to that vertex.</li>
 
-    <li><strong>「React - Hook」: </strong>在React源代码中是通过链表实现Hook这个核心特性的, 我猜测原因是因为Hook可以更高效的删除和增加, 而并不需要关注查询。</li>
+    <li><strong>"React - Hook":</strong> In the React source code, the core feature of Hooks is implemented using a linked list, likely because linked lists enable efficient insertion and deletion operations without concern for element lookup.</li>
 </ul>
 
 <h3>双链表</h3>
