@@ -266,19 +266,19 @@ class Node:
 
 <p>初始化链表需要特别注意的气势就是头节点和尾节点, 因为头节点是访问整个链表的入口, 做题时轻易不可以乱修改这个指针。至于尾节点, 则需要确保指针指向空 (Python中的None, JS中的null, etc), 否则遍历链表时不知何时终止。</p>
 <div style="text-align: center;">
-    <img src="../node.png" width="50%">
+    <img src="../node.jpg" width="50%">
 </div>
 
 <h3>2. 删除节点</h3>
 <p>不同于数组中删除元素后还需要把其余元素重新排列以填充空缺的位置, 我们在链表中找到了需要删除的节点后, 只需要将其父亲节点的next指针直接指向下一个节点后, 删除后的链表就已经成型了, 被分离出来的节点可以当场destroy也可以另作他用。</p>
 <div style="text-align: center;">
-    <img src="../delete.png" width="50%">
+    <img src="../delete.jpg" width="50%">
 </div>
 
 <h3>3. 插入节点</h3>
 <p>和删除节点逻辑类似,在链表中添加元素只需要修改前后两个节点而已,让前面节点的next指向自己, 并让自己的next指向下一个节点。</p>
 <div style="text-align: center;">
-    <img src="../insert.png" width="50%">
+    <img src="../insert.jpg" width="50%">
 </div>
 
 <h3>4. 访问节点</h3>
@@ -310,7 +310,7 @@ class Node:
 </p>
 
 <div style="text-align: center;">
-    <img src="../memory.png" width="50%">
+    <img src="../memory.jpg" width="50%">
 </div>
 
 <p>无可否认的是, 链表节点除了包含值, 还需额外保存一个引用(指针)。因此在相同数据量下, 链表比数组占用更多的内存空间。
@@ -415,7 +415,7 @@ class Node:
 <p>就是我们常说的普通链表, 也是最早的版本。单向链表的节点包含值和指向下一节点的引用两项数据。我们将首个节点称为头节点(head),将最后一个节点称为尾节点,尾节点指向空 (None) 。</p>
 
 <div style="text-align: center;">
-    <img src="../linked_list.png" width="50%">
+    <img src="../linked_list.jpg" width="50%">
 </div>
 
 <h3>双链表</h3>
@@ -423,14 +423,14 @@ class Node:
 <p>与单向链表相比，双向链表记录了两个方向的引用。双向链表的节点定义同时包含指向后继节点（下一个节点）和前驱节点（上一个节点）的引用（指针）。相较于单向链表, 双向链表更具灵活性，可以朝两个方向遍历链表, 但相应地也需要占用更多的内存空间。</p>
 
 <div style="text-align: center;">
-    <img src="../double_linked_list.png" width="50%">
+    <img src="../double_linked_list.jpg" width="50%">
 </div>
 
 <h3>循环链表</h3>
 <p>如果我们令单向链表的尾节点指向头节点（首尾相接）, 则得到一个环形链表。在环形链表中, 任意节点都可以视作头节点。</p>
 
 <div style="text-align: center;">
-    <img src="../circle_linked_list.png" width="50%">
+    <img src="../circle_linked_list.jpg" width="50%">
 </div>
 
 
