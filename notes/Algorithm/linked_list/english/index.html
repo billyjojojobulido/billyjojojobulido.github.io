@@ -363,54 +363,52 @@
       </tr>
   </tbody>
 </table>
-
-  <p>很显然, 因为离散的结构, 链表在元素的访问上远不如数组高效, 但是在增加和删除元素时, 也不需要如数组一般需要操作整个臃肿的内存区块, 来维持线性。
+<p>Clearly, due to their scattered structure, linked lists are far less efficient than arrays for element access. However, when inserting and deleting elements, linked lists do not require the manipulation of an entire bulky memory block, as arrays do, to maintain linearity.
     
-    <strong>因此也就有了我们第二条tradeoff: 「插入/删除的性能 Vs 查询的性能」</strong></p>
+  <strong>This leads to our second tradeoff: "Insertion/Deletion Performance vs. Search Performance."</strong></p>
 
+<h3>Additional Insight: Physical-Level Tradeoff</h3>
 
-<h3>拓展知识: 物理层次的Tradeoff</h3>
+<p>For those familiar with database concepts, this isn’t new. In computer architecture, cache is much closer to the CPU, making its read/write efficiency significantly higher than that of RAM, and far higher than that of hard drives. The tradeoff is that cache has a very small capacity and is expensive, so storing large amounts of data in cache is not feasible.
+  If data being read from a data structure happens to be in the cache, the efficiency is astonishingly high, known as a "cache hit." <strong>This brings us to our third tradeoff: "Cache Hit Rate vs. Space Utilization."</strong></p>
 
-<p>学习过数据库相关知识的其实不陌生, 计算机物理结构中, 缓存因为离CPU更近, 所以其读写效率远高于内存, 远远高于硬盘, 但是代价就是容量非常小, 而且价格非常贵, 故肯定是没有办法把大量数据都存到缓存里。
-    所以如果从某个数据结构中读取数据时, 恰巧这部分内容在缓存中, 那效率会高到可怕, 这被称为「缓存命中」。<strong>这也成了我们第三条tradeoff: 「缓存命中率 Vs 空间利用率」</strong></p>
+<p>Cache considerations are seldom mentioned in algorithm performance assessments, which I believe is reasonable. Theoretical assessments using algorithmic upper bounds for time and space provide a fairer evaluation of intrinsic performance.
+  However, it cannot be denied that <strong>"(in real-world applications) physical structure significantly impacts memory and cache usage efficiency,"</strong> and thus the overall performance of the algorithm.</p>
 
-<p>在算法的性能评估时很少有人提到缓存的事情, 我认为是合理的, 因为(理论中)通过界算法消耗时间和空间的上界来评估算法本身的性能, 其实更加公平。
-    但也不可以否认一个事实, <strong>「(实际应用中)物理结构在很大程度上决定了程序对内存和缓存的使用效率」</strong>, 进而影响算法程序的整体性能。</p>
-
-<p>而<strong>数组和链表对缓存的利用效率也是不同的。</strong></p>
+<p><strong>Arrays and linked lists differ in their cache utilization efficiency:</strong></p>
 <ul>
-    <li><strong>占用空间</strong>: 链表元素比数组元素占用空间更多，导致缓存中容纳的有效数据量更少。</li>
-    <li><strong>缓存行</strong>: 链表数据分散在内存各处，而缓存是“按行加载”的，因此加载到无效数据的比例更高。</li>
-    <li><strong>预取机制</strong>: 数组比链表的数据访问模式更具“可预测性”，即系统更容易猜出即将被加载的数据。</li>
-    <li><strong>空间局部性</strong>: 数组被存储在集中的内存空间中，因此被加载数据附近的数据更有可能即将被访问。</li>
+  <li><strong>Space Usage</strong>: Linked list nodes occupy more space than array elements, resulting in less effective data storage per cache line.</li>
+  <li><strong>Cache Lines</strong>: Linked list data is scattered across memory, and since cache loads data in "lines," the proportion of irrelevant data loaded is higher.</li>
+  <li><strong>Prefetching Mechanism</strong>: Array data access patterns are more "predictable," making it easier for the system to prefetch upcoming data.</li>
+  <li><strong>Spatial Locality</strong>: Arrays are stored in contiguous memory, so data loaded nearby is more likely to be accessed soon.</li>
 </ul>
 
-<p style="font-weight: bold;">总体而言, 从「物理结构」上的角度考虑, 数组会具有更高的「缓存命中率」, 因此数组在实际应用中的效率通常会优于链表。但是这并不意味着数组在什么情况下都比链表强, 
-    大多数时候数组与链表的选择主要取决于前两条tradeoff, 以及特定的应用场景和需求 (之后「栈」的篇章会举例讲)。</p>
+<p style="font-weight: bold;">Overall, from the perspective of "physical structure," arrays tend to have a higher "cache hit rate," which often results in better performance in practical applications. However, this does not mean that arrays are always better than linked lists. 
+  Most of the time, the choice between arrays and linked lists depends on the first two tradeoffs and specific application requirements (examples will be discussed in the "Stack" section).</p>
 
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>链表类型</h2>
+  <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Types of Linked Lists</h2>
 
-<p>链表基本上可以分为3种类型:</p>
-
-<ol>
-    <li>单链表</li>
-    <li>双链表</li>
-    <li>循环链表</li>
-</ol>
-
-<p>分别适合解决不同的问题。</p>
-
-<h3>单链表</h3>
-<p>就是我们常说的普通链表, 也是最早的版本。单向链表的节点包含值和指向下一节点的引用两项数据。我们将首个节点称为头节点(head),将最后一个节点称为尾节点,尾节点指向空 (None) 。</p>
-
-<div style="text-align: center;">
-    <img src="../linked_list.jpg" width="50%">
-</div>
-
-<h3>双链表</h3>
-
-<p>与单向链表相比，双向链表记录了两个方向的引用。双向链表的节点定义同时包含指向后继节点（下一个节点）和前驱节点（上一个节点）的引用（指针）。相较于单向链表, 双向链表更具灵活性，可以朝两个方向遍历链表, 但相应地也需要占用更多的内存空间。</p>
-
+  <p>Linked lists can generally be divided into three types:</p>
+  
+  <ol>
+      <li>Singly Linked List</li>
+      <li>Doubly Linked List</li>
+      <li>Circular Linked List</li>
+  </ol>
+  
+  <p>Each type is suited for solving different types of problems.</p>
+  
+  <h3>Singly Linked List</h3>
+  <p>This is the commonly referenced standard linked list and the earliest version. A node in a singly linked list contains two pieces of data: a value and a reference to the next node. The first node is called the head, and the last node is called the tail, which points to null (<code>None</code>).</p>
+  
+  <div style="text-align: center;">
+      <img src="../linked_list.jpg" width="50%">
+  </div>
+  
+  <h3>Doubly Linked List</h3>
+  
+  <p>Compared to a singly linked list, a doubly linked list keeps track of references in both directions. A node in a doubly linked list includes references (pointers) to both its successor (next node) and predecessor (previous node). While more flexible than a singly linked list and allowing traversal in both directions, it also requires more memory space.</p>
+  
 <div style="text-align: center;">
     <img src="../double_linked_list.jpg" width="50%">
 </div>
