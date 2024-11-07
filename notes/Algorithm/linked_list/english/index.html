@@ -260,32 +260,29 @@
                         self.val: int = val
                         self.next: Node | None = None
                 </pre>
+                <p>When initializing a linked list, special attention should be given to the head node and the tail node. The head node is the entry point to access the entire list, so its pointer should not be modified carelessly during problem-solving. The tail node should ensure that its pointer points to null (e.g., <code>None</code> in Python, <code>null</code> in JavaScript, etc.), otherwise, traversing the list would not know when to stop.</p>
+                <div style="text-align: center;">
+                    <img src="../node.jpg" width="50%">
+                </div>
                 
-<p>初始化链表需要特别注意的气势就是头节点和尾节点, 因为头节点是访问整个链表的入口, 做题时轻易不可以乱修改这个指针。至于尾节点, 则需要确保指针指向空 (Python中的None, JS中的null, etc), 否则遍历链表时不知何时终止。</p>
-<div style="text-align: center;">
-    <img src="../node.jpg" width="50%">
-</div>
-
-<h3>2. 删除节点</h3>
-<p>不同于数组中删除元素后还需要把其余元素重新排列以填充空缺的位置, 我们在链表中找到了需要删除的节点后, 只需要将其父亲节点的next指针直接指向下一个节点后, 删除后的链表就已经成型了, 被分离出来的节点可以当场destroy也可以另作他用。</p>
-<div style="text-align: center;">
-    <img src="../delete.jpg" width="50%">
-</div>
-
-<h3>3. 插入节点</h3>
-<p>和删除节点逻辑类似,在链表中添加元素只需要修改前后两个节点而已,让前面节点的next指向自己, 并让自己的next指向下一个节点。</p>
-<div style="text-align: center;">
-    <img src="../insert.jpg" width="50%">
-</div>
-
-<h3>4. 访问节点</h3>
-<p><strong>不得不承认, 在链表中访问节点的效率较低。</strong> 不同于数组可以根据索引再O(1)时间内找到元素, 链表需要从头节点出发向后遍历, 知道找到目标节点, 然后访问。</p>
-
-
-<h3>5. 查找节点</h3>
-<p>链表中查找节点和访问节点的方法一致, 事实上, 访问节点 = 查找节点 + 访问节点 。</p>
-
-
+                <h3>2. Deleting a Node</h3>
+                <p>Unlike arrays, where deleting an element requires rearranging the remaining elements to fill the gap, in linked lists, once the node to be deleted is found, simply redirect the <code>next</code> pointer of its parent node to the next node. The modified list is now complete, and the detached node can be destroyed or repurposed.</p>
+                <div style="text-align: center;">
+                    <img src="../delete.jpg" width="50%">
+                </div>
+                
+                <h3>3. Inserting a Node</h3>
+                <p>Inserting a node follows a similar logic to deletion. Adding an element to a linked list only requires updating the pointers of the adjacent nodes, making the previous node’s <code>next</code> point to the new node, and the new node’s <code>next</code> point to the subsequent node.</p>
+                <div style="text-align: center;">
+                    <img src="../insert.jpg" width="50%">
+                </div>
+                
+                <h3>4. Accessing a Node</h3>
+                <p><strong>It must be acknowledged that accessing nodes in a linked list is less efficient.</strong> Unlike arrays, where elements can be found in O(1) time using an index, linked lists require starting from the head node and traversing sequentially until the target node is found, and then accessing it.</p>
+                
+                <h3>5. Searching for a Node</h3>
+                <p>Searching for a node in a linked list is the same as accessing a node. In fact, accessing a node = searching for the node + accessing the node.</p>
+                
 <h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>链表 vs. 数组</h2>
 
 <p>相信对于很多算法学习者和面试者来说, 判断是否应该使用链表的唯一条件就是题目是否要求使用链表。站在学习者的角度这个想法其实没有问题, 
