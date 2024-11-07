@@ -433,27 +433,25 @@
 
     <li><strong>"React - Hook":</strong> In the React source code, the core feature of Hooks is implemented using a linked list, likely because linked lists enable efficient insertion and deletion operations without concern for element lookup.</li>
 </ul>
-
-<h3>双链表</h3>
-<p>适用于需要快速查找前一个元素和后一个元素的场景。</p>
+<h3>Doubly Linked List</h3>
+<p>Useful in scenarios where quick access to both the previous and next elements is needed.</p>
 <ul>
-    <li><strong>「高级数据结构」: </strong>比如在红黑树、B 树中，我们需要访问节点的父节点，这可以通过在节点中保存一个指向父节点的引用来实现，类似于双向链表。</li>
+    <li><strong>"Advanced Data Structures":</strong> In structures like Red-Black Trees and B-Trees, accessing the parent node is often necessary. This can be implemented by storing a reference to the parent node within each node, similar to a doubly linked list.</li>
 
-    <li><strong>「浏览器历史」: </strong>在网页浏览器中，当用户点击前进或后退按钮时，浏览器需要知道用户访问过的前一个和后一个网页。双向链表的特性使得这种操作变得简单。</li>
+    <li><strong>"Browser History":</strong> In web browsers, when users click the forward or backward buttons, the browser needs to know the previously visited and next pages. The bidirectional nature of a doubly linked list makes these operations simple.</li>
 
-    <li><strong>「LRU 算法」: </strong>在缓存淘汰(LRU)算法中, 我们需要快速找到最近最少使用的数据, 以及支持快速添加和删除节点。这时候使用双向链表就非常合适。</li>
+    <li><strong>"LRU Algorithm":</strong> In the Least Recently Used (LRU) cache eviction algorithm, quick access to the least recently used data and support for fast insertion and deletion are needed. A doubly linked list is ideal for this purpose.</li>
 </ul>
 
-<h3>循环链表</h3>
-<p>适用于需要周期性操作的场景，比如操作系统的资源调度。</p>
+<h3>Circular Linked List</h3>
+<p>Suitable for scenarios involving cyclic operations, such as resource scheduling in operating systems.</p>
 <ul>
-    <li><strong>「时间片轮转调度算法」: </strong>在操作系统中，时间片轮转调度算法是一种常见的 CPU 调度算法, 它需要对一组进程进行循环。每个进程被赋予一个时间片, 当时间片用完时, CPU 将切换到下一个进程。这种循环操作可以通过环形链表来实现。</li>
+    <li><strong>"Round-Robin Scheduling Algorithm":</strong> In operating systems, round-robin scheduling is a common CPU scheduling algorithm that cycles through a set of processes. Each process is given a time slice, and when the time slice is up, the CPU switches to the next process. This cyclical operation can be implemented using a circular linked list.</li>
 
-    <li><strong>「数据缓冲区」: </strong>在某些数据缓冲区的实现中, 也可能会使用环形链表。比如在音频、视频播放器中, 数据流可能会被分成多个缓冲块并放入一个环形链表, 以便实现无缝播放。</li>
-
+    <li><strong>"Data Buffers":</strong> Circular linked lists may also be used in the implementation of certain data buffers. For instance, in audio or video players, data streams may be divided into buffer blocks placed in a circular linked list to enable seamless playback.</li>
 </ul>
 
-<p>不难发现, 适合使用链表来实现的很多应用, 尤其是「循环链表」相关的, 如果替换成数组会很麻烦。因此在选择数据结构的时候, 最先考虑的一定是「具体的应用场景和需求」, 如果有多个备选数据结构的话, 然后才开始考虑性能的tradeoff。</p>
+<p>It’s evident that many applications where linked lists are used, especially those involving "circular linked lists," would be cumbersome to implement using arrays. Therefore, when choosing a data structure, the first consideration should be the "specific application scenario and requirements," followed by performance tradeoffs if multiple data structure options are available.</p>
 
 
 <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
