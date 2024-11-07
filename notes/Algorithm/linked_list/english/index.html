@@ -237,33 +237,30 @@
 
             
               <div class="markdown-body">
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
-
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
-
-<p>链表通常是算法学习者学习完数组基础后紧接着学习的下一个初级数据结构。 </p>
-  
-<p>链表本身的概念非常简单, <strong>凡是「通过指针串联在一起的线性结构」都可以称之为链表。</strong>
-    链表的题一般集中在简单和中等题, 不过链表一般指的是题目传进来的数组结构, 而不是具体的解题方法, 这一点和数组类似。 </p>
-
-<p>但是基础不扎实的话在面试手写链表时很容易翻车。这并不算是危言耸听, 因为大多数时候, LeetCode这些平台为了实现自动化打分, 凡是涉及链表的题, 
-  链表节点的数据结构都已经提供好了, 刷题的时候照着写就行。
-    这会导致很多刷题很久的应届毕业生在面试时需要手撕链表的时候才会发现, 自己好像从来没有自己实现过链表。</p>
-
-
-<h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>链表基础</h2>
-
-<p>如上文所说, 链表基础很重要, 但实现起来真的不复杂, 只需要做好「增、删、访、查、初始化」, 掌握链表就如同掌上观纹一般清晰。</p>
-
-<h3>1. 初始化链表</h3>
-<p>链表的组成单位是节点(node)对象。每个节点都包含两项数据: 节点的“值”和指向下一节点的“引用”。基于这个定义, 我们可以写出如下代码:</p>
-<pre>
-class Node:
-    def __init__(self, val: int):
-        self.val: int = val
-        self.next: Node | None = None
-</pre>
-
+                <p>Linked lists are usually the next basic data structure that algorithm learners study after mastering arrays.</p>
+                  
+                <p>The concept of a linked list is very simple: <strong>any "linear structure connected by pointers" can be called a linked list.</strong>
+                    Linked list problems typically range from easy to medium difficulty, but the term "linked list" usually refers to the array structure provided in the problem rather than the specific method to solve it, similar to arrays.</p>
+                
+                <p>However, without a solid foundation, it's easy to make mistakes when writing linked lists by hand during interviews. This isn’t an exaggeration, because most of the time, platforms like LeetCode provide pre-defined linked list node structures for automated scoring, so learners just follow the template when solving problems.
+                    As a result, many graduates with significant problem-solving experience may realize during an interview that they have never actually implemented a linked list from scratch.</p>
+                
+                
+                <h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Linked List Basics</h2>
+                
+                <p>As mentioned above, a solid understanding of linked lists is important, but implementing them is not difficult. Mastering "insertion, deletion, access, search, and initialization" makes understanding linked lists as clear as reading the palm of your hand.</p>
+                
+                <h3>1. Initializing a Linked List</h3>
+                <p>The building block of a linked list is the node object. Each node contains two pieces of data: the "value" of the node and a "reference" to the next node. Based on this definition, we can write the following code:</p>
+                <pre>
+                class Node:
+                    def __init__(self, val: int):
+                        self.val: int = val
+                        self.next: Node | None = None
+                </pre>
+                
 <p>初始化链表需要特别注意的气势就是头节点和尾节点, 因为头节点是访问整个链表的入口, 做题时轻易不可以乱修改这个指针。至于尾节点, 则需要确保指针指向空 (Python中的None, JS中的null, etc), 否则遍历链表时不知何时终止。</p>
 <div style="text-align: center;">
     <img src="../node.jpg" width="50%">
