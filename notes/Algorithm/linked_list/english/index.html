@@ -237,321 +237,300 @@
 
             
               <div class="markdown-body">
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2>
 
+                <p>Linked lists are usually the next basic data structure that algorithm learners study after mastering arrays.</p>
+                  
+                <p>The concept of a linked list is very simple: <strong>any "linear structure connected by pointers" can be called a linked list.</strong>
+                    Linked list problems typically range from easy to medium difficulty, but the term "linked list" usually refers to the array structure provided in the problem rather than the specific method to solve it, similar to arrays.</p>
+                
+                <p>However, without a solid foundation, it's easy to make mistakes when writing linked lists by hand during interviews. This isn’t an exaggeration, because most of the time, platforms like LeetCode provide pre-defined linked list node structures for automated scoring, so learners just follow the template when solving problems.
+                    As a result, many graduates with significant problem-solving experience may realize during an interview that they have never actually implemented a linked list from scratch.</p>
+                
+                
+                <h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Linked List Basics</h2>
+                
+                <p>As mentioned above, a solid understanding of linked lists is important, but implementing them is not difficult. Mastering "insertion, deletion, access, search, and initialization" makes understanding linked lists as clear as reading the palm of your hand.</p>
+                
+                <h3>1. Initializing a Linked List</h3>
+                <p>The building block of a linked list is the node object. Each node contains two pieces of data: the "value" of the node and a "reference" to the next node. Based on this definition, we can write the following code:</p>
+                <pre>
+                class Node:
+                    def __init__(self, val: int):
+                        self.val: int = val
+                        self.next: Node | None = None
+                </pre>
+                <p>When initializing a linked list, special attention should be given to the head node and the tail node. The head node is the entry point to access the entire list, so its pointer should not be modified carelessly during problem-solving. The tail node should ensure that its pointer points to null (e.g., <code>None</code> in Python, <code>null</code> in JavaScript, etc.), otherwise, traversing the list would not know when to stop.</p>
+                <div style="text-align: center;">
+                    <img src="../node.jpg" width="50%">
+                </div>
+                
+                <h3>2. Deleting a Node</h3>
+                <p>Unlike arrays, where deleting an element requires rearranging the remaining elements to fill the gap, in linked lists, once the node to be deleted is found, simply redirect the <code>next</code> pointer of its parent node to the next node. The modified list is now complete, and the detached node can be destroyed or repurposed.</p>
+                <div style="text-align: center;">
+                    <img src="../delete.jpg" width="50%">
+                </div>
+                
+                <h3>3. Inserting a Node</h3>
+                <p>Inserting a node follows a similar logic to deletion. Adding an element to a linked list only requires updating the pointers of the adjacent nodes, making the previous node’s <code>next</code> point to the new node, and the new node’s <code>next</code> point to the subsequent node.</p>
+                <div style="text-align: center;">
+                    <img src="../insert.jpg" width="50%">
+                </div>
+                
+                <h3>4. Accessing a Node</h3>
+                <p><strong>It must be acknowledged that accessing nodes in a linked list is less efficient.</strong> Unlike arrays, where elements can be found in O(1) time using an index, linked lists require starting from the head node and traversing sequentially until the target node is found, and then accessing it.</p>
+                
+                <h3>5. Searching for a Node</h3>
+                <p>Searching for a node in a linked list is the same as accessing a node. In fact, accessing a node = searching for the node + accessing the node.</p>
+                <h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Linked List vs. Array</h2>
 
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
-
-<p>链表通常是算法学习者学习完数组基础后紧接着学习的下一个初级数据结构。 </p>
-  
-<p>链表本身的概念非常简单, <strong>凡是「通过指针串联在一起的线性结构」都可以称之为链表。</strong>
-    链表的题一般集中在简单和中等题, 不过链表一般指的是题目传进来的数组结构, 而不是具体的解题方法, 这一点和数组类似。 </p>
-
-<p>但是基础不扎实的话在面试手写链表时很容易翻车。这并不算是危言耸听, 因为大多数时候, LeetCode这些平台为了实现自动化打分, 凡是涉及链表的题, 
-  链表节点的数据结构都已经提供好了, 刷题的时候照着写就行。
-    这会导致很多刷题很久的应届毕业生在面试时需要手撕链表的时候才会发现, 自己好像从来没有自己实现过链表。</p>
-
-
-<h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>链表基础</h2>
-
-<p>如上文所说, 链表基础很重要, 但实现起来真的不复杂, 只需要做好「增、删、访、查、初始化」, 掌握链表就如同掌上观纹一般清晰。</p>
-
-<h3>1. 初始化链表</h3>
-<p>链表的组成单位是节点(node)对象。每个节点都包含两项数据: 节点的“值”和指向下一节点的“引用”。基于这个定义, 我们可以写出如下代码:</p>
-<pre>
-class Node:
-    def __init__(self, val: int):
-        self.val: int = val
-        self.next: Node | None = None
-</pre>
-
-<p>初始化链表需要特别注意的气势就是头节点和尾节点, 因为头节点是访问整个链表的入口, 做题时轻易不可以乱修改这个指针。至于尾节点, 则需要确保指针指向空 (Python中的None, JS中的null, etc), 否则遍历链表时不知何时终止。</p>
-<div style="text-align: center;">
-    <img src="../node.jpg" width="50%">
-</div>
-
-<h3>2. 删除节点</h3>
-<p>不同于数组中删除元素后还需要把其余元素重新排列以填充空缺的位置, 我们在链表中找到了需要删除的节点后, 只需要将其父亲节点的next指针直接指向下一个节点后, 删除后的链表就已经成型了, 被分离出来的节点可以当场destroy也可以另作他用。</p>
-<div style="text-align: center;">
-    <img src="../delete.jpg" width="50%">
-</div>
-
-<h3>3. 插入节点</h3>
-<p>和删除节点逻辑类似,在链表中添加元素只需要修改前后两个节点而已,让前面节点的next指向自己, 并让自己的next指向下一个节点。</p>
-<div style="text-align: center;">
-    <img src="../insert.jpg" width="50%">
-</div>
-
-<h3>4. 访问节点</h3>
-<p><strong>不得不承认, 在链表中访问节点的效率较低。</strong> 不同于数组可以根据索引再O(1)时间内找到元素, 链表需要从头节点出发向后遍历, 知道找到目标节点, 然后访问。</p>
-
-
-<h3>5. 查找节点</h3>
-<p>链表中查找节点和访问节点的方法一致, 事实上, 访问节点 = 查找节点 + 访问节点 。</p>
-
-
-<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>链表 vs. 数组</h2>
-
-<p>相信对于很多算法学习者和面试者来说, 判断是否应该使用链表的唯一条件就是题目是否要求使用链表。站在学习者的角度这个想法其实没有问题, 
-    但如果作为一个软件工程师, 拿到一个需求后从零开始设计算法时又应该如何选择基本数据结构?</p>
-
-<p>思考至此, 或许有些人会对链表的存在产生质疑: <strong>数组的出现是因为其线性结构最符合计算机内存的结构, 那我们为什么需要多此一举, 搞出来链表这种「离散」但还是「线性」的数据结构呢?</strong></p>
-
-<p>在我看来, 有了这一层思考, 才算是真正开始学习链表的精髓了, 我们可以通过对比数组和链表来更加深入思考链表存在的意义。</p>
-
-
-<h3>链表的生存之道: 碎片内存大团结</h3>
-
-<p>
-    首先, 我们回到计算机系统的层次考虑问题, 内存空间是所有程序的公共资源, 在一个复杂的系统运行环境下, <strong>空闲的内存空间可能散落在内存各处</strong>, 就算再高级、智能的内存调度系统也无法避免这个现象的存在。
-</p>
-<p>
-  而根据数组篇第一章我们已经知道, 存储数组的内存空间必须是连续的。 那么考虑当数组非常大的情况时, 在某一次扩容向系统申请双倍空间时, 内存可能已经无法提供如此大的连续空间。
-  此时链表的灵活性优势就体现出来了: <strong>通过指针有效链接碎片内存空间, 也可以形成线性数据结构, 而不需要依赖于连续的内存空间。</strong>
-</p>
-
+                <p>For many algorithm learners and interviewees, the sole criterion for using a linked list is whether the problem explicitly requires it. From a learner's perspective, this is understandable. 
+                    However, as a software engineer designing algorithms from scratch for a given requirement, how should one choose a basic data structure?</p>
+                
+                <p>With this in mind, some may start to question the existence of linked lists: <strong>Arrays are popular because their linear structure aligns well with computer memory architecture, so why create linked lists, which are "discrete" but still "linear" data structures?</strong></p>
+                
+                <p>In my opinion, reaching this level of questioning marks the true beginning of understanding the essence of linked lists. We can explore the significance of linked lists by comparing them with arrays.</p>
+                
+                <h3>The Survival Edge of Linked Lists: Uniting Fragmented Memory</h3>
+                
+                <p>
+                    First, let’s consider the problem from the perspective of computer systems. Memory space is a shared resource for all programs, and in a complex system environment, <strong>free memory may be scattered throughout</strong>, even with the most advanced and intelligent memory management systems.
+                </p>
+                <p>
+                  As discussed in the first chapter on arrays, memory allocated for an array must be contiguous. When dealing with large arrays, during a resize operation that requests double the space, the system might not have sufficient contiguous space available.
+                  This is where the flexibility of linked lists shines: <strong>by using pointers to effectively link fragmented memory, linked lists can form a linear data structure without needing contiguous memory.</strong>
+                </p>
+                
 <div style="text-align: center;">
     <img src="../memory.jpg" width="50%">
 </div>
+<p>It’s undeniable that linked list nodes, in addition to storing values, need to store an additional reference (pointer). Thus, with the same amount of data, linked lists occupy more memory than arrays.
+  <strong>This leads to our first tradeoff: "Total Memory Usage vs. Memory Flexibility."</strong></p>
 
-<p>无可否认的是, 链表节点除了包含值, 还需额外保存一个引用(指针)。因此在相同数据量下, 链表比数组占用更多的内存空间。
-    <strong>因此也就有了我们第一条tradeoff: 「总占用内存 Vs 内存灵活性」</strong></p>
+<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Performance Comparison: Array vs. Linked List</h3>
 
-
-
-<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>数组和链表性能对比</h3>
-
-<p> 数组和链表都旨在实现一个「线性结构」, 而为了达成共同的目的, 两者又似乎才用了完全相反的存储策略, 导致了他们在操作效率上呈现对立的特点。</p>
+<p> Both arrays and linked lists aim to implement a "linear structure," yet they use seemingly opposite storage strategies to achieve this goal, resulting in contrasting performance characteristics.</p>
 
 <table>
-    <thead>
-      <tr>
-          <th></th>
-          <th>数组</th>
-          <th>链表</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>存储方式</td>
-            <td>连续内存空间</td>
-            <td>分散内存空间</td>
-        </tr>
-        <tr>
-            <td>容量</td>
-            <td>长度不可变(除非扩容)</td>
-            <td>可灵活拓展, 无上限</td>
-        </tr>
-        <tr>
-            <td>内存效率</td>
-            <td>占用内存少, 且cache命中率高</td>
-            <td>相同条件下占用内存更多</td>
-        </tr>
+  <thead>
     <tr>
-        <td>访问元素(索引)</td>
-        <td>O(1)</td>
+        <th></th>
+        <th>Array</th>
+        <th>Linked List</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Storage Method</td>
+          <td>Contiguous memory space</td>
+          <td>Scattered memory space</td>
+      </tr>
+      <tr>
+          <td>Capacity</td>
+          <td>Fixed length (unless resized)</td>
+          <td>Flexibly expandable, no upper limit</td>
+      </tr>
+      <tr>
+          <td>Memory Efficiency</td>
+          <td>Low memory usage with high cache hit rate</td>
+          <td>Higher memory usage under the same conditions</td>
+      </tr>
+  <tr>
+      <td>Access Element (Index)</td>
+      <td>O(1)</td>
+      <td>O(N)</td>
+  </tr>
+    <tr>
+        <td>Search Element</td>
+        <td>O(N)</td>
         <td>O(N)</td>
     </tr>
-      <tr>
-          <td>查找元素</td>
-          <td>O(N)</td>
-          <td>O(N)</td>
-      </tr>
-      <tr>
-            <td>添加元素</td>
-          <td>O(N)</td>
-          <td>O(1)</td>
-      </tr>
-  
-      <tr>
-          <td>删除元素</td>
-          <td>O(N)</td>
-          <td>O(1)</td>
-      </tr>
-      <tr>
-          <td>遍历所有元素</td>
-          <td>O(N)</td>
-          <td>O(N)</td>
-        </tr>
-    </tbody>
-  </table>
+    <tr>
+          <td>Add Element</td>
+        <td>O(N)</td>
+        <td>O(1)</td>
+    </tr>
 
-  <p>很显然, 因为离散的结构, 链表在元素的访问上远不如数组高效, 但是在增加和删除元素时, 也不需要如数组一般需要操作整个臃肿的内存区块, 来维持线性。
+    <tr>
+        <td>Delete Element</td>
+        <td>O(N)</td>
+        <td>O(1)</td>
+    </tr>
+    <tr>
+        <td>Traverse All Elements</td>
+        <td>O(N)</td>
+        <td>O(N)</td>
+      </tr>
+  </tbody>
+</table>
+<p>Clearly, due to their scattered structure, linked lists are far less efficient than arrays for element access. However, when inserting and deleting elements, linked lists do not require the manipulation of an entire bulky memory block, as arrays do, to maintain linearity.
     
-    <strong>因此也就有了我们第二条tradeoff: 「插入/删除的性能 Vs 查询的性能」</strong></p>
+  <strong>This leads to our second tradeoff: "Insertion/Deletion Performance vs. Search Performance."</strong></p>
 
+<h3>Additional Insight: Physical-Level Tradeoff</h3>
 
-<h3>拓展知识: 物理层次的Tradeoff</h3>
+<p>For those familiar with database concepts, this isn’t new. In computer architecture, cache is much closer to the CPU, making its read/write efficiency significantly higher than that of RAM, and far higher than that of hard drives. The tradeoff is that cache has a very small capacity and is expensive, so storing large amounts of data in cache is not feasible.
+  If data being read from a data structure happens to be in the cache, the efficiency is astonishingly high, known as a "cache hit." <strong>This brings us to our third tradeoff: "Cache Hit Rate vs. Space Utilization."</strong></p>
 
-<p>学习过数据库相关知识的其实不陌生, 计算机物理结构中, 缓存因为离CPU更近, 所以其读写效率远高于内存, 远远高于硬盘, 但是代价就是容量非常小, 而且价格非常贵, 故肯定是没有办法把大量数据都存到缓存里。
-    所以如果从某个数据结构中读取数据时, 恰巧这部分内容在缓存中, 那效率会高到可怕, 这被称为「缓存命中」。<strong>这也成了我们第三条tradeoff: 「缓存命中率 Vs 空间利用率」</strong></p>
+<p>Cache considerations are seldom mentioned in algorithm performance assessments, which I believe is reasonable. Theoretical assessments using algorithmic upper bounds for time and space provide a fairer evaluation of intrinsic performance.
+  However, it cannot be denied that <strong>"(in real-world applications) physical structure significantly impacts memory and cache usage efficiency,"</strong> and thus the overall performance of the algorithm.</p>
 
-<p>在算法的性能评估时很少有人提到缓存的事情, 我认为是合理的, 因为(理论中)通过界算法消耗时间和空间的上界来评估算法本身的性能, 其实更加公平。
-    但也不可以否认一个事实, <strong>「(实际应用中)物理结构在很大程度上决定了程序对内存和缓存的使用效率」</strong>, 进而影响算法程序的整体性能。</p>
-
-<p>而<strong>数组和链表对缓存的利用效率也是不同的。</strong></p>
+<p><strong>Arrays and linked lists differ in their cache utilization efficiency:</strong></p>
 <ul>
-    <li><strong>占用空间</strong>: 链表元素比数组元素占用空间更多，导致缓存中容纳的有效数据量更少。</li>
-    <li><strong>缓存行</strong>: 链表数据分散在内存各处，而缓存是“按行加载”的，因此加载到无效数据的比例更高。</li>
-    <li><strong>预取机制</strong>: 数组比链表的数据访问模式更具“可预测性”，即系统更容易猜出即将被加载的数据。</li>
-    <li><strong>空间局部性</strong>: 数组被存储在集中的内存空间中，因此被加载数据附近的数据更有可能即将被访问。</li>
+  <li><strong>Space Usage</strong>: Linked list nodes occupy more space than array elements, resulting in less effective data storage per cache line.</li>
+  <li><strong>Cache Lines</strong>: Linked list data is scattered across memory, and since cache loads data in "lines," the proportion of irrelevant data loaded is higher.</li>
+  <li><strong>Prefetching Mechanism</strong>: Array data access patterns are more "predictable," making it easier for the system to prefetch upcoming data.</li>
+  <li><strong>Spatial Locality</strong>: Arrays are stored in contiguous memory, so data loaded nearby is more likely to be accessed soon.</li>
 </ul>
 
-<p style="font-weight: bold;">总体而言, 从「物理结构」上的角度考虑, 数组会具有更高的「缓存命中率」, 因此数组在实际应用中的效率通常会优于链表。但是这并不意味着数组在什么情况下都比链表强, 
-    大多数时候数组与链表的选择主要取决于前两条tradeoff, 以及特定的应用场景和需求 (之后「栈」的篇章会举例讲)。</p>
+<p style="font-weight: bold;">Overall, from the perspective of "physical structure," arrays tend to have a higher "cache hit rate," which often results in better performance in practical applications. However, this does not mean that arrays are always better than linked lists. 
+  Most of the time, the choice between arrays and linked lists depends on the first two tradeoffs and specific application requirements (examples will be discussed in the "Stack" section).</p>
 
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>链表类型</h2>
+  <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Types of Linked Lists</h2>
 
-<p>链表基本上可以分为3种类型:</p>
-
-<ol>
-    <li>单链表</li>
-    <li>双链表</li>
-    <li>循环链表</li>
-</ol>
-
-<p>分别适合解决不同的问题。</p>
-
-<h3>单链表</h3>
-<p>就是我们常说的普通链表, 也是最早的版本。单向链表的节点包含值和指向下一节点的引用两项数据。我们将首个节点称为头节点(head),将最后一个节点称为尾节点,尾节点指向空 (None) 。</p>
-
-<div style="text-align: center;">
-    <img src="../linked_list.jpg" width="50%">
-</div>
-
-<h3>双链表</h3>
-
-<p>与单向链表相比，双向链表记录了两个方向的引用。双向链表的节点定义同时包含指向后继节点（下一个节点）和前驱节点（上一个节点）的引用（指针）。相较于单向链表, 双向链表更具灵活性，可以朝两个方向遍历链表, 但相应地也需要占用更多的内存空间。</p>
-
+  <p>Linked lists can generally be divided into three types:</p>
+  
+  <ol>
+      <li>Singly Linked List</li>
+      <li>Doubly Linked List</li>
+      <li>Circular Linked List</li>
+  </ol>
+  
+  <p>Each type is suited for solving different types of problems.</p>
+  
+  <h3>Singly Linked List</h3>
+  <p>This is the commonly referenced standard linked list and the earliest version. A node in a singly linked list contains two pieces of data: a value and a reference to the next node. The first node is called the head, and the last node is called the tail, which points to null (<code>None</code>).</p>
+  
+  <div style="text-align: center;">
+      <img src="../linked_list.jpg" width="50%">
+  </div>
+  
+  <h3>Doubly Linked List</h3>
+  
+  <p>Compared to a singly linked list, a doubly linked list keeps track of references in both directions. A node in a doubly linked list includes references (pointers) to both its successor (next node) and predecessor (previous node). While more flexible than a singly linked list and allowing traversal in both directions, it also requires more memory space.</p>
+  
 <div style="text-align: center;">
     <img src="../double_linked_list.jpg" width="50%">
 </div>
-
-<h3>循环链表</h3>
-<p>如果我们令单向链表的尾节点指向头节点（首尾相接）, 则得到一个环形链表。在环形链表中, 任意节点都可以视作头节点。</p>
+<h3>Circular Linked List</h3>
+<p>If the tail node of a singly linked list points to the head node (forming a loop), it becomes a circular linked list. In a circular linked list, any node can be considered the head node.</p>
 
 <div style="text-align: center;">
     <img src="../circle_linked_list.jpg" width="50%">
 </div>
 
+<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Typical Applications of Linked Lists</h2>
 
-<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>链表典型应用</h2>
+<p>Different types of linked lists are designed to solve different problems. Below are some common applications.</p>
 
-<p>设计不同的链表显然是为了解决不同的问题, 下面罗列一些常见的应用。</p>
-
-<h3>单链表</h3>
+<h3>Singly Linked List</h3>
 <ul>
-    <li><strong>「栈与队列」: </strong>当插入和删除操作都在链表的一端进行时，它表现的特性为先进后出，对应栈；当插入操作在链表的一端进行，删除操作在链表的另一端进行，它表现的特性为先进先出，对应队列。</li>
+    <li><strong>"Stack and Queue":</strong> When insertions and deletions occur at one end of the linked list, it behaves as a last-in-first-out (LIFO) structure, like a stack. When insertions occur at one end and deletions at the other, it behaves as a first-in-first-out (FIFO) structure, like a queue.</li>
 
-    <li><strong>「哈希表」: </strong>链式地址是解决哈希冲突的主流方案之一，在该方案中，所有冲突的元素都会被放到一个链表中。</li>
+    <li><strong>"Hash Table":</strong> Separate chaining is one of the main solutions for handling hash collisions, where all colliding elements are placed in a linked list.</li>
 
-    <li><strong>「图」: </strong>邻接表是表示图的一种常用方式，其中图的每个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连的其他顶点。</li>
+    <li><strong>"Graph":</strong> The adjacency list is a common way to represent a graph, where each vertex of the graph is associated with a linked list, and each element in the list represents other vertices connected to that vertex.</li>
 
-    <li><strong>「React - Hook」: </strong>在React源代码中是通过链表实现Hook这个核心特性的, 我猜测原因是因为Hook可以更高效的删除和增加, 而并不需要关注查询。</li>
+    <li><strong>"React - Hook":</strong> In the React source code, the core feature of Hooks is implemented using a linked list, likely because linked lists enable efficient insertion and deletion operations without concern for element lookup.</li>
+</ul>
+<h3>Doubly Linked List</h3>
+<p>Useful in scenarios where quick access to both the previous and next elements is needed.</p>
+<ul>
+    <li><strong>"Advanced Data Structures":</strong> In structures like Red-Black Trees and B-Trees, accessing the parent node is often necessary. This can be implemented by storing a reference to the parent node within each node, similar to a doubly linked list.</li>
+
+    <li><strong>"Browser History":</strong> In web browsers, when users click the forward or backward buttons, the browser needs to know the previously visited and next pages. The bidirectional nature of a doubly linked list makes these operations simple.</li>
+
+    <li><strong>"LRU Algorithm":</strong> In the Least Recently Used (LRU) cache eviction algorithm, quick access to the least recently used data and support for fast insertion and deletion are needed. A doubly linked list is ideal for this purpose.</li>
 </ul>
 
-<h3>双链表</h3>
-<p>适用于需要快速查找前一个元素和后一个元素的场景。</p>
+<h3>Circular Linked List</h3>
+<p>Suitable for scenarios involving cyclic operations, such as resource scheduling in operating systems.</p>
 <ul>
-    <li><strong>「高级数据结构」: </strong>比如在红黑树、B 树中，我们需要访问节点的父节点，这可以通过在节点中保存一个指向父节点的引用来实现，类似于双向链表。</li>
+    <li><strong>"Round-Robin Scheduling Algorithm":</strong> In operating systems, round-robin scheduling is a common CPU scheduling algorithm that cycles through a set of processes. Each process is given a time slice, and when the time slice is up, the CPU switches to the next process. This cyclical operation can be implemented using a circular linked list.</li>
 
-    <li><strong>「浏览器历史」: </strong>在网页浏览器中，当用户点击前进或后退按钮时，浏览器需要知道用户访问过的前一个和后一个网页。双向链表的特性使得这种操作变得简单。</li>
-
-    <li><strong>「LRU 算法」: </strong>在缓存淘汰(LRU)算法中, 我们需要快速找到最近最少使用的数据, 以及支持快速添加和删除节点。这时候使用双向链表就非常合适。</li>
+    <li><strong>"Data Buffers":</strong> Circular linked lists may also be used in the implementation of certain data buffers. For instance, in audio or video players, data streams may be divided into buffer blocks placed in a circular linked list to enable seamless playback.</li>
 </ul>
 
-<h3>循环链表</h3>
-<p>适用于需要周期性操作的场景，比如操作系统的资源调度。</p>
-<ul>
-    <li><strong>「时间片轮转调度算法」: </strong>在操作系统中，时间片轮转调度算法是一种常见的 CPU 调度算法, 它需要对一组进程进行循环。每个进程被赋予一个时间片, 当时间片用完时, CPU 将切换到下一个进程。这种循环操作可以通过环形链表来实现。</li>
-
-    <li><strong>「数据缓冲区」: </strong>在某些数据缓冲区的实现中, 也可能会使用环形链表。比如在音频、视频播放器中, 数据流可能会被分成多个缓冲块并放入一个环形链表, 以便实现无缝播放。</li>
-
-</ul>
-
-<p>不难发现, 适合使用链表来实现的很多应用, 尤其是「循环链表」相关的, 如果替换成数组会很麻烦。因此在选择数据结构的时候, 最先考虑的一定是「具体的应用场景和需求」, 如果有多个备选数据结构的话, 然后才开始考虑性能的tradeoff。</p>
-
-
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
+<p>It’s evident that many applications where linked lists are used, especially those involving "circular linked lists," would be cumbersome to implement using arrays. Therefore, when choosing a data structure, the first consideration should be the "specific application scenario and requirements," followed by performance tradeoffs if multiple data structure options are available.</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Problem-Solving Experience Summary</h2>
 
 <table>
   <thead>
     <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>难度</th>
-      <th>链表技巧</th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Difficulty</th>
+      <th>Linked List Techniques</th>
     </tr>
   </thead>
   <tbody>
     <tr>
         <td>203</td>
-        <td>移除链表元素</td>
-        <td style="background-color: lightgreen;">简单</td>
+        <td>Remove Linked List Elements</td>
+        <td style="background-color: lightgreen;">Easy</td>
         <td>
-            「虚拟头节点」 + 「原地操作」
+            "Dummy Head Node" + "In-place Operation"
         </td>
       </tr>
     <tr>
         <td>707</td>
-        <td>设计链表</td>
-        <td style="background-color: yellow;">中等</td>
+        <td>Design Linked List</td>
+        <td style="background-color: yellow;">Medium</td>
         <td>
-            「虚拟头节点」 + 「原地操作」
+            "Dummy Head Node" + "In-place Operation"
         </td>
     </tr>
     <tr>
         <td>206</td>
-        <td>反转链表</td>
-        <td style="background-color: lightgreen;">简单</td>
+        <td>Reverse Linked List</td>
+        <td style="background-color: lightgreen;">Easy</td>
         <td>
-            「虚拟头节点」+ (「递归」 or 「原地操作」 + 「双指针」)
+            "Dummy Head Node" + ("Recursion" or "In-place Operation" + "Two Pointers")
         </td>
     </tr>
     <tr>
         <td>24</td>
-        <td>两两交换链表中的节点</td>
-        <td style="background-color: yellow;">中等</td>
+        <td>Swap Nodes in Pairs</td>
+        <td style="background-color: yellow;">Medium</td>
         <td>
-            「虚拟头节点」 + 「原地操作」 + 「模拟 (会比较复杂)」
+            "Dummy Head Node" + "In-place Operation" + "Simulation (Can be complex)"
         </td>
     </tr>
     <tr>
         <td>19</td>
-        <td>删除链表的倒数第N个节点</td>
-        <td style="background-color: yellow;">中等</td>
+        <td>Remove Nth Node From End of List</td>
+        <td style="background-color: yellow;">Medium</td>
         <td>
-            「虚拟头节点」 + 「双指针」
+            "Dummy Head Node" + "Two Pointers"
         </td>
     </tr>
     <tr>
         <td>160</td>
-        <td>链表相交</td>
-        <td style="background-color: lightgreen;">简单</td>
+        <td>Intersection of Two Linked Lists</td>
+        <td style="background-color: lightgreen;">Easy</td>
         <td>
-            「虚拟头节点」 + (「双指针」or 「哈希集合」)
+            "Dummy Head Node" + ("Two Pointers" or "Hash Set")
         </td>
     </tr>
 
     <tr>
         <td>142</td>
-        <td>环形链表II</td>
-        <td style="background-color: yellow;">中等</td>
+        <td>Linked List Cycle II</td>
+        <td style="background-color: yellow;">Medium</td>
         <td>
-            「虚拟头节点」 + (「双指针」 or 「哈希表」) + 「数学」(面试可能会问背后的数学逻辑)
+            "Dummy Head Node" + ("Two Pointers" or "Hash Table") + "Mathematics" (Interviewers may ask about the underlying math logic)
         </td>
     </tr>
 
   </tbody>
 </table>
-
-<h3>技巧:「虚拟头节点」</h3>
-<p>链表的一大问题就是操作当前节点必须要找前一个节点才能操作。这就造成了<strong>头结点的尴尬, 因为头结点没有前一个节点了</strong>。</p>
-<p>每次对应头结点的情况都要单独处理, 所以使用虚拟头结点的技巧, 就可以解决这个问题。</p>
-<p>因为有了虚拟头节点后, 可以将链表有意义的部分整体可以统一处理。</p>
-
+<h3>Technique: "Dummy Head Node"</h3>
+<p>One major issue with linked lists is that to operate on the current node, you often need to access the previous node. This leads to the <strong>problematic situation of the head node, as it has no previous node</strong>.</p>
+<p>Handling cases involving the head node separately each time can be cumbersome, so using the dummy head node technique can solve this problem.</p>
+<p>With a dummy head node, the meaningful part of the list can be processed uniformly.</p>
 
 <pre>
-# 虚拟头节点法模板
+# Template for the dummy head node method
 # 
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -560,10 +539,10 @@ class Node:
 
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
-        # 创建虚拟头部节点以简化删除过程
-        dummy_head = ListNode(next = head)
+        # Create a dummy head node to simplify the deletion process
+        dummy_head = ListNode(next=head)
         
-        # 遍历列表并删除值为val的节点
+        # Traverse the list and remove nodes with the value 'val'
         current = dummy_head
         while current.next:
             if current.next.val == val:
@@ -572,23 +551,23 @@ class Solution:
                 current = current.next
         
         return dummy_head.next
-
 </pre>
 
-<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
-<ul>
-  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">代码随想录: 链表理论基础</a></li>
-  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list/">Hello算法: 链表</a></li>
-  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/ram_and_cache/">Hello算法: 内存与缓存</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
-  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
 
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>References</h2>
+<ul>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">Programmer Carl: Linked List Theory Basics</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list/">Hello Algo: Linked Lists</a></li>
+  <li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/ram_and_cache/">Hello Algo: Memory and Cache</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">LeetCode: Top Interview 150 Questions</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">LeetCode: Premium Interview 100 Questions</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">LeetCode Algorithms</a></li>
 </ul>
-              </div>
+</div>
+
             
-            <hr/>
-            <div>
+<hr/>
+<div>
               <div class="post-metas my-3">
   
   
