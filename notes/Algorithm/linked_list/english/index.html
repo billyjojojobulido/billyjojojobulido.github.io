@@ -524,15 +524,13 @@
 
   </tbody>
 </table>
-
-<h3>技巧:「虚拟头节点」</h3>
-<p>链表的一大问题就是操作当前节点必须要找前一个节点才能操作。这就造成了<strong>头结点的尴尬, 因为头结点没有前一个节点了</strong>。</p>
-<p>每次对应头结点的情况都要单独处理, 所以使用虚拟头结点的技巧, 就可以解决这个问题。</p>
-<p>因为有了虚拟头节点后, 可以将链表有意义的部分整体可以统一处理。</p>
-
+<h3>Technique: "Dummy Head Node"</h3>
+<p>One major issue with linked lists is that to operate on the current node, you often need to access the previous node. This leads to the <strong>problematic situation of the head node, as it has no previous node</strong>.</p>
+<p>Handling cases involving the head node separately each time can be cumbersome, so using the dummy head node technique can solve this problem.</p>
+<p>With a dummy head node, the meaningful part of the list can be processed uniformly.</p>
 
 <pre>
-# 虚拟头节点法模板
+# Template for the dummy head node method
 # 
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -541,10 +539,10 @@
 
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
-        # 创建虚拟头部节点以简化删除过程
-        dummy_head = ListNode(next = head)
+        # Create a dummy head node to simplify the deletion process
+        dummy_head = ListNode(next=head)
         
-        # 遍历列表并删除值为val的节点
+        # Traverse the list and remove nodes with the value 'val'
         current = dummy_head
         while current.next:
             if current.next.val == val:
@@ -553,8 +551,8 @@ class Solution:
                 current = current.next
         
         return dummy_head.next
-
 </pre>
+
 
 <h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
 <ul>
