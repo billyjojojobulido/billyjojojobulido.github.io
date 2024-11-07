@@ -304,68 +304,65 @@
 <div style="text-align: center;">
     <img src="../memory.jpg" width="50%">
 </div>
+<p>It’s undeniable that linked list nodes, in addition to storing values, need to store an additional reference (pointer). Thus, with the same amount of data, linked lists occupy more memory than arrays.
+  <strong>This leads to our first tradeoff: "Total Memory Usage vs. Memory Flexibility."</strong></p>
 
-<p>无可否认的是, 链表节点除了包含值, 还需额外保存一个引用(指针)。因此在相同数据量下, 链表比数组占用更多的内存空间。
-    <strong>因此也就有了我们第一条tradeoff: 「总占用内存 Vs 内存灵活性」</strong></p>
+<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Performance Comparison: Array vs. Linked List</h3>
 
-
-
-<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>数组和链表性能对比</h3>
-
-<p> 数组和链表都旨在实现一个「线性结构」, 而为了达成共同的目的, 两者又似乎才用了完全相反的存储策略, 导致了他们在操作效率上呈现对立的特点。</p>
+<p> Both arrays and linked lists aim to implement a "linear structure," yet they use seemingly opposite storage strategies to achieve this goal, resulting in contrasting performance characteristics.</p>
 
 <table>
-    <thead>
-      <tr>
-          <th></th>
-          <th>数组</th>
-          <th>链表</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>存储方式</td>
-            <td>连续内存空间</td>
-            <td>分散内存空间</td>
-        </tr>
-        <tr>
-            <td>容量</td>
-            <td>长度不可变(除非扩容)</td>
-            <td>可灵活拓展, 无上限</td>
-        </tr>
-        <tr>
-            <td>内存效率</td>
-            <td>占用内存少, 且cache命中率高</td>
-            <td>相同条件下占用内存更多</td>
-        </tr>
+  <thead>
     <tr>
-        <td>访问元素(索引)</td>
-        <td>O(1)</td>
+        <th></th>
+        <th>Array</th>
+        <th>Linked List</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Storage Method</td>
+          <td>Contiguous memory space</td>
+          <td>Scattered memory space</td>
+      </tr>
+      <tr>
+          <td>Capacity</td>
+          <td>Fixed length (unless resized)</td>
+          <td>Flexibly expandable, no upper limit</td>
+      </tr>
+      <tr>
+          <td>Memory Efficiency</td>
+          <td>Low memory usage with high cache hit rate</td>
+          <td>Higher memory usage under the same conditions</td>
+      </tr>
+  <tr>
+      <td>Access Element (Index)</td>
+      <td>O(1)</td>
+      <td>O(N)</td>
+  </tr>
+    <tr>
+        <td>Search Element</td>
+        <td>O(N)</td>
         <td>O(N)</td>
     </tr>
-      <tr>
-          <td>查找元素</td>
-          <td>O(N)</td>
-          <td>O(N)</td>
+    <tr>
+          <td>Add Element</td>
+        <td>O(N)</td>
+        <td>O(1)</td>
+    </tr>
+
+    <tr>
+        <td>Delete Element</td>
+        <td>O(N)</td>
+        <td>O(1)</td>
+    </tr>
+    <tr>
+        <td>Traverse All Elements</td>
+        <td>O(N)</td>
+        <td>O(N)</td>
       </tr>
-      <tr>
-            <td>添加元素</td>
-          <td>O(N)</td>
-          <td>O(1)</td>
-      </tr>
-  
-      <tr>
-          <td>删除元素</td>
-          <td>O(N)</td>
-          <td>O(1)</td>
-      </tr>
-      <tr>
-          <td>遍历所有元素</td>
-          <td>O(N)</td>
-          <td>O(N)</td>
-        </tr>
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
   <p>很显然, 因为离散的结构, 链表在元素的访问上远不如数组高效, 但是在增加和删除元素时, 也不需要如数组一般需要操作整个臃肿的内存区块, 来维持线性。
     
