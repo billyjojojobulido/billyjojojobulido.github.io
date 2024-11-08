@@ -297,13 +297,13 @@
 <p>之前的做法是通过递归的方式去实现find函数,不断获取father数组下标对应的数值,直到找到根。但是递归深度是一个决定性能的问题,如果有向连通图的深度很深,那么每次find函数都要递归很多次去寻找根,重复之下会拉高性能, 如图。</p>
 
 <div style="text-align: center;">
-    <img src="../union-find-1.jpg" alt="深有向连通图">
+    <img src="../img/union-find-1.jpg" alt="深有向连通图">
 </div>
 
 <p>我们的目标只需要知道这些节点在同一个根下就行,所以完全可以通过把所有节点全部直接挂载在根节点下的方式来控制这个递归树的深度。如图:</p>
 
 <div style="text-align: center;">
-    <img src="../union-find-2.jpg" alt="压缩有向连通图">
+    <img src="../img/union-find-2.jpg" alt="压缩有向连通图">
 </div>
 
 <p>这样我们在寻根的时候就很快,只需要一步。而我们想达到这样的效果,就需要 「路径压缩」,将非根节点的所有节点直接指向根节点。</p>
@@ -422,7 +422,7 @@
 </ol>
 
 <div style="text-align: center;">
-    <img src="../union-find-3.jpg" alt="并查集join和路径压缩的展示">
+    <img src="../img/union-find-3.jpg" alt="并查集join和路径压缩的展示">
 </div>
 
 
@@ -438,7 +438,7 @@
 <p>假设A的rank为2, B的rank为3。 若A并入B, 最终的连通图的rank是3。 而B并入A, 最终连通图的rank是4。 合并过程如图所示。</p>
 
 <div style="text-align: center;">
-    <img src="../union-find-4.jpg" alt="按秩合并的展示">
+    <img src="../img/union-find-4.jpg" alt="按秩合并的展示">
 </div>
 
 <p>因此我们可以得出结论: <strong>一定是rank小的树并入rank大的树</strong>, 从而降低整体树的rank, 以降低在树上查询的路径长度。</p>
