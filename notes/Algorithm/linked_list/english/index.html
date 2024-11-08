@@ -262,19 +262,19 @@
                 </pre>
                 <p>When initializing a linked list, special attention should be given to the head node and the tail node. The head node is the entry point to access the entire list, so its pointer should not be modified carelessly during problem-solving. The tail node should ensure that its pointer points to null (e.g., <code>None</code> in Python, <code>null</code> in JavaScript, etc.), otherwise, traversing the list would not know when to stop.</p>
                 <div style="text-align: center;">
-                    <img src="../node.jpg" width="50%">
+                    <img src="../img/node.jpg" width="50%">
                 </div>
                 
                 <h3>2. Deleting a Node</h3>
                 <p>Unlike arrays, where deleting an element requires rearranging the remaining elements to fill the gap, in linked lists, once the node to be deleted is found, simply redirect the <code>next</code> pointer of its parent node to the next node. The modified list is now complete, and the detached node can be destroyed or repurposed.</p>
                 <div style="text-align: center;">
-                    <img src="../delete.jpg" width="50%">
+                    <img src="../img/delete.jpg" width="50%">
                 </div>
                 
                 <h3>3. Inserting a Node</h3>
                 <p>Inserting a node follows a similar logic to deletion. Adding an element to a linked list only requires updating the pointers of the adjacent nodes, making the previous node’s <code>next</code> point to the new node, and the new node’s <code>next</code> point to the subsequent node.</p>
                 <div style="text-align: center;">
-                    <img src="../insert.jpg" width="50%">
+                    <img src="../img/insert.jpg" width="50%">
                 </div>
                 
                 <h3>4. Accessing a Node</h3>
@@ -302,7 +302,7 @@
                 </p>
                 
 <div style="text-align: center;">
-    <img src="../memory.jpg" width="50%">
+    <img src="../img/memory.jpg" width="50%">
 </div>
 <p>It’s undeniable that linked list nodes, in addition to storing values, need to store an additional reference (pointer). Thus, with the same amount of data, linked lists occupy more memory than arrays.
   <strong>This leads to our first tradeoff: "Total Memory Usage vs. Memory Flexibility."</strong></p>
@@ -402,7 +402,7 @@
   <p>This is the commonly referenced standard linked list and the earliest version. A node in a singly linked list contains two pieces of data: a value and a reference to the next node. The first node is called the head, and the last node is called the tail, which points to null (<code>None</code>).</p>
   
   <div style="text-align: center;">
-      <img src="../linked_list.jpg" width="50%">
+      <img src="../img/linked_list.jpg" width="50%">
   </div>
   
   <h3>Doubly Linked List</h3>
@@ -410,13 +410,13 @@
   <p>Compared to a singly linked list, a doubly linked list keeps track of references in both directions. A node in a doubly linked list includes references (pointers) to both its successor (next node) and predecessor (previous node). While more flexible than a singly linked list and allowing traversal in both directions, it also requires more memory space.</p>
   
 <div style="text-align: center;">
-    <img src="../double_linked_list.jpg" width="50%">
+    <img src="../img/double_linked_list.jpg" width="50%">
 </div>
 <h3>Circular Linked List</h3>
 <p>If the tail node of a singly linked list points to the head node (forming a loop), it becomes a circular linked list. In a circular linked list, any node can be considered the head node.</p>
 
 <div style="text-align: center;">
-    <img src="../circle_linked_list.jpg" width="50%">
+    <img src="../img/circle_linked_list.jpg" width="50%">
 </div>
 
 <h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Typical Applications of Linked Lists</h2>
