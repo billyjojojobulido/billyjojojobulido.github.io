@@ -357,7 +357,7 @@ def bubble_sort(a, n):
   <strong>将待排列元素划分为「已排序」和「未排序」两部分,每次从「未排序的」元素中选择一个插入到「已排序的」元素中的正确位置。</strong>
 </p>
 <div style="text-align: center;">
-  <img src="insert-sort.png" srcset="/img/loading.gif" lazyload alt="Insert Sort" width="550">
+  <img src="../img/insert-sort.png" srcset="/img/loading.gif" lazyload alt="Insert Sort" width="550">
 </div>
 
 <h3>稳定性</h3>
@@ -450,12 +450,12 @@ def counting_sort(arr, n):
 <p>E.g. 对一个最大值为50的数组进行基数排序。</p>
 <p>第一轮先建立一个值域为[0, 9]的"桶",对个位数关键字进行排序。</p>
 <div style="text-align: center;">
-  <img src="radix-sort1.png" srcset="/img/loading.gif" lazyload alt="Radix Sort Keyword 1" width="550">
+  <img src="../img/radix-sort1.png" srcset="/img/loading.gif" lazyload alt="Radix Sort Keyword 1" width="550">
 </div>
 
 <p>第二轮还是建立一个值域为[0, 9]的"桶",对十位数关键字进行排序,并最终完成整体的排序。</p>
 <div style="text-align: center;">
-  <img src="radix-sort1.png" srcset="/img/loading.gif" lazyload alt="Radix Sort Keyword 1" width="550">
+  <img src="../img/radix-sort1.png" srcset="/img/loading.gif" lazyload alt="Radix Sort Keyword 1" width="550">
 </div>
 
 <h3>基数排序的分类</h3>
@@ -761,7 +761,7 @@ def heap_sort(arr, len):
 
 <h4>流程图解</h4>
 <div style="text-align: center;">
-  <img src="shell-sort.png" srcset="/img/loading.gif" lazyload alt="Shell Sort" width="550">
+  <img src="../img/shell-sort.png" srcset="/img/loading.gif" lazyload alt="Shell Sort" width="550">
 </div>
 
 
@@ -812,12 +812,12 @@ def shellSort(arr):
 <h3>执行流程</h3>
 <p>以[7,2,3,4,6,10,8,5]为例,执行最小锦标赛排序,那锦标赛排序树应该如下图所示:</p>
 <div style="text-align: center;">
-  <img src="tournament1.png" srcset="/img/loading.gif" lazyload alt="Tournament Sort Round 1" width="550">
+  <img src="../img/tournament1.png" srcset="/img/loading.gif" lazyload alt="Tournament Sort Round 1" width="550">
 </div>
 
 <p>很显然,2就是最小的元素,可以先拿出来。完成一次「锦标赛」后需要将被选出的元素去除。直接将其设置为+INF (最大排序就用-INF),然后再次举行「锦标赛」选出次小的元素。</p>
 <div style="text-align: center;">
-  <img src="tournament2.png" srcset="/img/loading.gif" lazyload alt="Tournament Sort Round 2" width="550">
+  <img src="../img/tournament2.png" srcset="/img/loading.gif" lazyload alt="Tournament Sort Round 2" width="550">
 </div>
 
 <p>之后一直重复这个操作,直至所有元素有序。</p>
