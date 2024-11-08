@@ -295,13 +295,13 @@
                 <p>The previous approach used recursion to implement the <code>find</code> function, continually retrieving values from the <code>father</code> array indices until the root was found. However, recursion depth impacts performance. If the directed graph has significant depth, the <code>find</code> function would need to recurse many times to locate the root, reducing performance with repeated calls, as shown in the diagram.</p>
                 
                 <div style="text-align: center;">
-                    <img src="../union-find-1.jpg" alt="Deep Directed Connected Graph">
+                    <img src="../img/union-find-1.jpg" alt="Deep Directed Connected Graph">
                 </div>
                 
                 <p>Our goal is simply to identify that these nodes share the same root, so we can control the depth of this recursive tree by attaching all nodes directly to the root. See the diagram:</p>
                 
                 <div style="text-align: center;">
-                    <img src="../union-find-2.jpg" alt="Compressed Directed Connected Graph">
+                    <img src="../img/union-find-2.jpg" alt="Compressed Directed Connected Graph">
                 </div>
                 
                 <p>This way, root search becomes very quick, requiring only one step. To achieve this effect, we use "path compression," where all non-root nodes point directly to the root.</p>
@@ -419,7 +419,7 @@
                 </ol>
                 
                 <div style="text-align: center;">
-                    <img src="../union-find-3.jpg" alt="Union-Find Join and Path Compression Illustration">
+                    <img src="../img/union-find-3.jpg" alt="Union-Find Join and Path Compression Illustration">
                 </div>
                 
                 <h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>Optimization: "Union by Rank"</h2>
@@ -433,7 +433,7 @@
                 <p>Suppose the rank of A is 2 and the rank of B is 3. If A merges into B, the final connected graph will have a rank of 3. However, if B merges into A, the final connected graph will have a rank of 4. The merging process is illustrated in the diagram below.</p>
                 
                 <div style="text-align: center;">
-                    <img src="../union-find-4.jpg" alt="Union by Rank Illustration">
+                    <img src="../img/union-find-4.jpg" alt="Union by Rank Illustration">
                 </div>
                 
                 <p>Thus, we can conclude: <strong>the tree with the smaller rank should always merge into the tree with the larger rank</strong>, reducing the overall rank of the tree to minimize the path length during searches.</p>
