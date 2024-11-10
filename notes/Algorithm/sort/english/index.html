@@ -261,7 +261,9 @@
 <p>However, in some application scenarios, stability is very important. For instance, when the original order of the target array has significance, an unstable algorithm might disrupt this order.</p>
 <p>E.g.</p>
 <p style="font-style: italic;">
-  "If a class of students is already sorted by student ID, and now they need to be sorted by age from youngest to oldest. If the ages are the same, they must be sorted by student ID in ascending order. In this case, if an unstable sorting algorithm is used to sort by age, the order of student IDs in a group of students with the same age will be messed up, requiring the student ID sort to be repeated. But if the sorting algorithm is stable, sorting by age alone will complete the task."
+  "If a class of students is already sorted by student ID, and now they need to be sorted by age from youngest to oldest. If the ages are the same, they must be sorted by student ID in ascending order. "
+<p style="font-weight: bold;">
+  In this case, if an unstable sorting algorithm is used to sort by age, the order of student IDs in a group of students with the same age will be messed up, requiring the student ID sort to be repeated. But if the sorting algorithm is stable, sorting by age alone will complete the task."
 </p>
 <h2 id="SelectionSort"><a href="#SelectionSort" class="headerlink" title="SelectionSort"></a>Algorithm 1: Selection Sort</h2>
 <p>Selection Sort is the simplest and most intuitive sorting algorithm. It works by finding the i-th smallest element each time and then swapping it with the element at the i-th position. As long as i is guaranteed to increase monotonically from 0 to n, sorting will be completed.</p>
