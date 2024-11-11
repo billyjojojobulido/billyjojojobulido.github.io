@@ -239,24 +239,19 @@
               <div class="markdown-body">
 
 
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
 
-<p style="font-weight: bold;">贪心问题和二分法一定程度上非常相似,属于非常直观的算法。</p>
-<p>简单题甚至不用思考,怎么做一目了然。而困难题除非曾经做过相似题,或者灵光乍现,不然很难解,甚至根本想不到可以用贪心做。</p>
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
 
-<p style="font-style: italic; font-weight: bold;">贪心的本质是选择每一阶段的局部最优,从而达到全局最优。与其说贪心是一种算法倒不如说是一种思想。</p>
-
-<h3 id="difficult">贪心算法的难点</h3>
-<ol>
-  <li>什么时候贪?</li>
-  <ul>
-    <li>哪些题可以用贪心做, 哪些题不可以?</li>
-  </ul>
-  <li>怎么贪</li>
-  <ul>
-    <li>如何获得全局最优?如何获得局部最优?</li>
-  </ul>
-</ol>
+                <h3>写在前面的话</h3>
+                <p>就我个人而言, 我其实是不想要单独写一章字符串的学习笔记的, 因为字符串作为数据结构能说的全都在数组篇前面的章节中说完了, 而字符串相关的算法又非常畸形。
+                    <strong>所谓畸形就是指处理字符串的算法难度分布非常不均匀, 普遍都是初级和中级偏简单的算法, 这些和数组也是高度重合的, 而偏偏最难的KMP算法又是高阶算法里比较难的, 
+                        光是思考如何归类这篇笔记归都已经让我纠结了, 最后索性作为数组篇的番外写了。</strong></p>
+                
+                <p>虽然字符串这篇笔记在我看来可有可无, 但是请千万不要忽视字符串在面试中的重要性, 一个简单的统计供大家参考:</p>
+                <p style="font-style: italic;">在我写这篇笔记的时候, LeetCode上最多的题目是<strong>数组</strong>, 共有<strong>1958</strong>道, 第二多的就是<strong>字符串</strong>, 共有<strong>819</strong>道。</p>
+                
+                <p>可见数组和字符串在面试和笔试中的重要性。毕竟如果面试题中如果给你两道算法, 会有超过80%的概率两道题中能够碰到至少一个数组和字符串有关的题。</p>
+                
 
 
 <h2 id="When"><a href="#When" class="headerlink" title="When"></a>什么时候贪?</h2>
