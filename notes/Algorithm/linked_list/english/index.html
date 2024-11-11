@@ -302,7 +302,7 @@
                 </p>
                 
 <div style="text-align: center;">
-    <img src="../img/memory.jpg" width="50%">
+    <img src="../img/memory.jpg" width="40%">
 </div>
 <p>It’s undeniable that linked list nodes, in addition to storing values, need to store an additional reference (pointer). Thus, with the same amount of data, linked lists occupy more memory than arrays.
   <strong>This leads to our first tradeoff: "Total Memory Usage vs. Memory Flexibility."</strong></p>
@@ -370,7 +370,9 @@
 <h3>Additional Insight: Physical-Level Tradeoff</h3>
 
 <p>For those familiar with database concepts, this isn’t new. In computer architecture, cache is much closer to the CPU, making its read/write efficiency significantly higher than that of RAM, and far higher than that of hard drives. The tradeoff is that cache has a very small capacity and is expensive, so storing large amounts of data in cache is not feasible.
-  If data being read from a data structure happens to be in the cache, the efficiency is astonishingly high, known as a "cache hit." <strong>This brings us to our third tradeoff: "Cache Hit Rate vs. Space Utilization."</strong></p>
+  If data being read from a data structure happens to be in the cache, the efficiency is astonishingly high, known as a <strong>"cache hit"</strong>. </p>
+                
+<p><strong>This brings us to our third tradeoff: "Cache Hit Rate vs. Space Utilization."</strong></p>
 
 <p>Cache considerations are seldom mentioned in algorithm performance assessments, which I believe is reasonable. Theoretical assessments using algorithmic upper bounds for time and space provide a fairer evaluation of intrinsic performance.
   However, it cannot be denied that <strong>"(in real-world applications) physical structure significantly impacts memory and cache usage efficiency,"</strong> and thus the overall performance of the algorithm.</p>
