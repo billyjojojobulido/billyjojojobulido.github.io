@@ -289,7 +289,7 @@ class Solution(object):
 </pre>
 
 <p>
-  <strong>这样的时间复杂度为 O(n^2)</strong>,不难发现,对于每一个计算 preSum[i] 都会从位置 0 开始计算一遍,导致长度为N的数组,preSum[i]会被重复扫描 N - i 次。
+  <strong>这样的时间复杂度为 O(N^2)</strong>,不难发现,对于每一个计算 preSum[i] 都会从位置 0 开始计算一遍,导致长度为N的数组,preSum[i]会被重复扫描 N - i 次。
   <strong>这些重复的运算是完全可以避免的!</strong>
 </p>
 
@@ -318,7 +318,7 @@ class Solution(object):
 </pre>
 
 <p>
-  <strong>这样,时间复杂度降为 O(n)。有了前缀和数组,我们就可以快速得到数组的区间和。</strong>
+  <strong>这样,时间复杂度降为 O(N)。有了前缀和数组,我们就可以快速得到数组的区间和。</strong>
 </p>
 <p>
   <strong>这道题中我们只关注从头开始的区间和,但是前缀和最妙的地方就是他同样可以轻松算出任何一个段区间的区间和</strong>
