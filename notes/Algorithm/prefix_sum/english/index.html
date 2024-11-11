@@ -286,7 +286,7 @@ class Solution(object):
 </pre>
 
 <p>
-  <strong>The time complexity of this solution is O(n^2)</strong>. It is easy to see that for each calculation of preSum[i], the sum is recalculated starting from position 0, which means for an array of length N, preSum[i] is scanned N - i times repeatedly.
+  <strong>The time complexity of this solution is O(N^2)</strong>. It is easy to see that for each calculation of preSum[i], the sum is recalculated starting from position 0, which means for an array of length N, preSum[i] is scanned N - i times repeatedly.
   <strong>These redundant calculations can be completely avoided!</strong>
 </p>
 
@@ -314,7 +314,7 @@ class Solution(object):
 </pre>
 
 <p>
-  <strong>This way, the time complexity is reduced to O(n). With the prefix sum array, we can quickly calculate the sum of any subarray.</strong>
+  <strong>This way, the time complexity is reduced to O(N). With the prefix sum array, we can quickly calculate the sum of any subarray.</strong>
 </p>
 <p>
   <strong>In this problem, we are only interested in the sum of the subarrays starting from the beginning, but the beauty of the prefix sum is that it can easily calculate the sum of any subarray:</strong>
