@@ -262,6 +262,14 @@
                     <strong>严格意义上讲, 在基本操作上没有区别, 但是string作为数据类型会提供更多处理字符串的接口, 这些是char[]没有的。</strong></p>
                 <p>相比于char array, 字符串作为内置数据结构也可能存在更多的限制, 以Python为例, 如果我想修改自字符串中的某个char, 是无法直接通过索引向该位置赋值的, 因为Python中字符串是<strong>不可变对象</strong>。</p>
 
+                <pre>
+                  # Python 字符串不可变
+                  s = "Hello World"
+                  s[6] = "w" # Error
+                  
+                  # 正确做法
+                  s = s[:6] + "w" + s[7:]
+                  </pre>
 
 
 
