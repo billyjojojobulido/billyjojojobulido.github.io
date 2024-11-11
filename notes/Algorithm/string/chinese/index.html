@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/dog_icon.jpg">
+  <link rel="icon" href="/img/dog_icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Baocheng Wang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="算法与数据结构 - 贪心篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法与数据结构 - 贪心篇">
+<meta property="og:url" content="https://billyjojojobulido.github.io/notes/Algorithm/greedy/chinese/index.html">
+<meta property="og:site_name" content="Baocheng Wang">
+<meta property="og:description" content="算法与数据结构 - 贪心篇">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-25T011:46:23.000Z">
+<meta property="article:modified_time" content="2024-07-25T04:44:56.262Z">
+<meta property="article:author" content="Baocheng Wang">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://billyjojojobulido.github.io/img/dog_icon.jpg">
+  
+  
+  
+  <title>算法与数据结构 - 贪心篇</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库,不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"billyjojojobulido.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt){
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1')|| dntVal.startsWith('yes')|| dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Baocheng Wang</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/notes/">
+                <i class="iconfont icon-note"></i>
+                <span>Notes</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Projects</span>
+              </a>
+            </li>
+
+ 
+
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/stars.jpg')no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span>算法与数据结构 - 贪心篇</span>
+        </div>
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-25 23:15" pubdate>
+          July 25, 2024
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+          35 mins
+        
+      </span>
+    
+  </div>
+
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+
+            
+              <div class="markdown-body">
+
+
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>简述</h2>
+
+<p style="font-weight: bold;">贪心问题和二分法一定程度上非常相似,属于非常直观的算法。</p>
+<p>简单题甚至不用思考,怎么做一目了然。而困难题除非曾经做过相似题,或者灵光乍现,不然很难解,甚至根本想不到可以用贪心做。</p>
+
+<p style="font-style: italic; font-weight: bold;">贪心的本质是选择每一阶段的局部最优,从而达到全局最优。与其说贪心是一种算法倒不如说是一种思想。</p>
+
+<h3 id="difficult">贪心算法的难点</h3>
+<ol>
+  <li>什么时候贪?</li>
+  <ul>
+    <li>哪些题可以用贪心做, 哪些题不可以?</li>
+  </ul>
+  <li>怎么贪</li>
+  <ul>
+    <li>如何获得全局最优?如何获得局部最优?</li>
+  </ul>
+</ol>
+
+
+<h2 id="When"><a href="#When" class="headerlink" title="When"></a>什么时候贪?</h2>
+<strong>不同于之前总结的题型和技巧,贪心算法真的没有统一的套路,更没有类似回溯的模板代码。</strong>
+<p>例如</p>
+<ul>
+  <li>有一堆钞票,你可以拿走十张,如果想达到最大的金额,该怎么拿?</li>
+  <br>
+  <p>指定每次拿最大的,最终结果就是拿走最大数额的钱。</p>
+  <p>每次拿最大的就是局部最优,最后拿走最大数额的钱就是推出全局最优。</p>
+</ul>
+
+<p>反例</p>
+<ul>
+  <li>如果是 有一堆盒子,你有一个背包体积为n,如何把背包尽可能装满,如果还每次选最大的盒子,就不行了。这时候就需要动态规划。</li>
+</ul>
+
+<p  style="font-weight: bold;">因此,当拿到一道算法题,想要知道可不可以用贪心算法的时候,需要思考一下三个点。</p>
+
+<ol>
+  <li style="font-weight: bold;">题目是否是求极值(求解最优)</li><br>
+  <p>贪心算法一定求极值,譬如最大、最小值,最少步、最多收益等。通常看到求极值算法,非动(DP)即贪(Greedy)。</p>
+  <p>这么说有点武断,但反过来说,如果题目不是求极值,那么一定用不上贪心算法,则非常可靠。</p>
+  <li style="font-weight: bold;">题目是否一眼能看出来其他解法(题型显著性)</li><br>
+  <p>譬如,棋盘类算法明显是回溯、有效括号明显是栈、二叉树的搜索明显是dfs。</p>
+  <p>如果根据做题经验,能够一眼看出题型暗示的最优、最有效的解法,那么可以果断放弃贪心。</p>
+  <li style="font-weight: bold;">全局最优与局部最优明显冲突(违背贪心核心思想)</li><br>
+  <p>从题干,或者题目给的test case中,能够找出,或者能够发现反例,证明全局最优无法从局部最优获取,那么就违背了贪心的原则,继续思考贪心将没有任何意义。</p>
+  <p>譬如,背包问题中,无论怎么选择贪心策略,都能举出反例。又或者是Travelling Salesman Problem等NP hard问题,这种问题规模特别大,或者存在复杂约束条件,导致没办法拆解成可以解的子问题,因此根本无法使用贪心算法有效求解。</p>
+</ol>
+
+
+
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>怎么贪?</h2>
+
+<p style="font-weight: bold;">首先明确一点:贪心没有套路,说白了就是常识性推导加上举反例。</p>
+
+<strong>原则一</strong>
+<ul><li>贪心思路往往很巧妙,并不简单。</li></ul>
+
+<strong>原则二</strong>
+<ul><li>贪心无套路,也没有框架之类的,需要多看多练培养感觉才能想到贪心的思路。</li></ul>
+
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>刷题经验总结</h2>
+
+<h3 id="straight">直观贪心问题</h3>
+<strong>特点:</strong>
+<ul><li>这类题目普遍是简单题,会给人一种贪心算法很简单的错觉,因为贪心有时候接近于常识,或者题目本身比较生活化,符合人们日常的逻辑。</li></ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>455</td>
+      <td>分发饼干</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        全局:喂饱尽可能多的小孩。<br>
+        局部:大饼干优先喂给胃口大的 / 小饼干优先喂给胃口小的
+      </td>
+    </tr>
+    <tr>
+      <td>860</td>
+      <td>柠檬水找零</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        全局:完成全部账单的找零。<br>
+        局部:遇到账单20,优先消耗美元10,完成本次找零。
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h3 id="peak">极值/峰值问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类题型大多为中等难度,会让初学算法的人开始逐渐意识到贪心算法的难度。</li>
+  <li>这类题目对于学习了比较完整的算法技术栈,但还没有完全熟练掌握的人来说更容易出现误区(但只是针对贪心而言)。因为极值、峰值问题,可能第一反应是用动态规划做(其中很多用DP也确实是可以做的,但肯定是贪心效率高)。</li>
+  <li>中等难度的题,往往动态规划的递推关系不难发现,而相比之下贪心策略则并不直观。面试中还是应该功利一点,想出来哪个用哪个。尽管贪心往往在时间复杂度上更有优势,但动态规划的算法还是更能证明面试者的水平。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>376</td>
+      <td>摆动序列</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        全局:整个序列有最多的局部峰值。<br>
+        局部:删除单调坡度上的节点(不包括单调坡度两端的节点),那么这个坡度就可以有两个局部峰值。        
+      </td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td>最大子序和</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        全局:选取最大“连续和” <br>
+        局部:当前“连续和”为负数的时候立刻放弃,从下一个元素重新计算“连续和”,因为负数加上下一个元素 “连续和”只会越来越小。        
+      </td>
+    </tr>
+    <tr>
+      <td>122</td>
+      <td>买卖股票的最佳时机 II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>这题可以用动态规划做,但贪心更优。</strong> <br>
+        <strong>技巧:理解利润拆分是关键点。把整体利润拆为每天的利润,就很容易想到贪心了。</strong>
+        全局:得到最大利润。<br>
+        局部:只收集每天的正利润。            
+      </td>
+    </tr>
+    <tr>
+      <td>1005</td>
+      <td>K次取反后的最大数组和</td>
+      <td style="background-color: lightgreen;">简单</td>
+      <td>
+        <strong>贪心思路比较直观:两次贪心。</strong> <br>
+        <strong>第一次:先解决负数(贪心增长)</strong>
+        <ul>
+          <li>全局:整个数组和达到最大。</li>
+          <li>局部:让绝对值大的负数变为正数,当前数值达到最大。</li>
+        </ul>
+        <strong>第二次:全是正数(贪心亏损)</strong>       
+        <ul>
+          <li>全局:同上。</li>
+          <li>局部:只找数值最小的正整数取反,这样亏损最少,当剩余k为偶数时甚至不亏,当前数值可以达到最大。</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 id="move">约束条件下移动问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类问题大多数难度为中等,也有少量简单和困难题,但这两个难度的移动问题通常不具有贪心代表性。</li>
+  <li>移动问题本身有种暗示使用指针的感觉,因此贪心思想往往是针对约束条件的,譬如移动的损耗、移动耗油、移动的最远距离等。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>55</td>
+      <td>跳跃游戏</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:看覆盖范围,覆盖范围内一定是可以跳过来的,不用管是怎么跳的。</strong><br>
+        <p>那么问题就转化为<span style="font-weight: bold; font-style: italic;">跳跃覆盖范围可不可以覆盖到终点!</span></p>
+        全局:最后得到整体最大覆盖范围,看是否能到终点。<br>
+        局部:移动下标每次取最大跳跃步数(取最大覆盖范围)。            
+      </td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>跳跃游戏II</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:以最小的步数增加最大的覆盖范围,直到覆盖范围覆盖了终点</strong><br>
+        全局:达到终点,步数最少。<br>
+        局部:求当前这步的最大覆盖,那么尽可能多走,到达覆盖范围的终点            
+      </td>
+    </tr>
+    <tr>
+      <td>134</td>
+      <td>加油站</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>误区:乍一看是模拟题,但是最直观的模拟思路并不是贪心的做法。</strong><br>
+        <strong>技巧:每个加油站的补充和损耗相减,定义净增长。当从0跑到index为i的加油站,发现累积净增长为负数,则说明0-i之间不存在可以跑完全程的出发点,从i+1继续尝试。</strong><br>
+        全局:找到可以跑一圈的起始位置。<br>
+        局部:累积净增长为负,局部非最优,一定不是全局最优。                  
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 id="overlap">区间重叠问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类问题的难度基本集中在中等。也是少有的比较有套路的贪心算法题。</li>
+  <li>这种题目的核心是可以将问题转换求解区间的重叠部分,需要谨慎辨别。而求解区间重叠问题的关键技巧就是要选定一个方向(左边界/右边界)对数组进行排序,从而让区间尽可能地重叠。</li>
+  <li>排序后只需要关注重叠区间的右边是否能够超过新区间右边界就行。在此基础上就可以对重叠和不重叠的情况下分别作出对应处理,从而解决不同的问题。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>452</td>
+      <td>用最少数量的箭引爆气球</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:排序,让可能重叠的气球凑到一起。</strong><br>
+        全局:把所有气球射爆所用弓箭最少。<br>
+        局部:当气球出现重叠,一起射,所用弓箭最             
+      </td>
+    </tr>
+    <tr>
+      <td>435</td>
+      <td>无重叠区间</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:排序,让区间尽可能的重叠</strong><br>
+        全局:让所有区间不重叠<br>
+        局部:当两个区间重叠时,舍弃右边界(从左往右遍历)更远的区间。                   
+      </td>
+    </tr>
+    <tr>
+      <td>763</td>
+      <td>划分字母区间</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:统计每个字符出现的最远index。</strong><br>
+        <p>从头遍历字符,并更新字符的最远出现下标,如果找到字符最远出现位置下标和当前下标相等了,说明找到分割点。</p>           
+        <strong>【其实是模拟法,但是有点贪心的意思】</strong>   
+      </td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td>合并区间</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:和452/435一样,只不过结果呈现不同</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 id="multidimension">多维度约束贪心问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类问题大多数是困难题和较难的中等题。因为需要考虑至少两个维度的情况(一般最多也就是两个维度)。</li>
+  <li>这类问题有个共同的技巧:</li> <br>
+  <strong>先考虑哪一边都可以! 就别两边一起考虑,那样就把自己陷进去了。</strong>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>135</td>
+      <td>分发糖果</td>
+      <td style="background-color: rgb(252, 99, 140);">困难</td>
+      <td>
+        <strong>维度一:从左往右遍历</strong><br>
+        <ul>
+          <li>全局:相邻的孩子中,评分高的右孩子获得比左边孩子更多的糖果</li>
+          <li>局部:只要右边评分比左边大,右边的孩子就多一个糖果。</li>
+        </ul>    
+        
+        <strong>维度二:从右往左遍历</strong><br>      
+        <ul>
+          <li>全局:相邻的孩子中,评分高的孩子获得更多的糖果。</li>
+          <li>局部:只要左边评分比右边大,左边的孩子就多一个糖果,同一个小孩,分到的糖果取维度一和维度二中的较大值。</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>406</td>
+      <td>根据身高重建队列</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>技巧:先从大到小按照h排个序,再来贪心k</strong><br>
+        <p>因为先排序k会发现两个维度都没确定下来。</p>
+        全局:最后都做完插入操作,整个队列满足题目队列属性。<br>
+        局部:优先按身高高的people的k来插入。插入操作过后的people满足队列属性                
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h3 id="suprise">意想不到贪心问题</h3>
+<strong>特点:</strong>
+<ul>
+  <li>这类问题一般出现于中等和困难题。这种问题对贪心的暗示不强,甚至出题者可能会刻意误导。但是在求极值的时候会发现,求极值思路符合贪心思想。</li>
+  <li>通常这种题在处理的过程中,设计和实施贪心算法有较高难度,也往往正是因为没办法在第一时间构思出足以说服自己的贪心框架,导致错失贪心的解法。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>难度</th>
+      <th>贪心策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>738</td>
+      <td>单调递增的数字</td>
+      <td style="background-color: yellow;">中等</td>
+      <td>
+        <strong>误区: 单纯看题以为是暴力破解,但铁timeout,因此不得不从贪心出发。</strong><br>
+        <strong>技巧:从后往前遍历数字时,遇到非单调递增情,前数退位,后数可以直接为9</strong><br>
+        <strong>【坑:所有后数都要为9,否则无法处理1000000的情况】</strong><br>
+        全局:最终数字是小于原数字的最大单调递增数字。<br>
+        局部:使得当前相邻两位数满足单调递增。                    
+      </td>
+    </tr>
+    <tr>
+      <td>968</td>
+      <td>监控二叉树</td>
+      <td style="background-color: rgb(252, 99, 140);">困难</td>
+      <td>
+        <p>尽管是二叉树,但是摄像头放置的最小数量还是遵从贪心思路。</p>
+        <strong>技巧:发现叶子节点的父节点,和根节点的子节点放摄像头最划算。但只能从一头开始遍历,相比之下,从叶子节点开始遍历更划算(指数级增长),<span style="font-weight: bold;">因此DFS选择后序搜索</span>。</strong><br>
+        全局:全部摄像头数量所用最少<br>
+        局部:让叶子节点的父节点安摄像头,所用摄像头最少。<br>
+        <strong>难点:想到通过dfs传参的方式,进行父节点摄像头覆盖状态的流转。</strong>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+<h2 id="Related"><a href="#Related" class="headerlink" title="Related"></a>参考资料</h2>
+<ul>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">代码随想录: 贪心算法理论基础</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E8%B4%AA%E5%BF%83%E4%B8%80%E8%88%AC%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4">代码随想录: 贪心一般解题步骤</a></li>
+  <li><a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93%E7%AF%87.html#%E8%B4%AA%E5%BF%83%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录: 贪心算法总结篇</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/top-interview-150/">Leetcode: 面试经典150题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/studyplan/premium-algo-100/">Leetcode: 尊享面试100题</a></li>
+  <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/">Leetcode算法</a></li>
+
+</ul>
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+      <a href="/tags/General/Tech/" class="print-no-link">#Tech</a>
+    </div>
+  
+</div>
+
+
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>算法与数据结构 - 贪心篇</div>
+      <div>https://billyjojojobulidogithub.io/notes/Algorithm/greedy/chinese/index.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Baocheng Wang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 25, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                    <i class="iconfont icon-nc"></i>
+                    <i class="iconfont icon-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+                <div class="post-prevnext my-3">
+                  <!-- <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/30/USYD/" title="USYD Graduation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Baocheng's Graduation from the University of Sydney</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/15/Navigator/" title="Government Infrastructure Performance Navigator">
+                        <span class="hidden-mobile">Government Infrastructure Performance Navigator</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article> -->
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function(){
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document){
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing){
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function(){
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot){ return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0){
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('tocbot' in window){
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot){
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0){
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function(){
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon){
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el){
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left'){
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function(){
+      if ('anchors' in window){
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el){
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left'){
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function(){
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项,将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
