@@ -365,10 +365,10 @@ class Solution(object):
   (row1, col1) and bottom-right corner (row2, col2).
 </pre>
 
-<h3 id="SumArray"><a href="#SumArray" class="headerlink" title="SumArray"></a>Solution 1: Low-Dimensional Array Arrays</h3>
+<h3 id="SumArray"><a href="#SumArray" class="headerlink" title="SumArray"></a>Solution 1: Array of Low-Dimensional Prefix Sum Arrays</h3>
 <p>When we first think about using an M*N 2D prefix sum, we might want to construct a 1D prefix sum array for each of the M rows.</p>
 
-<p> I personally like to call this a <strong>"low-dimensional array array"</strong> (this is not an official term 😓).<p></p>
+<p> I personally like to call this an <strong>"array of low-dimensional prefix sum arrays"</strong> (this is not an official term 😓).<p></p>
   <p>This can solve the problem to some extent. At least when traversing the column interval, we can quickly obtain the sum of the interval across rows.</p>
 
 <pre>
@@ -386,11 +386,11 @@ class Solution(object):
 
 <h3 id="2DArray"><a href="#2DArray" class="headerlink" title="2DArray"></a>Solution 2: Higher-Dimensional Prefix Sum</h3>
 
-<p>However, using a "low-dimensional array array" to construct a 2D prefix sum array is not optimal. With the same construction time, M one-dimensional prefix sum arrays only reduce costs in one dimension, while an ideal prefix sum array should reduce costs in all dimensions. This requires a higher-dimensional design approach.</p>
+<p>However, using an "array of low-dimensional prefix sum arrays" to construct a 2D prefix sum array is not optimal. With the same construction time, M one-dimensional prefix sum arrays only reduce costs in one dimension, while an ideal prefix sum array should reduce costs in all dimensions. This requires a higher-dimensional design approach.</p>
 
 <p>Some might wonder, will directly extending the prefix sum array to higher dimensions make the calculations more complex? After all, calculating the sum of a 1D interval in a one-dimensional array seems much simpler and more straightforward than using a 2D prefix sum array to calculate the sum of a 2D region.</p>
 
-<p>The answer is: Yes, it will be more complex. After all, moving to higher dimensions inherently increases complexity. The "low-dimensional array array" is essentially a <strong>tradeoff between cognitive complexity and time complexity</strong>. By sacrificing some algorithmic performance, we allow ourselves to use simpler, low-dimensional calculations, accepting higher time complexity in exchange for lower cognitive load in the algorithm.</p>
+<p>The answer is: Yes, it will be more complex. After all, moving to higher dimensions inherently increases complexity. The "array of low-dimensional prefix sum arrays" is essentially a <strong>tradeoff between cognitive complexity and time complexity</strong>. By sacrificing some algorithmic performance, we allow ourselves to use simpler, low-dimensional calculations, accepting higher time complexity in exchange for lower cognitive load in the algorithm.</p>
 
 <p>However, it seems that “thinking more complexly to reduce performance costs” aligns more with the current mainstream ideology in algorithm development (though it’s not necessarily the only correct approach). The current state of the internet demands handling vast amounts of data, and both algorithms and data structures are designed to save as much as possible. Otherwise, the overflow costs translate into real financial expenses. On the other hand, squeezing human cognitive effort seems to be the more cost-effective option 😭.</p>
 
