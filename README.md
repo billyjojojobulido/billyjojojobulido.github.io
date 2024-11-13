@@ -17,3 +17,9 @@
 3. Projects - DONE (needs update sometimes)
 4. News - DONE (needs update sometimes)
 5. Notes - Work In Progress (60%)
+
+## Transfer To Vault GitHub Page
+
+🚧 Since there are too many notes in this GitHub Page (and there might be more), I decided to move all the notes to another GitHub Page that is dedicated to preserving the notes in case it exceeds memory limit in the future.
+
+💡 So far the major concern is the notes, not sure if I will transfer the project pages to vault as well (To be decided).
